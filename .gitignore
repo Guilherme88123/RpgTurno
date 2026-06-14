@@ -1,0 +1,112 @@
+﻿################################################################################
+# ARQUIVOS GERADOS PELA COMPILAÇÃO (.NET)
+# Evite versionar qualquer pasta "bin/" ou "obj/" (saída de build do .NET)
+# Elas são recriadas automaticamente a cada build.
+################################################################################
+
+**/bin/
+**/obj/
+
+# Essas pastas são criadas pelo build em diferentes configurações
+**/Debug/
+**/Release/
+**/x64/
+**/x86/
+**/ARM/
+**/bld/
+
+################################################################################
+# ARQUIVOS TEMPORÁRIOS E DE CONFIGURAÇÃO DO VISUAL STUDIO
+# O Visual Studio cria arquivos locais de cache, índice e sessões do usuário.
+# Esses arquivos não devem ser versionados, pois variam de máquina para máquina.
+################################################################################
+
+# Pasta principal de cache e configurações da solução
+.vs/
+
+# Arquivos de sessão e preferências do usuário
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Cache de build em tempo de design
+*.db
+*.dtbcache*
+*.vsidx
+*.futdcache*
+
+################################################################################
+# ARQUIVOS TEMPORÁRIOS E DE CONFIGURAÇÃO DO VISUAL STUDIO CODE
+# Para quem usa o VS Code junto com o Visual Studio ou .NET CLI
+################################################################################
+
+.vscode/
+.history/   # Histórico de extensões como Local History
+*.code-workspace
+
+################################################################################
+# ARQUIVOS DE TOOLS OPCIONAIS (JetBrains Rider, ReSharper, etc)
+# Se alguém da equipe usar Rider ou plugins do ReSharper, esses arquivos são locais.
+################################################################################
+
+.idea/                          # JetBrains Rider (IDE)
+*.DotSettings.user              # ReSharper settings locais
+*.ReSharper                     # Cache do ReSharper
+
+################################################################################
+# PACOTES GERADOS PELO NUGET (NÃO versionar artefatos de build)
+################################################################################
+
+*.nupkg
+*.snupkg
+*.nuspec
+.nuget/
+
+################################################################################
+# LOGS, CACHE E ARQUIVOS TEMPORÁRIOS DIVERSOS
+################################################################################
+
+*.zip
+*.log
+*.tmp
+*.bak
+*.swp
+*.swn
+*.DS_Store            # macOS
+Thumbs.db             # Windows (cache de imagem)
+ehthumbs.db           # Windows (cache de imagem)
+
+################################################################################
+# COPILOT E OUTRAS FERRAMENTAS DE AI
+# Alguns ambientes criam índices locais para autocomplete/contexto.
+################################################################################
+
+**/CopilotIndices/
+**/.copilot/
+
+################################################################################
+# ESCONDENDO SEUS PROJETOS LOCAIS DE BACKUP OU TESTE
+# Caso alguém crie arquivos ou pastas pessoais no projeto.
+################################################################################
+
+*.local
+*.backup
+*.orig
+*.bak
+*.old
+~$*
+
+################################################################################
+# IGNORAR RESULTADOS DE SCAFFOLDING (caso use scaffolding do .NET)
+################################################################################
+
+ScaffoldingReadMe.txt
+
+################################################################################
+# OPCIONAL: IGNORAR TODOS OS ARQUIVOS DA RAIZ `publish` (publicação)
+# Caso use `dotnet publish` para gerar a pasta final de deploy
+################################################################################
+
+publish/
+**/publish/

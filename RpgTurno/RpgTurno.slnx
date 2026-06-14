@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/01 - Application/">
+    <Project Path="BossRushDevApp/RpgTurno.csproj" Id="a17a79fe-a745-4124-8565-f464565c40c2" />
+  </Folder>
+  <Folder Name="/02 - Domain/">
+    <Project Path="Domain/Domain.csproj" Id="aa90e301-099c-4b2a-8a48-5ea0dfc73627" />
+  </Folder>
+  <Folder Name="/03 - Data/">
+    <Project Path="Data/Data.csproj" Id="4f5378ab-6cd7-41ff-b56a-9e69802ef6ae" />
+  </Folder>
+  <Folder Name="/04 - Service/">
+    <Project Path="Service/Service.csproj" Id="97e610af-7e02-496b-b271-92cad981ec67" />
+  </Folder>
+  <Folder Name="/05 - Infrastructure/">
+    <Project Path="Infrastructure/Infrastructure.csproj" Id="54cd71d5-221d-499d-a96f-6f4c2ee0d48c" />
+  </Folder>
+</Solution>
