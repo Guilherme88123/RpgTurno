@@ -2,6 +2,12 @@
 
 public static class SpriteConst
 {
+    #region Entity
+
+    #region Unit
+
+    #region Ally
+
     public const string WarriorIdle = "Warrior_Idle";
     public const string WarriorRun = "Warrior_Run";
     public const string WarriorDefence = "Warrior_Guard";
@@ -23,6 +29,10 @@ public static class SpriteConst
     public const string ClericAttack = "Cleric_Heal";
     public const string HealEffect = "Heal_Effect";
 
+    #endregion
+
+    #region Enemy
+
     public const string EnemyWarriorIdle = "Enemy_Warrior_Idle";
     public const string EnemyWarriorRun = "Enemy_Warrior_Run";
     public const string EnemyWarriorDefence = "Enemy_Warrior_Guard";
@@ -41,4 +51,17 @@ public static class SpriteConst
     public const string EnemyClericIdle = "Enemy_Cleric_Idle";
     public const string EnemyClericRun = "Enemy_Cleric_Run";
     public const string EnemyClericAttack = "Enemy_Cleric_Heal";
+
+    #endregion
+
+    #endregion
+
+    #endregion
+
+    #region User Interface
+
+    public const string SmallBarBase = "SmallBar_Base";
+    public const string SmallBarFill = "SmallBar_Fill";
+
+    #endregion
 }

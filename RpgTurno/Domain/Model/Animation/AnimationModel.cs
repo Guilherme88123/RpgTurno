@@ -6,7 +6,7 @@ namespace Domain.Model.Animation;
 
 public class AnimationModel
 {
-    private readonly Texture2D Texture;
+    public readonly Texture2D Texture;
     private readonly List<Rectangle> Frames = new();
     private readonly int QuantityFrames;
     private readonly float FrameTime;

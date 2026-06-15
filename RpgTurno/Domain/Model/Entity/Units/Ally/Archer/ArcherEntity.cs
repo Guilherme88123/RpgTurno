@@ -5,7 +5,7 @@ using Domain.Model.Animation;
 using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Domain.Model.Entity.Units.Archer;
+namespace Domain.Model.Entity.Units.Ally.Archer;
 
 public class ArcherEntity : BaseUnitEntity
 {

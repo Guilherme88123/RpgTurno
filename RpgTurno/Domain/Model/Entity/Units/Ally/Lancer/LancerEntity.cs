@@ -6,7 +6,7 @@ using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework.Graphics;
 using System.Drawing;
 
-namespace Domain.Model.Entity.Units.Lancer;
+namespace Domain.Model.Entity.Units.Ally.Lancer;
 
 public class LancerEntity : BaseUnitEntity
 {

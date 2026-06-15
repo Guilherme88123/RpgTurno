@@ -5,7 +5,7 @@ using Domain.Model.Animation;
 using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Domain.Model.Entity.Units.Warrior;
+namespace Domain.Model.Entity.Units.Ally.Warrior;
 
 public class WarriorEntity : BaseUnitEntity
 {
