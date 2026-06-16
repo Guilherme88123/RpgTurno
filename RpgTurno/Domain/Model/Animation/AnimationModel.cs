@@ -71,7 +71,7 @@ public class AnimationModel
 
         Vector2? cameraOffset = GlobalVariablesDto.GetTransform(spriteBatch);
 
-        Vector2 position = new Vector2(rect.X - rect.Width, rect.Y - rect.Height);
+        Vector2 position = new Vector2(rect.X, rect.Y);
 
         spriteBatch.Draw(
             Texture,

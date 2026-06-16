@@ -74,6 +74,7 @@ public class PlayScreen : BaseScreen
         _alliesParty.ForEach(x => x.PositionX = posX);
 
         SetEntitiesYPosition(_alliesParty);
+        FixEntitiesPositionBySize(_alliesParty);
     }
 
     private void UpdateEnemiesPosition()
@@ -84,6 +85,7 @@ public class PlayScreen : BaseScreen
         _enemiesParty.ForEach(x => x.Direction = DirectionType.Left);
 
         SetEntitiesYPosition(_enemiesParty);
+        FixEntitiesPositionBySize(_enemiesParty);
     }
 
     private void SetEntitiesYPosition(List<BaseEntity> entitiesList)
@@ -100,6 +102,17 @@ public class PlayScreen : BaseScreen
         foreach (var (entity, index) in entitiesList.Select((e, i) => (e, i)))
         {
             entity.PositionY = initialY + step * index;
+        }
+    }
+
+    private void FixEntitiesPositionBySize(List<BaseEntity> entitiesList)
+    {
+        if (!entitiesList.Any()) return;
+
+        foreach (var entity in entitiesList)
+        {
+            entity.PositionX -= entity.SizeX / 2;
+            entity.PositionY -= entity.SizeY / 2;
         }
     }
 }

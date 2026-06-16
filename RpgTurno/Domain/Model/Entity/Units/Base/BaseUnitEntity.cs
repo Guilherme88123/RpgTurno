@@ -18,11 +18,11 @@ public class BaseUnitEntity : BaseEntity
 
     public BaseUnitEntity()
     {
-        Health = MaxHealth; 
+        Health = MaxHealth / 2; 
         
         var baseTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallBarBase);
         var fillTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallBarFill);
-        _healthBar = new HealthBarComponent(baseTexture, fillTexture, width: 100, height: 32, offsetY: 30, sliceWidth: 16);
+        _healthBar = new HealthBarComponent(baseTexture, fillTexture, width: 120, height: 32, offsetY: -40, sliceWidth: 16);
 
     }
 

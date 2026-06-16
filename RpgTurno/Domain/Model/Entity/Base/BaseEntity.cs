@@ -29,7 +29,7 @@ public class BaseEntity
     public Vector2 Center => new Vector2(PositionX + SizeX / 2, PositionY + SizeY / 2);
 
     public AnimationManagerModel Animation { get; set; } = new();
-    public Rectangle Rectangle => new Rectangle((int)Center.X, (int)Center.Y, SizeX, SizeY);
+    public Rectangle Rectangle => new Rectangle((int)PositionX, (int)PositionY, SizeX, SizeY);
 
     public CreatureStateType CreatureState;
 

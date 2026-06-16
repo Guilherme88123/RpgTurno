@@ -35,10 +35,10 @@ public class HealthBarComponent
 
         // Fill
         float percent = (float)currentHealth / maxHealth;
-        int fillWidth = (int)((_width - _sliceWidth * 2) * percent);
+        int fillWidth = (int)((baseRect.Width - _sliceWidth * 2) * percent);
         if (fillWidth > 0)
         {
-            var fillRect = new Rectangle(posX + _sliceWidth, posY, fillWidth, _height);
+            var fillRect = new Rectangle(posX + (int)(_sliceWidth / 1.5), posY - _height / 2, fillWidth + (int)(_sliceWidth / 1.4), _height * 2);
             _fillAnimation.Draw(fillRect, Color.White, 0f, SpriteEffects.None, spriteBatch);
         }
     }
