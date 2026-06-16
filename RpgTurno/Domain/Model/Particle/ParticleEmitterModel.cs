@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Domain.Model.Animation.Particle;
+namespace Domain.Model.Particle;
 
 public class ParticleEmitterModel
 {

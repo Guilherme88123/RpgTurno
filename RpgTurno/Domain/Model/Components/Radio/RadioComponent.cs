@@ -15,11 +15,11 @@ public class RadioComponent : BaseComponent
     public int Value { get; set; } = 50;
     public Action<int> ValueUpdate { get; set; }
 
-    public AnimationModel DotAnimation { get; set; }
+    public Animation DotAnimation { get; set; }
     public Rectangle DotRectangle { get; set; }
     public bool IsDotPressed { get; set; }
 
-    public AnimationModel LineAnimation { get; set; }
+    public Animation LineAnimation { get; set; }
     public Rectangle LineRectangle { get; set; }
 
     public override void Update()

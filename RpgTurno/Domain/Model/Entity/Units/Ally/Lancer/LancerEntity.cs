@@ -17,10 +17,10 @@ public class LancerEntity : BaseUnitEntity
         var defending = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.LancerDefence);
         var attack = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.LancerAttack);
 
-        Animation.AddAnimation(CreatureStateType.Idle, new AnimationModel(idle, 12, 1, 0.1f));
-        Animation.AddAnimation(CreatureStateType.Running, new AnimationModel(running, 6, 1, 0.1f));
-        Animation.AddAnimation(CreatureStateType.Defending, new AnimationModel(defending, 6, 1, 0.1f));
-        Animation.AddAnimation(CreatureStateType.Attacking, new AnimationModel(attack, 3, 1, 0.1f));
+        Animation.AddAnimation(CreatureStateType.Idle, new Animation.Animation(idle, 12, 1, 0.1f));
+        Animation.AddAnimation(CreatureStateType.Running, new Animation.Animation(running, 6, 1, 0.1f));
+        Animation.AddAnimation(CreatureStateType.Defending, new Animation.Animation(defending, 6, 1, 0.1f));
+        Animation.AddAnimation(CreatureStateType.Attacking, new Animation.Animation(attack, 3, 1, 0.1f));
 
         SizeX = 320;
         SizeY = 320;

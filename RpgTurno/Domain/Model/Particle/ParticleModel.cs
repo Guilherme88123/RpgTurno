@@ -1,7 +1,7 @@
 ﻿using Domain.Dto.Global;
 using Microsoft.Xna.Framework;
 
-namespace Domain.Model.Animation.Particle;
+namespace Domain.Model.Particle;
 
 public class ParticleModel
 {

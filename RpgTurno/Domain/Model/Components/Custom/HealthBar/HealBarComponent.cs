@@ -6,8 +6,8 @@ namespace Domain.Model.Components.Custom.HealthBar;
 
 public class HealthBarComponent
 {
-    private readonly AnimationModel _baseAnimation;
-    private readonly AnimationModel _fillAnimation;
+    private readonly Animation.Animation _baseAnimation;
+    private readonly Animation.Animation _fillAnimation;
     private readonly int _sliceWidth;
     private readonly int _width;
     private readonly int _height;
@@ -15,8 +15,8 @@ public class HealthBarComponent
 
     public HealthBarComponent(Texture2D baseTexture, Texture2D fillTexture, int width, int height, int offsetY = 10, int sliceWidth = 8)
     {
-        _baseAnimation = new AnimationModel(baseTexture);
-        _fillAnimation = new AnimationModel(fillTexture);
+        _baseAnimation = new Animation.Animation(baseTexture);
+        _fillAnimation = new Animation.Animation(fillTexture);
         _width = width;
         _height = height;
         _offsetY = offsetY;

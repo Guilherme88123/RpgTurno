@@ -3,13 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Domain.Model.Animation;
 
-public class AnimationManagerModel
+public class AnimationManager
 {
-    private readonly Dictionary<object, AnimationModel> Animations = new();
+    private readonly Dictionary<object, Animation> Animations = new();
 
     private object _lastKey;
 
-    public void AddAnimation(object key, AnimationModel animation)
+    public void AddAnimation(object key, Animation animation)
     {
         Animations[key] = animation;
         _lastKey ??= key;
@@ -17,10 +17,10 @@ public class AnimationManagerModel
 
     public void Update(object key)
     {
-        if (Animations.ContainsKey(key))
+        if (Animations.TryGetValue(key, out Animation? value))
         {
-            Animations[key].Start();
-            Animations[key].Update();
+            value.Start();
+            value.Update();
             _lastKey = key;
         }
     }
@@ -32,6 +32,6 @@ public class AnimationManagerModel
 
     public bool HasAnimations()
     {
-        return Animations.Count > 0;
+        return Animations.Any();
     }
 }
