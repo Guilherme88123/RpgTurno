@@ -1,4 +1,6 @@
-﻿using Domain.Model.Animation;
+﻿using Domain.Enum.Sprite;
+using Domain.Model.Animation;
+using Domain.Model.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -6,8 +8,8 @@ namespace Domain.Model.Components.Custom.HealthBar;
 
 public class HealthBarComponent
 {
-    private readonly Animation.Animation _baseAnimation;
-    private readonly Animation.Animation _fillAnimation;
+    private readonly ResizableSpriteData _baseAnimation;
+    private readonly AnimationClip _fillAnimation;
     private readonly int _sliceWidth;
     private readonly int _width;
     private readonly int _height;
@@ -15,8 +17,8 @@ public class HealthBarComponent
 
     public HealthBarComponent(Texture2D baseTexture, Texture2D fillTexture, int width, int height, int offsetY = 10, int sliceWidth = 8)
     {
-        _baseAnimation = new Animation.Animation(baseTexture);
-        _fillAnimation = new Animation.Animation(fillTexture);
+        _baseAnimation = new ResizableSpriteData(baseTexture, ResizableSpriteType.Horizontal, 16, 0, borderHorizontal: 48, borderVertical: 16);
+        _fillAnimation = new AnimationClip(fillTexture);
         _width = width;
         _height = height;
         _offsetY = offsetY;
@@ -30,8 +32,10 @@ public class HealthBarComponent
 
         // Base
         var baseRect = new Rectangle(posX, posY, _width, _height);
+        _baseAnimation.Draw(baseRect, Color.White, 0f, SpriteEffects.None, spriteBatch);
+
         //_baseAnimation.Draw(baseRect, Color.White, 0f, SpriteEffects.None, spriteBatch);
-        DrawBaseBar(spriteBatch, _baseAnimation.Texture, baseRect, Color.White);
+        //DrawBaseBar(spriteBatch, _baseAnimation.Texture, baseRect, Color.White);
 
         // Fill
         float percent = (float)currentHealth / maxHealth;

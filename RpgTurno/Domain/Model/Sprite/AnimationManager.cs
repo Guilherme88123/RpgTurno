@@ -5,11 +5,11 @@ namespace Domain.Model.Animation;
 
 public class AnimationManager
 {
-    private readonly Dictionary<object, Animation> Animations = new();
+    private readonly Dictionary<object, AnimationClip> Animations = new();
 
     private object _lastKey;
 
-    public void AddAnimation(object key, Animation animation)
+    public void AddAnimation(object key, AnimationClip animation)
     {
         Animations[key] = animation;
         _lastKey ??= key;
@@ -17,7 +17,7 @@ public class AnimationManager
 
     public void Update(object key)
     {
-        if (Animations.TryGetValue(key, out Animation? value))
+        if (Animations.TryGetValue(key, out AnimationClip? value))
         {
             value.Start();
             value.Update();

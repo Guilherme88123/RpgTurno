@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Domain.Model.Animation;
 
-public class Animation
+public class AnimationClip
 {
     private readonly List<SpriteData> _frames = new();
     private readonly float _frameTime;
@@ -14,14 +14,14 @@ public class Animation
     private float _currentFrameTimeLeft;
     private bool _isPlaying = true;
 
-    public Animation(List<SpriteData> frames, float frameTime)
+    public AnimationClip(List<SpriteData> frames, float frameTime)
     {
         _frames = frames;
         _frameTime = frameTime;
         _currentFrameTimeLeft = frameTime;
     }
 
-    public Animation(Texture2D texture, int framesX = 1, int framesY = 1, float frameTime = 0f, int row = 1)
+    public AnimationClip(Texture2D texture, int framesX = 1, int framesY = 1, float frameTime = 0f, int row = 1)
     {
         _frames = new List<SpriteData>();
         _frameTime = frameTime;

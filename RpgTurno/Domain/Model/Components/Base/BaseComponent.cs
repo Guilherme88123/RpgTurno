@@ -22,9 +22,9 @@ public class BaseComponent
     protected float _currentDelayClickAnimation { get; set; }
     protected bool HasClicked => _currentDelayClickAnimation > 0;
 
-    public Animation NormalAnimation { get; set; }
-    public Animation HoverAnimation { get; set; }
-    public Animation ClickAnimation { get; set; }
+    public AnimationClip NormalAnimation { get; set; }
+    public AnimationClip HoverAnimation { get; set; }
+    public AnimationClip ClickAnimation { get; set; }
 
     protected SoundEffect? ClickSound { get; set; }
 

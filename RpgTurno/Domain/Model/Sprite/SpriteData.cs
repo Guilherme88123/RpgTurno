@@ -6,37 +6,42 @@ namespace Domain.Model.Sprite;
 
 public class SpriteData
 {
-    private readonly Texture2D _texture;
-    private readonly Rectangle _sourceRectangle;
+    protected readonly Texture2D Texture;
+    protected readonly Rectangle SourceRectangle;
 
-    public int Width => _sourceRectangle.Width;
-    public int Height => _sourceRectangle.Height;
+    public int Width => SourceRectangle.Width;
+    public int Height => SourceRectangle.Height;
 
-    public SpriteData(Texture2D texture)
+    public SpriteData(Texture2D texture, int borderHorizontal = 0, int borderVertical = 0)
     {
-        _texture = texture;
-        _sourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
+        Texture = texture;
+        SourceRectangle = new Rectangle(borderHorizontal, borderVertical, 
+            texture.Width - borderHorizontal * 2, texture.Height - borderVertical * 2);
     }
 
-    public SpriteData(Texture2D texture, Rectangle sourceRect)
+    public SpriteData(Texture2D texture, Rectangle rawSourceRect, int borderHorizontal = 0, int borderVertical = 0)
     {
-        _texture = texture;
-        _sourceRectangle = sourceRect;
+        Texture = texture;
+
+        var sourceRectangle = new Rectangle(rawSourceRect.X + borderHorizontal, rawSourceRect.Y + borderVertical,
+            rawSourceRect.Width - borderHorizontal * 2, rawSourceRect.Height - borderVertical * 2);
+
+        SourceRectangle = sourceRectangle;
     }
 
     public virtual void Draw(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
     {
-        var scaleX = (float)destinationRectangle.Width / _sourceRectangle.Width;
-        var scaleY = (float)destinationRectangle.Height / _sourceRectangle.Height;
+        var scaleX = (float)destinationRectangle.Width / SourceRectangle.Width;
+        var scaleY = (float)destinationRectangle.Height / SourceRectangle.Height;
 
         Vector2? cameraOffset = GlobalVariablesDto.GetTransform(spriteBatch);
 
         Vector2 position = new Vector2(destinationRectangle.X, destinationRectangle.Y);
 
         spriteBatch.Draw(
-            _texture,
+            Texture,
             position - (cameraOffset ?? Vector2.Zero),
-            _sourceRectangle,
+            SourceRectangle,
             color,
             rotation,
             Vector2.Zero,
