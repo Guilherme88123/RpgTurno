@@ -1,6 +1,7 @@
 ﻿using Domain.Dto.Global;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace Domain.Model.Sprite;
 
@@ -31,8 +32,13 @@ public class SpriteData
 
     public virtual void Draw(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
     {
-        var scaleX = (float)destinationRectangle.Width / SourceRectangle.Width;
-        var scaleY = (float)destinationRectangle.Height / SourceRectangle.Height;
+        DrawBySource(SourceRectangle, destinationRectangle, color, rotation, drawEffect, spriteBatch);
+    }
+
+    protected virtual void DrawBySource(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
+    {
+        var scaleX = (float)destinationRectangle.Width / sourceRectangle.Width;
+        var scaleY = (float)destinationRectangle.Height / sourceRectangle.Height;
 
         Vector2? cameraOffset = GlobalVariablesDto.GetTransform(spriteBatch);
 
@@ -41,7 +47,7 @@ public class SpriteData
         spriteBatch.Draw(
             Texture,
             position - (cameraOffset ?? Vector2.Zero),
-            SourceRectangle,
+            sourceRectangle,
             color,
             rotation,
             Vector2.Zero,

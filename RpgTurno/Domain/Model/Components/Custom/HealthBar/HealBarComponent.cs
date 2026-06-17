@@ -17,7 +17,8 @@ public class HealthBarComponent
 
     public HealthBarComponent(Texture2D baseTexture, Texture2D fillTexture, int width, int height, int offsetY = 10, int sliceWidth = 8)
     {
-        _baseAnimation = new ResizableSpriteData(baseTexture, ResizableSpriteType.Horizontal, 16, 0, borderHorizontal: 48, borderVertical: 16);
+        _baseAnimation = new ResizableSpriteData(baseTexture, ResizableSpriteType.Horizontal, 16, 0, 
+            borderHorizontal: 48, borderVertical: 16, piecesGap: 64);
         _fillAnimation = new AnimationClip(fillTexture);
         _width = width;
         _height = height;
