@@ -15,11 +15,11 @@ public class ClericEntity : BaseUnitEntity
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ClericRun);
         var attack = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ClericAttack);
 
-        Animation.AddAnimation(CreatureStateType.Idle, new Animation.AnimationClip(idle, 6, 1, 0.1f));
-        Animation.AddAnimation(CreatureStateType.Running, new Animation.AnimationClip(running, 4, 1, 0.1f));
-        Animation.AddAnimation(CreatureStateType.Attacking, new Animation.AnimationClip(attack, 11, 1, 0.1f));
+        Animation.AddAnimation(CreatureStateType.Idle, new Animation.AnimationClip(idle, 6, 1, 0.1f, borderHorizontal: 48, borderVertical: 48));
+        Animation.AddAnimation(CreatureStateType.Running, new Animation.AnimationClip(running, 4, 1, 0.1f, borderHorizontal: 48, borderVertical: 48));
+        Animation.AddAnimation(CreatureStateType.Attacking, new Animation.AnimationClip(attack, 11, 1, 0.1f, borderHorizontal: 48, borderVertical: 48));
 
-        SizeX = 192;
-        SizeY = 192;
+        SizeX = 96;
+        SizeY = 96;
     }
 }

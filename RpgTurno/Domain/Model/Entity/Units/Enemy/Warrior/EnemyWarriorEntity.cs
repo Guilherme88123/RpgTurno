@@ -16,12 +16,12 @@ public class EnemyWarriorEntity : BaseUnitEntity
         var defending = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorDefence);
         var attack = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorAttack);
 
-        Animation.AddAnimation(CreatureStateType.Idle, new Animation.AnimationClip(idle, 8, 1, 0.1f));
-        Animation.AddAnimation(CreatureStateType.Running, new Animation.AnimationClip(running, 6, 1, 0.1f));
-        Animation.AddAnimation(CreatureStateType.Defending, new Animation.AnimationClip(defending, 6, 1, 0.1f));
-        Animation.AddAnimation(CreatureStateType.Attacking, new Animation.AnimationClip(attack, 4, 1, 0.1f));
+        Animation.AddAnimation(CreatureStateType.Idle, new Animation.AnimationClip(idle, 8, 1, 0.1f, borderHorizontal: 48, borderVertical: 48));
+        Animation.AddAnimation(CreatureStateType.Running, new Animation.AnimationClip(running, 6, 1, 0.1f, borderHorizontal: 48, borderVertical: 48));
+        Animation.AddAnimation(CreatureStateType.Defending, new Animation.AnimationClip(defending, 6, 1, 0.1f, borderHorizontal: 48, borderVertical: 48));
+        Animation.AddAnimation(CreatureStateType.Attacking, new Animation.AnimationClip(attack, 4, 1, 0.1f, borderHorizontal: 48, borderVertical: 48));
 
-        SizeX = 192;
-        SizeY = 192;
+        SizeX = 96;
+        SizeY = 96;
     }
 }
