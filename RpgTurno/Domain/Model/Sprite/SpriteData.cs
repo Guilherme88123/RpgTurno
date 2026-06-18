@@ -1,4 +1,5 @@
 ﻿using Domain.Dto.Global;
+using Domain.Model.Sprite.Border;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,21 +13,31 @@ public class SpriteData
     public int Width => SourceRectangle.Width;
     public int Height => SourceRectangle.Height;
 
-    public SpriteData(Texture2D texture, int borderHorizontal = 0, int borderVertical = 0)
+    public SpriteData(Texture2D texture, BorderDefinition border = null)
     {
         Texture = texture;
-        SourceRectangle = new Rectangle(borderHorizontal, borderVertical,
-            texture.Width - borderHorizontal * 2, texture.Height - borderVertical * 2);
+
+        var fullTextureRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
+        SourceRectangle = CreateRectangleByTextureAndBorder(fullTextureRectangle, border);
     }
 
-    public SpriteData(Texture2D texture, Rectangle rawSourceRect, int borderHorizontal = 0, int borderVertical = 0)
+    public SpriteData(Texture2D texture, Rectangle rawSourceRect, BorderDefinition border = null)
     {
         Texture = texture;
+        SourceRectangle = CreateRectangleByTextureAndBorder(rawSourceRect, border);
+    }
 
-        var sourceRectangle = new Rectangle(rawSourceRect.X + borderHorizontal, rawSourceRect.Y + borderVertical,
-            rawSourceRect.Width - borderHorizontal * 2, rawSourceRect.Height - borderVertical * 2);
+    private Rectangle CreateRectangleByTextureAndBorder(Rectangle originalRectangle, BorderDefinition border)
+    {
+        if (border is null)
+            return originalRectangle;
 
-        SourceRectangle = sourceRectangle;
+        int positionX = originalRectangle.X + border.Left;
+        int positionY = originalRectangle.Y + border.Top;
+        int width = originalRectangle.Width - border.Left - border.Right;
+        int height = originalRectangle.Height - border.Top - border.Down;
+
+        return new Rectangle(positionX, positionY, width, height);
     }
 
     public virtual void Draw(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)

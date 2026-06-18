@@ -1,6 +1,7 @@
 ﻿using Domain.Enum.Sprite;
 using Domain.Model.Animation;
 using Domain.Model.Sprite;
+using Domain.Model.Sprite.Border;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,15 +16,13 @@ public class HealthBarComponent
     private readonly int _height;
     private readonly int _offsetY;
 
-    public HealthBarComponent(Texture2D baseTexture, Texture2D fillTexture, int width, int height, int offsetY = 10, int sliceWidth = 8)
+    public HealthBarComponent(Texture2D baseTexture, Texture2D fillTexture, int width, int height, int offsetY = 10)
     {
-        _baseSprite = new ResizableSpriteData(baseTexture, ResizableSpriteType.Horizontal, 16, 0, 
-            borderHorizontal: 48, borderVertical: 16, piecesGap: 64);
+        _baseSprite = new ResizableSpriteData(baseTexture, ResizableSpriteType.Horizontal, 16, 0, new BorderDefinition(16, 16, 48, 48), piecesGap: 64);
         _fillSprite = new ResizableSpriteData(fillTexture, ResizableSpriteType.None, 0, 0);
         _width = width;
         _height = height;
         _offsetY = offsetY;
-        _sliceWidth = sliceWidth;
     }
 
     public void Draw(Vector2 entityCenter, int currentHealth, int maxHealth, SpriteBatch spriteBatch)

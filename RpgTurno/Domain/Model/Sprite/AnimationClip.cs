@@ -1,5 +1,6 @@
 ﻿using Domain.Dto.Global;
 using Domain.Model.Sprite;
+using Domain.Model.Sprite.Border;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -21,7 +22,7 @@ public class AnimationClip
         _currentFrameTimeLeft = frameTime;
     }
 
-    public AnimationClip(Texture2D texture, int framesX = 1, int framesY = 1, float frameTime = 0f, int row = 1, int borderHorizontal = 0, int borderVertical = 0)
+    public AnimationClip(Texture2D texture, int framesX = 1, int framesY = 1, float frameTime = 0f, int row = 1, BorderDefinition border = null)
     {
         _frames = new List<SpriteData>();
         _frameTime = frameTime;
@@ -33,7 +34,7 @@ public class AnimationClip
         for (int i = 0; i < framesX; i++)
         {
             var sourceRectangle = new Rectangle(i * frameWidth, (row - 1) * frameHeight, frameWidth, frameHeight);
-            var sprite = new SpriteData(texture, sourceRectangle, borderHorizontal, borderVertical);
+            var sprite = new SpriteData(texture, sourceRectangle, border);
             _frames.Add(sprite);
         }
     }

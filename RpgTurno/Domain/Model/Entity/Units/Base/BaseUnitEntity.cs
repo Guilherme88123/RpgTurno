@@ -22,7 +22,7 @@ public class BaseUnitEntity : BaseEntity
         
         var baseTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallBarBase);
         var fillTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallBarFill);
-        _healthBar = new HealthBarComponent(baseTexture, fillTexture, width: 120, height: 32, offsetY: -40, sliceWidth: 16);
+        _healthBar = new HealthBarComponent(baseTexture, fillTexture, width: 120, height: 32, offsetY: -40);
     }
 
     public override void Update()

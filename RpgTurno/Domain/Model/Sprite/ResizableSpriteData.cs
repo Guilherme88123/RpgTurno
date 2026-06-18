@@ -1,4 +1,5 @@
 ﻿using Domain.Enum.Sprite;
+using Domain.Model.Sprite.Border;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Data;
@@ -9,26 +10,26 @@ public class ResizableSpriteData : SpriteData
 {
     public ResizableSpriteType ResizableType { get; }
 
-    private readonly int _fixedHorizontal;
-    private readonly int _fixedVertical;
+    private readonly int _fixedHorizontalSlice;
+    private readonly int _fixedVerticalSlice;
 
     private readonly int _piecesGap;
 
     public ResizableSpriteData(Texture2D texture, ResizableSpriteType resizableType, int fixedHorizontal, int fixedVertical,
-        int borderHorizontal = 0, int borderVertical = 0, int piecesGap = 0) : base(texture, borderHorizontal, borderVertical)
+        BorderDefinition border = null, int piecesGap = 0) : base(texture, border)
     {
         ResizableType = resizableType;
-        _fixedHorizontal = fixedHorizontal;
-        _fixedVertical = fixedVertical;
+        _fixedHorizontalSlice = fixedHorizontal;
+        _fixedVerticalSlice = fixedVertical;
         _piecesGap = piecesGap;
     }
 
     public ResizableSpriteData(Texture2D texture, Rectangle sourceRect, ResizableSpriteType resizableType, int fixedHorizontal, int fixedVertical,
-        int borderHorizontal = 0, int borderVertical = 0, int piecesGap = 0) : base(texture, sourceRect, borderHorizontal, borderVertical)
+        BorderDefinition border = null, int piecesGap = 0) : base(texture, sourceRect, border)
     {
         ResizableType = resizableType;
-        _fixedHorizontal = fixedHorizontal;
-        _fixedVertical = fixedVertical;
+        _fixedHorizontalSlice = fixedHorizontal;
+        _fixedVerticalSlice = fixedVertical;
         _piecesGap = piecesGap;
     }
 
@@ -57,13 +58,13 @@ public class ResizableSpriteData : SpriteData
 
     private void DrawHorizontalResizable(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
     {
-        var sourceLeft = new Rectangle(SourceRectangle.X, SourceRectangle.Y, _fixedHorizontal, SourceRectangle.Height);
-        var sourceMid = new Rectangle(SourceRectangle.X + _fixedHorizontal + _piecesGap, SourceRectangle.Y, SourceRectangle.Width - _fixedHorizontal * 2 - _piecesGap * 2, SourceRectangle.Height);
-        var sourceRight = new Rectangle(SourceRectangle.X + SourceRectangle.Width - _fixedHorizontal, SourceRectangle.Y, _fixedHorizontal, SourceRectangle.Height);
+        var sourceLeft = new Rectangle(SourceRectangle.X, SourceRectangle.Y, _fixedHorizontalSlice, SourceRectangle.Height);
+        var sourceMid = new Rectangle(SourceRectangle.X + _fixedHorizontalSlice + _piecesGap, SourceRectangle.Y, SourceRectangle.Width - _fixedHorizontalSlice * 2 - _piecesGap * 2, SourceRectangle.Height);
+        var sourceRight = new Rectangle(SourceRectangle.X + SourceRectangle.Width - _fixedHorizontalSlice, SourceRectangle.Y, _fixedHorizontalSlice, SourceRectangle.Height);
 
-        var destLeft = new Rectangle(destinationRectangle.X, destinationRectangle.Y, _fixedHorizontal, destinationRectangle.Height);
-        var destMid = new Rectangle(destinationRectangle.X + _fixedHorizontal, destinationRectangle.Y, destinationRectangle.Width - _fixedHorizontal * 2, destinationRectangle.Height);
-        var destRight = new Rectangle(destinationRectangle.X + destinationRectangle.Width - _fixedHorizontal, destinationRectangle.Y, _fixedHorizontal, destinationRectangle.Height);
+        var destLeft = new Rectangle(destinationRectangle.X, destinationRectangle.Y, _fixedHorizontalSlice, destinationRectangle.Height);
+        var destMid = new Rectangle(destinationRectangle.X + _fixedHorizontalSlice, destinationRectangle.Y, destinationRectangle.Width - _fixedHorizontalSlice * 2, destinationRectangle.Height);
+        var destRight = new Rectangle(destinationRectangle.X + destinationRectangle.Width - _fixedHorizontalSlice, destinationRectangle.Y, _fixedHorizontalSlice, destinationRectangle.Height);
 
         DrawBySource(sourceLeft, destLeft, color, rotation, drawEffect, spriteBatch);
         DrawBySource(sourceMid, destMid, color, rotation, drawEffect, spriteBatch);
