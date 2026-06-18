@@ -1,7 +1,6 @@
 ﻿using Domain.Dto.Global;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Runtime.InteropServices.Marshalling;
 
 namespace Domain.Model.Sprite;
 

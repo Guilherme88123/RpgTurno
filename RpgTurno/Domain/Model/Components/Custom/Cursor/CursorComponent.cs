@@ -28,7 +28,7 @@ public class CursorComponent
         _animationManager.AddAnimation(CursorStateType.Block, new AnimationClip(block));
 
         _state = CursorStateType.Normal;
-        _size = 64;
+        _size = normal.Width;
     }
 
     public void Draw()

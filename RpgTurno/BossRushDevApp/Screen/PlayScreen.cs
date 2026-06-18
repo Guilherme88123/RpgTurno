@@ -1,7 +1,9 @@
-﻿using Domain.Const.Screen;
+﻿using Accessibility;
+using Domain.Const.Screen;
 using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Enum.Component.Cursor;
+using Domain.Model.Components.Custom.Selection;
 using Domain.Model.Entity.Base;
 using Domain.Model.Entity.Units.Ally.Archer;
 using Domain.Model.Entity.Units.Ally.Cleric;
@@ -25,6 +27,9 @@ public class PlayScreen : BaseScreen
     private List<BaseEntity> _enemiesParty = new();
     private List<BaseEntity> _allEntities => [.. _alliesParty, .. _enemiesParty];
 
+    private SelectionAreaComponent _selectionArea;
+    private BaseEntity _focusedEntity;
+
     #region Initialize
 
     public override void Initialize()
@@ -47,6 +52,8 @@ public class PlayScreen : BaseScreen
         _enemiesParty.AddRange([_enemyWarrior, _enemyLancer, _enemyArcher, _enemyCleric]);
 
         SetEntitiesPosition();
+
+        _selectionArea = new();
     }
 
     private void SetEntitiesPosition()
@@ -122,18 +129,60 @@ public class PlayScreen : BaseScreen
     {
         if (HasCursorHoveringEntity())
         {
-            CursorComponent.SetCursorState(CursorStateType.Hover);
+            SetFocusedEntity(GetCursorHoveringEntity());
+            SetHoverCursor();
             return;
         }
 
-        CursorComponent.SetCursorState(CursorStateType.Normal);
+        ClearFocusedEntity();
+        SetNormalCursor();
     }
+
+    #region Focused Entity
 
     private bool HasCursorHoveringEntity()
     {
         var mouse = GlobalVariablesDto.MouseState;
         return _allEntities.Any(x => x.Rectangle.Contains(mouse.X, mouse.Y));
     }
+
+    private BaseEntity GetCursorHoveringEntity()
+    {
+        var mouse = GlobalVariablesDto.MouseState;
+        return _allEntities.First(x => x.Rectangle.Contains(mouse.X, mouse.Y));
+    }
+
+    private void SetFocusedEntity(BaseEntity entity)
+    {
+        _focusedEntity = entity;
+        _selectionArea.SetDestinationRectangle(entity.Rectangle);
+    }
+
+    private void ClearFocusedEntity()
+    {
+        _focusedEntity = null;
+    }
+
+    #endregion
+
+    #region Cursor
+
+    private void SetNormalCursor()
+    {
+        CursorComponent.SetCursorState(CursorStateType.Normal);
+    }
+
+    private void SetHoverCursor()
+    {
+        CursorComponent.SetCursorState(CursorStateType.Hover);
+    }
+
+    private void SetBlockCursor()
+    {
+        CursorComponent.SetCursorState(CursorStateType.Block);
+    }
+
+    #endregion
 
     #endregion
 
@@ -143,8 +192,33 @@ public class PlayScreen : BaseScreen
     {
         base.Draw();
 
+        DrawAllies();
+        DrawEnemies();
+
+        if (HasFocusedEntity())
+        {
+            DrawSelectionAreaOnFocusedEntity();
+        }
+    }
+
+    private void DrawAllies()
+    {
         _alliesParty.ForEach(x => x.Draw());
+    }
+
+    private void DrawEnemies()
+    {
         _enemiesParty.ForEach(x => x.Draw());
+    }
+
+    private bool HasFocusedEntity()
+    {
+        return _focusedEntity is not null;
+    }
+
+    private void DrawSelectionAreaOnFocusedEntity()
+    {
+        _selectionArea.Draw();
     }
 
     #endregion

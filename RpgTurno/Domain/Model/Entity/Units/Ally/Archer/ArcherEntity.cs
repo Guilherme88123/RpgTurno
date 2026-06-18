@@ -11,15 +11,15 @@ public class ArcherEntity : BaseUnitEntity
 {
     public ArcherEntity()
     {
+        SizeX = 192;
+        SizeY = 192;
+
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ArcherIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ArcherRun);
         var attack = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ArcherAttack);
 
-        Animation.AddAnimation(CreatureStateType.Idle, new AnimationClip(idle, 6, 1, 0.1f));
+        Animation.AddAnimation(CreatureStateType.Idle, new AnimationClip(idle, 6, 1, 0.1f, 48, 48));
         Animation.AddAnimation(CreatureStateType.Running, new AnimationClip(running, 4, 1, 0.1f));
         Animation.AddAnimation(CreatureStateType.Attacking, new AnimationClip(attack, 8, 1, 0.1f));
-
-        SizeX = 192;
-        SizeY = 192;
     }
 }

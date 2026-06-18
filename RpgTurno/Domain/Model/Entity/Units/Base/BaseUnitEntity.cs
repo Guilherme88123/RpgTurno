@@ -14,7 +14,7 @@ public class BaseUnitEntity : BaseEntity
 
     public int Damage { get; set; } = 4;
 
-    private HealthBarComponent _healthBar;
+    private readonly HealthBarComponent _healthBar;
 
     public BaseUnitEntity()
     {
@@ -23,7 +23,6 @@ public class BaseUnitEntity : BaseEntity
         var baseTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallBarBase);
         var fillTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallBarFill);
         _healthBar = new HealthBarComponent(baseTexture, fillTexture, width: 120, height: 32, offsetY: -40, sliceWidth: 16);
-
     }
 
     public override void Update()
@@ -35,7 +34,12 @@ public class BaseUnitEntity : BaseEntity
 
     public override void Draw()
     {
-        base.Draw(); 
-        _healthBar.Draw(Center, Health, MaxHealth, GlobalVariablesDto.SpriteBatchInterface);
+        base.Draw();
+        DrawHealthBar();
+    }
+
+    protected virtual void DrawHealthBar()
+    {
+        _healthBar.Draw(Center, Health, MaxHealth, GlobalVariablesDto.SpriteBatchEntities);
     }
 }

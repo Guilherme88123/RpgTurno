@@ -21,7 +21,7 @@ public class AnimationClip
         _currentFrameTimeLeft = frameTime;
     }
 
-    public AnimationClip(Texture2D texture, int framesX = 1, int framesY = 1, float frameTime = 0f, int row = 1)
+    public AnimationClip(Texture2D texture, int framesX = 1, int framesY = 1, float frameTime = 0f, int row = 1, int borderHorizontal = 0, int borderVertical = 0)
     {
         _frames = new List<SpriteData>();
         _frameTime = frameTime;
@@ -33,7 +33,7 @@ public class AnimationClip
         for (int i = 0; i < framesX; i++)
         {
             var sourceRectangle = new Rectangle(i * frameWidth, (row - 1) * frameHeight, frameWidth, frameHeight);
-            var sprite = new SpriteData(texture, sourceRectangle);
+            var sprite = new SpriteData(texture, sourceRectangle, borderHorizontal, borderVertical);
             _frames.Add(sprite);
         }
     }

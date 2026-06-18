@@ -8,8 +8,8 @@ namespace Domain.Model.Components.Custom.HealthBar;
 
 public class HealthBarComponent
 {
-    private readonly ResizableSpriteData _baseAnimation;
-    private readonly AnimationClip _fillAnimation;
+    private readonly ResizableSpriteData _baseSprite;
+    private readonly ResizableSpriteData _fillSprite;
     private readonly int _sliceWidth;
     private readonly int _width;
     private readonly int _height;
@@ -17,9 +17,9 @@ public class HealthBarComponent
 
     public HealthBarComponent(Texture2D baseTexture, Texture2D fillTexture, int width, int height, int offsetY = 10, int sliceWidth = 8)
     {
-        _baseAnimation = new ResizableSpriteData(baseTexture, ResizableSpriteType.Horizontal, 16, 0, 
+        _baseSprite = new ResizableSpriteData(baseTexture, ResizableSpriteType.Horizontal, 16, 0, 
             borderHorizontal: 48, borderVertical: 16, piecesGap: 64);
-        _fillAnimation = new AnimationClip(fillTexture);
+        _fillSprite = new ResizableSpriteData(fillTexture, ResizableSpriteType.None, 0, 0);
         _width = width;
         _height = height;
         _offsetY = offsetY;
@@ -28,23 +28,34 @@ public class HealthBarComponent
 
     public void Draw(Vector2 entityCenter, int currentHealth, int maxHealth, SpriteBatch spriteBatch)
     {
-        int posX = (int)(entityCenter.X - _width / 2f);
-        int posY = (int)(entityCenter.Y - _offsetY);
+        var position = GetAbsolutePosition(entityCenter);
 
-        // Base
-        var baseRect = new Rectangle(posX, posY, _width, _height);
-        _baseAnimation.Draw(baseRect, Color.White, 0f, SpriteEffects.None, spriteBatch);
+        DrawBaseSprite(position, spriteBatch);
+        DrawFillSprite(currentHealth, maxHealth, position, spriteBatch);
+    }
 
-        //_baseAnimation.Draw(baseRect, Color.White, 0f, SpriteEffects.None, spriteBatch);
-        //DrawBaseBar(spriteBatch, _baseAnimation.Texture, baseRect, Color.White);
+    private Point GetAbsolutePosition(Vector2 centerPosition)
+    {
+        int positionX = (int)(centerPosition.X - _width / 2f);
+        int positionY = (int)(centerPosition.Y - _offsetY);
 
-        // Fill
-        float percent = (float)currentHealth / maxHealth;
-        int fillWidth = (int)((baseRect.Width - _sliceWidth * 2) * percent);
+        return new (positionX, positionY);
+    }
+
+    private void DrawBaseSprite(Point postion, SpriteBatch spriteBatch)
+    {
+        var baseRect = new Rectangle(postion.X, postion.Y, _width, _height);
+        _baseSprite.Draw(baseRect, Color.White, 0f, SpriteEffects.None, spriteBatch);
+    }
+
+    private void DrawFillSprite(int currentValue, int maxValue, Point position, SpriteBatch spriteBatch)
+    {
+        float percent = (float)currentValue / currentValue;
+        int fillWidth = (int)((_width - _sliceWidth * 2) * percent);
         if (fillWidth > 0)
         {
-            var fillRect = new Rectangle(posX + (int)(_sliceWidth / 1.5), posY - _height / 2, fillWidth + (int)(_sliceWidth / 1.4), _height * 2);
-            _fillAnimation.Draw(fillRect, Color.White, 0f, SpriteEffects.None, spriteBatch);
+            var fillRect = new Rectangle(position.X + (int)(_sliceWidth / 1.5), position.Y - _height / 2, fillWidth + (int)(_sliceWidth / 1.4), _height * 2);
+            _fillSprite.Draw(fillRect, Color.White, 0f, SpriteEffects.None, spriteBatch);
         }
     }
 }
