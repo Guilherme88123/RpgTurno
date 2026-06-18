@@ -60,8 +60,21 @@ public static class SpriteConst
 
     #region User Interface
 
+    #region Bars
+
     public const string SmallBarBase = "SmallBar_Base";
     public const string SmallBarFill = "SmallBar_Fill";
+
+    #endregion
+
+    #region Cursors
+
+    public const string NormalCursor = "NormalCursor";
+    public const string HoverCursor = "HoverCursor";
+    public const string BlockCursor = "BlockCursor";
+    public const string SelectionArea = "SelectionArea";
+
+    #endregion
 
     #endregion
 }

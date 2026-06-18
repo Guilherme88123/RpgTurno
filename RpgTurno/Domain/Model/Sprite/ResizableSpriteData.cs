@@ -72,11 +72,11 @@ public class ResizableSpriteData : SpriteData
 
     private void DrawVerticalResizable(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
     {
-
+        //TODO: Implementar sprite redimensionavel vertical
     }
 
     private void DrawFullResizable(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
     {
-
+        //TODO: Implementar sprite redimensionavel completo
     }
 }

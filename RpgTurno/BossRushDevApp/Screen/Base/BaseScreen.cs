@@ -2,6 +2,7 @@
 using Domain.Dto.Global;
 using Domain.Interface.Screen;
 using Domain.Interface.UiManager;
+using Domain.Model.Components.Custom.Cursor;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
@@ -13,21 +14,30 @@ public abstract class BaseScreen : IScreen
 
     private readonly IUiManagerService _componentsService;
 
+    protected CursorComponent CursorComponent;
+
     protected BaseScreen()
     {
         _componentsService = GlobalVariablesDto.GetService<IUiManagerService>();
+
     }
 
     #region Initialization
+
+    public virtual void Initialize()
+    {
+        _componentsService.AddComponent(InitializeComponents());
+        InitializeCursor();
+    }
 
     protected virtual List<BaseComponent> InitializeComponents()
     {
         return new();
     }
 
-    public virtual void Initialize()
+    private void InitializeCursor()
     {
-        _componentsService.AddComponent(InitializeComponents());
+        CursorComponent = new CursorComponent();
     }
 
     #endregion
@@ -55,7 +65,18 @@ public abstract class BaseScreen : IScreen
 
     public virtual void Draw()
     {
+        DrawComponents();
+        DrawCursor();
+    }
+
+    private void DrawComponents()
+    {
         _componentsService.DrawComponents();
+    }
+
+    private void DrawCursor()
+    {
+        CursorComponent.Draw();
     }
 
     #endregion

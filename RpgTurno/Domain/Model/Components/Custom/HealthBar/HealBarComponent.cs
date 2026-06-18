@@ -47,22 +47,4 @@ public class HealthBarComponent
             _fillAnimation.Draw(fillRect, Color.White, 0f, SpriteEffects.None, spriteBatch);
         }
     }
-
-    private void DrawBaseBar(SpriteBatch spriteBatch, Texture2D texture, Rectangle destRect, Color color)
-    {
-        int sliceWidth = 16; // ajuste para o tamanho real das bordas
-
-        var leftSource = new Rectangle(sliceWidth * 3, sliceWidth, sliceWidth, sliceWidth * 2);
-        var midSource = new Rectangle(sliceWidth * 8, sliceWidth, sliceWidth * 4, sliceWidth * 2);
-        var rightSource = new Rectangle(texture.Width - sliceWidth * 4, sliceWidth, sliceWidth, sliceWidth * 2);
-
-        var leftDest = new Rectangle(destRect.X, destRect.Y, sliceWidth, destRect.Height);
-        var midDest = new Rectangle(destRect.X + sliceWidth, destRect.Y, destRect.Width - sliceWidth * 2, destRect.Height);
-        var rightDest = new Rectangle(destRect.X + destRect.Width - sliceWidth, destRect.Y, sliceWidth, destRect.Height);
-
-        spriteBatch.Draw(texture, leftDest, leftSource, color);
-        if (midDest.Width > 0)
-            spriteBatch.Draw(texture, midDest, midSource, color);
-        spriteBatch.Draw(texture, rightDest, rightSource, color);
-    }
 }

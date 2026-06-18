@@ -28,7 +28,7 @@ public class RpgTurno : Game
         IsFixedTimeStep = true;
         TargetElapsedTime = TimeSpan.FromSeconds(1d / 120d);
         Content.RootDirectory = "Content";
-        IsMouseVisible = true;
+        IsMouseVisible = false;
         graphics.ApplyChanges();
 
         GlobalVariablesDto.Graphics = graphics;

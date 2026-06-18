@@ -15,9 +15,9 @@ public class ArcherEntity : BaseUnitEntity
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ArcherRun);
         var attack = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ArcherAttack);
 
-        Animation.AddAnimation(CreatureStateType.Idle, new Animation.AnimationClip(idle, 6, 1, 0.1f));
-        Animation.AddAnimation(CreatureStateType.Running, new Animation.AnimationClip(running, 4, 1, 0.1f));
-        Animation.AddAnimation(CreatureStateType.Attacking, new Animation.AnimationClip(attack, 8, 1, 0.1f));
+        Animation.AddAnimation(CreatureStateType.Idle, new AnimationClip(idle, 6, 1, 0.1f));
+        Animation.AddAnimation(CreatureStateType.Running, new AnimationClip(running, 4, 1, 0.1f));
+        Animation.AddAnimation(CreatureStateType.Attacking, new AnimationClip(attack, 8, 1, 0.1f));
 
         SizeX = 192;
         SizeY = 192;

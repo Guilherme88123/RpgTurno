@@ -16,7 +16,7 @@ public class SpriteData
     public SpriteData(Texture2D texture, int borderHorizontal = 0, int borderVertical = 0)
     {
         Texture = texture;
-        SourceRectangle = new Rectangle(borderHorizontal, borderVertical, 
+        SourceRectangle = new Rectangle(borderHorizontal, borderVertical,
             texture.Width - borderHorizontal * 2, texture.Height - borderVertical * 2);
     }
 
@@ -37,6 +37,9 @@ public class SpriteData
 
     protected virtual void DrawBySource(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
     {
+        if (destinationRectangle.Width < 0 || destinationRectangle.Height < 0)
+            return;
+
         var scaleX = (float)destinationRectangle.Width / sourceRectangle.Width;
         var scaleY = (float)destinationRectangle.Height / sourceRectangle.Height;
 

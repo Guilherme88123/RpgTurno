@@ -1,6 +1,7 @@
 ﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
 using Domain.Enum;
+using Domain.Enum.Component.Cursor;
 using Domain.Model.Entity.Base;
 using Domain.Model.Entity.Units.Ally.Archer;
 using Domain.Model.Entity.Units.Ally.Cleric;
@@ -22,6 +23,9 @@ public class PlayScreen : BaseScreen
 
     private List<BaseEntity> _alliesParty = new();
     private List<BaseEntity> _enemiesParty = new();
+    private List<BaseEntity> _allEntities => [.. _alliesParty, .. _enemiesParty];
+
+    #region Initialize
 
     public override void Initialize()
     {
@@ -42,32 +46,16 @@ public class PlayScreen : BaseScreen
 
         _enemiesParty.AddRange([_enemyWarrior, _enemyLancer, _enemyArcher, _enemyCleric]);
 
-        UpdateEntitiesPosition();
+        SetEntitiesPosition();
     }
 
-    public override void Update()
+    private void SetEntitiesPosition()
     {
-        base.Update();
-
-        _alliesParty.ForEach(x => x.Update());
-        _enemiesParty.ForEach(x => x.Update());
+        SetAlliesPosition();
+        SetEnemiesPosition();
     }
 
-    public override void Draw()
-    {
-        base.Draw();
-
-        _alliesParty.ForEach(x => x.Draw());
-        _enemiesParty.ForEach(x => x.Draw());
-    }
-
-    private void UpdateEntitiesPosition()
-    {
-        UpdateAlliesPosition();
-        UpdateEnemiesPosition();
-    }
-
-    private void UpdateAlliesPosition()
+    private void SetAlliesPosition()
     {
         int posX = GlobalOptionsDto.WidthSize / 3;
 
@@ -77,7 +65,7 @@ public class PlayScreen : BaseScreen
         FixEntitiesPositionBySize(_alliesParty);
     }
 
-    private void UpdateEnemiesPosition()
+    private void SetEnemiesPosition()
     {
         int posX = (GlobalOptionsDto.WidthSize / 3) * 2;
 
@@ -115,4 +103,49 @@ public class PlayScreen : BaseScreen
             entity.PositionY -= entity.SizeY / 2;
         }
     }
+
+    #endregion
+
+    #region Update
+
+    public override void Update()
+    {
+        base.Update();
+
+        _alliesParty.ForEach(x => x.Update());
+        _enemiesParty.ForEach(x => x.Update());
+
+        VerifyCursorHoverEntities();
+    }
+
+    private void VerifyCursorHoverEntities()
+    {
+        if (HasCursorHoveringEntity())
+        {
+            CursorComponent.SetCursorState(CursorStateType.Hover);
+            return;
+        }
+
+        CursorComponent.SetCursorState(CursorStateType.Normal);
+    }
+
+    private bool HasCursorHoveringEntity()
+    {
+        var mouse = GlobalVariablesDto.MouseState;
+        return _allEntities.Any(x => x.Rectangle.Contains(mouse.X, mouse.Y));
+    }
+
+    #endregion
+
+    #region Draw
+
+    public override void Draw()
+    {
+        base.Draw();
+
+        _alliesParty.ForEach(x => x.Draw());
+        _enemiesParty.ForEach(x => x.Draw());
+    }
+
+    #endregion
 }
