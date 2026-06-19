@@ -3,7 +3,7 @@ using Domain.Model.Sprite.Border;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Domain.Model.Sprite;
+namespace Domain.Model.Texture.Sprite;
 
 public class SpriteData
 {

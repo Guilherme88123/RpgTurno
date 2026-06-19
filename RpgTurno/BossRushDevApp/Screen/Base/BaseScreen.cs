@@ -1,9 +1,11 @@
-﻿using Application.Model.MenuElements.Base;
-using Domain.Dto.Global;
+﻿using Domain.Dto.Global;
 using Domain.Interface.Screen;
 using Domain.Interface.UiManager;
-using Domain.Model.Components.Custom.Cursor;
+using Domain.Model.Components.Base;
+using Domain.Model.Components.Cursor;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using RpgTurno.CustomComponents.Cursor;
 using System.Collections.Generic;
 
 namespace RpgTurnoApp.Screen.Base;
@@ -37,26 +39,33 @@ public abstract class BaseScreen : IScreen
 
     private void InitializeCursor()
     {
-        CursorComponent = new CursorComponent();
+        CursorComponent = new CustomCursorComponent();
     }
 
     #endregion
 
     #region Updating
 
-    public virtual void Update()
+    public virtual void Update(GameTime gameTime)
     {
         UpdateInputsState();
 
-        _componentsService.UpdateComponents();
+        _componentsService.UpdateComponents(gameTime);
 
         GlobalVariablesDto.IsMouseDown = GlobalVariablesDto.MouseState.LeftButton == ButtonState.Pressed;
+
+        UpdateCursor(gameTime);
     }
 
     private void UpdateInputsState()
     {
         GlobalVariablesDto.KeyboardState = Keyboard.GetState();
         GlobalVariablesDto.MouseState = Mouse.GetState();
+    }
+
+    private void UpdateCursor(GameTime gameTime)
+    {
+        CursorComponent.Update(gameTime);
     }
 
     #endregion
@@ -71,12 +80,12 @@ public abstract class BaseScreen : IScreen
 
     private void DrawComponents()
     {
-        _componentsService.DrawComponents();
+        _componentsService.DrawComponents(GlobalVariablesDto.SpriteBatchInterface);
     }
 
     private void DrawCursor()
     {
-        CursorComponent.Draw();
+        CursorComponent.Draw(GlobalVariablesDto.SpriteBatchInterface);
     }
 
     #endregion

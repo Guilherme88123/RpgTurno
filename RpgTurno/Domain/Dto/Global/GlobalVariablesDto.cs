@@ -1,5 +1,4 @@
-﻿using Domain.Model.Components.Custom.Cursor;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +15,8 @@ public static class GlobalVariablesDto
 
     public static GraphicsDeviceManager Graphics;
     public static Texture2D Pixel;
+
+    public static GameTime GameTime;
     public static float DeltaTime;
 
     public static SpriteFont FontArial;

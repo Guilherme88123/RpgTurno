@@ -1,33 +1,23 @@
-﻿using Application.Model.MenuElements.Base;
-using Domain.Dto.Global;
+﻿using Domain.Dto.Global;
+using Domain.Model.Components.Base;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace Application.Model.MenuElements.Button;
 
+//TODO: Refatorar Button quando tiver uma oportunidade de testar
 public class ButtonComponent : BaseComponent
 {
     public Action Click { get; set; }
 
-    public bool IsClick { get; set; }
-
-    public override void Update()
+    public override void Update(GameTime gameTime)
     {
-        base.Update();
+        base.Update(gameTime);
 
         bool botaoPressionado = GlobalVariablesDto.MouseState.LeftButton == ButtonState.Pressed;
-        bool delayFinished = _currentDelay < 0;
 
-        if (botaoPressionado && delayFinished && !GlobalVariablesDto.IsMouseDown && IsHover)
+        if (botaoPressionado && !GlobalVariablesDto.IsMouseDown && HoverState.IsHover)
         {
-            _currentDelay = Delay;
-            _currentDelayClickAnimation = Delay;
-            ClickSound?.Play(GlobalOptionsDto.SfxVolumeFloat, 0f, 0f);
-            IsClick = true;
-        }
-
-        if (!HasClicked && IsClick)
-        {
-            IsClick = false;
             Click?.Invoke();
         }
     }

@@ -1,5 +1,7 @@
-﻿using Application.Model.MenuElements.Base;
-using Domain.Interface.UiManager;
+﻿using Domain.Interface.UiManager;
+using Domain.Model.Components.Base;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Service.UiManager;
 
@@ -32,18 +34,18 @@ public class UiManagerService : IUiManagerService
 
     #region Updating
 
-    public void UpdateComponents()
+    public void UpdateComponents(GameTime gameTime)
     {
-        _components.ForEach(component => component.Update());
+        _components.ForEach(component => component.Update(gameTime));
     }
 
     #endregion
 
     #region Drawing
 
-    public void DrawComponents()
+    public void DrawComponents(SpriteBatch spriteBatch)
     {
-        _components.ForEach(component => component.Draw());
+        _components.ForEach(component => component.Draw(spriteBatch));
     }
 
     #endregion

@@ -1,37 +1,39 @@
-﻿using Application.Model.MenuElements.Base;
+﻿using Domain.Model.Components.Base;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Domain.Model.MenuComponents.Frame;
 
 public class FrameComponent : BaseComponent
 {
-    private List<BaseComponent> _children = new();
-
-    public FrameComponent()
-    {
-        CanHover = false;
-    }
+    private readonly List<BaseComponent> _children = new();
 
     public void AddChild(BaseComponent child)
     {
         _children.Add(child);
     }
 
-    public override void Update()
+    public override void Update(GameTime gameTime)
     {
-        FixVisibilityByFather();
+        base.Update(gameTime);
 
-        base.Update();
-        _children.ForEach(child => child.Update());
+        UpdateChildren(gameTime);
     }
 
-    private void FixVisibilityByFather()
+    private void UpdateChildren(GameTime gameTime)
     {
-        _children.ForEach(child => child.IsVisible = IsVisible);
+        _children.ForEach(child => child.Update(gameTime));
     }
 
-    public override void Draw()
+    public override void Draw(SpriteBatch spriteBatch)
     {
-        base.Draw();
-        _children.ForEach(child => child.Draw());
+        base.Draw(spriteBatch);
+
+        DrawChildren(spriteBatch);
+    }
+
+    private void DrawChildren(SpriteBatch spriteBatch)
+    {
+        _children.ForEach(child => child.Draw(spriteBatch));
     }
 }

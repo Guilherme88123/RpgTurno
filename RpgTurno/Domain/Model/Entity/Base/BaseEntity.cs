@@ -1,6 +1,6 @@
 ﻿using Domain.Dto.Global;
 using Domain.Enum;
-using Domain.Model.Animation;
+using Domain.Model.Texture.Manager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -49,14 +49,13 @@ public class BaseEntity
 
     public virtual void Draw()
     {
-        if (Animation.HasAnimations())
-        {
-            Animation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
-        }
-        else
+        if (Animation.IsEmpty)
         {
             GlobalVariablesDto.SpriteBatchEntities.Draw(GlobalVariablesDto.Pixel, Rectangle, Color);
+            return;
         }
+
+        Animation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
     }
 
     public virtual void Destroy()

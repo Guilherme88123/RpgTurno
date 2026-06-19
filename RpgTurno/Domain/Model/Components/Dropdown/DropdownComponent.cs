@@ -1,33 +1,32 @@
-﻿using Application.Model.MenuElements.Base;
-using Domain.Dto.Global;
+﻿using Domain.Dto.Global;
+using Domain.Model.Components.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Application.Model.MenuElements.Dropdown;
 
+//TODO: Refatorar Dropdown quando tiver uma oportunidade de testar
 public class DropdownComponent : BaseComponent
 {
+    public string Text { get; set; }
     public bool IsOpen { get; set; }
 
     public List<DropdownItemDto> ListItens { get; set; }
     public int SelectedItem { get; set; }
     public Action<DropdownItemDto> ValueUpdate { get; set; }
 
-    public override void Update()
+    public override void Update(GameTime gameTime)
     {
-        base.Update();
+        base.Update(gameTime);
 
         var mouse = Mouse.GetState();
 
         bool botaoPressionado = mouse.LeftButton == ButtonState.Pressed;
-        bool delayFinished = _currentDelay < 0;
 
-        if (botaoPressionado && delayFinished && !GlobalVariablesDto.IsMouseDown && IsHover)
+        if (botaoPressionado && !GlobalVariablesDto.IsMouseDown && HoverState.IsHover)
         {
-            ClickSound.Play(GlobalOptionsDto.SfxVolumeFloat, 0f, 0f);
             ToggleOpen();
-            _currentDelay = Delay;
-            _currentDelayClickAnimation = Delay;
         }
 
         UpdateOptions();
@@ -43,14 +42,11 @@ public class DropdownComponent : BaseComponent
             item.IsHover = item.Rectangle.Contains(mousePos);
 
             bool botaoPressionado = mouse.LeftButton == ButtonState.Pressed;
-            bool delayFinished = _currentDelay < 0;
 
-            if (botaoPressionado && delayFinished && !GlobalVariablesDto.IsMouseDown && item.IsHover)
+            if (botaoPressionado && !GlobalVariablesDto.IsMouseDown && item.IsHover)
             {
-                ClickSound?.Play(GlobalOptionsDto.SfxVolumeFloat, 0f, 0f);
                 ToggleOpen();
                 SelectItem(item.Id);
-                _currentDelay = Delay;
             }
         }
     }
@@ -79,27 +75,27 @@ public class DropdownComponent : BaseComponent
 
         foreach (var item in ListItens)
         {
-            var x = Rectangle.X + border;
-            var y = Rectangle.Y + Rectangle.Height + Rectangle.Height / 2 * item.Id;
-            var width = Rectangle.Width - border * 2;
-            var height = Rectangle.Height / 2;
+            var x = Bounds.X + border;
+            var y = Bounds.Y + Bounds.Height + Bounds.Height / 2 * item.Id;
+            var width = Bounds.Width - border * 2;
+            var height = Bounds.Height / 2;
 
             item.Rectangle = new(x, y, width, height);
         }
     }
 
-    public override void Draw()
+    public override void Draw(SpriteBatch spriteBatch)
     {
-        base.Draw();
+        base.Draw(spriteBatch);
 
         if (IsOpen)
         {
-            DrawDropdownOverlay();
-            DrawDropdownItems();
+            DrawDropdownOverlay(spriteBatch);
+            DrawDropdownItems(spriteBatch);
         }
     }
 
-    protected override string GetText()
+    protected string GetText()
     {
         var optionSelected = ListItens.FirstOrDefault(x => x.Id == SelectedItem);
 
@@ -108,25 +104,25 @@ public class DropdownComponent : BaseComponent
         return $"{Text}: {optionSelected.Text}";
     }
 
-    private void DrawDropdownItems()
+    private void DrawDropdownItems(SpriteBatch spriteBatch)
     {
         foreach (var item in ListItens)
         {
-            var textSize = SpriteFont.MeasureString(item.Text);
+            var textSize = GlobalVariablesDto.FontThickPixels.MeasureString(item.Text);
 
             var x = item.Rectangle.X + item.Rectangle.Width / 2 - textSize.X / 2;
             var y = item.Rectangle.Y + item.Rectangle.Height / 2 - textSize.Y / 2;
 
-            SpriteBatch.DrawString(SpriteFont, item.Text, new(x, y), Color.White);
+            spriteBatch.DrawString(GlobalVariablesDto.FontThickPixels, item.Text, new(x, y), Color.White);
         }
     }
 
-    private void DrawDropdownOverlay()
+    private void DrawDropdownOverlay(SpriteBatch spriteBatch)
     {
         foreach (var item in ListItens)
         {
             var color = item.IsHover ? Color.DarkGray * 0.7f : Color.DarkGray;
-            SpriteBatch.Draw(GlobalVariablesDto.Pixel, item.Rectangle, color);
+            spriteBatch.Draw(GlobalVariablesDto.Pixel, item.Rectangle, color);
         }
     }
 }

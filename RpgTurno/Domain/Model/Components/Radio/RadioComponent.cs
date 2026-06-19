@@ -1,14 +1,17 @@
-﻿using Application.Model.MenuElements.Base;
-using Domain.Dto.Global;
-using Domain.Model.Animation;
+﻿using Domain.Dto.Global;
+using Domain.Model.Components.Base;
+using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Application.Model.MenuElements.Radio;
 
+//TODO: Refatorar Radio quando tiver uma oportunidade de testar
 public class RadioComponent : BaseComponent
 {
+    public string Text { get; set; }
+
     public int Max { get; set; } = 100;
     public int Min { get; set; } = 0;
 
@@ -22,9 +25,9 @@ public class RadioComponent : BaseComponent
     public AnimationClip LineAnimation { get; set; }
     public Rectangle LineRectangle { get; set; }
 
-    public override void Update()
+    public override void Update(GameTime gameTime)
     {
-        base.Update();
+        base.Update(gameTime);
 
         UpdateLineRectangle();
         UpdateDotRectangle();
@@ -39,7 +42,7 @@ public class RadioComponent : BaseComponent
 
         if (IsDotPressed)
         {
-            int dotSize = Rectangle.Height / 4;
+            int dotSize = Bounds.Height / 4;
             int left = LineRectangle.X;
             int right = LineRectangle.Right - dotSize;
 
@@ -56,10 +59,6 @@ public class RadioComponent : BaseComponent
 
         if (mouse.LeftButton == ButtonState.Pressed && (isDotHover || isLineHover))
         {
-            if (!IsDotPressed)
-            {
-                ClickSound?.Play(GlobalOptionsDto.SfxVolumeFloat, 0f, 0f);
-            }
             IsDotPressed = true;
         }
         else if (mouse.LeftButton == ButtonState.Released)
@@ -70,15 +69,15 @@ public class RadioComponent : BaseComponent
 
     private void UpdateLineRectangle()
     {
-        var border = Rectangle.Width / 8;
-        var lineHeight = Rectangle.Height / 8;
-        var lineY = Rectangle.Y + Rectangle.Height - lineHeight * 3;
-        LineRectangle = new Rectangle(Rectangle.X + border, lineY, Rectangle.Width - border * 2, lineHeight);
+        var border = Bounds.Width / 8;
+        var lineHeight = Bounds.Height / 8;
+        var lineY = Bounds.Y + Bounds.Height - lineHeight * 3;
+        LineRectangle = new Rectangle(Bounds.X + border, lineY, Bounds.Width - border * 2, lineHeight);
     }
 
     private void UpdateDotRectangle()
     {
-        int dotSize = Rectangle.Height / 4;
+        int dotSize = Bounds.Height / 4;
         float percent = (float)(Value - Min) / (Max - Min);
 
         int left = LineRectangle.X;
@@ -90,61 +89,61 @@ public class RadioComponent : BaseComponent
         DotRectangle = new Rectangle(dotX, dotY, dotSize, dotSize);
     }
 
-    public override void Draw()
+    public override void Draw(SpriteBatch spriteBatch)
     {
-        base.Draw();
+        base.Draw(spriteBatch);
 
-        DrawLine();
+        DrawLine(spriteBatch);
 
         if (DotAnimation is not null)
         {
-            DrawDot();
+            DrawDot(spriteBatch);
         }
     }
 
-    protected void DrawDot()
+    protected void DrawDot(SpriteBatch spriteBatch)
     {
         if (DotAnimation is not null)
         {
-            DrawDotAnimation();
+            DrawDotAnimation(spriteBatch);
         }
         else
         {
-            DrawDotRectangle();
+            DrawDotRectangle(spriteBatch);
         }
     }
 
-    protected void DrawDotAnimation()
+    protected void DrawDotAnimation(SpriteBatch spriteBatch)
     {
-        DotAnimation.Draw(DotRectangle, Color, ActualAngle, DrawEffect, SpriteBatch);
+        DotAnimation.Draw(DotRectangle, Color, Rotation, SpriteEffects, spriteBatch);
     }
 
-    protected void DrawDotRectangle()
+    protected void DrawDotRectangle(SpriteBatch spriteBatch)
     {
-        SpriteBatch.Draw(GlobalVariablesDto.Pixel, DotRectangle, Color);
+        spriteBatch.Draw(GlobalVariablesDto.Pixel, DotRectangle, Color);
     }
 
-    protected void DrawLine()
+    protected void DrawLine(SpriteBatch spriteBatch)
     {
         if (LineAnimation is not null)
         {
-            DrawLineAnimation();
+            DrawLineAnimation(spriteBatch);
         }
         else
         {
-            DrawLineRectangle();
+            DrawLineRectangle(spriteBatch);
         }
     }
 
-    protected void DrawLineAnimation()
+    protected void DrawLineAnimation(SpriteBatch spriteBatch)
     {
-        LineAnimation.Draw(LineRectangle, Color, ActualAngle, DrawEffect, SpriteBatch);
+        LineAnimation.Draw(LineRectangle, Color, Rotation, SpriteEffects, spriteBatch);
     }
 
-    protected void DrawLineRectangle()
+    protected void DrawLineRectangle(SpriteBatch spriteBatch)
     {
-        SpriteBatch.Draw(GlobalVariablesDto.Pixel, LineRectangle, Color.DarkGray);
+        spriteBatch.Draw(GlobalVariablesDto.Pixel, LineRectangle, Color.DarkGray);
     }
 
-    protected override string GetText() => $"{Text}: {Value}";
+    protected string GetText() => $"{Text}: {Value}";
 }

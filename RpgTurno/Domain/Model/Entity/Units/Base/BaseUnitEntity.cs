@@ -1,9 +1,8 @@
-﻿using Domain.Const.Sprite;
-using Domain.Dto.Global;
+﻿using Domain.Dto.Global;
 using Domain.Enum;
-using Domain.Model.Components.Custom.HealthBar;
 using Domain.Model.Entity.Base;
-using Microsoft.Xna.Framework.Graphics;
+using Domain.Model.Entity.Units.Base.HealthBar;
+using Microsoft.Xna.Framework;
 
 namespace Domain.Model.Entity.Units.Base;
 
@@ -18,11 +17,9 @@ public class BaseUnitEntity : BaseEntity
 
     public BaseUnitEntity()
     {
-        Health = MaxHealth / 2; 
+        Health = MaxHealth; 
         
-        var baseTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallBarBase);
-        var fillTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallBarFill);
-        _healthBar = new HealthBarComponent(baseTexture, fillTexture, width: 120, height: 32, offsetY: 0);
+        _healthBar = new HealthBarComponent(MaxHealth, Health);
     }
 
     public override void Update()
@@ -30,6 +27,14 @@ public class BaseUnitEntity : BaseEntity
         base.Update();
 
         CreatureState = CreatureStateType.Idle;
+
+        UpdateHealthBar(GlobalVariablesDto.GameTime);
+    }
+
+    private void UpdateHealthBar(GameTime gameTime)
+    {
+        _healthBar.SetPosition((int)PositionX, (int)PositionY + SizeY);
+        _healthBar.Update(gameTime);
     }
 
     public override void Draw()
@@ -40,6 +45,6 @@ public class BaseUnitEntity : BaseEntity
 
     protected virtual void DrawHealthBar()
     {
-        _healthBar.Draw(Rectangle, Health, MaxHealth, GlobalVariablesDto.SpriteBatchEntities);
+        _healthBar.Draw(GlobalVariablesDto.SpriteBatchEntities);
     }
 }

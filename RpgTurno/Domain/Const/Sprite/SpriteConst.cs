@@ -76,5 +76,11 @@ public static class SpriteConst
 
     #endregion
 
+    #region Banners
+
+    public const string PaperBanner = "PaperBanner";
+
+    #endregion
+
     #endregion
 }

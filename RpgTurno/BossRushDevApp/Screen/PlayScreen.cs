@@ -3,7 +3,7 @@ using Domain.Const.Screen;
 using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Enum.Component.Cursor;
-using Domain.Model.Components.Custom.Selection;
+using Domain.Model.Components.Custom.Banners;
 using Domain.Model.Entity.Base;
 using Domain.Model.Entity.Units.Ally.Archer;
 using Domain.Model.Entity.Units.Ally.Cleric;
@@ -13,6 +13,8 @@ using Domain.Model.Entity.Units.Enemy.Archer;
 using Domain.Model.Entity.Units.Enemy.Cleric;
 using Domain.Model.Entity.Units.Enemy.Lancer;
 using Domain.Model.Entity.Units.Enemy.Warrior;
+using Microsoft.Xna.Framework;
+using RpgTurno.CustomComponents.Selection;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,7 @@ public class PlayScreen : BaseScreen
 
     private SelectionAreaComponent _selectionArea;
     private BaseEntity _focusedEntity;
+    private EntitytBannerComponent _focusedEntitybanner;
 
     #region Initialize
 
@@ -54,6 +57,7 @@ public class PlayScreen : BaseScreen
         SetEntitiesPosition();
 
         _selectionArea = new();
+        _focusedEntitybanner = new (new Rectangle(0, 0, 500, 300));
     }
 
     private void SetEntitiesPosition()
@@ -115,9 +119,9 @@ public class PlayScreen : BaseScreen
 
     #region Update
 
-    public override void Update()
+    public override void Update(GameTime gameTime)
     {
-        base.Update();
+        base.Update(gameTime);
 
         _alliesParty.ForEach(x => x.Update());
         _enemiesParty.ForEach(x => x.Update());
@@ -198,6 +202,7 @@ public class PlayScreen : BaseScreen
         if (HasFocusedEntity())
         {
             DrawSelectionAreaOnFocusedEntity();
+            DrawFocusedEntityBanner();
         }
     }
 
@@ -218,7 +223,12 @@ public class PlayScreen : BaseScreen
 
     private void DrawSelectionAreaOnFocusedEntity()
     {
-        _selectionArea.Draw();
+        _selectionArea.Draw(GlobalVariablesDto.SpriteBatchInterface);
+    }
+
+    private void DrawFocusedEntityBanner()
+    {
+        _focusedEntitybanner.Draw(GlobalVariablesDto.SpriteBatchInterface);
     }
 
     #endregion
