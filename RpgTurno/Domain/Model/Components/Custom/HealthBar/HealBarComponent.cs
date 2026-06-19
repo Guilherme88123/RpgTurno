@@ -10,33 +10,34 @@ namespace Domain.Model.Components.Custom.HealthBar;
 public class HealthBarComponent
 {
     private readonly ResizableSpriteData _baseSprite;
-    private readonly ResizableSpriteData _fillSprite;
-    private readonly int _sliceWidth;
+    private readonly SpriteData _fillSprite;
     private readonly int _width;
     private readonly int _height;
     private readonly int _offsetY;
 
+    private readonly int _sliceWidth = 16;
+
     public HealthBarComponent(Texture2D baseTexture, Texture2D fillTexture, int width, int height, int offsetY = 10)
     {
-        _baseSprite = new ResizableSpriteData(baseTexture, ResizableSpriteType.Horizontal, 16, 0, new BorderDefinition(16, 16, 48, 48), piecesGap: 64);
-        _fillSprite = new ResizableSpriteData(fillTexture, ResizableSpriteType.None, 0, 0);
+        _baseSprite = new ResizableSpriteData(baseTexture, ResizableSpriteType.Horizontal, _sliceWidth, 0, new BorderDefinition(16, 16, 48, 48), piecesGap: 64);
+        _fillSprite = new SpriteData(fillTexture);
         _width = width;
         _height = height;
         _offsetY = offsetY;
     }
 
-    public void Draw(Vector2 entityCenter, int currentHealth, int maxHealth, SpriteBatch spriteBatch)
+    public void Draw(Rectangle entityRectangle, int currentHealth, int maxHealth, SpriteBatch spriteBatch)
     {
-        var position = GetAbsolutePosition(entityCenter);
+        var position = GetAbsolutePosition(entityRectangle);
 
         DrawBaseSprite(position, spriteBatch);
         DrawFillSprite(currentHealth, maxHealth, position, spriteBatch);
     }
 
-    private Point GetAbsolutePosition(Vector2 centerPosition)
+    private Point GetAbsolutePosition(Rectangle entityRectangle)
     {
-        int positionX = (int)(centerPosition.X - _width / 2f);
-        int positionY = (int)(centerPosition.Y - _offsetY);
+        int positionX = (int)(entityRectangle.X + entityRectangle.Width / 2 - _width / 2f);
+        int positionY = (int)(entityRectangle.Y + entityRectangle.Height - _offsetY);
 
         return new (positionX, positionY);
     }
@@ -49,7 +50,7 @@ public class HealthBarComponent
 
     private void DrawFillSprite(int currentValue, int maxValue, Point position, SpriteBatch spriteBatch)
     {
-        float percent = (float)currentValue / currentValue;
+        float percent = (float)currentValue / maxValue;
         int fillWidth = (int)((_width - _sliceWidth * 2) * percent);
         if (fillWidth > 0)
         {

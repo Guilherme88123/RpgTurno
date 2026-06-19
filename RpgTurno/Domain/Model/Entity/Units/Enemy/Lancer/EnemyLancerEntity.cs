@@ -25,6 +25,6 @@ public class EnemyLancerEntity : BaseUnitEntity
         Animation.AddAnimation(CreatureStateType.Attacking, new AnimationClip(attack, 3, 1, 0.1f, border: spriteBorder));
 
         SizeX = 96;
-        SizeY = 224;
+        SizeY = 160;
     }
 }
