@@ -26,5 +26,6 @@ public class EnemyWarriorEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 96;
+        Name = "Evil Warrior";
     }
 }

@@ -24,5 +24,6 @@ public class EnemyClericEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 96;
+        Name = "Evil Cleric";
     }
 }

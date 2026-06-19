@@ -24,5 +24,6 @@ public class ClericEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 96;
+        Name = "Cleric";
     }
 }

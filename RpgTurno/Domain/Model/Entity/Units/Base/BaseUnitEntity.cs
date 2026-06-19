@@ -8,6 +8,8 @@ namespace Domain.Model.Entity.Units.Base;
 
 public class BaseUnitEntity : BaseEntity
 {
+    public string Name { get; set; }
+
     public int MaxHealth { get; set; } = 10;
     public int Health { get; set; }
 

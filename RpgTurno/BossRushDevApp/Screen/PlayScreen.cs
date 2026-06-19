@@ -1,14 +1,13 @@
-﻿using Accessibility;
-using Domain.Const.Screen;
+﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Enum.Component.Cursor;
 using Domain.Model.Components.Custom.Banners;
-using Domain.Model.Entity.Base;
 using Domain.Model.Entity.Units.Ally.Archer;
 using Domain.Model.Entity.Units.Ally.Cleric;
 using Domain.Model.Entity.Units.Ally.Lancer;
 using Domain.Model.Entity.Units.Ally.Warrior;
+using Domain.Model.Entity.Units.Base;
 using Domain.Model.Entity.Units.Enemy.Archer;
 using Domain.Model.Entity.Units.Enemy.Cleric;
 using Domain.Model.Entity.Units.Enemy.Lancer;
@@ -25,13 +24,13 @@ public class PlayScreen : BaseScreen
 {
     public override string ScreenCode => ScreenConst.PlayScreen;
 
-    private List<BaseEntity> _alliesParty = new();
-    private List<BaseEntity> _enemiesParty = new();
-    private List<BaseEntity> _allEntities => [.. _alliesParty, .. _enemiesParty];
+    private List<BaseUnitEntity> _alliesParty = new();
+    private List<BaseUnitEntity> _enemiesParty = new();
+    private List<BaseUnitEntity> _allEntities => [.. _alliesParty, .. _enemiesParty];
 
     private SelectionAreaComponent _selectionArea;
-    private BaseEntity _focusedEntity;
-    private EntitytBannerComponent _focusedEntitybanner;
+    private BaseUnitEntity _focusedEntity;
+    private UnitBannerComponent _focusedUnitBanner;
 
     #region Initialize
 
@@ -57,7 +56,8 @@ public class PlayScreen : BaseScreen
         SetEntitiesPosition();
 
         _selectionArea = new();
-        _focusedEntitybanner = new (new Rectangle(0, 0, 500, 300));
+        _focusedUnitBanner = new ();
+        _focusedUnitBanner.SetPosition(0, 400);
     }
 
     private void SetEntitiesPosition()
@@ -87,7 +87,7 @@ public class PlayScreen : BaseScreen
         FixEntitiesPositionBySize(_enemiesParty);
     }
 
-    private void SetEntitiesYPosition(List<BaseEntity> entitiesList)
+    private void SetEntitiesYPosition(List<BaseUnitEntity> entitiesList)
     {
         if (!entitiesList.Any()) return;
 
@@ -104,7 +104,7 @@ public class PlayScreen : BaseScreen
         }
     }
 
-    private void FixEntitiesPositionBySize(List<BaseEntity> entitiesList)
+    private void FixEntitiesPositionBySize(List<BaseUnitEntity> entitiesList)
     {
         if (!entitiesList.Any()) return;
 
@@ -125,6 +125,8 @@ public class PlayScreen : BaseScreen
 
         _alliesParty.ForEach(x => x.Update());
         _enemiesParty.ForEach(x => x.Update());
+
+        _focusedUnitBanner.Update(gameTime);
 
         VerifyCursorHoverEntities();
     }
@@ -150,16 +152,17 @@ public class PlayScreen : BaseScreen
         return _allEntities.Any(x => x.Rectangle.Contains(mouse.X, mouse.Y));
     }
 
-    private BaseEntity GetCursorHoveringEntity()
+    private BaseUnitEntity GetCursorHoveringEntity()
     {
         var mouse = GlobalVariablesDto.MouseState;
         return _allEntities.First(x => x.Rectangle.Contains(mouse.X, mouse.Y));
     }
 
-    private void SetFocusedEntity(BaseEntity entity)
+    private void SetFocusedEntity(BaseUnitEntity entity)
     {
         _focusedEntity = entity;
         _selectionArea.SetDestinationRectangle(entity.Rectangle);
+        _focusedUnitBanner.SetFocusedUnit(entity);
     }
 
     private void ClearFocusedEntity()
@@ -228,7 +231,7 @@ public class PlayScreen : BaseScreen
 
     private void DrawFocusedEntityBanner()
     {
-        _focusedEntitybanner.Draw(GlobalVariablesDto.SpriteBatchInterface);
+        _focusedUnitBanner.Draw(GlobalVariablesDto.SpriteBatchInterface);
     }
 
     #endregion

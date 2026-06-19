@@ -26,5 +26,6 @@ public class EnemyLancerEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 160;
+        Name = "Evil Lancer";
     }
 }

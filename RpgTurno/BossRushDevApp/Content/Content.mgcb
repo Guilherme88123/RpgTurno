@@ -128,6 +128,18 @@
 /processorParam:TextureFormat=Color
 /build:Cleric_Run.png
 
+#begin CloseIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:CloseIcon.png
+
 #begin Enemy_Archer_Idle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -308,6 +320,30 @@
 /processorParam:TextureFormat=Color
 /build:Enemy_Warrior_Run.png
 
+#begin GoldIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GoldIcon.png
+
+#begin HammerIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HammerIcon.png
+
 #begin HoverCursor.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -319,6 +355,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:HoverCursor.png
+
+#begin InformationIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:InformationIcon.png
 
 #begin Lancer_Attack.png
 /importer:TextureImporter
@@ -375,6 +423,18 @@
 /processorParam:TextureFormat=Compressed
 /build:LazyFox.spritefont
 
+#begin MeatIcon.png.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MeatIcon.png.png
+
 #begin NormalCursor.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -399,6 +459,30 @@
 /processorParam:TextureFormat=Color
 /build:PaperBanner.png
 
+#begin PlayIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PlayIcon.png
+
+#begin ReturnIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ReturnIcon.png
+
 #begin SelectionArea.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -410,6 +494,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SelectionArea.png
+
+#begin SettingsIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SettingsIcon.png
+
+#begin ShieldIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ShieldIcon.png
 
 #begin SmallBar_Base.png
 /importer:TextureImporter
@@ -434,6 +542,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SmallBar_Fill.png
+
+#begin SongIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SongIcon.png
+
+#begin SwordIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SwordIcon.png
 
 #begin ThickPixels.spritefont
 /importer:FontDescriptionImporter
@@ -501,4 +633,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Warrior_Run.png
+
+#begin WoodIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:WoodIcon.png
 

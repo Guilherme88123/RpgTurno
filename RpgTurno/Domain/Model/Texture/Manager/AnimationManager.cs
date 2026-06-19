@@ -29,6 +29,9 @@ public class AnimationManager
 
     public void Draw(Rectangle rect, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
     {
+        if (_currentKey is null)
+            return;
+
         _animations[_currentKey].Draw(rect, color, rotation, drawEffect, spriteBatch);
     }
 }

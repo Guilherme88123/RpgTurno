@@ -26,5 +26,6 @@ public class WarriorEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 96;
+        Name = "Warrior";
     }
 }

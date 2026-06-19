@@ -24,5 +24,6 @@ public class EnemyArcherEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 96;
+        Name = "Evil Archer";
     }
 }

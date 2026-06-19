@@ -24,5 +24,6 @@ public class ArcherEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 96;
+        Name = "Archer";
     }
 }

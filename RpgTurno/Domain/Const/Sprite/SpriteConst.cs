@@ -82,5 +82,22 @@ public static class SpriteConst
 
     #endregion
 
+    #region Icons
+
+    public const string HammerIcon = "HammerIcon";
+    public const string WoodIcon = "WoodIcon";
+    public const string GoldIcon = "GoldIcon";
+    public const string MeatIcon = "MeatIcon";
+    public const string SwordIcon = "SwordIcon";
+    public const string ShieldIcon = "ShieldIcon";
+    public const string PlayIcon = "PlayIcon";
+    public const string ReturnIcon = "ReturnIcon";
+    public const string CloseIcon = "CloseIcon";
+    public const string SettingsIcon = "SettingsIcon";
+    public const string InformationIcon = "InformationIcon";
+    public const string SongIcon = "SongIcon";
+
+    #endregion
+
     #endregion
 }

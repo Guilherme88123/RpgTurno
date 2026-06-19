@@ -26,5 +26,6 @@ public class LancerEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 160;
+        Name = "Lancer";
     }
 }
