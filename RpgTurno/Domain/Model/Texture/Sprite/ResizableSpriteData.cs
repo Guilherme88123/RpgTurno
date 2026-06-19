@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Data;
 
-namespace Domain.Model.Sprite;
+namespace Domain.Model.Texture.Sprite;
 
 public class ResizableSpriteData : SpriteData
 {
@@ -76,43 +76,160 @@ public class ResizableSpriteData : SpriteData
         //TODO: Implementar sprite redimensionavel vertical
     }
 
-    private void DrawFullResizable(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
+    private void DrawFullResizable(
+        Rectangle destinationRectangle,
+        Color color,
+        float rotation,
+        SpriteEffects drawEffect,
+        SpriteBatch spriteBatch)
     {
         int sx = SourceRectangle.X;
         int sy = SourceRectangle.Y;
         int sw = SourceRectangle.Width;
         int sh = SourceRectangle.Height;
+
         int fh = _fixedHorizontalSlice;
         int fv = _fixedVerticalSlice;
+
+        int g = _piecesGap;
 
         int dx = destinationRectangle.X;
         int dy = destinationRectangle.Y;
         int dw = destinationRectangle.Width;
         int dh = destinationRectangle.Height;
 
-        var sourceTopLeft = new Rectangle(sx, sy, fh, fv);
-        var sourceTopCenter = new Rectangle(sx + fh, sy, sw - fh * 2, fv);
-        var sourceTopRight = new Rectangle(sx + sw - fh, sy, fh, fv);
+        int sourceCenterWidth = sw - fh * 2 - g * 2;
+        int sourceCenterHeight = sh - fv * 2 - g * 2;
 
-        var sourceMidLeft = new Rectangle(sx, sy + fv, fh, sh - fv * 2);
-        var sourceMidCenter = new Rectangle(sx + fh, sy + fv, sw - fh * 2, sh - fv * 2);
-        var sourceMidRight = new Rectangle(sx + sw - fh, sy + fv, fh, sh - fv * 2);
+        var sourceTopLeft =
+            new Rectangle(
+                sx,
+                sy,
+                fh,
+                fv);
 
-        var sourceDownLeft = new Rectangle(sx, sy + sh - fv, fh, fv);
-        var sourceDownCenter = new Rectangle(sx + fh, sy + sh - fv, sw - fh * 2, fv);
-        var sourceDownRight = new Rectangle(sx + sw - fh, sy + sh - fv, fh, fv);
+        var sourceTopCenter =
+            new Rectangle(
+                sx + fh + g,
+                sy,
+                sourceCenterWidth,
+                fv);
 
-        var destTopLeft = new Rectangle(dx, dy, fh, fv);
-        var destTopCenter = new Rectangle(dx + fh, dy, dw - fh * 2, fv);
-        var destTopRight = new Rectangle(dx + dw - fh, dy, fh, fv);
+        var sourceTopRight =
+            new Rectangle(
+                sx + sw - fh,
+                sy,
+                fh,
+                fv);
 
-        var destMidLeft = new Rectangle(dx, dy + fv, fh, dh - fv * 2);
-        var destMidCenter = new Rectangle(dx + fh, dy + fv, dw - fh * 2, dh - fv * 2);
-        var destMidRight = new Rectangle(dx + dw - fh, dy + fv, fh, dh - fv * 2);
 
-        var destDownLeft = new Rectangle(dx, dy + dh - fv, fh, fv);
-        var destDownCenter = new Rectangle(dx + fh, dy + dh - fv, dw - fh * 2, fv);
-        var destDownRight = new Rectangle(dx + dw - fh, dy + dh - fv, fh, fv);
+        var sourceMidLeft =
+            new Rectangle(
+                sx,
+                sy + fv + g,
+                fh,
+                sourceCenterHeight);
+
+        var sourceMidCenter =
+            new Rectangle(
+                sx + fh + g,
+                sy + fv + g,
+                sourceCenterWidth,
+                sourceCenterHeight);
+
+        var sourceMidRight =
+            new Rectangle(
+                sx + sw - fh,
+                sy + fv + g,
+                fh,
+                sourceCenterHeight);
+
+
+        var sourceDownLeft =
+            new Rectangle(
+                sx,
+                sy + sh - fv,
+                fh,
+                fv);
+
+        var sourceDownCenter =
+            new Rectangle(
+                sx + fh + g,
+                sy + sh - fv,
+                sourceCenterWidth,
+                fv);
+
+        var sourceDownRight =
+            new Rectangle(
+                sx + sw - fh,
+                sy + sh - fv,
+                fh,
+                fv);
+
+        var destTopLeft =
+            new Rectangle(
+                dx,
+                dy,
+                fh,
+                fv);
+
+        var destTopCenter =
+            new Rectangle(
+                dx + fh,
+                dy,
+                dw - fh * 2,
+                fv);
+
+        var destTopRight =
+            new Rectangle(
+                dx + dw - fh,
+                dy,
+                fh,
+                fv);
+
+
+        var destMidLeft =
+            new Rectangle(
+                dx,
+                dy + fv,
+                fh,
+                dh - fv * 2);
+
+        var destMidCenter =
+            new Rectangle(
+                dx + fh,
+                dy + fv,
+                dw - fh * 2,
+                dh - fv * 2);
+
+        var destMidRight =
+            new Rectangle(
+                dx + dw - fh,
+                dy + fv,
+                fh,
+                dh - fv * 2);
+
+
+        var destDownLeft =
+            new Rectangle(
+                dx,
+                dy + dh - fv,
+                fh,
+                fv);
+
+        var destDownCenter =
+            new Rectangle(
+                dx + fh,
+                dy + dh - fv,
+                dw - fh * 2,
+                fv);
+
+        var destDownRight =
+            new Rectangle(
+                dx + dw - fh,
+                dy + dh - fv,
+                fh,
+                fv);
 
         DrawBySource(sourceTopLeft, destTopLeft, color, rotation, drawEffect, spriteBatch);
         DrawBySource(sourceTopCenter, destTopCenter, color, rotation, drawEffect, spriteBatch);

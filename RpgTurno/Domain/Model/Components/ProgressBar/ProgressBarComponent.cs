@@ -1,0 +1,50 @@
+﻿using Domain.Model.Components.Base;
+using Domain.Model.Texture.Sprite;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace Domain.Model.Components.ProgressBar;
+
+public class ProgressBarComponent : BaseComponent
+{
+    public int MaxValue { get; }
+    public int CurrentValue { get; }
+
+    private readonly SpriteData _fillSprite;
+
+    private readonly int _fixedSlice;
+
+    public ProgressBarComponent(SpriteData fillSprite, int maxValue, int currentValue, int fixedSlice = 0)
+    {
+        _fillSprite = fillSprite;
+        MaxValue = maxValue;
+        CurrentValue = currentValue;
+        _fixedSlice = fixedSlice;
+    }
+
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        base.Draw(spriteBatch);
+
+        DrawFillSprite(spriteBatch);
+    }
+
+    private void DrawFillSprite(SpriteBatch spriteBatch)
+    {
+        var fillRectangle = GetFillRectangle();
+
+        _fillSprite.Draw(fillRectangle, Color, Rotation, SpriteEffects, spriteBatch);
+    }
+
+    private Rectangle GetFillRectangle()
+    {
+        float percent = (float)CurrentValue / MaxValue;
+        int fillWidth = (int)((Bounds.Width - _fixedSlice * 2) * percent);
+
+        return new Rectangle(
+            Bounds.X + _fixedSlice / 2, 
+            Bounds.Y, 
+            fillWidth + _fixedSlice, 
+            Bounds.Height);
+    }
+}

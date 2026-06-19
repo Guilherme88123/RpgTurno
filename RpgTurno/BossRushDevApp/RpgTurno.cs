@@ -75,9 +75,10 @@ public class RpgTurno : Game
 
     protected override void Update(GameTime gameTime)
     {
+        GlobalVariablesDto.GameTime = gameTime;
         GlobalVariablesDto.DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-        ScreenManager.ActualScreen.Update();
+        ScreenManager.ActualScreen.Update(gameTime);
 
         UpdateFpsCounter();
 

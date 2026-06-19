@@ -1,10 +1,9 @@
 ﻿using Domain.Dto.Global;
-using Domain.Model.Sprite;
 using Domain.Model.Sprite.Border;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Domain.Model.Animation;
+namespace Domain.Model.Texture.Sprite;
 
 public class AnimationClip
 {
@@ -15,7 +14,7 @@ public class AnimationClip
     private float _currentFrameTimeLeft;
     private bool _isPlaying = true;
 
-    public AnimationClip(List<SpriteData> frames, float frameTime)
+    public AnimationClip(List<SpriteData> frames, float frameTime = 0f)
     {
         _frames = frames;
         _frameTime = frameTime;

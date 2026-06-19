@@ -1,4 +1,6 @@
-﻿using Application.Model.MenuElements.Base;
+﻿using Domain.Model.Components.Base;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Domain.Interface.UiManager;
 
@@ -13,6 +15,6 @@ public interface IUiManagerService
     void AddComponent(List<BaseComponent> components);
 
     void ClearComponents();
-    void UpdateComponents();
-    void DrawComponents();
+    void UpdateComponents(GameTime gameTime);
+    void DrawComponents(SpriteBatch spriteBatch);
 }
