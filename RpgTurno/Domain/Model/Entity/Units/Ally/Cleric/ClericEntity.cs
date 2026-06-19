@@ -25,5 +25,8 @@ public class ClericEntity : BaseUnitEntity
         SizeX = 96;
         SizeY = 96;
         Name = "Cleric";
+
+        var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ClericAvatar);
+        Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
     }
 }

@@ -24,6 +24,7 @@ public class UnitBannerComponent : FrameComponent
     private ImageComponent _nameIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.PlayIcon)), 32, 32);
     private ImageComponent _swordIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SwordIcon)), 32, 32);
     private ImageComponent _shieldIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ShieldIcon)), 32, 32);
+    private ImageComponent _unitIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericAvatar)), 128, 128);
 
     public UnitBannerComponent()
     {
@@ -36,6 +37,7 @@ public class UnitBannerComponent : FrameComponent
         AddChild(_nameIcon);
         AddChild(_swordIcon);
         AddChild(_shieldIcon);
+        AddChild(_unitIcon);
 
         Bounds = new Rectangle(0, 0, 300, 240);
     }
@@ -45,14 +47,17 @@ public class UnitBannerComponent : FrameComponent
         _nameText.SetText(focusedEntity.Name);
         _healtText.SetText($"{focusedEntity.Health}/{focusedEntity.MaxHealth}");
         _damageText.SetText(focusedEntity.Damage.ToString());
+        _unitIcon.SetImage(focusedEntity.Icon);
     }
 
     public override void SetPosition(int positionX, int positionY)
     {
         base.SetPosition(positionX, positionY);
 
+        _unitIcon.SetPosition(positionX + Bounds.Width / 2 - 64, positionY - 20);
+
         var textX = positionX + _fixedSlice + 10;
-        var textY = positionY + 50;
+        var textY = positionY + 70;
 
         _nameIcon.SetPosition(textX - 37, textY + 30 - 5);
         _nameText.SetPosition(textX, textY + 30);

@@ -25,5 +25,8 @@ public class EnemyArcherEntity : BaseUnitEntity
         SizeX = 96;
         SizeY = 96;
         Name = "Evil Archer";
+
+        var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyArcherAvatar);
+        Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Domain.Const.Sprite;
 using Domain.Dto.Global;
 using Domain.Enum;
+using Domain.Model.Components.Image;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Sprite.Border;
 using Domain.Model.Texture.Sprite;
@@ -27,5 +28,8 @@ public class WarriorEntity : BaseUnitEntity
         SizeX = 96;
         SizeY = 96;
         Name = "Warrior";
+
+        var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.WarriorAvatar);
+        Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
     }
 }

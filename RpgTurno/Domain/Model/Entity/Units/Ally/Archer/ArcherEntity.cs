@@ -25,5 +25,8 @@ public class ArcherEntity : BaseUnitEntity
         SizeX = 96;
         SizeY = 96;
         Name = "Archer";
+
+        var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ArcherAvatar);
+        Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
     }
 }

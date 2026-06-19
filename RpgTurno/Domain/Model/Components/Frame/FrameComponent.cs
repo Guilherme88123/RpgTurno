@@ -22,7 +22,13 @@ public class FrameComponent : BaseComponent
 
     private void UpdateChildren(GameTime gameTime)
     {
-        _children.ForEach(child => child.Update(gameTime));
+        foreach (var child in _children)
+        {
+            if (child is null)
+                continue;
+
+            child.Update(gameTime);
+        }
     }
 
     public override void Draw(SpriteBatch spriteBatch)
@@ -34,6 +40,12 @@ public class FrameComponent : BaseComponent
 
     private void DrawChildren(SpriteBatch spriteBatch)
     {
-        _children.ForEach(child => child.Draw(spriteBatch));
+        foreach (var child in _children)
+        {
+            if (child is null)
+                continue;
+
+            child.Draw(spriteBatch);
+        }
     }
 }

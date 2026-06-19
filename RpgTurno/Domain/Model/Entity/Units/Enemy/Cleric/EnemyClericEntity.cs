@@ -25,5 +25,8 @@ public class EnemyClericEntity : BaseUnitEntity
         SizeX = 96;
         SizeY = 96;
         Name = "Evil Cleric";
+
+        var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericAvatar);
+        Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
     }
 }

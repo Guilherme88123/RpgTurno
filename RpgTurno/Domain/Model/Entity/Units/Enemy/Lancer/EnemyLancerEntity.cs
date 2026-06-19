@@ -27,5 +27,8 @@ public class EnemyLancerEntity : BaseUnitEntity
         SizeX = 96;
         SizeY = 160;
         Name = "Evil Lancer";
+
+        var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyLancerAvatar);
+        Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
     }
 }

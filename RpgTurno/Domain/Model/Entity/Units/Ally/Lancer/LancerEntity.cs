@@ -27,5 +27,8 @@ public class LancerEntity : BaseUnitEntity
         SizeX = 96;
         SizeY = 160;
         Name = "Lancer";
+
+        var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.LancerAvatar);
+        Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
     }
 }

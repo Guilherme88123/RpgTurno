@@ -99,5 +99,18 @@ public static class SpriteConst
 
     #endregion
 
+    #region Avatars
+
+    public const string WarriorAvatar = "WarriorAvatar";
+    public const string ArcherAvatar = "ArcherAvatar";
+    public const string LancerAvatar = "LancerAvatar";
+    public const string ClericAvatar = "ClericAvatar";
+    public const string EnemyWarriorAvatar = "EnemyWarriorAvatar";
+    public const string EnemyArcherAvatar = "EnemyArcherAvatar";
+    public const string EnemyLancerAvatar = "EnemyLancerAvatar";
+    public const string EnemyClericAvatar = "EnemyClericAvatar";
+
+    #endregion
+
     #endregion
 }

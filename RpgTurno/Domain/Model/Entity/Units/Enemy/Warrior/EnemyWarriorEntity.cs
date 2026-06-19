@@ -27,5 +27,8 @@ public class EnemyWarriorEntity : BaseUnitEntity
         SizeX = 96;
         SizeY = 96;
         Name = "Evil Warrior";
+
+        var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorAvatar);
+        Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
     }
 }
