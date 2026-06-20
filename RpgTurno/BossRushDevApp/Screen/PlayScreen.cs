@@ -136,6 +136,7 @@ public class PlayScreen : BaseScreen
         _alliesParty.ForEach(x => x.Update());
         _enemiesParty.ForEach(x => x.Update());
 
+        _selectionArea.Update(gameTime);
         _focusedUnitBanner.Update(gameTime);
 
         VerifyCursorHoverEntities();

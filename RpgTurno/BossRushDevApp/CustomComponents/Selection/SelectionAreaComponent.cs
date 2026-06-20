@@ -5,6 +5,7 @@ using Domain.Model.Components.Base;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace RpgTurno.CustomComponents.Selection;
 
@@ -27,7 +28,12 @@ public class SelectionAreaComponent : BaseComponent
 
     private Rectangle FixRectangleWithFixedSlice(Rectangle destinationRectangle)
     {
-        return new Rectangle(destinationRectangle.X - _fixedSlice / 2, destinationRectangle.Y - _fixedSlice / 2,
-            destinationRectangle.Width + _fixedSlice, destinationRectangle.Height + _fixedSlice);
+        var bounce = GlobalVariablesDto.GetBounceValue();
+
+        return new Rectangle(
+            destinationRectangle.X - _fixedSlice / 2 - bounce, 
+            destinationRectangle.Y - _fixedSlice / 2 - bounce,
+            destinationRectangle.Width + _fixedSlice + bounce * 2, 
+            destinationRectangle.Height + _fixedSlice + bounce * 2);
     }
 }

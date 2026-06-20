@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace Domain.Dto.Global;
 
@@ -18,6 +19,7 @@ public static class GlobalVariablesDto
 
     public static GameTime GameTime;
     public static float DeltaTime;
+    public static float AcumulatedDeltaTime;
 
     public static SpriteFont FontArial;
     public static SpriteFont FontThickPixels;
@@ -60,5 +62,11 @@ public static class GlobalVariablesDto
         }
 
         return null;
+    }
+
+    public static int GetBounceValue(float bounceAmplitude = 8f, float bounceSpeed = 6f)
+    {
+        var bounceFloat = bounceAmplitude * (Math.Cos(AcumulatedDeltaTime * bounceSpeed));
+        return (int)bounceFloat;
     }
 }

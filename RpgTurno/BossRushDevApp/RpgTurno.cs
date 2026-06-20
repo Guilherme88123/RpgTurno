@@ -77,6 +77,7 @@ public class RpgTurno : Game
     {
         GlobalVariablesDto.GameTime = gameTime;
         GlobalVariablesDto.DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        GlobalVariablesDto.AcumulatedDeltaTime += GlobalVariablesDto.DeltaTime;
 
         ScreenManager.ActualScreen.Update(gameTime);
 
