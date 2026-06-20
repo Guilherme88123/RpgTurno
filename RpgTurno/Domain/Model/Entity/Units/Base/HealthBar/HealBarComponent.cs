@@ -18,7 +18,7 @@ public class HealthBarComponent : ProgressBarComponent
         var baseTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallBarBase);
         AnimationManager.Add(true, new AnimationClip([new ResizableSpriteData(baseTexture, ResizableSpriteType.Horizontal, _sliceWidth, 0, new BorderDefinition(16, 16, 48, 48), piecesGap: 64)]));
 
-        Bounds = new Rectangle(0, 0, 120, 32);
+        Bounds = new Rectangle(0, 0, 100, 32);
     }
 
     private static SpriteData GetFillSprite()

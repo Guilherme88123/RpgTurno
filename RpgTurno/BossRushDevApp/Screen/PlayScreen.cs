@@ -1,8 +1,10 @@
 ﻿using Domain.Const.Screen;
+using Domain.Const.Sprite;
 using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Enum.Component.Cursor;
 using Domain.Model.Components.Custom.Banners;
+using Domain.Model.Components.Image;
 using Domain.Model.Entity.Units.Ally.Archer;
 using Domain.Model.Entity.Units.Ally.Cleric;
 using Domain.Model.Entity.Units.Ally.Lancer;
@@ -12,7 +14,10 @@ using Domain.Model.Entity.Units.Enemy.Archer;
 using Domain.Model.Entity.Units.Enemy.Cleric;
 using Domain.Model.Entity.Units.Enemy.Lancer;
 using Domain.Model.Entity.Units.Enemy.Warrior;
+using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using RpgTurno.CustomComponents.Background;
 using RpgTurno.CustomComponents.Selection;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
@@ -31,6 +36,8 @@ public class PlayScreen : BaseScreen
     private SelectionAreaComponent _selectionArea;
     private BaseUnitEntity _focusedEntity;
     private UnitBannerComponent _focusedUnitBanner;
+
+    private BackgroundComponent _backgroundImage;
 
     #region Initialize
 
@@ -56,8 +63,11 @@ public class PlayScreen : BaseScreen
         SetEntitiesPosition();
 
         _selectionArea = new();
-        _focusedUnitBanner = new ();
-        _focusedUnitBanner.SetPosition(0, 400);
+
+        _focusedUnitBanner = new();
+        _focusedUnitBanner.SetPosition(50, 400);
+
+        _backgroundImage = new();
     }
 
     private void SetEntitiesPosition()
@@ -197,6 +207,8 @@ public class PlayScreen : BaseScreen
 
     public override void Draw()
     {
+        DrawBackground();
+
         base.Draw();
 
         DrawAllies();
@@ -207,6 +219,11 @@ public class PlayScreen : BaseScreen
             DrawSelectionAreaOnFocusedEntity();
             DrawFocusedEntityBanner();
         }
+    }
+
+    private void DrawBackground()
+    {
+        _backgroundImage.Draw(GlobalVariablesDto.SpriteBatchBackground);
     }
 
     private void DrawAllies()

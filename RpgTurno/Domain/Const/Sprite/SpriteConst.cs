@@ -113,4 +113,10 @@ public static class SpriteConst
     #endregion
 
     #endregion
+
+    #region Maps
+
+    public const string BasicGrassMap = "BasicGrassMap";
+
+    #endregion
 }
