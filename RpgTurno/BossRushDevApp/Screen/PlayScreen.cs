@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.CustomComponents.Background;
 using RpgTurno.CustomComponents.Selection;
+using RpgTurno.CustomComponents.TurnQueue;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,8 @@ public class PlayScreen : BaseScreen
     private UnitBannerComponent _focusedUnitBanner;
 
     private BackgroundComponent _backgroundImage;
+
+    private TurnQueueComponent _turnQueueComponent;
 
     #region Initialize
 
@@ -68,6 +71,8 @@ public class PlayScreen : BaseScreen
         _focusedUnitBanner.SetPosition(50, 400);
 
         _backgroundImage = new();
+
+        _turnQueueComponent = new();
     }
 
     private void SetEntitiesPosition()
@@ -132,6 +137,8 @@ public class PlayScreen : BaseScreen
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+
+        _turnQueueComponent.SetUnitsList(_allEntities.Select(x => x.Icon).ToList());
 
         _alliesParty.ForEach(x => x.Update());
         _enemiesParty.ForEach(x => x.Update());
@@ -215,6 +222,8 @@ public class PlayScreen : BaseScreen
         DrawAllies();
         DrawEnemies();
 
+        DrawTurnQueue();
+
         if (HasFocusedEntity())
         {
             DrawSelectionAreaOnFocusedEntity();
@@ -250,6 +259,11 @@ public class PlayScreen : BaseScreen
     private void DrawFocusedEntityBanner()
     {
         _focusedUnitBanner.Draw(GlobalVariablesDto.SpriteBatchInterface);
+    }
+
+    private void DrawTurnQueue()
+    {
+        _turnQueueComponent.Draw(GlobalVariablesDto.SpriteBatchInterface);
     }
 
     #endregion
