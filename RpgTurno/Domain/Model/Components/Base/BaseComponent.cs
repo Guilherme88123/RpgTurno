@@ -6,7 +6,7 @@ namespace Domain.Model.Components.Base;
 
 public class BaseComponent
 {
-    protected Rectangle Bounds { get; set; }
+    public Rectangle Bounds { get; protected set; }
 
     protected HoverState HoverState { get; } = new();
 

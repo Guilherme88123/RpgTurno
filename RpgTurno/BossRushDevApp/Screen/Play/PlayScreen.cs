@@ -20,11 +20,13 @@ using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.CustomComponents.Background;
 using RpgTurno.CustomComponents.Selection;
 using RpgTurno.CustomComponents.TurnQueue;
+using RpgTurno.Screen.Play.Turn;
 using RpgTurnoApp.Screen.Base;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RpgTurnoApp.Screen;
+namespace RpgTurno.Screen.Play;
 
 public class PlayScreen : BaseScreen
 {
@@ -40,7 +42,12 @@ public class PlayScreen : BaseScreen
 
     private BackgroundComponent _backgroundImage;
 
+    private TurnQueueManager _turnQueueManager = new();
     private TurnQueueComponent _turnQueueComponent;
+    private CurrentUnitTurnIndicatorComponent _currentTurnUnitComponent;
+
+    private const float DelayNextTurn = 5f;
+    private float _currentDelayNextTurn = DelayNextTurn;
 
     #region Initialize
 
@@ -73,6 +80,8 @@ public class PlayScreen : BaseScreen
         _backgroundImage = new();
 
         _turnQueueComponent = new();
+        _currentTurnUnitComponent = new();
+        _turnQueueManager.SetUnitsQueue(_allEntities);
     }
 
     private void SetEntitiesPosition()
@@ -138,7 +147,8 @@ public class PlayScreen : BaseScreen
     {
         base.Update(gameTime);
 
-        _turnQueueComponent.SetUnitsList(_allEntities.Select(x => x.Icon).ToList());
+        UpdateTurnQueue();
+        UpdateCurrentTurnUnit();
 
         _alliesParty.ForEach(x => x.Update());
         _enemiesParty.ForEach(x => x.Update());
@@ -147,6 +157,22 @@ public class PlayScreen : BaseScreen
         _focusedUnitBanner.Update(gameTime);
 
         VerifyCursorHoverEntities();
+
+        UpdateTurnChanging();
+    }
+
+    private void UpdateTurnQueue()
+    {
+        var ordenedUnitsList = _turnQueueManager.GetUnitQueueList();
+        var spritesIconsList = ordenedUnitsList.Select(x => x.Icon).ToList();
+
+        _turnQueueComponent.SetUnitsList(spritesIconsList);
+    }
+
+    private void UpdateCurrentTurnUnit()
+    {
+        var currentTurnUnit = _turnQueueManager.GetPeekUnit();
+        _currentTurnUnitComponent.SetCurrentTurnUnit(currentTurnUnit);
     }
 
     private void VerifyCursorHoverEntities()
@@ -160,6 +186,18 @@ public class PlayScreen : BaseScreen
 
         ClearFocusedEntity();
         SetNormalCursor();
+    }
+
+    //TODO: Feito apenas para testes, ao adicionar feature de ações, remover
+    private void UpdateTurnChanging()
+    {
+        _currentDelayNextTurn -= GlobalVariablesDto.DeltaTime;
+
+        if (_currentDelayNextTurn < 0)
+        {
+            _currentDelayNextTurn = DelayNextTurn;
+            _turnQueueManager.NextTurn();
+        }
     }
 
     #region Focused Entity
@@ -223,6 +261,7 @@ public class PlayScreen : BaseScreen
         DrawEnemies();
 
         DrawTurnQueue();
+        DrawCurrentTurnUnitIndicator();
 
         if (HasFocusedEntity())
         {
@@ -244,6 +283,11 @@ public class PlayScreen : BaseScreen
     private void DrawEnemies()
     {
         _enemiesParty.ForEach(x => x.Draw());
+    }
+
+    private void DrawCurrentTurnUnitIndicator()
+    {
+        _currentTurnUnitComponent.Draw(GlobalVariablesDto.SpriteBatchInterface);
     }
 
     private bool HasFocusedEntity()

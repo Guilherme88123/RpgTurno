@@ -112,6 +112,13 @@ public static class SpriteConst
 
     #endregion
 
+    #region Ribbons
+
+    public const string SmallRibbons = "SmallRibbons";
+    public const string BigRibbons = "BigRibbons";
+
+    #endregion
+
     #endregion
 
     #region Maps

@@ -21,7 +21,7 @@ public class UnitBannerComponent : FrameComponent
     private TextComponent _healtText = new();
     private TextComponent _damageText = new();
 
-    private ImageComponent _nameIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.PlayIcon)), 32, 32);
+    private ImageComponent _nameIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.HammerIcon)), 32, 32);
     private ImageComponent _swordIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SwordIcon)), 32, 32);
     private ImageComponent _shieldIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ShieldIcon)), 32, 32);
     private ImageComponent _unitIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericAvatar)), 128, 128);

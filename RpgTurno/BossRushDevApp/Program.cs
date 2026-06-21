@@ -2,7 +2,7 @@
 using Domain.Interface.Screen;
 using Domain.Interface.UiManager;
 using Microsoft.Extensions.DependencyInjection;
-using RpgTurnoApp.Screen;
+using RpgTurno.Screen.Play;
 using Service.Screen;
 using Service.UiManager;
 using System;
