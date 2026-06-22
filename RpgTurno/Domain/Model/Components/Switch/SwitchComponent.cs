@@ -21,7 +21,7 @@ public class SwitchComponent : BaseComponent
 
         bool botaoPressionado = mouse.LeftButton == ButtonState.Pressed;
 
-        if (botaoPressionado && !GlobalVariablesDto.IsMouseDown && HoverState.IsHover)
+        if (botaoPressionado && !GlobalVariablesDto.PreviousMouseDown && HoverState.IsHover)
         {
             ToggleValue();
             Click?.Invoke(Value);

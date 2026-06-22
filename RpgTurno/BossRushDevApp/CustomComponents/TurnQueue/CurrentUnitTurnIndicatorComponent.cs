@@ -12,13 +12,13 @@ namespace RpgTurno.CustomComponents.TurnQueue;
 
 public class CurrentUnitTurnIndicatorComponent : BaseComponent
 {
-    private const int IndicatorSize = 32;
+    private const int IndicatorSize = 48;
 
     private readonly ImageComponent CurrentUnitIndicator;
 
     public CurrentUnitTurnIndicatorComponent()
     {
-        var texture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.PlayIcon);
+        var texture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ReturnIcon);
         CurrentUnitIndicator = new ImageComponent(new SpriteData(texture), IndicatorSize, IndicatorSize);
     }
 
@@ -39,7 +39,7 @@ public class CurrentUnitTurnIndicatorComponent : BaseComponent
     public void SetCurrentTurnUnit(BaseUnitEntity unit)
     {
         var positionX = unit.PositionX + unit.SizeX / 2 - IndicatorSize / 2;
-        var positionY = unit.PositionY - IndicatorSize;
+        var positionY = unit.PositionY - IndicatorSize * 1.5;
 
         SetPosition((int)positionX, (int)positionY);
     }

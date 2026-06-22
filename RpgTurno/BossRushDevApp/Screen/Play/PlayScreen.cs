@@ -1,10 +1,8 @@
 ﻿using Domain.Const.Screen;
-using Domain.Const.Sprite;
 using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Enum.Component.Cursor;
 using Domain.Model.Components.Custom.Banners;
-using Domain.Model.Components.Image;
 using Domain.Model.Entity.Units.Ally.Archer;
 using Domain.Model.Entity.Units.Ally.Cleric;
 using Domain.Model.Entity.Units.Ally.Lancer;
@@ -14,15 +12,14 @@ using Domain.Model.Entity.Units.Enemy.Archer;
 using Domain.Model.Entity.Units.Enemy.Cleric;
 using Domain.Model.Entity.Units.Enemy.Lancer;
 using Domain.Model.Entity.Units.Enemy.Warrior;
-using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using RpgTurno.CustomComponents.Background;
 using RpgTurno.CustomComponents.Selection;
 using RpgTurno.CustomComponents.TurnQueue;
+using RpgTurno.Screen.Play.Attack;
 using RpgTurno.Screen.Play.Turn;
 using RpgTurnoApp.Screen.Base;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -34,7 +31,7 @@ public class PlayScreen : BaseScreen
 
     private List<BaseUnitEntity> _alliesParty = new();
     private List<BaseUnitEntity> _enemiesParty = new();
-    private List<BaseUnitEntity> _allEntities => [.. _alliesParty, .. _enemiesParty];
+    private List<BaseUnitEntity> _allUnits => [.. _alliesParty, .. _enemiesParty];
 
     private SelectionAreaComponent _selectionArea;
     private BaseUnitEntity _focusedEntity;
@@ -46,8 +43,7 @@ public class PlayScreen : BaseScreen
     private TurnQueueComponent _turnQueueComponent;
     private CurrentUnitTurnIndicatorComponent _currentTurnUnitComponent;
 
-    private const float DelayNextTurn = 5f;
-    private float _currentDelayNextTurn = DelayNextTurn;
+    private AttackManager _attackManager = new();
 
     #region Initialize
 
@@ -81,7 +77,7 @@ public class PlayScreen : BaseScreen
 
         _turnQueueComponent = new();
         _currentTurnUnitComponent = new();
-        _turnQueueManager.SetUnitsQueue(_allEntities);
+        _turnQueueManager.SetUnitsQueue(_allUnits);
     }
 
     private void SetEntitiesPosition()
@@ -147,8 +143,7 @@ public class PlayScreen : BaseScreen
     {
         base.Update(gameTime);
 
-        UpdateTurnQueue();
-        UpdateCurrentTurnUnit();
+        UpdateTurn();
 
         _alliesParty.ForEach(x => x.Update());
         _enemiesParty.ForEach(x => x.Update());
@@ -156,12 +151,93 @@ public class PlayScreen : BaseScreen
         _selectionArea.Update(gameTime);
         _focusedUnitBanner.Update(gameTime);
 
-        VerifyCursorHoverEntities();
-
-        UpdateTurnChanging();
+        VerifyCursorHoveringEntities();
     }
 
-    private void UpdateTurnQueue()
+    #region Turn
+
+    private void UpdateTurn()
+    {
+        UpdateTurnComponent();
+        UpdateTurnAction();
+    }
+
+    #region Action
+
+    private void UpdateTurnAction()
+    {
+        var currentUnit = _turnQueueManager.GetPeekUnit();
+
+        if (IsEnemyUnit(currentUnit)) 
+        {
+            UpdateEnemyTurn(currentUnit);
+            return;
+        }
+
+        UpdateAllyTurn(currentUnit);
+    }
+
+    private bool IsEnemyUnit(BaseUnitEntity unit)
+    {
+        return _enemiesParty.Contains(unit);
+    }
+
+    private void UpdateEnemyTurn(BaseUnitEntity enemyUnit)
+    {
+        var targetAlly = _alliesParty.Shuffle().First();
+
+        ExecuteAttack(enemyUnit, targetAlly);
+    }
+
+    private void UpdateAllyTurn(BaseUnitEntity allyUnit)
+    {
+        if (GlobalVariablesDto.PreviousMouseDown)
+            return;
+
+        if (GlobalVariablesDto.MouseState.LeftButton != ButtonState.Pressed)
+            return;
+
+        if (!HasCursorHoveringEntity())
+            return;
+
+        var targetEnemy = GetCursorHoveringEntity();
+
+        if (_alliesParty.Contains(targetEnemy))
+            return;
+
+        ExecuteAttack(allyUnit, targetEnemy);
+    }
+
+    private void ExecuteAttack(BaseUnitEntity sender, BaseUnitEntity target)
+    {
+        _attackManager.ExecuteAttack(sender, target);
+
+        if (target.Health < 0)
+        {
+            RemoveUnit(target);
+        }
+
+        _turnQueueManager.NextTurn();
+    }
+
+    private void RemoveUnit(BaseUnitEntity unit)
+    {
+        _alliesParty.Remove(unit);
+        _enemiesParty.Remove(unit);
+        _turnQueueManager.RemoveUnit(unit);
+    }
+
+    #endregion
+
+    #region Component
+
+    private void UpdateTurnComponent()
+    {
+        UpdateTurnQueueListComponent();
+        UpdateCurrentTurnUnitComponent();
+    }
+
+    private void UpdateTurnQueueListComponent()
     {
         var ordenedUnitsList = _turnQueueManager.GetUnitQueueList();
         var spritesIconsList = ordenedUnitsList.Select(x => x.Icon).ToList();
@@ -169,49 +245,28 @@ public class PlayScreen : BaseScreen
         _turnQueueComponent.SetUnitsList(spritesIconsList);
     }
 
-    private void UpdateCurrentTurnUnit()
+    private void UpdateCurrentTurnUnitComponent()
     {
         var currentTurnUnit = _turnQueueManager.GetPeekUnit();
         _currentTurnUnitComponent.SetCurrentTurnUnit(currentTurnUnit);
     }
 
-    private void VerifyCursorHoverEntities()
-    {
-        if (HasCursorHoveringEntity())
-        {
-            SetFocusedEntity(GetCursorHoveringEntity());
-            SetHoverCursor();
-            return;
-        }
+    #endregion
 
-        ClearFocusedEntity();
-        SetNormalCursor();
-    }
-
-    //TODO: Feito apenas para testes, ao adicionar feature de ações, remover
-    private void UpdateTurnChanging()
-    {
-        _currentDelayNextTurn -= GlobalVariablesDto.DeltaTime;
-
-        if (_currentDelayNextTurn < 0)
-        {
-            _currentDelayNextTurn = DelayNextTurn;
-            _turnQueueManager.NextTurn();
-        }
-    }
+    #endregion
 
     #region Focused Entity
 
     private bool HasCursorHoveringEntity()
     {
         var mouse = GlobalVariablesDto.MouseState;
-        return _allEntities.Any(x => x.Rectangle.Contains(mouse.X, mouse.Y));
+        return _allUnits.Any(x => x.Rectangle.Contains(mouse.X, mouse.Y));
     }
 
     private BaseUnitEntity GetCursorHoveringEntity()
     {
         var mouse = GlobalVariablesDto.MouseState;
-        return _allEntities.First(x => x.Rectangle.Contains(mouse.X, mouse.Y));
+        return _allUnits.First(x => x.Rectangle.Contains(mouse.X, mouse.Y));
     }
 
     private void SetFocusedEntity(BaseUnitEntity entity)
@@ -247,6 +302,23 @@ public class PlayScreen : BaseScreen
 
     #endregion
 
+    #region Hover
+
+    private void VerifyCursorHoveringEntities()
+    {
+        if (HasCursorHoveringEntity())
+        {
+            SetFocusedEntity(GetCursorHoveringEntity());
+            SetHoverCursor();
+            return;
+        }
+
+        ClearFocusedEntity();
+        SetNormalCursor();
+    }
+
+    #endregion
+
     #endregion
 
     #region Draw
@@ -254,8 +326,6 @@ public class PlayScreen : BaseScreen
     public override void Draw()
     {
         DrawBackground();
-
-        base.Draw();
 
         DrawAllies();
         DrawEnemies();
@@ -268,6 +338,8 @@ public class PlayScreen : BaseScreen
             DrawSelectionAreaOnFocusedEntity();
             DrawFocusedEntityBanner();
         }
+
+        base.Draw();
     }
 
     private void DrawBackground()

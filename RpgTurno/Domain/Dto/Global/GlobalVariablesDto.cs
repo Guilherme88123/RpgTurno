@@ -37,7 +37,7 @@ public static class GlobalVariablesDto
     public static ContentManager Content;
     public static IServiceProvider ServiceProvider;
 
-    public static bool IsMouseDown;
+    public static bool PreviousMouseDown;
 
     public static T GetService<T>() where T : notnull
         => ServiceProvider.GetRequiredService<T>();

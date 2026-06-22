@@ -24,7 +24,7 @@ public class DropdownComponent : BaseComponent
 
         bool botaoPressionado = mouse.LeftButton == ButtonState.Pressed;
 
-        if (botaoPressionado && !GlobalVariablesDto.IsMouseDown && HoverState.IsHover)
+        if (botaoPressionado && !GlobalVariablesDto.PreviousMouseDown && HoverState.IsHover)
         {
             ToggleOpen();
         }
@@ -43,7 +43,7 @@ public class DropdownComponent : BaseComponent
 
             bool botaoPressionado = mouse.LeftButton == ButtonState.Pressed;
 
-            if (botaoPressionado && !GlobalVariablesDto.IsMouseDown && item.IsHover)
+            if (botaoPressionado && !GlobalVariablesDto.PreviousMouseDown && item.IsHover)
             {
                 ToggleOpen();
                 SelectItem(item.Id);

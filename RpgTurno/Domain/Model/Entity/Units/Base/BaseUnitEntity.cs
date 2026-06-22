@@ -23,7 +23,7 @@ public class BaseUnitEntity : BaseEntity
 
     public BaseUnitEntity()
     {
-        Health = MaxHealth; 
+        Health = MaxHealth / 2; 
         
         _healthBar = new HealthBarComponent(MaxHealth, Health);
     }
@@ -34,13 +34,19 @@ public class BaseUnitEntity : BaseEntity
 
         CreatureState = CreatureStateType.Idle;
 
-        UpdateHealthBar(GlobalVariablesDto.GameTime);
+        UpdateHealth();
     }
 
-    private void UpdateHealthBar(GameTime gameTime)
+    private void UpdateHealth()
+    {
+        UpdateHealthBarComponent();
+    }
+
+    private void UpdateHealthBarComponent()
     {
         _healthBar.SetPosition((int)PositionX, (int)PositionY + SizeY);
-        _healthBar.Update(gameTime);
+        _healthBar.SetValues(MaxHealth, Health);
+        _healthBar.Update(GlobalVariablesDto.GameTime);
     }
 
     public override void Draw()

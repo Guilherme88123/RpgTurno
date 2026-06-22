@@ -7,8 +7,8 @@ namespace Domain.Model.Components.ProgressBar;
 
 public class ProgressBarComponent : BaseComponent
 {
-    public int MaxValue { get; }
-    public int CurrentValue { get; }
+    public int MaxValue { get; private set; }
+    public int CurrentValue { get; private set; }
 
     private readonly SpriteData _fillSprite;
 
@@ -46,5 +46,11 @@ public class ProgressBarComponent : BaseComponent
             Bounds.Y, 
             fillWidth + _fixedSlice, 
             Bounds.Height);
+    }
+
+    public void SetValues(int maxValue, int currentValue)
+    {
+        MaxValue = maxValue;
+        CurrentValue = currentValue;
     }
 }

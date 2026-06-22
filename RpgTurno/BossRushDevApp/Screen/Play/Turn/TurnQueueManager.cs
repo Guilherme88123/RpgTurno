@@ -6,7 +6,7 @@ namespace RpgTurno.Screen.Play.Turn;
 
 public class TurnQueueManager
 {
-    private readonly Queue<BaseUnitEntity> _unitsQueue = new();
+    private Queue<BaseUnitEntity> _unitsQueue = new();
 
     public void SetUnitsQueue(List<BaseUnitEntity> rawUnitsList)
     {
@@ -42,5 +42,10 @@ public class TurnQueueManager
     {
         var oldFirst = _unitsQueue.Dequeue();
         _unitsQueue.Enqueue(oldFirst);
+    }
+
+    public void RemoveUnit(BaseUnitEntity unit)
+    {
+        _unitsQueue = new Queue<BaseUnitEntity>(_unitsQueue.Where(x => x != unit));
     }
 }

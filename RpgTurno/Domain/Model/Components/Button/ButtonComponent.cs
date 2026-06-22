@@ -16,7 +16,7 @@ public class ButtonComponent : BaseComponent
 
         bool botaoPressionado = GlobalVariablesDto.MouseState.LeftButton == ButtonState.Pressed;
 
-        if (botaoPressionado && !GlobalVariablesDto.IsMouseDown && HoverState.IsHover)
+        if (botaoPressionado && !GlobalVariablesDto.PreviousMouseDown && HoverState.IsHover)
         {
             Click?.Invoke();
         }
