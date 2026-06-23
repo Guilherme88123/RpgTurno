@@ -146,6 +146,8 @@ public class PlayScreen : BaseScreen
     {
         base.Update(gameTime);
 
+        UpdateDelayManager();
+
         UpdateTurn();
 
         _alliesParty.ForEach(x => x.Update());
@@ -155,8 +157,6 @@ public class PlayScreen : BaseScreen
         _focusedUnitBanner.Update(gameTime);
 
         VerifyCursorHoveringEntities();
-
-        UpdateDelayManager();
     }
 
     #region Turn
@@ -171,18 +171,28 @@ public class PlayScreen : BaseScreen
 
     private void UpdateTurnAction()
     {
+        if (HasPendingAttack())
+        {
+            if (HasDelayAttackFinished())
+                ExecuteAttack();
+
+            return;
+        }
+
         if (!HasDelayTurnFinished())
             return;
 
         var currentUnit = _turnQueueManager.GetPeekUnit();
 
         if (IsEnemyUnit(currentUnit))
-        {
             UpdateEnemyTurn(currentUnit);
-            return;
-        }
+        else
+            UpdateAllyTurn(currentUnit);
+    }
 
-        UpdateAllyTurn(currentUnit);
+    private bool HasPendingAttack()
+    {
+        return _attackManager.HasPendingAttack();
     }
 
     private bool IsEnemyUnit(BaseUnitEntity unit)
@@ -194,7 +204,7 @@ public class PlayScreen : BaseScreen
     {
         var targetAlly = _alliesParty.Shuffle().First();
 
-        ExecuteAttack(enemyUnit, targetAlly);
+        StartAttack(enemyUnit, targetAlly);
     }
 
     private void UpdateAllyTurn(BaseUnitEntity allyUnit)
@@ -213,17 +223,28 @@ public class PlayScreen : BaseScreen
         if (_alliesParty.Contains(targetEnemy))
             return;
 
-        ExecuteAttack(allyUnit, targetEnemy);
+        StartAttack(allyUnit, targetEnemy);
     }
 
-    private void ExecuteAttack(BaseUnitEntity sender, BaseUnitEntity target)
+    private void StartAttack(BaseUnitEntity sender, BaseUnitEntity target)
     {
-        _attackManager.ExecuteAttack(sender, target);
+        sender.CreatureState = CreatureStateType.Attacking;
 
-        if (target.Health < 0)
+        ResetDelayAttack();
+
+        _attackManager.StartAttack(sender, target);
+    }
+
+    private void ExecuteAttack()
+    {
+        var (sender, target) = _attackManager.ExecuteAttack();
+
+        if (target.Health <= 0)
         {
             RemoveUnit(target);
         }
+
+        sender.CreatureState = CreatureStateType.Idle;
 
         _turnQueueManager.NextTurn();
 
@@ -245,6 +266,16 @@ public class PlayScreen : BaseScreen
     private bool HasDelayTurnFinished()
     {
         return _delayManager.HasDelayTurnExecutionComplete();
+    }
+
+    private void ResetDelayAttack()
+    {
+        _delayManager.ResetDelayAttackExecution();
+    }
+
+    private bool HasDelayAttackFinished()
+    {
+        return _delayManager.HasDelayAttackExecutionComplete();
     }
 
     #endregion

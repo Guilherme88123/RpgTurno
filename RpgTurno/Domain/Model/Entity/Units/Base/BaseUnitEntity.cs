@@ -32,8 +32,6 @@ public class BaseUnitEntity : BaseEntity
     {
         base.Update();
 
-        CreatureState = CreatureStateType.Idle;
-
         UpdateHealth();
     }
 
