@@ -18,6 +18,7 @@ using RpgTurno.CustomComponents.Background;
 using RpgTurno.CustomComponents.Selection;
 using RpgTurno.CustomComponents.TurnQueue;
 using RpgTurno.Screen.Play.Attack;
+using RpgTurno.Screen.Play.Delay;
 using RpgTurno.Screen.Play.Turn;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
@@ -44,6 +45,8 @@ public class PlayScreen : BaseScreen
     private CurrentUnitTurnIndicatorComponent _currentTurnUnitComponent;
 
     private AttackManager _attackManager = new();
+
+    private DelayManager _delayManager = new();
 
     #region Initialize
 
@@ -152,6 +155,8 @@ public class PlayScreen : BaseScreen
         _focusedUnitBanner.Update(gameTime);
 
         VerifyCursorHoveringEntities();
+
+        UpdateDelayManager();
     }
 
     #region Turn
@@ -166,9 +171,12 @@ public class PlayScreen : BaseScreen
 
     private void UpdateTurnAction()
     {
+        if (!HasDelayTurnFinished())
+            return;
+
         var currentUnit = _turnQueueManager.GetPeekUnit();
 
-        if (IsEnemyUnit(currentUnit)) 
+        if (IsEnemyUnit(currentUnit))
         {
             UpdateEnemyTurn(currentUnit);
             return;
@@ -218,6 +226,8 @@ public class PlayScreen : BaseScreen
         }
 
         _turnQueueManager.NextTurn();
+
+        ResetDelayTurn();
     }
 
     private void RemoveUnit(BaseUnitEntity unit)
@@ -225,6 +235,16 @@ public class PlayScreen : BaseScreen
         _alliesParty.Remove(unit);
         _enemiesParty.Remove(unit);
         _turnQueueManager.RemoveUnit(unit);
+    }
+
+    private void ResetDelayTurn()
+    {
+        _delayManager.ResetDelayTurnExecution();
+    }
+
+    private bool HasDelayTurnFinished()
+    {
+        return _delayManager.HasDelayTurnExecutionComplete();
     }
 
     #endregion
@@ -315,6 +335,15 @@ public class PlayScreen : BaseScreen
 
         ClearFocusedEntity();
         SetNormalCursor();
+    }
+
+    #endregion
+
+    #region Delay
+
+    private void UpdateDelayManager()
+    {
+        _delayManager.Update();
     }
 
     #endregion

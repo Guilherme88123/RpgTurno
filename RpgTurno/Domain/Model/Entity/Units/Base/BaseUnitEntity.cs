@@ -23,7 +23,7 @@ public class BaseUnitEntity : BaseEntity
 
     public BaseUnitEntity()
     {
-        Health = MaxHealth / 2; 
+        Health = MaxHealth; 
         
         _healthBar = new HealthBarComponent(MaxHealth, Health);
     }
