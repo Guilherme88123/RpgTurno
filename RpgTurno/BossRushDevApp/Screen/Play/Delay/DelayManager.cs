@@ -5,7 +5,7 @@ namespace RpgTurno.Screen.Play.Delay;
 
 public class DelayManager
 {
-    private const float DelayTurnExecution = 0.5f;
+    private const float DelayTurnExecution = 1.0f;
     private float _currentDelayTurnExecution;
 
     public void ResetDelayTurnExecution() => _currentDelayTurnExecution = DelayTurnExecution;

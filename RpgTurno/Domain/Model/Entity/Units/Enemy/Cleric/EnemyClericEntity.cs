@@ -16,7 +16,7 @@ public class EnemyClericEntity : BaseUnitEntity
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericRun);
         var attack = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericAttack);
 
-        var spriteBorder = new BorderDefinition(48, 48, 48, 48);
+        var spriteBorder = new BorderDefinition(0, 0, 0, 0);
 
         Animation.Add(CreatureStateType.Idle, new AnimationClip(idle, 6, 1, 0.1f, border: spriteBorder));
         Animation.Add(CreatureStateType.Running, new AnimationClip(running, 4, 1, 0.1f, border: spriteBorder));
@@ -25,6 +25,9 @@ public class EnemyClericEntity : BaseUnitEntity
         SizeX = 96;
         SizeY = 96;
         Name = "Evil Cleric";
+
+        AnimationSizeX = 192;
+        AnimationSizeY = 192;
 
         var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericAvatar);
         Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));

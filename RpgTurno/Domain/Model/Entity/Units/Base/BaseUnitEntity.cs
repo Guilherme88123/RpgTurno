@@ -42,7 +42,7 @@ public class BaseUnitEntity : BaseEntity
 
     private void UpdateHealthBarComponent()
     {
-        _healthBar.SetPosition((int)PositionX, (int)PositionY + SizeY);
+        _healthBar.SetPosition((int)PositionX + SizeX / 2 - _healthBar.Bounds.Width / 2, (int)PositionY + SizeY);
         _healthBar.SetValues(MaxHealth, Health);
         _healthBar.Update(GlobalVariablesDto.GameTime);
     }
