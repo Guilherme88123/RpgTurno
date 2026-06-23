@@ -18,7 +18,7 @@ public class WarriorEntity : BaseUnitEntity
         var defending = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.WarriorDefence);
         var attack = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.WarriorAttack);
 
-        var spriteBorder = new BorderDefinition(48, 48, 48, 48);
+        var spriteBorder = new BorderDefinition(0, 0, 0, 0);
 
         Animation.Add(CreatureStateType.Idle, new AnimationClip(idle, 8, 1, 0.1f, border: spriteBorder));
         Animation.Add(CreatureStateType.Running, new AnimationClip(running, 6, 1, 0.1f, border: spriteBorder));
@@ -28,6 +28,9 @@ public class WarriorEntity : BaseUnitEntity
         SizeX = 96;
         SizeY = 96;
         Name = "Warrior";
+
+        AnimationSizeX = 192;
+        AnimationSizeY = 192;
 
         var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.WarriorAvatar);
         Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));

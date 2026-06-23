@@ -14,10 +14,13 @@ public class BaseEntity
     public int SizeX { get; set; } = 128;
     public int SizeY { get; set; } = 128;
 
+    public int AnimationSizeX { get; set; } = 128;
+    public int AnimationSizeY { get; set; } = 128;
+
     public Color Color { get; set; } = Color.White;
 
     public float PositionX { get; set; }
-    public float PositionY { get; set; }
+    public float PositionY { get; set; } 
 
     public DirectionType Direction { get; set; } = DirectionType.Right;
 
@@ -30,6 +33,7 @@ public class BaseEntity
 
     public AnimationManager Animation { get; set; } = new();
     public Rectangle Rectangle => new Rectangle((int)PositionX, (int)PositionY, SizeX, SizeY);
+    public Rectangle AnimationRectangle => GetAnimationRectangle();
 
     public CreatureStateType CreatureState;
 
@@ -55,11 +59,36 @@ public class BaseEntity
             return;
         }
 
-        Animation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
+        Animation.Draw(AnimationRectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
     }
 
     public virtual void Destroy()
     {
         IsDestroyed = true;
+    }
+
+    protected virtual Rectangle GetAnimationRectangle()
+    {
+        var animationPosition = GetAnimationPosition();
+
+        return new Rectangle(
+            animationPosition.X,
+            animationPosition.Y,
+            AnimationSizeX,
+            AnimationSizeY);
+    }
+
+    private Point GetAnimationPosition()
+    {
+        var rectangleDiferenceX = AnimationSizeX - SizeX;
+        var rectangleDiferenceY = AnimationSizeY - SizeY;
+
+        var subtractAmountX = rectangleDiferenceX / 2;
+        var subtractAmountY = rectangleDiferenceY / 2;
+
+        var animationPositionX = PositionX - subtractAmountX;
+        var animationPositionY = PositionY - subtractAmountY;
+
+        return new Point((int)animationPositionX, (int)animationPositionY);
     }
 }
