@@ -15,6 +15,7 @@ using Domain.Model.Entity.Units.Enemy.Warrior;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.CustomComponents.Background;
+using RpgTurno.CustomComponents.DamageText;
 using RpgTurno.CustomComponents.Selection;
 using RpgTurno.CustomComponents.TurnQueue;
 using RpgTurno.Screen.Play.Attack;
@@ -45,6 +46,7 @@ public class PlayScreen : BaseScreen
     private CurrentUnitTurnIndicatorComponent _currentTurnUnitComponent;
 
     private AttackManager _attackManager = new();
+    private List<DamageTextComponent> _damagesTextList = new();
 
     private DelayManager _delayManager = new();
 
@@ -156,6 +158,8 @@ public class PlayScreen : BaseScreen
         _selectionArea.Update(gameTime);
         _focusedUnitBanner.Update(gameTime);
 
+        UpdateDamageTexts(gameTime);
+
         VerifyCursorHoveringEntities();
     }
 
@@ -239,6 +243,8 @@ public class PlayScreen : BaseScreen
     {
         var (sender, target) = _attackManager.ExecuteAttack();
 
+        AddDamageText(sender, target);
+
         if (target.Health <= 0)
         {
             RemoveUnit(target);
@@ -249,6 +255,15 @@ public class PlayScreen : BaseScreen
         _turnQueueManager.NextTurn();
 
         ResetDelayTurn();
+    }
+
+    private void AddDamageText(BaseUnitEntity sender, BaseUnitEntity target)
+    {
+        var positionX = target.Center.X;
+        var positionY = target.Center.Y;
+        var damageText = $"-{sender.Damage}";
+
+        _damagesTextList.Add(new DamageTextComponent((int)positionX, (int)positionY, damageText));
     }
 
     private void RemoveUnit(BaseUnitEntity unit)
@@ -379,6 +394,16 @@ public class PlayScreen : BaseScreen
 
     #endregion
 
+    #region Damage Texts
+
+    private void UpdateDamageTexts(GameTime gameTime)
+    {
+        _damagesTextList.ForEach(x => x.Update(gameTime));
+        _damagesTextList.RemoveAll(x => x.IsDestroied);
+    }
+
+    #endregion
+
     #endregion
 
     #region Draw
@@ -398,6 +423,8 @@ public class PlayScreen : BaseScreen
             DrawSelectionAreaOnFocusedEntity();
             DrawFocusedEntityBanner();
         }
+
+        DrawDamageTexts();
 
         base.Draw();
     }
@@ -440,6 +467,11 @@ public class PlayScreen : BaseScreen
     private void DrawTurnQueue()
     {
         _turnQueueComponent.Draw(GlobalVariablesDto.SpriteBatchInterface);
+    }
+
+    private void DrawDamageTexts()
+    {
+        _damagesTextList.ForEach(x => x.Draw(GlobalVariablesDto.SpriteBatchInterface));
     }
 
     #endregion
