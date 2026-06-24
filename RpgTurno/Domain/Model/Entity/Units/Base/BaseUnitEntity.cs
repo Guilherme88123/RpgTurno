@@ -1,10 +1,7 @@
 ﻿using Domain.Dto.Global;
-using Domain.Enum;
-using Domain.Model.Components.Image;
 using Domain.Model.Entity.Base;
 using Domain.Model.Entity.Units.Base.HealthBar;
 using Domain.Model.Texture.Sprite;
-using Microsoft.Xna.Framework;
 
 namespace Domain.Model.Entity.Units.Base;
 
@@ -16,6 +13,8 @@ public class BaseUnitEntity : BaseEntity
     public int Health { get; set; }
 
     public int Damage { get; set; } = 4;
+
+    public bool IsRanged { get; protected set; }
 
     public SpriteData Icon { get; protected set; }
 

@@ -1,6 +1,7 @@
 ﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
 using Domain.Enum;
+using Domain.Enum.Attack;
 using Domain.Enum.Component.Cursor;
 using Domain.Model.Components.Custom.Banners;
 using Domain.Model.Entity.Units.Ally.Archer;
@@ -161,6 +162,8 @@ public class PlayScreen : BaseScreen
         UpdateDamageTexts(gameTime);
 
         VerifyCursorHoveringEntities();
+
+        VerifyEndOfGame();
     }
 
     #region Turn
@@ -175,16 +178,33 @@ public class PlayScreen : BaseScreen
 
     private void UpdateTurnAction()
     {
-        if (HasPendingAttack())
-        {
-            if (HasDelayAttackFinished())
-                ExecuteAttack();
+        _attackManager.Update();
 
+        if (_attackManager.IsWaitingTurn())
+        {
+            if (HasDelayTurnFinished())
+            {
+                _attackManager.Reset();
+                _turnQueueManager.NextTurn();
+                ResetDelayTurn();
+            }
             return;
         }
 
-        if (!HasDelayTurnFinished())
+        if (_attackManager.CurrentPhase == AttackPhase.Attacking)
+        {
+            if (HasDelayAttackFinished())
+            {
+                ExecuteAttack();
+                var (sender, target) = _attackManager.ResolveAttack();
+            }
             return;
+        }
+
+        if (_attackManager.HasPendingAttack())
+            return;
+
+        if (!HasDelayTurnFinished()) return;
 
         var currentUnit = _turnQueueManager.GetPeekUnit();
 
@@ -232,8 +252,6 @@ public class PlayScreen : BaseScreen
 
     private void StartAttack(BaseUnitEntity sender, BaseUnitEntity target)
     {
-        sender.CreatureState = CreatureStateType.Attacking;
-
         ResetDelayAttack();
 
         _attackManager.StartAttack(sender, target);
@@ -250,11 +268,10 @@ public class PlayScreen : BaseScreen
             RemoveUnit(target);
         }
 
-        sender.CreatureState = CreatureStateType.Idle;
-
-        _turnQueueManager.NextTurn();
-
-        ResetDelayTurn();
+        if (_attackManager.CurrentPhase == AttackPhase.WaitingTurn)
+        {
+            sender.CreatureState = CreatureStateType.Idle;
+        }
     }
 
     private void AddDamageText(BaseUnitEntity sender, BaseUnitEntity target)
@@ -400,6 +417,26 @@ public class PlayScreen : BaseScreen
     {
         _damagesTextList.ForEach(x => x.Update(gameTime));
         _damagesTextList.RemoveAll(x => x.IsDestroied);
+    }
+
+    #endregion
+
+    #region Game End
+
+    private void VerifyEndOfGame()
+    {
+        if (IsEnemyPartyEmpty() || IsAllyPartyEmpty())
+            GlobalVariablesDto.Exit.Invoke();
+    }
+
+    private bool IsEnemyPartyEmpty()
+    {
+        return !_enemiesParty.Any();
+    }
+
+    private bool IsAllyPartyEmpty()
+    {
+        return !_alliesParty.Any();
     }
 
     #endregion
