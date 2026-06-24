@@ -25,6 +25,6 @@ public class TextComponent : BaseComponent
         if (string.IsNullOrEmpty(Text))
             return;
 
-        spriteBatch.DrawString(GlobalVariablesDto.FontThickPixels, Text, new Vector2(Bounds.X, Bounds.Y), Color.Black);    
+        spriteBatch.DrawString(GlobalVariablesDto.GlobalFont, Text, new Vector2(Bounds.X, Bounds.Y), Color.Black);    
     }
 }

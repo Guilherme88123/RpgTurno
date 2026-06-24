@@ -675,6 +675,13 @@
 /processorParam:TextureFormat=Color
 /build:SongIcon.png
 
+#begin Stacked.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Stacked.spritefont
+
 #begin SwordIcon.png
 /importer:TextureImporter
 /processor:TextureProcessor

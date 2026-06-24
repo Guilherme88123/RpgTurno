@@ -8,9 +8,6 @@ namespace RpgTurno.CustomComponents.DamageText;
 
 public class DamageTextComponent : BaseComponent
 {
-    private readonly int _initialPositionX;
-    private readonly int _initialPositionY;
-
     private const float DelayDissapear = 1.0f;
     private float _currentDelayDissapear = DelayDissapear;
 
@@ -20,12 +17,18 @@ public class DamageTextComponent : BaseComponent
 
     public DamageTextComponent(int positionX, int positionY, string text)
     {
-        _initialPositionX = positionX;
-        _initialPositionY = positionY;
+        positionX = GetRandomByPositionX(positionX);
 
         SetPosition(positionX, positionY);
 
         _textComponent.SetText(text);
+    }
+
+    private int GetRandomByPositionX(int positionX)
+    {
+        var bounce = GlobalVariablesDto.GetBounceValue();
+
+        return positionX + 5 * bounce - 3;
     }
 
     public override void Update(GameTime gameTime)
@@ -35,6 +38,8 @@ public class DamageTextComponent : BaseComponent
         _textComponent.Update(gameTime);
 
         UpdateDelay();
+
+        SetPosition(Bounds.X, Bounds.Y - 1);
     }
 
     private void UpdateDelay()

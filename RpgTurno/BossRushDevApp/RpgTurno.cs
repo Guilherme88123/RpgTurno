@@ -59,6 +59,7 @@ public class RpgTurno : Game
         GlobalVariablesDto.FontArial = Content.Load<SpriteFont>("Arial");
         GlobalVariablesDto.FontThickPixels = Content.Load<SpriteFont>("ThickPixels");
         GlobalVariablesDto.FontLazyFox = Content.Load<SpriteFont>("LazyFox");
+        GlobalVariablesDto.FontStacked = Content.Load<SpriteFont>("Stacked");
 
         GlobalVariablesDto.SpriteBatchBackground = spriteBatchBackground;
         GlobalVariablesDto.SpriteBatchEntities = spriteBatchEntities;
@@ -121,6 +122,6 @@ public class RpgTurno : Game
     private void DrawFps()
     {
         string fpsText = $"FPS: {_fps:F0}";
-        GlobalVariablesDto.SpriteBatchInterface.DrawString(GlobalVariablesDto.FontThickPixels, fpsText, new Vector2(10, 10), Color.Black);
+        GlobalVariablesDto.SpriteBatchInterface.DrawString(GlobalVariablesDto.GlobalFont, fpsText, new Vector2(30, 30), Color.Black);
     }
 }
