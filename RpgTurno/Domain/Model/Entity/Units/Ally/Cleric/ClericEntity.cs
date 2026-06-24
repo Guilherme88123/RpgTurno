@@ -31,5 +31,7 @@ public class ClericEntity : BaseUnitEntity
 
         var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ClericAvatar);
         Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
+
+        IsRanged = true;
     }
 }

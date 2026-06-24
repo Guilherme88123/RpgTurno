@@ -3,6 +3,7 @@ using Domain.Enum;
 using Domain.Enum.Attack;
 using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
+using RpgTurno.Screen.Play.Delay;
 using System;
 
 namespace RpgTurno.Screen.Play.Attack;
@@ -14,58 +15,53 @@ public class AttackManager
     private BaseUnitEntity _sender;
     private BaseUnitEntity _target;
     private Vector2 _senderOriginPosition;
+    private Vector2 _targetPosition;
 
     private float _moveSpeed = 500f;
+    private int _walkFrontDistance = 200;
 
-    public bool HasPendingAttack() => CurrentPhase != AttackPhase.Idle && CurrentPhase != AttackPhase.WaitingTurn;
+    private DelayManager _delayManager = new();
 
     public bool IsWaitingTurn() => CurrentPhase == AttackPhase.WaitingTurn;
 
-    public void StartAttack(BaseUnitEntity sender, BaseUnitEntity target)
+    public void StartAttack(BaseUnitEntity sender, BaseUnitEntity target, bool isEnemy)
     {
         _sender = sender;
         _target = target;
         _senderOriginPosition = new Vector2(sender.PositionX, sender.PositionY);
+        _targetPosition = sender.IsRanged 
+            ? new Vector2(sender.PositionX + (isEnemy ? -_walkFrontDistance : _walkFrontDistance), sender.PositionY) 
+            : new Vector2(target.PositionX, target.PositionY);
 
-        CurrentPhase = sender.IsRanged ? AttackPhase.Attacking : AttackPhase.MovingToTarget;
-
-        sender.CreatureState = sender.IsRanged ? CreatureStateType.Attacking : CreatureStateType.Running;
+        CurrentPhase = AttackPhase.MovingToTarget;
+        sender.CreatureState =  CreatureStateType.Running;
     }
 
     public (BaseUnitEntity, BaseUnitEntity) ExecuteAttack()
     {
-        if (!HasPendingAttack())
-            throw new Exception("Invalid attack executed");
-
         _target.Health -= _sender.Damage;
+
+        CurrentPhase = AttackPhase.MovingBack;
+        _sender.CreatureState = CreatureStateType.Running;
 
         return (_sender, _target);
     }
 
     public void Update()
     {
-        switch (CurrentPhase)
-        {
-            case AttackPhase.MovingToTarget:
-                UpdateMovingToTarget();
-                break;
-            case AttackPhase.MovingBack:
-                UpdateMovingBack();
-                break;
-        }
+        _delayManager.Update();
     }
 
-    private void UpdateMovingToTarget()
+    public void UpdateMovingToTarget()
     {
-        var targetPos = new Vector2(_target.PositionX, _target.PositionY);
         var senderPos = new Vector2(_sender.PositionX, _sender.PositionY);
-        var direction = targetPos - senderPos;
+        var direction = _targetPosition - senderPos;
 
-        // chegou perto o suficiente
         if (direction.Length() < 100f)
         {
             CurrentPhase = AttackPhase.Attacking;
             _sender.CreatureState = CreatureStateType.Attacking;
+            _delayManager.ResetDelayAttackExecution();
             return;
         }
 
@@ -74,7 +70,17 @@ public class AttackManager
         _sender.PositionY += direction.Y * _moveSpeed * GlobalVariablesDto.DeltaTime;
     }
 
-    private void UpdateMovingBack()
+    public bool HasAttackFinished()
+    {
+        return _delayManager.HasDelayAttackExecutionComplete();
+    }
+
+    public bool HasWaitTurnFinished()
+    {
+        return _delayManager.HasDelayTurnExecutionComplete();
+    }
+
+    public void UpdateMovingBack()
     {
         var originPos = _senderOriginPosition;
         var senderPos = new Vector2(_sender.PositionX, _sender.PositionY);
@@ -86,6 +92,7 @@ public class AttackManager
             _sender.PositionY = originPos.Y;
             CurrentPhase = AttackPhase.WaitingTurn;
             _sender.CreatureState = CreatureStateType.Idle;
+            _delayManager.ResetDelayTurnExecution();
             return;
         }
 

@@ -31,5 +31,7 @@ public class EnemyArcherEntity : BaseUnitEntity
 
         var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyArcherAvatar);
         Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
+
+        IsRanged = true;
     }
 }

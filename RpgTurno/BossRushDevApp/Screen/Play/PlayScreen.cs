@@ -49,8 +49,6 @@ public class PlayScreen : BaseScreen
     private AttackManager _attackManager = new();
     private List<DamageTextComponent> _damagesTextList = new();
 
-    private DelayManager _delayManager = new();
-
     #region Initialize
 
     public override void Initialize()
@@ -149,8 +147,6 @@ public class PlayScreen : BaseScreen
     {
         base.Update(gameTime);
 
-        UpdateDelayManager();
-
         UpdateTurn();
 
         _alliesParty.ForEach(x => x.Update());
@@ -178,34 +174,40 @@ public class PlayScreen : BaseScreen
 
     private void UpdateTurnAction()
     {
+        UpdateAttackManager();
+
+        switch (GetCurrentAttackPhase())
+        {
+            case AttackPhase.Idle:
+                HandleIdlePhase();
+                break;
+            case AttackPhase.MovingToTarget:
+                HandleMovingToTargetPhase();
+                break;
+            case AttackPhase.Attacking:
+                HandleAttackingPhase();
+                break;
+            case AttackPhase.MovingBack:
+                HandleMovingBackPhase();
+                break;
+            case AttackPhase.WaitingTurn:
+                HandleWaitingTurnPhase();
+                break;
+        }
+    }
+
+    private void UpdateAttackManager()
+    {
         _attackManager.Update();
+    }
 
-        if (_attackManager.IsWaitingTurn())
-        {
-            if (HasDelayTurnFinished())
-            {
-                _attackManager.Reset();
-                _turnQueueManager.NextTurn();
-                ResetDelayTurn();
-            }
-            return;
-        }
+    private AttackPhase GetCurrentAttackPhase()
+    {
+        return _attackManager.CurrentPhase;
+    }
 
-        if (_attackManager.CurrentPhase == AttackPhase.Attacking)
-        {
-            if (HasDelayAttackFinished())
-            {
-                ExecuteAttack();
-                var (sender, target) = _attackManager.ResolveAttack();
-            }
-            return;
-        }
-
-        if (_attackManager.HasPendingAttack())
-            return;
-
-        if (!HasDelayTurnFinished()) return;
-
+    private void HandleIdlePhase()
+    {
         var currentUnit = _turnQueueManager.GetPeekUnit();
 
         if (IsEnemyUnit(currentUnit))
@@ -214,9 +216,32 @@ public class PlayScreen : BaseScreen
             UpdateAllyTurn(currentUnit);
     }
 
-    private bool HasPendingAttack()
+    private void HandleMovingToTargetPhase()
     {
-        return _attackManager.HasPendingAttack();
+        _attackManager.UpdateMovingToTarget();
+    }
+
+    private void HandleAttackingPhase()
+    {
+        if (!_attackManager.HasAttackFinished())
+            return;
+
+        ExecuteAttack();
+    }
+
+    private void HandleMovingBackPhase()
+    {
+        _attackManager.UpdateMovingBack();
+    }
+
+    private void HandleWaitingTurnPhase()
+    {
+        if (!_attackManager.HasWaitTurnFinished())
+            return;
+
+        _attackManager.Reset();
+
+        _turnQueueManager.NextTurn();
     }
 
     private bool IsEnemyUnit(BaseUnitEntity unit)
@@ -252,9 +277,7 @@ public class PlayScreen : BaseScreen
 
     private void StartAttack(BaseUnitEntity sender, BaseUnitEntity target)
     {
-        ResetDelayAttack();
-
-        _attackManager.StartAttack(sender, target);
+        _attackManager.StartAttack(sender, target, IsEnemyUnit(sender));
     }
 
     private void ExecuteAttack()
@@ -266,11 +289,6 @@ public class PlayScreen : BaseScreen
         if (target.Health <= 0)
         {
             RemoveUnit(target);
-        }
-
-        if (_attackManager.CurrentPhase == AttackPhase.WaitingTurn)
-        {
-            sender.CreatureState = CreatureStateType.Idle;
         }
     }
 
@@ -288,26 +306,6 @@ public class PlayScreen : BaseScreen
         _alliesParty.Remove(unit);
         _enemiesParty.Remove(unit);
         _turnQueueManager.RemoveUnit(unit);
-    }
-
-    private void ResetDelayTurn()
-    {
-        _delayManager.ResetDelayTurnExecution();
-    }
-
-    private bool HasDelayTurnFinished()
-    {
-        return _delayManager.HasDelayTurnExecutionComplete();
-    }
-
-    private void ResetDelayAttack()
-    {
-        _delayManager.ResetDelayAttackExecution();
-    }
-
-    private bool HasDelayAttackFinished()
-    {
-        return _delayManager.HasDelayAttackExecutionComplete();
     }
 
     #endregion
@@ -398,15 +396,6 @@ public class PlayScreen : BaseScreen
 
         ClearFocusedEntity();
         SetNormalCursor();
-    }
-
-    #endregion
-
-    #region Delay
-
-    private void UpdateDelayManager()
-    {
-        _delayManager.Update();
     }
 
     #endregion
