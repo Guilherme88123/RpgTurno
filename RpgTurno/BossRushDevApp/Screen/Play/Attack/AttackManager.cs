@@ -21,9 +21,7 @@ public class AttackManager
     private int _walkFrontDistance = 200;
     private int _targetDistance = 150;
 
-    private DelayManager _delayManager = new();
-
-    public bool IsWaitingTurn() => CurrentPhase == AttackPhase.WaitingTurn;
+    private readonly DelayManager _delayManager = new();
 
     public void StartAttack(BaseUnitEntity sender, BaseUnitEntity target, bool isEnemy)
     {

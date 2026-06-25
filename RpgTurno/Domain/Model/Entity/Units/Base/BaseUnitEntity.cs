@@ -32,6 +32,8 @@ public class BaseUnitEntity : BaseEntity
         _healthBar = new HealthBarComponent(MaxHealth, Health);
     }
 
+    #region Update
+
     public override void Update()
     {
         base.Update();
@@ -61,6 +63,29 @@ public class BaseUnitEntity : BaseEntity
             Color = Color.White;
     }
 
+    #endregion
+
+    #region Draw
+
+    public override void Draw()
+    {
+        base.Draw();
+
+
+        DrawHealthBar();
+    }
+
+    protected virtual void DrawHealthBar()
+    {
+        _healthBar.Draw(GlobalVariablesDto.SpriteBatchEntities);
+    }
+
+    #endregion
+
+    #region Functions
+
+    #region TakeDamage
+
     public void TakeDamage(int damageAmount)
     {
         Health -= damageAmount;
@@ -76,16 +101,7 @@ public class BaseUnitEntity : BaseEntity
         _currentDelayDamageTakenFlash = DelayDamageTakenFlash;
     }
 
-    public override void Draw()
-    {
-        base.Draw();
+    #endregion
 
-
-        DrawHealthBar();
-    }
-
-    protected virtual void DrawHealthBar()
-    {
-        _healthBar.Draw(GlobalVariablesDto.SpriteBatchEntities);
-    }
+    #endregion
 }
