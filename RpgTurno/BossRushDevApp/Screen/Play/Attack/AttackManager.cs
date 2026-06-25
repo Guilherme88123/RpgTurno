@@ -40,7 +40,7 @@ public class AttackManager
 
     public (BaseUnitEntity, BaseUnitEntity) ExecuteAttack()
     {
-        _target.Health -= _sender.Damage;
+        _target.TakeDamage(_sender.Damage);
 
         CurrentPhase = AttackPhase.MovingBack;
         _sender.CreatureState = CreatureStateType.Running;

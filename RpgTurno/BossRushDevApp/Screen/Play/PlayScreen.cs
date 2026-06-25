@@ -311,10 +311,8 @@ public class PlayScreen : BaseScreen
 
         AddDamageText(sender, target);
 
-        if (target.Health <= 0)
-        {
+        if (target.IsDestroyed)
             RemoveUnit(target);
-        }
     }
 
     private void AddDamageText(BaseUnitEntity sender, BaseUnitEntity target)

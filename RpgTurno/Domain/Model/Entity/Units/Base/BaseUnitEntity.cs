@@ -2,6 +2,7 @@
 using Domain.Model.Entity.Base;
 using Domain.Model.Entity.Units.Base.HealthBar;
 using Domain.Model.Texture.Sprite;
+using Microsoft.Xna.Framework;
 
 namespace Domain.Model.Entity.Units.Base;
 
@@ -20,6 +21,10 @@ public class BaseUnitEntity : BaseEntity
 
     private readonly HealthBarComponent _healthBar;
 
+    private const float DelayDamageTakenFlash = 0.1f;
+    private float _currentDelayDamageTakenFlash;
+    private bool HasTakeDamage => _currentDelayDamageTakenFlash > 0;
+
     public BaseUnitEntity()
     {
         Health = MaxHealth; 
@@ -31,12 +36,14 @@ public class BaseUnitEntity : BaseEntity
     {
         base.Update();
 
-        UpdateHealth();
+        UpdateDelays();
+        UpdateHealthBarComponent();
+        UpdateTakeDamageEffect();
     }
 
-    private void UpdateHealth()
+    private void UpdateDelays()
     {
-        UpdateHealthBarComponent();
+        _currentDelayDamageTakenFlash = Math.Max(0, _currentDelayDamageTakenFlash - GlobalVariablesDto.DeltaTime);
     }
 
     private void UpdateHealthBarComponent()
@@ -46,9 +53,34 @@ public class BaseUnitEntity : BaseEntity
         _healthBar.Update(GlobalVariablesDto.GameTime);
     }
 
+    private void UpdateTakeDamageEffect()
+    {
+        if (HasTakeDamage)
+            Color = Color.Red;
+        else 
+            Color = Color.White;
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        Health -= damageAmount;
+
+        if (Health < 0)
+            Destroy();
+
+        ResetTakeDamageDelay();
+    }
+
+    private void ResetTakeDamageDelay()
+    {
+        _currentDelayDamageTakenFlash = DelayDamageTakenFlash;
+    }
+
     public override void Draw()
     {
         base.Draw();
+
+
         DrawHealthBar();
     }
 
