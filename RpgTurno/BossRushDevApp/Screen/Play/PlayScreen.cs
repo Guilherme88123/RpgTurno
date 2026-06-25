@@ -17,6 +17,7 @@ using Domain.Model.Entity.Units.Enemy.Warrior;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.CustomComponents.Background;
+using RpgTurno.CustomComponents.Banners;
 using RpgTurno.CustomComponents.DamageText;
 using RpgTurno.CustomComponents.Selection;
 using RpgTurno.CustomComponents.TurnQueue;
@@ -50,6 +51,8 @@ public class PlayScreen : BaseScreen
     private readonly AttackManager _attackManager = new();
     private readonly List<DamageTextComponent> _damagesTextList = new();
 
+    private AttackSelectBannerComponent _attackSelectComponent;
+
     #region Initialize
 
     protected override List<BaseComponent> InitializeComponents()
@@ -64,11 +67,16 @@ public class PlayScreen : BaseScreen
         _turnQueueComponent = new();
         _currentTurnUnitComponent = new();
 
+        _attackSelectComponent = new();
+        _attackSelectComponent.SetPosition(30, GlobalOptionsDto.HeightSize - _attackSelectComponent.Bounds.Height - 30);
+        _attackSelectComponent.IsVisible = false;
+
         return new() {
             _selectionAreaComponent, 
             _focusedUnitBannerComponent, 
             _turnQueueComponent,
             _currentTurnUnitComponent,
+            _attackSelectComponent,
         };
     }
 
@@ -270,6 +278,9 @@ public class PlayScreen : BaseScreen
 
     private void UpdateAllyTurn(BaseUnitEntity allyUnit)
     {
+        //TODO: Implementar escolha de golpes ao atacar
+        //_attackSelectComponent.IsVisible = true;
+
         if (GlobalVariablesDto.PreviousMouseDown)
             return;
 
@@ -285,6 +296,8 @@ public class PlayScreen : BaseScreen
             return;
 
         StartAttack(allyUnit, targetEnemy);
+
+        _attackSelectComponent.IsVisible = false;
     }
 
     private void StartAttack(BaseUnitEntity sender, BaseUnitEntity target)
