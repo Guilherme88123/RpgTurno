@@ -17,6 +17,9 @@ public class FrameComponent : BaseComponent
     {
         base.Update(gameTime);
 
+        if (!IsEnable)
+            return;
+
         UpdateChildren(gameTime);
     }
 
@@ -34,6 +37,9 @@ public class FrameComponent : BaseComponent
     public override void Draw(SpriteBatch spriteBatch)
     {
         base.Draw(spriteBatch);
+
+        if (!IsVisible)
+            return;
 
         DrawChildren(spriteBatch);
     }

@@ -3,6 +3,7 @@ using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Enum.Attack;
 using Domain.Enum.Component.Cursor;
+using Domain.Model.Components.Base;
 using Domain.Model.Components.Custom.Banners;
 using Domain.Model.Entity.Units.Ally.Archer;
 using Domain.Model.Entity.Units.Ally.Cleric;
@@ -20,7 +21,6 @@ using RpgTurno.CustomComponents.DamageText;
 using RpgTurno.CustomComponents.Selection;
 using RpgTurno.CustomComponents.TurnQueue;
 using RpgTurno.Screen.Play.Attack;
-using RpgTurno.Screen.Play.Delay;
 using RpgTurno.Screen.Play.Turn;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
@@ -32,24 +32,45 @@ public class PlayScreen : BaseScreen
 {
     public override string ScreenCode => ScreenConst.PlayScreen;
 
-    private List<BaseUnitEntity> _alliesParty = new();
-    private List<BaseUnitEntity> _enemiesParty = new();
-    private List<BaseUnitEntity> _allUnits => [.. _alliesParty, .. _enemiesParty];
+    //TODO: Criar BattleManager para gerenciar aliados, inimigos, controle de turnos, etc...
+    private readonly List<BaseUnitEntity> _alliesParty = new();
+    private readonly List<BaseUnitEntity> _enemiesParty = new();
+    private List<BaseUnitEntity> AllUnits => [.. _alliesParty, .. _enemiesParty];
 
-    private SelectionAreaComponent _selectionArea;
+    private SelectionAreaComponent _selectionAreaComponent;
     private BaseUnitEntity _focusedEntity;
-    private UnitBannerComponent _focusedUnitBanner;
+    private UnitBannerComponent _focusedUnitBannerComponent;
 
-    private BackgroundComponent _backgroundImage;
+    private BackgroundComponent _backgroundImageComponent;
 
     private TurnQueueManager _turnQueueManager = new();
     private TurnQueueComponent _turnQueueComponent;
     private CurrentUnitTurnIndicatorComponent _currentTurnUnitComponent;
 
-    private AttackManager _attackManager = new();
-    private List<DamageTextComponent> _damagesTextList = new();
+    private readonly AttackManager _attackManager = new();
+    private readonly List<DamageTextComponent> _damagesTextList = new();
 
     #region Initialize
+
+    protected override List<BaseComponent> InitializeComponents()
+    {
+        _selectionAreaComponent = new();
+
+        _focusedUnitBannerComponent = new();
+        _focusedUnitBannerComponent.SetPosition(50, 400);
+
+        _backgroundImageComponent = new();
+
+        _turnQueueComponent = new();
+        _currentTurnUnitComponent = new();
+
+        return new() {
+            _selectionAreaComponent, 
+            _focusedUnitBannerComponent, 
+            _turnQueueComponent,
+            _currentTurnUnitComponent,
+        };
+    }
 
     public override void Initialize()
     {
@@ -72,16 +93,7 @@ public class PlayScreen : BaseScreen
 
         SetEntitiesPosition();
 
-        _selectionArea = new();
-
-        _focusedUnitBanner = new();
-        _focusedUnitBanner.SetPosition(50, 400);
-
-        _backgroundImage = new();
-
-        _turnQueueComponent = new();
-        _currentTurnUnitComponent = new();
-        _turnQueueManager.SetUnitsQueue(_allUnits);
+        _turnQueueManager.SetUnitsQueue(AllUnits);
     }
 
     private void SetEntitiesPosition()
@@ -152,8 +164,8 @@ public class PlayScreen : BaseScreen
         _alliesParty.ForEach(x => x.Update());
         _enemiesParty.ForEach(x => x.Update());
 
-        _selectionArea.Update(gameTime);
-        _focusedUnitBanner.Update(gameTime);
+        _selectionAreaComponent.Update(gameTime);
+        _focusedUnitBannerComponent.Update(gameTime);
 
         UpdateDamageTexts(gameTime);
 
@@ -341,20 +353,20 @@ public class PlayScreen : BaseScreen
     private bool HasCursorHoveringEntity()
     {
         var mouse = GlobalVariablesDto.MouseState;
-        return _allUnits.Any(x => x.Rectangle.Contains(mouse.X, mouse.Y));
+        return AllUnits.Any(x => x.Rectangle.Contains(mouse.X, mouse.Y));
     }
 
     private BaseUnitEntity GetCursorHoveringEntity()
     {
         var mouse = GlobalVariablesDto.MouseState;
-        return _allUnits.First(x => x.Rectangle.Contains(mouse.X, mouse.Y));
+        return AllUnits.First(x => x.Rectangle.Contains(mouse.X, mouse.Y));
     }
 
     private void SetFocusedEntity(BaseUnitEntity entity)
     {
         _focusedEntity = entity;
-        _selectionArea.SetDestinationRectangle(entity.Rectangle);
-        _focusedUnitBanner.SetFocusedUnit(entity);
+        _selectionAreaComponent.SetDestinationRectangle(entity.Rectangle);
+        _focusedUnitBannerComponent.SetFocusedUnit(entity);
     }
 
     private void ClearFocusedEntity()
@@ -387,6 +399,8 @@ public class PlayScreen : BaseScreen
 
     private void VerifyCursorHoveringEntities()
     {
+        UpdateFocusedUnitComponentsVisibility();
+
         if (HasCursorHoveringEntity())
         {
             SetFocusedEntity(GetCursorHoveringEntity());
@@ -396,6 +410,19 @@ public class PlayScreen : BaseScreen
 
         ClearFocusedEntity();
         SetNormalCursor();
+    }
+
+    private void UpdateFocusedUnitComponentsVisibility()
+    {
+        bool hasFocusedUnit = HasFocusedEntity();
+
+        _focusedUnitBannerComponent.IsVisible = hasFocusedUnit;
+        _selectionAreaComponent.IsVisible = hasFocusedUnit;
+    }
+
+    private bool HasFocusedEntity()
+    {
+        return _focusedEntity is not null;
     }
 
     #endregion
@@ -415,7 +442,7 @@ public class PlayScreen : BaseScreen
     private void VerifyEndOfGame()
     {
         if (IsEnemyPartyEmpty() || IsAllyPartyEmpty())
-            GlobalVariablesDto.Exit.Invoke();
+            GlobalVariablesDto.ChangeScreen.Invoke(ScreenConst.PlayScreen);
     }
 
     private bool IsEnemyPartyEmpty()
@@ -441,15 +468,6 @@ public class PlayScreen : BaseScreen
         DrawAllies();
         DrawEnemies();
 
-        DrawTurnQueue();
-        DrawCurrentTurnUnitIndicator();
-
-        if (HasFocusedEntity())
-        {
-            DrawSelectionAreaOnFocusedEntity();
-            DrawFocusedEntityBanner();
-        }
-
         DrawDamageTexts();
 
         base.Draw();
@@ -457,7 +475,7 @@ public class PlayScreen : BaseScreen
 
     private void DrawBackground()
     {
-        _backgroundImage.Draw(GlobalVariablesDto.SpriteBatchBackground);
+        _backgroundImageComponent.Draw(GlobalVariablesDto.SpriteBatchBackground);
     }
 
     private void DrawAllies()
@@ -468,31 +486,6 @@ public class PlayScreen : BaseScreen
     private void DrawEnemies()
     {
         _enemiesParty.ForEach(x => x.Draw());
-    }
-
-    private void DrawCurrentTurnUnitIndicator()
-    {
-        _currentTurnUnitComponent.Draw(GlobalVariablesDto.SpriteBatchInterface);
-    }
-
-    private bool HasFocusedEntity()
-    {
-        return _focusedEntity is not null;
-    }
-
-    private void DrawSelectionAreaOnFocusedEntity()
-    {
-        _selectionArea.Draw(GlobalVariablesDto.SpriteBatchInterface);
-    }
-
-    private void DrawFocusedEntityBanner()
-    {
-        _focusedUnitBanner.Draw(GlobalVariablesDto.SpriteBatchInterface);
-    }
-
-    private void DrawTurnQueue()
-    {
-        _turnQueueComponent.Draw(GlobalVariablesDto.SpriteBatchInterface);
     }
 
     private void DrawDamageTexts()

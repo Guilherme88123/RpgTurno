@@ -19,6 +19,7 @@ public class AttackManager
 
     private float _moveSpeed = 500f;
     private int _walkFrontDistance = 200;
+    private int _targetDistance = 150;
 
     private DelayManager _delayManager = new();
 
@@ -30,8 +31,8 @@ public class AttackManager
         _target = target;
         _senderOriginPosition = new Vector2(sender.PositionX, sender.PositionY);
         _targetPosition = sender.IsRanged 
-            ? new Vector2(sender.PositionX + (isEnemy ? -_walkFrontDistance : _walkFrontDistance), sender.PositionY) 
-            : new Vector2(target.PositionX, target.PositionY);
+            ? new Vector2(sender.Center.X + (isEnemy ? -_walkFrontDistance : _walkFrontDistance), sender.Center.Y) 
+            : new Vector2(target.Center.X + (isEnemy ? _targetDistance : -_targetDistance), target.Center.Y);
 
         CurrentPhase = AttackPhase.MovingToTarget;
         sender.CreatureState =  CreatureStateType.Running;
@@ -54,10 +55,10 @@ public class AttackManager
 
     public void UpdateMovingToTarget()
     {
-        var senderPos = new Vector2(_sender.PositionX, _sender.PositionY);
+        var senderPos = new Vector2(_sender.Center.X, _sender.Center.Y);
         var direction = _targetPosition - senderPos;
 
-        if (direction.Length() < 100f)
+        if (direction.Length() < 10f)
         {
             CurrentPhase = AttackPhase.Attacking;
             _sender.CreatureState = CreatureStateType.Attacking;

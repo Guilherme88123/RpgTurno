@@ -25,7 +25,7 @@ public class EnemyLancerEntity : BaseUnitEntity
         Animation.Add(CreatureStateType.Attacking, new AnimationClip(attack, 3, 1, 0.1f, border: spriteBorder));
 
         SizeX = 96;
-        SizeY = 160;
+        SizeY = 96;
         Name = "Evil Lancer";
 
         AnimationSizeX = 320;
