@@ -14,6 +14,7 @@ using RpgTurno.CustomComponents.Banners;
 using RpgTurno.CustomComponents.DamageText;
 using RpgTurno.CustomComponents.Selection;
 using RpgTurno.CustomComponents.TurnQueue;
+using RpgTurno.CustomComponents.Wave;
 using RpgTurno.Screen.Play.Battle;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ public class PlayScreen : BaseScreen
 
     private AttackSelectBannerComponent _attackSelectComponent;
 
-    //TODO: Adicionar componente para indicar Wave atual
+    private WaveIndicatorComponent _waveIndicatorComponent;
 
     #region Initialize
 
@@ -59,10 +60,12 @@ public class PlayScreen : BaseScreen
         _turnQueueComponent = new();
         _currentTurnUnitComponent = new();
 
-        //TODO: Implementar escolha de golpes ao atacar
         _attackSelectComponent = new();
         _attackSelectComponent.SetPosition(30, GlobalOptionsDto.HeightSize - _attackSelectComponent.Bounds.Height - 30);
         _attackSelectComponent.IsVisible = false;
+
+        _waveIndicatorComponent = new();
+        _waveIndicatorComponent.SetPosition(GlobalOptionsDto.WidthSize - 140, 30);
 
         return new() {
             _selectionAreaComponent, 
@@ -70,6 +73,7 @@ public class PlayScreen : BaseScreen
             _turnQueueComponent,
             _currentTurnUnitComponent,
             _attackSelectComponent,
+            _waveIndicatorComponent,
         };
     }
 
@@ -95,8 +99,8 @@ public class PlayScreen : BaseScreen
         _battleManager.Update(gameTime);
 
         UpdateTurnComponents();
-
         UpdateDamageTexts(gameTime);
+        UpdateWaveIndicator();
 
         VerifyCursorHoveringEntities();
     }
@@ -207,6 +211,18 @@ public class PlayScreen : BaseScreen
     {
         _damagesTextList.ForEach(x => x.Update(gameTime));
         _damagesTextList.RemoveAll(x => x.IsDestroyed);
+    }
+
+    #endregion
+
+    #region Wave Indicator
+
+    private void UpdateWaveIndicator()
+    {
+        var currentWave = _battleManager.GetCurrentWaveIndex();
+        var totalWaves = _battleManager.GetTotalCountWaves();
+
+        _waveIndicatorComponent.SetWavesNumber(currentWave, totalWaves);
     }
 
     #endregion

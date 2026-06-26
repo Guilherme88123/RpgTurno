@@ -38,14 +38,14 @@ public class ProgressBarComponent : BaseComponent
 
     private Rectangle GetFillRectangle()
     {
-        //TODO: Revisar, pois aparentemente o tamanho do Fill está bugado
+        //TODO: Revisar, pois aparentemente o tamanho do Fill está bugado - X
         float percent = (float)CurrentValue / MaxValue;
-        int fillWidth = (int)((Bounds.Width - _fixedSlice * 2) * percent);
+        int fillWidth = (int)((Bounds.Width - _fixedSlice) * percent);
 
         return new Rectangle(
             Bounds.X + _fixedSlice / 2, 
             Bounds.Y, 
-            fillWidth + _fixedSlice, 
+            fillWidth, 
             Bounds.Height);
     }
 

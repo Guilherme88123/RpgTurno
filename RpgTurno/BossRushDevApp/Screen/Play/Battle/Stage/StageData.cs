@@ -21,7 +21,7 @@ public class StageData
 
     public bool HasNextWave()
     {
-        return _currentWaveIndex + 1 < Waves.Count;
+        return GetCurrentWaveIndex() < Waves.Count;
     }
 
     public void NextWave()
@@ -35,5 +35,15 @@ public class StageData
     public bool IsFinished()
     {
         return !HasNextWave() && GetCurrentWave().IsCompleted();
+    }
+
+    public int GetCurrentWaveIndex()
+    {
+        return _currentWaveIndex + 1;
+    }
+
+    public int GetCountWaves()
+    {
+        return Waves.Count;
     }
 }

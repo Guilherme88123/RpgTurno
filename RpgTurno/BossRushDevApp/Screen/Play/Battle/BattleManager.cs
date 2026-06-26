@@ -60,6 +60,16 @@ public class BattleManager
         return _turnManager.GetPeekUnit();
     }
 
+    public int GetCurrentWaveIndex()
+    {
+        return _stage.GetCurrentWaveIndex();
+    }
+
+    public int GetTotalCountWaves()
+    {
+        return _stage.GetCountWaves();
+    }
+
     #endregion
 
     #region Update
@@ -156,7 +166,7 @@ public class BattleManager
             RemoveUnit(target);
     }
 
-    public void RemoveUnit(BaseUnitEntity unit)
+    private void RemoveUnit(BaseUnitEntity unit)
     {
         Allies.Remove(unit);
         Enemies.Remove(unit);
@@ -164,7 +174,7 @@ public class BattleManager
         _turnManager.RemoveUnit(unit);
     }
 
-    public void VerifyWave()
+    private void VerifyWave()
     {
         if (Enemies.Any())
             return;
@@ -172,7 +182,7 @@ public class BattleManager
         AdvanceWave();
     }
 
-    public void AdvanceWave()
+    private void AdvanceWave()
     {
         if (!_stage.HasNextWave())
             return;
@@ -182,7 +192,7 @@ public class BattleManager
         InitializeUnits();
     }
 
-    public bool HasFinishedBattle()
+    private bool HasFinishedBattle()
     {
         return _stage.IsFinished();
     }
