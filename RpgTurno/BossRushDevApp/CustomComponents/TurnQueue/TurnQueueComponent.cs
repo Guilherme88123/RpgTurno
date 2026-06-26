@@ -39,6 +39,10 @@ public class TurnQueueComponent : BaseComponent
     public override void Draw(SpriteBatch spriteBatch)
     {
         base.Draw(spriteBatch);
+
+        if (!IsVisible)
+            return;
+
         DrawQueueBackground(spriteBatch);
         DrawUnitsList(spriteBatch);
     }

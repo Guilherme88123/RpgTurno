@@ -8,7 +8,7 @@ namespace RpgTurno.CustomComponents.Background;
 
 public class BackgroundComponent : ImageComponent
 {
-    public BackgroundComponent() : base(GetSprite(), GlobalOptionsDto.WidthSize, GlobalOptionsDto.HeightSize)
+    public BackgroundComponent() : base(GetSprite(), GlobalOptionsDto.WidthSize * 4, GlobalOptionsDto.HeightSize)
     {
     }
 

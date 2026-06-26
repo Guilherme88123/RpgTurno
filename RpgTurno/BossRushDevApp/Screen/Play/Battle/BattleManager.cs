@@ -1,5 +1,6 @@
 ﻿using Domain.Dto.Global;
 using Domain.Enum;
+using Domain.Enum.Battle;
 using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -9,6 +10,7 @@ using RpgTurno.Screen.Play.Battle.Turn;
 using Service.Stage;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace RpgTurno.Screen.Play.Battle;
@@ -25,8 +27,8 @@ public class BattleManager
 
     public Action<BaseUnitEntity, BaseUnitEntity> OnExecuteAttack { get; set; }
 
-    private bool _isWalkingBetweenWaves = false;
-    private float _walkingSpeed = 300f;
+    public BattleState BattleState { get; set; }
+    private readonly float _waveTransitionSpeed = 400f;
 
     #region Initialize
 
@@ -40,6 +42,8 @@ public class BattleManager
         _attackManager.OnTurnFinish += OnTurnFinish;
 
         InitializeUnits();
+
+        StartWaveTransition();
     }
 
     private void InitializeUnits()
@@ -98,43 +102,66 @@ public class BattleManager
         if (_attackManager.IsExecuting())
             return;
 
-        if (_isWalkingBetweenWaves)
+        if (BattleState == BattleState.WaveTransition)
         {
-            UpdateWalkingBetweenWaves();
+            UpdateWaveTransition();
             return;
         }
 
         UpdateTurnAction();
     }
 
-    private void UpdateWalkingBetweenWaves()
+    private void UpdateWaveTransition()
     {
-        var destineX = GetAlliesXPosition();
-        var currentX = Allies.First().PositionX;
+        var target = GetWaveTransitionTarget();
 
-        if (destineX - currentX < 10)
-        {
-            Allies.ForEach(x => x.CreatureState = CreatureStateType.Idle);
-            Allies.ForEach(x => x.PositionX = destineX);
+        MoveParty();
+        MoveCamera();
 
-            var destineMiddleX = destineX + GlobalOptionsDto.WidthSize / 4;
-            GlobalVariablesDto.Follow(GlobalVariablesDto.SpriteBatchEntities, new Vector2(destineMiddleX, GlobalOptionsDto.HeightSize / 2));
-            GlobalVariablesDto.Follow(GlobalVariablesDto.SpriteBatchInterface, new Vector2(destineMiddleX, GlobalOptionsDto.HeightSize / 2));
-
-            _isWalkingBetweenWaves = false;
+        if (!ReachedWaveTransitionTarget(target))
             return;
-        }
 
-        Allies.ForEach(x => x.PositionX += _walkingSpeed * GlobalVariablesDto.DeltaTime);
-
-        var currentMiddleX = currentX + GlobalOptionsDto.WidthSize / 4;
-        GlobalVariablesDto.Follow(GlobalVariablesDto.SpriteBatchEntities, new Vector2(currentMiddleX, GlobalOptionsDto.HeightSize / 2));
-        GlobalVariablesDto.Follow(GlobalVariablesDto.SpriteBatchInterface, new Vector2(currentMiddleX, GlobalOptionsDto.HeightSize / 2));
+        FinishWaveTransition(target);
     }
 
-    private void IncrementEntitiesCamera()
+    private int GetWaveTransitionTarget()
     {
+        return GlobalOptionsDto.WidthSize / 3 * 2 - Enemies.First().SizeX / 2;
+    }
 
+    private void MoveParty()
+    {
+        Enemies.ForEach(x => x.PositionX -= _waveTransitionSpeed * GlobalVariablesDto.DeltaTime);
+    }
+
+    private void MoveCamera()
+    {
+        var cameraPosition = new Vector2();
+
+        if (GlobalVariablesDto.SpriteBatchTransforms.TryGetValue(GlobalVariablesDto.SpriteBatchBackground, out var position))
+        {
+            cameraPosition = position;
+        }
+
+        GlobalVariablesDto.Follow(
+            GlobalVariablesDto.SpriteBatchBackground,
+            new Vector2(cameraPosition.X + _waveTransitionSpeed * GlobalVariablesDto.DeltaTime + GlobalOptionsDto.WidthSize / 2, cameraPosition.Y + GlobalOptionsDto.HeightSize / 2));
+
+    }
+
+    private bool ReachedWaveTransitionTarget(int target)
+    {
+        return Enemies.All(x => x.PositionX <= target);
+    }
+
+    private void FinishWaveTransition(int target)
+    {
+        Allies.ForEach(x => x.CreatureState = CreatureStateType.Idle);
+        Enemies.ForEach(x => x.PositionX = target);
+
+        _turnManager.SetUnitsQueue(GetAllUnits());
+
+        BattleState = BattleState.Fighting;
     }
 
     private void UpdateTurnAction()
@@ -230,12 +257,12 @@ public class BattleManager
         SetEnemiesPosition();
 
         //TODO: Implementar animação na passagem de Wave
-        //StartWalkingBetweenWaves();
+        StartWaveTransition();
     }
 
-    private void StartWalkingBetweenWaves()
+    private void StartWaveTransition()
     {
-        _isWalkingBetweenWaves = true;
+        BattleState = BattleState.WaveTransition;
         Allies.ForEach(x => x.CreatureState = CreatureStateType.Running);
     }
 
@@ -272,7 +299,7 @@ public class BattleManager
 
     private void SetAlliesPosition()
     {
-        int posX = GetAlliesXPosition();
+        int posX = GlobalOptionsDto.WidthSize / 3;
 
         Allies.ForEach(x => x.PositionX = posX);
 
@@ -280,15 +307,9 @@ public class BattleManager
         FixUnitsPositionBySize(Allies);
     }
 
-    private int GetAlliesXPosition()
-    {
-        return (GlobalOptionsDto.WidthSize * (GetCurrentWaveIndex() - 1)) + GlobalOptionsDto.WidthSize / 3;
-    }
-
     private void SetEnemiesPosition()
     {
-        int posX = /*(GlobalOptionsDto.WidthSize * (GetCurrentWaveIndex() - 1)) +*/ (GlobalOptionsDto.WidthSize / 3) * 2;
-
+        int posX = (int)(GlobalOptionsDto.WidthSize * 1.5);
         Enemies.ForEach(x => x.PositionX = posX);
         Enemies.ForEach(x => x.Direction = DirectionType.Left);
 

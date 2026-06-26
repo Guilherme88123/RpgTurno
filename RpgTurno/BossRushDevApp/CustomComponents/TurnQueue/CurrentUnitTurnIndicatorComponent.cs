@@ -34,6 +34,9 @@ public class CurrentUnitTurnIndicatorComponent : BaseComponent
     {
         base.Draw(spriteBatch);
 
+        if (!IsVisible)
+            return;
+
         CurrentUnitIndicator.Draw(spriteBatch);
     }
 

@@ -1,5 +1,6 @@
 ﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
+using Domain.Enum.Battle;
 using Domain.Enum.Component.Cursor;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Custom.Banners;
@@ -109,8 +110,18 @@ public class PlayScreen : BaseScreen
 
     private void UpdateTurnComponents()
     {
+        SeTurnComponentVisibilityByBattleState();
         UpdateTurnQueueListComponent();
         UpdateCurrentTurnUnitComponent();
+    }
+
+    private void SeTurnComponentVisibilityByBattleState()
+    {
+        var battleState = _battleManager.BattleState;
+        var isFighting = battleState == BattleState.Fighting;
+
+        _turnQueueComponent.IsVisible = isFighting;
+        _currentTurnUnitComponent.IsVisible = isFighting;
     }
 
     private void UpdateTurnQueueListComponent()
