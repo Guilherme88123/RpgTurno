@@ -10,7 +10,7 @@ namespace Domain.Model.Entity.Units.Ally.Archer;
 
 public class ArcherEntity : BaseUnitEntity
 {
-    public ArcherEntity()
+    public ArcherEntity() : base(maxHealth: 7, damage: 4)
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ArcherIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ArcherRun);

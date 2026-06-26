@@ -11,7 +11,7 @@ namespace Domain.Model.Entity.Units.Ally.Warrior;
 
 public class WarriorEntity : BaseUnitEntity
 {
-    public WarriorEntity()
+    public WarriorEntity() : base(maxHealth: 10, damage: 3)
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.WarriorIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.WarriorRun);

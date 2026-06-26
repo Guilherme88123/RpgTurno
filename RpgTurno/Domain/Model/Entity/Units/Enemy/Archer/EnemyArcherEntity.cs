@@ -10,7 +10,7 @@ namespace Domain.Model.Entity.Units.Enemy.Archer;
 
 public class EnemyArcherEntity : BaseUnitEntity
 {
-    public EnemyArcherEntity()
+    public EnemyArcherEntity() : base(maxHealth: 7, damage: 4)
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyArcherIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyArcherRun);

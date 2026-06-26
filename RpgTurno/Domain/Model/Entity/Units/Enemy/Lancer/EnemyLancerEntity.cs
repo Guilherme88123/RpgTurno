@@ -10,7 +10,7 @@ namespace Domain.Model.Entity.Units.Enemy.Lancer;
 
 public class EnemyLancerEntity : BaseUnitEntity
 {
-    public EnemyLancerEntity()
+    public EnemyLancerEntity() : base(maxHealth: 12, damage: 2)
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyLancerIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyLancerRun);

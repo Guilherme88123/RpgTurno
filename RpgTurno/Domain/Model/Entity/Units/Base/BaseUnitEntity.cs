@@ -25,9 +25,10 @@ public class BaseUnitEntity : BaseEntity
     private float _currentDelayDamageTakenFlash;
     private bool HasTakeDamage => _currentDelayDamageTakenFlash > 0;
 
-    public BaseUnitEntity()
+    public BaseUnitEntity(int maxHealth, int damage)
     {
-        Health = MaxHealth; 
+        MaxHealth = Health = maxHealth;
+        Damage = damage;
         
         _healthBar = new HealthBarComponent(MaxHealth, Health);
     }
@@ -84,13 +85,13 @@ public class BaseUnitEntity : BaseEntity
 
     #region Functions
 
-    #region TakeDamage
+    #region Take Damage
 
     public void TakeDamage(int damageAmount)
     {
         Health -= damageAmount;
 
-        if (Health < 0)
+        if (Health <= 0)
             Destroy();
 
         ResetTakeDamageDelay();
