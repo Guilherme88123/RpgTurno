@@ -25,6 +25,9 @@ public class BattleManager
 
     public Action<BaseUnitEntity, BaseUnitEntity> OnExecuteAttack { get; set; }
 
+    private bool _isWalkingBetweenWaves = false;
+    private float _walkingSpeed = 300f;
+
     #region Initialize
 
     public void Initialize(List<BaseUnitEntity> allies)
@@ -42,7 +45,7 @@ public class BattleManager
     private void InitializeUnits()
     {
         _turnManager.SetUnitsQueue(GetAllUnits());
-        SetUnitsPosition();
+        InitializeUnitsPosition();
     }
 
     public List<BaseUnitEntity> GetAllUnits()
@@ -95,18 +98,43 @@ public class BattleManager
         if (_attackManager.IsExecuting())
             return;
 
+        if (_isWalkingBetweenWaves)
+        {
+            UpdateWalkingBetweenWaves();
+            return;
+        }
+
         UpdateTurnAction();
     }
 
-    private void OnTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
+    private void UpdateWalkingBetweenWaves()
     {
-        GoToNextTurn();
-        VerifyWave();
+        var destineX = GetAlliesXPosition();
+        var currentX = Allies.First().PositionX;
+
+        if (destineX - currentX < 10)
+        {
+            Allies.ForEach(x => x.CreatureState = CreatureStateType.Idle);
+            Allies.ForEach(x => x.PositionX = destineX);
+
+            var destineMiddleX = destineX + GlobalOptionsDto.WidthSize / 4;
+            GlobalVariablesDto.Follow(GlobalVariablesDto.SpriteBatchEntities, new Vector2(destineMiddleX, GlobalOptionsDto.HeightSize / 2));
+            GlobalVariablesDto.Follow(GlobalVariablesDto.SpriteBatchInterface, new Vector2(destineMiddleX, GlobalOptionsDto.HeightSize / 2));
+
+            _isWalkingBetweenWaves = false;
+            return;
+        }
+
+        Allies.ForEach(x => x.PositionX += _walkingSpeed * GlobalVariablesDto.DeltaTime);
+
+        var currentMiddleX = currentX + GlobalOptionsDto.WidthSize / 4;
+        GlobalVariablesDto.Follow(GlobalVariablesDto.SpriteBatchEntities, new Vector2(currentMiddleX, GlobalOptionsDto.HeightSize / 2));
+        GlobalVariablesDto.Follow(GlobalVariablesDto.SpriteBatchInterface, new Vector2(currentMiddleX, GlobalOptionsDto.HeightSize / 2));
     }
 
-    private void GoToNextTurn()
+    private void IncrementEntitiesCamera()
     {
-        _turnManager.NextTurn();
+
     }
 
     private void UpdateTurnAction()
@@ -174,6 +202,17 @@ public class BattleManager
         _turnManager.RemoveUnit(unit);
     }
 
+    private void OnTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
+    {
+        GoToNextTurn();
+        VerifyWave();
+    }
+
+    private void GoToNextTurn()
+    {
+        _turnManager.NextTurn();
+    }
+
     private void VerifyWave()
     {
         if (Enemies.Any())
@@ -187,9 +226,17 @@ public class BattleManager
         if (!_stage.HasNextWave())
             return;
 
-        //TODO: Implementar animação na passagem de Wave
         _stage.NextWave();
-        InitializeUnits();
+        SetEnemiesPosition();
+
+        //TODO: Implementar animação na passagem de Wave
+        //StartWalkingBetweenWaves();
+    }
+
+    private void StartWalkingBetweenWaves()
+    {
+        _isWalkingBetweenWaves = true;
+        Allies.ForEach(x => x.CreatureState = CreatureStateType.Running);
     }
 
     private bool HasFinishedBattle()
@@ -217,7 +264,7 @@ public class BattleManager
 
     #region Set Units Position
 
-    private void SetUnitsPosition()
+    private void InitializeUnitsPosition()
     {
         SetAlliesPosition();
         SetEnemiesPosition();
@@ -225,7 +272,7 @@ public class BattleManager
 
     private void SetAlliesPosition()
     {
-        int posX = GlobalOptionsDto.WidthSize / 3;
+        int posX = GetAlliesXPosition();
 
         Allies.ForEach(x => x.PositionX = posX);
 
@@ -233,9 +280,14 @@ public class BattleManager
         FixUnitsPositionBySize(Allies);
     }
 
+    private int GetAlliesXPosition()
+    {
+        return (GlobalOptionsDto.WidthSize * (GetCurrentWaveIndex() - 1)) + GlobalOptionsDto.WidthSize / 3;
+    }
+
     private void SetEnemiesPosition()
     {
-        int posX = (GlobalOptionsDto.WidthSize / 3) * 2;
+        int posX = /*(GlobalOptionsDto.WidthSize * (GetCurrentWaveIndex() - 1)) +*/ (GlobalOptionsDto.WidthSize / 3) * 2;
 
         Enemies.ForEach(x => x.PositionX = posX);
         Enemies.ForEach(x => x.Direction = DirectionType.Left);

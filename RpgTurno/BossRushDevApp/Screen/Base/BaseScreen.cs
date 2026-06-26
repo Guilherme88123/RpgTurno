@@ -21,7 +21,6 @@ public abstract class BaseScreen : IScreen
     protected BaseScreen()
     {
         _componentsService = GlobalVariablesDto.GetService<IUiManagerService>();
-
     }
 
     #region Initialization
