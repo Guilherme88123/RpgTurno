@@ -12,6 +12,7 @@ using System.Data;
 
 namespace RpgTurno.CustomComponents.TurnQueue;
 
+//TODO: Implmentar animação na passagem de turno
 public class TurnQueueComponent : BaseComponent
 {
     private const int MaxIconsCount = 7;

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using RpgTurno.Screen.Play.Battle.Attack;
 using RpgTurno.Screen.Play.Battle.Stage;
 using RpgTurno.Screen.Play.Battle.Turn;
+using Service.Stage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -176,6 +177,7 @@ public class BattleManager
         if (!_stage.HasNextWave())
             return;
 
+        //TODO: Implementar animação na passagem de Wave
         _stage.NextWave();
         InitializeUnits();
     }

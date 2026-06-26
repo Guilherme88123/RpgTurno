@@ -10,6 +10,7 @@ using System.Drawing;
 
 namespace RpgTurno.CustomComponents.TurnQueue;
 
+//TODO: Ajustar ícone utilizado
 public class CurrentUnitTurnIndicatorComponent : BaseComponent
 {
     private const int IndicatorSize = 48;

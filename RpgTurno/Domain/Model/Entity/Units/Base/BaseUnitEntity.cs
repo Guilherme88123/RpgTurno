@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Domain.Model.Entity.Units.Base;
 
+//TODO: Adicionar animação ao ser Destruído
 public class BaseUnitEntity : BaseEntity
 {
     public string Name { get; set; }

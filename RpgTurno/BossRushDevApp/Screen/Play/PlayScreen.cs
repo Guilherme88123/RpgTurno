@@ -25,7 +25,7 @@ public class PlayScreen : BaseScreen
 {
     public override string ScreenCode => ScreenConst.PlayScreen;
 
-    private BattleManager _battleManager = new();
+    private readonly BattleManager _battleManager = new();
 
     private SelectionAreaComponent _selectionAreaComponent;
     private BaseUnitEntity _focusedEntity;
@@ -39,6 +39,8 @@ public class PlayScreen : BaseScreen
     private readonly List<DamageTextComponent> _damagesTextList = new();
 
     private AttackSelectBannerComponent _attackSelectComponent;
+
+    //TODO: Adicionar componente para indicar Wave atual
 
     #region Initialize
 

@@ -1,35 +1,19 @@
-﻿using Domain.Model.Entity.Units.Enemy.Archer;
-using Domain.Model.Entity.Units.Enemy.Warrior;
-using Domain.Model.Entity.Units.Enemy.Cleric;
-using Domain.Model.Entity.Units.Enemy.Lancer;
-using RpgTurno.Screen.Play.Battle.Wave;
-using System.Linq.Expressions;
+﻿using RpgTurno.Screen.Play.Battle.Stage;
+using RpgTurno.Screen.Play.Battle.Stage.Factory;
 
-namespace RpgTurno.Screen.Play.Battle.Stage;
+namespace Service.Stage;
 
 public static class StageFactory
 {
     public static StageData Create()
     {
+        var waveGenerator = new WaveGenerator();
+
         return new StageData(
         [
-            new WaveData(
-            [
-                new EnemyWarriorEntity(),
-                new EnemyArcherEntity(),
-            ]),
-            new WaveData(
-            [
-                new EnemyWarriorEntity(),
-                new EnemyLancerEntity(),
-                new EnemyArcherEntity(),
-            ]),
-            new WaveData(
-            [
-                new EnemyWarriorEntity(),
-                new EnemyClericEntity(),
-                new EnemyArcherEntity(),
-            ]),
+            waveGenerator.Generate(1, 5),
+            waveGenerator.Generate(2, 8),
+            waveGenerator.Generate(3, 12),
         ]);
     }
 }
