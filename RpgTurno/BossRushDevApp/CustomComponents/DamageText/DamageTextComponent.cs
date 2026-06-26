@@ -11,7 +11,7 @@ public class DamageTextComponent : BaseComponent
     private const float DelayDissapear = 1.0f;
     private float _currentDelayDissapear = DelayDissapear;
 
-    public bool IsDestroied { get; private set; }
+    public bool IsDestroyed { get; private set; }
 
     private readonly TextComponent _textComponent = new();
 
@@ -48,7 +48,7 @@ public class DamageTextComponent : BaseComponent
 
         if (_currentDelayDissapear <= 0)
         {
-            IsDestroied = true;
+            IsDestroyed = true;
         }
     }
 

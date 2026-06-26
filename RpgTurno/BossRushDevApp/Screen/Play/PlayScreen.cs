@@ -1,7 +1,5 @@
 ﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
-using Domain.Enum;
-using Domain.Enum.Attack;
 using Domain.Enum.Component.Cursor;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Custom.Banners;
@@ -10,20 +8,13 @@ using Domain.Model.Entity.Units.Ally.Cleric;
 using Domain.Model.Entity.Units.Ally.Lancer;
 using Domain.Model.Entity.Units.Ally.Warrior;
 using Domain.Model.Entity.Units.Base;
-using Domain.Model.Entity.Units.Enemy.Archer;
-using Domain.Model.Entity.Units.Enemy.Cleric;
-using Domain.Model.Entity.Units.Enemy.Lancer;
-using Domain.Model.Entity.Units.Enemy.Warrior;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using RpgTurno.CustomComponents.Background;
 using RpgTurno.CustomComponents.Banners;
 using RpgTurno.CustomComponents.DamageText;
 using RpgTurno.CustomComponents.Selection;
 using RpgTurno.CustomComponents.TurnQueue;
-using RpgTurno.Screen.Play.Attack;
 using RpgTurno.Screen.Play.Battle;
-using RpgTurno.Screen.Play.Turn;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +45,7 @@ public class PlayScreen : BaseScreen
     protected override List<BaseComponent> InitializeComponents()
     {
         _battleManager.Initialize(CreateAllies());
+        _battleManager.OnExecuteAttack += AddDamageText;
 
         _selectionAreaComponent = new();
 
@@ -65,6 +57,7 @@ public class PlayScreen : BaseScreen
         _turnQueueComponent = new();
         _currentTurnUnitComponent = new();
 
+        //TODO: Implementar escolha de golpes ao atacar
         _attackSelectComponent = new();
         _attackSelectComponent.SetPosition(30, GlobalOptionsDto.HeightSize - _attackSelectComponent.Bounds.Height - 30);
         _attackSelectComponent.IsVisible = false;
@@ -78,15 +71,6 @@ public class PlayScreen : BaseScreen
         };
     }
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SetEntitiesPosition();
-
-        _turnQueueManager.SetUnitsQueue(AllUnits);
-    }
-
     private List<BaseUnitEntity> CreateAllies()
     {
         return
@@ -98,61 +82,6 @@ public class PlayScreen : BaseScreen
         ];
     }
 
-    private void SetEntitiesPosition()
-    {
-        SetAlliesPosition();
-        SetEnemiesPosition();
-    }
-
-    private void SetAlliesPosition()
-    {
-        int posX = GlobalOptionsDto.WidthSize / 3;
-
-        _alliesParty.ForEach(x => x.PositionX = posX);
-
-        SetEntitiesYPosition(_alliesParty);
-        FixEntitiesPositionBySize(_alliesParty);
-    }
-
-    private void SetEnemiesPosition()
-    {
-        int posX = (GlobalOptionsDto.WidthSize / 3) * 2;
-
-        _enemiesParty.ForEach(x => x.PositionX = posX);
-        _enemiesParty.ForEach(x => x.Direction = DirectionType.Left);
-
-        SetEntitiesYPosition(_enemiesParty);
-        FixEntitiesPositionBySize(_enemiesParty);
-    }
-
-    private void SetEntitiesYPosition(List<BaseUnitEntity> entitiesList)
-    {
-        if (!entitiesList.Any()) return;
-
-        int entityHeight = 150;
-        int fixedTopMargin = 50;
-        int margin = 30;
-        int step = entityHeight + margin;
-        int totalHeight = entitiesList.Count * entityHeight + (entitiesList.Count - 1) * margin;
-        int initialY = GlobalOptionsDto.HeightSize / 2 - totalHeight / 2 + fixedTopMargin;
-
-        foreach (var (entity, index) in entitiesList.Select((e, i) => (e, i)))
-        {
-            entity.PositionY = initialY + step * index;
-        }
-    }
-
-    private void FixEntitiesPositionBySize(List<BaseUnitEntity> entitiesList)
-    {
-        if (!entitiesList.Any()) return;
-
-        foreach (var entity in entitiesList)
-        {
-            entity.PositionX -= entity.SizeX / 2;
-            entity.PositionY -= entity.SizeY / 2;
-        }
-    }
-
     #endregion
 
     #region Update
@@ -161,151 +90,35 @@ public class PlayScreen : BaseScreen
     {
         base.Update(gameTime);
 
-        UpdateTurn();
+        _battleManager.Update(gameTime);
 
-        _selectionAreaComponent.Update(gameTime);
-        _focusedUnitBannerComponent.Update(gameTime);
-
-        _battleManagar.Update(gameTime);
+        UpdateTurnComponents();
 
         UpdateDamageTexts(gameTime);
 
         VerifyCursorHoveringEntities();
-
-        VerifyEndOfGame();
     }
 
-    #region Turn
+    #region Turn Components
 
-    private void UpdateTurn()
+    private void UpdateTurnComponents()
     {
-        UpdateTurnComponent();
-        UpdateTurnAction();
+        UpdateTurnQueueListComponent();
+        UpdateCurrentTurnUnitComponent();
     }
 
-    #region Action
-
-    private void UpdateTurnAction()
+    private void UpdateTurnQueueListComponent()
     {
-        UpdateAttackManager();
+        var ordenedUnitsList = _battleManager.GetUnitsTurnQueue();
+        var spritesIconsList = ordenedUnitsList.Select(x => x.Icon).ToList();
 
-        switch (GetCurrentAttackPhase())
-        {
-            case AttackPhase.Idle:
-                HandleIdlePhase();
-                break;
-            case AttackPhase.MovingToTarget:
-                HandleMovingToTargetPhase();
-                break;
-            case AttackPhase.Attacking:
-                HandleAttackingPhase();
-                break;
-            case AttackPhase.MovingBack:
-                HandleMovingBackPhase();
-                break;
-            case AttackPhase.WaitingTurn:
-                HandleWaitingTurnPhase();
-                break;
-        }
+        _turnQueueComponent.SetUnitsList(spritesIconsList);
     }
 
-    private void UpdateAttackManager()
+    private void UpdateCurrentTurnUnitComponent()
     {
-        _attackManager.Update();
-    }
-
-    private AttackPhase GetCurrentAttackPhase()
-    {
-        return _attackManager.CurrentPhase;
-    }
-
-    private void HandleIdlePhase()
-    {
-        var currentUnit = _turnQueueManager.GetPeekUnit();
-
-        if (IsEnemyUnit(currentUnit))
-            UpdateEnemyTurn(currentUnit);
-        else
-            UpdateAllyTurn(currentUnit);
-    }
-
-    private void HandleMovingToTargetPhase()
-    {
-        _attackManager.UpdateMovingToTarget();
-    }
-
-    private void HandleAttackingPhase()
-    {
-        if (!_attackManager.HasAttackFinished())
-            return;
-
-        ExecuteAttack();
-    }
-
-    private void HandleMovingBackPhase()
-    {
-        _attackManager.UpdateMovingBack();
-    }
-
-    private void HandleWaitingTurnPhase()
-    {
-        if (!_attackManager.HasWaitTurnFinished())
-            return;
-
-        _attackManager.Reset();
-
-        _turnQueueManager.NextTurn();
-    }
-
-    private bool IsEnemyUnit(BaseUnitEntity unit)
-    {
-        return _enemiesParty.Contains(unit);
-    }
-
-    private void UpdateEnemyTurn(BaseUnitEntity enemyUnit)
-    {
-        var targetAlly = _alliesParty.Shuffle().First();
-
-        StartAttack(enemyUnit, targetAlly);
-    }
-
-    private void UpdateAllyTurn(BaseUnitEntity allyUnit)
-    {
-        //TODO: Implementar escolha de golpes ao atacar
-        //_attackSelectComponent.IsVisible = true;
-
-        if (GlobalVariablesDto.PreviousMouseDown)
-            return;
-
-        if (GlobalVariablesDto.MouseState.LeftButton != ButtonState.Pressed)
-            return;
-
-        if (!HasCursorHoveringEntity())
-            return;
-
-        var targetEnemy = GetCursorHoveringEntity();
-
-        if (_alliesParty.Contains(targetEnemy))
-            return;
-
-        StartAttack(allyUnit, targetEnemy);
-
-        _attackSelectComponent.IsVisible = false;
-    }
-
-    private void StartAttack(BaseUnitEntity sender, BaseUnitEntity target)
-    {
-        _attackManager.StartAttack(sender, target, IsEnemyUnit(sender));
-    }
-
-    private void ExecuteAttack()
-    {
-        var (sender, target) = _attackManager.ExecuteAttack();
-
-        AddDamageText(sender, target);
-
-        if (target.IsDestroyed)
-            RemoveUnit(target);
+        var currentTurnUnit = _battleManager.GetCurrentUnitTurnQueue();
+        _currentTurnUnitComponent.SetCurrentTurnUnit(currentTurnUnit);
     }
 
     private void AddDamageText(BaseUnitEntity sender, BaseUnitEntity target)
@@ -317,54 +130,9 @@ public class PlayScreen : BaseScreen
         _damagesTextList.Add(new DamageTextComponent((int)positionX, (int)positionY, damageText));
     }
 
-    private void RemoveUnit(BaseUnitEntity unit)
-    {
-        _alliesParty.Remove(unit);
-        _enemiesParty.Remove(unit);
-        _turnQueueManager.RemoveUnit(unit);
-    }
-
-    #endregion
-
-    #region Component
-
-    private void UpdateTurnComponent()
-    {
-        UpdateTurnQueueListComponent();
-        UpdateCurrentTurnUnitComponent();
-    }
-
-    private void UpdateTurnQueueListComponent()
-    {
-        var ordenedUnitsList = _turnQueueManager.GetUnitQueueList();
-        var spritesIconsList = ordenedUnitsList.Select(x => x.Icon).ToList();
-
-        _turnQueueComponent.SetUnitsList(spritesIconsList);
-    }
-
-    private void UpdateCurrentTurnUnitComponent()
-    {
-        var currentTurnUnit = _turnQueueManager.GetPeekUnit();
-        _currentTurnUnitComponent.SetCurrentTurnUnit(currentTurnUnit);
-    }
-
-    #endregion
-
     #endregion
 
     #region Focused Entity
-
-    private bool HasCursorHoveringEntity()
-    {
-        var mouse = GlobalVariablesDto.MouseState;
-        return AllUnits.Any(x => x.Rectangle.Contains(mouse.X, mouse.Y));
-    }
-
-    private BaseUnitEntity GetCursorHoveringEntity()
-    {
-        var mouse = GlobalVariablesDto.MouseState;
-        return AllUnits.First(x => x.Rectangle.Contains(mouse.X, mouse.Y));
-    }
 
     private void SetFocusedEntity(BaseUnitEntity entity)
     {
@@ -405,9 +173,9 @@ public class PlayScreen : BaseScreen
     {
         UpdateFocusedUnitComponentsVisibility();
 
-        if (HasCursorHoveringEntity())
+        if (_battleManager.HasCursorHoveringEntity())
         {
-            SetFocusedEntity(GetCursorHoveringEntity());
+            SetFocusedEntity(_battleManager.GetCursorHoveringEntity());
             SetHoverCursor();
             return;
         }
@@ -436,27 +204,7 @@ public class PlayScreen : BaseScreen
     private void UpdateDamageTexts(GameTime gameTime)
     {
         _damagesTextList.ForEach(x => x.Update(gameTime));
-        _damagesTextList.RemoveAll(x => x.IsDestroied);
-    }
-
-    #endregion
-
-    #region Game End
-
-    private void VerifyEndOfGame()
-    {
-        if (IsEnemyPartyEmpty() || IsAllyPartyEmpty())
-            GlobalVariablesDto.ChangeScreen.Invoke(ScreenConst.PlayScreen);
-    }
-
-    private bool IsEnemyPartyEmpty()
-    {
-        return !_enemiesParty.Any();
-    }
-
-    private bool IsAllyPartyEmpty()
-    {
-        return !_alliesParty.Any();
+        _damagesTextList.RemoveAll(x => x.IsDestroyed);
     }
 
     #endregion
@@ -481,7 +229,7 @@ public class PlayScreen : BaseScreen
 
     private void DrawBattle()
     {
-        _battleManagar.GetAllUnits().ForEach(x => x.Draw());
+        _battleManager.GetAllUnits().ForEach(x => x.Draw());
     }
 
     private void DrawDamageTexts()

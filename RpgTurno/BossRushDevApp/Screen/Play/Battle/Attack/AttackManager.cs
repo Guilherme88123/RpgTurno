@@ -3,10 +3,10 @@ using Domain.Enum;
 using Domain.Enum.Attack;
 using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
-using RpgTurno.Screen.Play.Delay;
+using RpgTurno.Screen.Play.Battle.Delay;
 using System;
 
-namespace RpgTurno.Screen.Play.Attack;
+namespace RpgTurno.Screen.Play.Battle.Attack;
 
 public class AttackManager
 {
@@ -24,6 +24,9 @@ public class AttackManager
 
     private readonly DelayManager _delayManager = new();
 
+    public Action<BaseUnitEntity, BaseUnitEntity> OnExecuteAttack { get; set; }
+    public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
+
     public bool IsExecuting()
     {
         return CurrentPhase != AttackPhase.Idle;
@@ -34,22 +37,22 @@ public class AttackManager
         _sender = sender;
         _target = target;
         _senderOriginPosition = new Vector2(sender.PositionX, sender.PositionY);
-        _targetPosition = sender.IsRanged 
-            ? new Vector2(sender.Center.X + (isEnemy ? -_walkFrontDistance : _walkFrontDistance), sender.Center.Y) 
+        _targetPosition = sender.IsRanged
+            ? new Vector2(sender.Center.X + (isEnemy ? -_walkFrontDistance : _walkFrontDistance), sender.Center.Y)
             : new Vector2(target.Center.X + (isEnemy ? _targetDistance : -_targetDistance), target.Center.Y);
 
         CurrentPhase = AttackPhase.MovingToTarget;
-        sender.CreatureState =  CreatureStateType.Running;
+        sender.CreatureState = CreatureStateType.Running;
     }
 
-    public (BaseUnitEntity, BaseUnitEntity) ExecuteAttack()
+    public void ExecuteAttack()
     {
         _target.TakeDamage(_sender.Damage);
 
         CurrentPhase = AttackPhase.MovingBack;
         _sender.CreatureState = CreatureStateType.Running;
 
-        return (_sender, _target);
+        OnExecuteAttack?.Invoke(_sender, _target);
     }
 
     public void Update()
@@ -67,6 +70,9 @@ public class AttackManager
             case AttackPhase.MovingBack:
                 UpdateMovingBack();
                 break;
+            case AttackPhase.WaitingTurn:
+                UpdateWaitingTurn();
+                break;
         }
     }
 
@@ -79,7 +85,7 @@ public class AttackManager
         {
             CurrentPhase = AttackPhase.Attacking;
             _sender.CreatureState = CreatureStateType.Attacking;
-            _delayManager.ResetDelayAttackExecution();
+            ResetDelayAttack();
             return;
         }
 
@@ -90,7 +96,12 @@ public class AttackManager
 
     private void UpdateAttacking()
     {
+        if (!HasAttackDelayFinished())
+            return;
 
+        ExecuteAttack();
+
+        CurrentPhase = AttackPhase.MovingBack;
     }
 
     private void UpdateMovingBack()
@@ -105,7 +116,7 @@ public class AttackManager
             _sender.PositionY = originPos.Y;
             CurrentPhase = AttackPhase.WaitingTurn;
             _sender.CreatureState = CreatureStateType.Idle;
-            _delayManager.ResetDelayTurnExecution();
+            ResetDelayTurn();
             return;
         }
 
@@ -114,15 +125,44 @@ public class AttackManager
         _sender.PositionY += direction.Y * _moveSpeed * GlobalVariablesDto.DeltaTime;
     }
 
-    public bool HasAttackFinished()
+    private void UpdateWaitingTurn()
     {
-        return _delayManager.HasDelayAttackExecutionComplete();
+        if (!HasTurnDelayFinished())
+            return;
+
+        OnTurnFinish?.Invoke(_sender, _target);
+
+        GoToIdlePhase();
     }
 
-    public void ResetAttack()
+    public void GoToIdlePhase()
     {
         CurrentPhase = AttackPhase.Idle;
         _sender = null;
         _target = null;
     }
+
+    #region Delay Manager
+
+    public void ResetDelayAttack()
+    {
+        _delayManager.ResetDelayAttackExecution();
+    }
+
+    public bool HasAttackDelayFinished()
+    {
+        return _delayManager.HasDelayAttackExecutionComplete();
+    }
+
+    public void ResetDelayTurn()
+    {
+        _delayManager.ResetDelayAttackExecution();
+    }
+
+    public bool HasTurnDelayFinished()
+    {
+        return _delayManager.HasDelayAttackExecutionComplete();
+    }
+
+    #endregion
 }

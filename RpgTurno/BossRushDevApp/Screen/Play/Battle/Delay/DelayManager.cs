@@ -1,11 +1,11 @@
 ﻿using Domain.Dto.Global;
 using System;
 
-namespace RpgTurno.Screen.Play.Delay;
+namespace RpgTurno.Screen.Play.Battle.Delay;
 
 public class DelayManager
 {
-    private const float DelayTurnExecution = 1.0f;
+    private const float DelayTurnExecution = 0.7f;
     private float _currentDelayTurnExecution;
 
     public void ResetDelayTurnExecution() => _currentDelayTurnExecution = DelayTurnExecution;

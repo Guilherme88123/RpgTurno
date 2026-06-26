@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RpgTurno.Screen.Play.Turn;
+namespace RpgTurno.Screen.Play.Battle.Turn;
 
 public class TurnQueueManager
 {
