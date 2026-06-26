@@ -22,6 +22,7 @@ using RpgTurno.CustomComponents.DamageText;
 using RpgTurno.CustomComponents.Selection;
 using RpgTurno.CustomComponents.TurnQueue;
 using RpgTurno.Screen.Play.Attack;
+using RpgTurno.Screen.Play.Battle;
 using RpgTurno.Screen.Play.Turn;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
@@ -33,10 +34,7 @@ public class PlayScreen : BaseScreen
 {
     public override string ScreenCode => ScreenConst.PlayScreen;
 
-    //TODO: Criar BattleManager para gerenciar aliados, inimigos, controle de turnos, etc...
-    private readonly List<BaseUnitEntity> _alliesParty = new();
-    private readonly List<BaseUnitEntity> _enemiesParty = new();
-    private List<BaseUnitEntity> AllUnits => [.. _alliesParty, .. _enemiesParty];
+    private BattleManager _battleManager = new();
 
     private SelectionAreaComponent _selectionAreaComponent;
     private BaseUnitEntity _focusedEntity;
@@ -44,11 +42,9 @@ public class PlayScreen : BaseScreen
 
     private BackgroundComponent _backgroundImageComponent;
 
-    private TurnQueueManager _turnQueueManager = new();
     private TurnQueueComponent _turnQueueComponent;
     private CurrentUnitTurnIndicatorComponent _currentTurnUnitComponent;
 
-    private readonly AttackManager _attackManager = new();
     private readonly List<DamageTextComponent> _damagesTextList = new();
 
     private AttackSelectBannerComponent _attackSelectComponent;
@@ -57,6 +53,8 @@ public class PlayScreen : BaseScreen
 
     protected override List<BaseComponent> InitializeComponents()
     {
+        _battleManager.Initialize(CreateAllies());
+
         _selectionAreaComponent = new();
 
         _focusedUnitBannerComponent = new();
@@ -84,24 +82,20 @@ public class PlayScreen : BaseScreen
     {
         base.Initialize();
 
-        var _warrior = new WarriorEntity();
-        var _warrior2 = new WarriorEntity();
-        var _lancer = new LancerEntity();
-        var _archer = new ArcherEntity();
-        var _cleric = new ClericEntity();
-
-        _alliesParty.AddRange([_warrior, _warrior2, _lancer, _archer, _cleric]);
-
-        var _enemyWarrior = new EnemyWarriorEntity();
-        var _enemyLancer = new EnemyLancerEntity();
-        var _enemyArcher = new EnemyArcherEntity();
-        var _enemyCleric = new EnemyClericEntity();
-
-        _enemiesParty.AddRange([_enemyWarrior, _enemyLancer, _enemyArcher, _enemyCleric]);
-
         SetEntitiesPosition();
 
         _turnQueueManager.SetUnitsQueue(AllUnits);
+    }
+
+    private List<BaseUnitEntity> CreateAllies()
+    {
+        return
+        [
+            new WarriorEntity(),
+            new ArcherEntity(),
+            new LancerEntity(),
+            new ClericEntity(),
+        ];
     }
 
     private void SetEntitiesPosition()
@@ -169,11 +163,10 @@ public class PlayScreen : BaseScreen
 
         UpdateTurn();
 
-        _alliesParty.ForEach(x => x.Update());
-        _enemiesParty.ForEach(x => x.Update());
-
         _selectionAreaComponent.Update(gameTime);
         _focusedUnitBannerComponent.Update(gameTime);
+
+        _battleManagar.Update(gameTime);
 
         UpdateDamageTexts(gameTime);
 
@@ -475,12 +468,9 @@ public class PlayScreen : BaseScreen
     public override void Draw()
     {
         DrawBackground();
-
-        DrawAllies();
-        DrawEnemies();
-
+        DrawBattle();
         DrawDamageTexts();
-
+        
         base.Draw();
     }
 
@@ -489,14 +479,9 @@ public class PlayScreen : BaseScreen
         _backgroundImageComponent.Draw(GlobalVariablesDto.SpriteBatchBackground);
     }
 
-    private void DrawAllies()
+    private void DrawBattle()
     {
-        _alliesParty.ForEach(x => x.Draw());
-    }
-
-    private void DrawEnemies()
-    {
-        _enemiesParty.ForEach(x => x.Draw());
+        _battleManagar.GetAllUnits().ForEach(x => x.Draw());
     }
 
     private void DrawDamageTexts()

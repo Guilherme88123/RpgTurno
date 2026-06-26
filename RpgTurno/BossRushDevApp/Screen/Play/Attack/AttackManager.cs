@@ -10,18 +10,24 @@ namespace RpgTurno.Screen.Play.Attack;
 
 public class AttackManager
 {
-    public AttackPhase CurrentPhase { get; private set; } = AttackPhase.Idle;
+    public AttackPhase CurrentPhase { get; private set; }
 
     private BaseUnitEntity _sender;
     private BaseUnitEntity _target;
+
     private Vector2 _senderOriginPosition;
     private Vector2 _targetPosition;
 
-    private float _moveSpeed = 500f;
-    private int _walkFrontDistance = 200;
-    private int _targetDistance = 150;
+    private const float _moveSpeed = 500f;
+    private const int _walkFrontDistance = 200;
+    private const int _targetDistance = 150;
 
     private readonly DelayManager _delayManager = new();
+
+    public bool IsExecuting()
+    {
+        return CurrentPhase != AttackPhase.Idle;
+    }
 
     public void StartAttack(BaseUnitEntity sender, BaseUnitEntity target, bool isEnemy)
     {
@@ -49,9 +55,22 @@ public class AttackManager
     public void Update()
     {
         _delayManager.Update();
+
+        switch (CurrentPhase)
+        {
+            case AttackPhase.MovingToTarget:
+                UpdateMovingToTarget();
+                break;
+            case AttackPhase.Attacking:
+                UpdateAttacking();
+                break;
+            case AttackPhase.MovingBack:
+                UpdateMovingBack();
+                break;
+        }
     }
 
-    public void UpdateMovingToTarget()
+    private void UpdateMovingToTarget()
     {
         var senderPos = new Vector2(_sender.Center.X, _sender.Center.Y);
         var direction = _targetPosition - senderPos;
@@ -69,17 +88,12 @@ public class AttackManager
         _sender.PositionY += direction.Y * _moveSpeed * GlobalVariablesDto.DeltaTime;
     }
 
-    public bool HasAttackFinished()
+    private void UpdateAttacking()
     {
-        return _delayManager.HasDelayAttackExecutionComplete();
+
     }
 
-    public bool HasWaitTurnFinished()
-    {
-        return _delayManager.HasDelayTurnExecutionComplete();
-    }
-
-    public void UpdateMovingBack()
+    private void UpdateMovingBack()
     {
         var originPos = _senderOriginPosition;
         var senderPos = new Vector2(_sender.PositionX, _sender.PositionY);
@@ -100,23 +114,12 @@ public class AttackManager
         _sender.PositionY += direction.Y * _moveSpeed * GlobalVariablesDto.DeltaTime;
     }
 
-    // Chamado quando a animação de ataque termina (via delay)
-    public (BaseUnitEntity sender, BaseUnitEntity target) ResolveAttack()
+    public bool HasAttackFinished()
     {
-        if (_sender.IsRanged)
-        {
-            CurrentPhase = AttackPhase.WaitingTurn;
-        }
-        else
-        {
-            CurrentPhase = AttackPhase.MovingBack;
-            _sender.CreatureState = CreatureStateType.Running;
-        }
-
-        return (_sender, _target);
+        return _delayManager.HasDelayAttackExecutionComplete();
     }
 
-    public void Reset()
+    public void ResetAttack()
     {
         CurrentPhase = AttackPhase.Idle;
         _sender = null;

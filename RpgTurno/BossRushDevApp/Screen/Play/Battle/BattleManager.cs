@@ -36,7 +36,7 @@ public class BattleManager
         _attackManager.Update();
     }
 
-    public void UpdateUnits()
+    private void UpdateUnits()
     {
         foreach (var unit in GetAllUnits())
         {
