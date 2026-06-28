@@ -9,10 +9,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace RpgTurno.CustomComponents.TurnQueue;
 
-//TODO: Implmentar animação na passagem de turno
 public class TurnQueueComponent : BaseComponent
 {
     private const int MaxIconsCount = 7;
@@ -21,9 +21,12 @@ public class TurnQueueComponent : BaseComponent
     private List<SpriteData> _unitsList = new();
 
     private ImageComponent _queueBackground = new(
-        new ResizableSpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallRibbons), 
-            ResizableSpriteType.Horizontal, 64, 0, new BorderDefinition(0, 576, 0, 0), 64), 
+        new ResizableSpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallRibbons),
+            ResizableSpriteType.Horizontal, 64, 0, new BorderDefinition(0, 576, 0, 0), 64),
             GlobalOptionsDto.WidthSize / 3, 80);
+
+    private bool _isInTransition = false;
+    private float _transitionOffset;
 
     public TurnQueueComponent()
     {
@@ -31,10 +34,42 @@ public class TurnQueueComponent : BaseComponent
         _queueBackground.SetPosition(GlobalOptionsDto.WidthSize / 3, 16);
     }
 
+    public void StartTransition()
+    {
+        _isInTransition = true;
+    }
+
     public void SetUnitsList(List<SpriteData> unitsList)
     {
+        if (_isInTransition)
+            return;
+
         _unitsList = unitsList;
     }
+
+    public override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+
+        if (_isInTransition)
+            UpdateTransition();
+    }
+
+    private void UpdateTransition()
+    {
+        _transitionOffset += IconSize * 2 * GlobalVariablesDto.DeltaTime;
+
+        if (_transitionOffset > IconSize)
+            FinishTransition();
+    }
+
+    private void FinishTransition()
+    {
+        _transitionOffset = 0;
+        _isInTransition = false;
+    }
+
+    #region Draw
 
     public override void Draw(SpriteBatch spriteBatch)
     {
@@ -59,13 +94,21 @@ public class TurnQueueComponent : BaseComponent
         int count = 1;
         foreach (var unit in _unitsList)
         {
+            if (_isInTransition && unit == _unitsList.First())
+            {
+                count++;
+                continue;
+            }
+
             if (count > MaxIconsCount)
                 return;
 
-            var unitRectangle = new Rectangle(initialPosition - (IconSize * count), Bounds.Y, IconSize, IconSize);
+            var unitRectangle = new Rectangle(initialPosition - (IconSize * count) + (int)_transitionOffset, Bounds.Y, IconSize, IconSize);
             unit.Draw(unitRectangle, Color, Rotation, SpriteEffects, spriteBatch);
 
             count++;
         }
     }
+
+    #endregion
 }

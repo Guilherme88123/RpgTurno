@@ -26,6 +26,7 @@ public class BattleManager
     public List<BaseUnitEntity> Enemies => _stage.GetCurrentWave().Enemies;
 
     public Action<BaseUnitEntity, BaseUnitEntity> OnExecuteAttack { get; set; }
+    public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
 
     public BattleState BattleState { get; set; }
     private readonly float _waveTransitionSpeed = 400f;
@@ -39,7 +40,7 @@ public class BattleManager
         _stage = StageFactory.Create();
 
         _attackManager.OnExecuteAttack += ExecuteAttack;
-        _attackManager.OnTurnFinish += OnTurnFinish;
+        _attackManager.OnTurnFinish += HandleTurnFinish;
 
         InitializeUnits();
 
@@ -229,8 +230,9 @@ public class BattleManager
         _turnManager.RemoveUnit(unit);
     }
 
-    private void OnTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
+    private void HandleTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
     {
+        OnTurnFinish?.Invoke(sender, target);
         GoToNextTurn();
         VerifyWave();
     }

@@ -50,6 +50,7 @@ public class PlayScreen : BaseScreen
     {
         _battleManager.Initialize(CreateAllies());
         _battleManager.OnExecuteAttack += AddDamageText;
+        _battleManager.OnTurnFinish += OnTurnFinish;
 
         _selectionAreaComponent = new();
 
@@ -145,6 +146,11 @@ public class PlayScreen : BaseScreen
         var damageText = $"-{sender.Damage}";
 
         _damagesTextList.Add(new DamageTextComponent((int)positionX, (int)positionY, damageText));
+    }
+
+    private void OnTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
+    {
+        _turnQueueComponent.StartTransition();
     }
 
     #endregion
