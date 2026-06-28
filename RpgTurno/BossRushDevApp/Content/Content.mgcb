@@ -452,6 +452,18 @@
 /processorParam:TextureFormat=Color
 /build:HoverCursor.png
 
+#begin IndicatorIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:IndicatorIcon.png
+
 #begin InformationIcon.png
 /importer:TextureImporter
 /processor:TextureProcessor

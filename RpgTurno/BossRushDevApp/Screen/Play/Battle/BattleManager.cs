@@ -256,7 +256,6 @@ public class BattleManager
         _stage.NextWave();
         SetEnemiesPosition();
 
-        //TODO: Implementar animação na passagem de Wave
         StartWaveTransition();
     }
 

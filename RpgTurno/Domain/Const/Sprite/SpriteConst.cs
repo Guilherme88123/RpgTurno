@@ -97,6 +97,7 @@ public static class SpriteConst
     public const string SettingsIcon = "SettingsIcon";
     public const string InformationIcon = "InformationIcon";
     public const string SongIcon = "SongIcon";
+    public const string IndicatorIcon = "IndicatorIcon";
 
     #endregion
 
