@@ -24,6 +24,8 @@ public class BattleManager
     public List<BaseUnitEntity> Allies { get; private set; }
     public List<BaseUnitEntity> Enemies => _stage.GetCurrentWave().Enemies;
 
+    private List<BaseUnitEntity> _deadUnits = new();
+
     public Action<BaseUnitEntity, BaseUnitEntity, int> OnExecuteAttack { get; set; }
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
 
@@ -55,7 +57,7 @@ public class BattleManager
 
     public List<BaseUnitEntity> GetAllUnits()
     {
-        return [.. Allies, .. Enemies];
+        return [.. Allies, .. Enemies, .. _deadUnits];
     }
 
     public List<BaseUnitEntity> GetUnitsTurnQueue()
@@ -87,6 +89,7 @@ public class BattleManager
         _attackManager.Update();
 
         UpdateUnits();
+        UpdateDeadUnits();
         UpdateTurn();
     }
 
@@ -96,6 +99,29 @@ public class BattleManager
         {
             unit.Update();
         }
+    }
+
+    private void UpdateDeadUnits()
+    {
+        List<BaseUnitEntity> destroyedUnits = new();
+
+        foreach (var unit in _deadUnits)
+        {
+            unit.Update();
+
+            if (unit.IsDestroyed)
+                destroyedUnits.Add(unit);
+        }
+
+        foreach (var unit in destroyedUnits)
+        {
+            RemoveUnitFromDeadList(unit);
+        }
+    }
+
+    private void RemoveUnitFromDeadList(BaseUnitEntity unit)
+    {
+        _deadUnits.Remove(unit);
     }
 
     private void UpdateTurn()
@@ -218,16 +244,18 @@ public class BattleManager
     {
         OnExecuteAttack?.Invoke(sender, target, damage);
 
-        if (target.IsDestroyed)
-            RemoveUnit(target);
+        if (target.IsDead)
+            MoveUnitToDeadList(target);
     }
 
-    private void RemoveUnit(BaseUnitEntity unit)
+    private void MoveUnitToDeadList(BaseUnitEntity unit)
     {
         Allies.Remove(unit);
         Enemies.Remove(unit);
 
         _turnManager.RemoveUnit(unit);
+
+        _deadUnits.Add(unit);
     }
 
     private void HandleTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)

@@ -51,7 +51,7 @@ public class AttackManager
     {
         var damage = _target.RecieveAttack(_sender);
 
-        if (_target.Stats.HasHealthFinished())
+        if (_target.Stats.IsDead)
             OnUnitSlay?.Invoke(_target);
 
         CurrentPhase = AttackPhase.MovingBack;

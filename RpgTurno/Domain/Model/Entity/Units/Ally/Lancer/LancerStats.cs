@@ -8,7 +8,7 @@ public class LancerStats : BaseUnitStats
     {
         MaxHealthStat = new(200, 30);
         AttackStat = new(16, 2);
-        DefenseStat = new(15, 3);
+        DefenseStat = new(13, 3);
         SpeedStat = new(5, 0);
 
         Initialize();

@@ -128,4 +128,10 @@ public static class SpriteConst
     public const string BasicGrassMap = "BasicGrassMap";
 
     #endregion
+
+    #region Particle FX
+
+    public const string DustEffect = "DustEffect";
+
+    #endregion
 }

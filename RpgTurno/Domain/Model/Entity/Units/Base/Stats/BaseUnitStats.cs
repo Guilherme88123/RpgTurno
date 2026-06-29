@@ -22,6 +22,8 @@ public abstract class BaseUnitStats
     public int Speed => SpeedStat.GetFinalValue(Level);
     public int ExperienceReward => ExperienceRewardStat.GetFinalValue(Level);
 
+    public bool IsDead => CurrentHealth <= 0;
+
     protected BaseUnitStats(int level)
     {
         Level = level;
@@ -39,11 +41,6 @@ public abstract class BaseUnitStats
         CurrentHealth = Math.Max(0, CurrentHealth - trueDamage);
 
         return trueDamage;
-    }
-
-    public bool HasHealthFinished()
-    {
-        return CurrentHealth <= 0;
     }
 
     public void AddExperience(BaseUnitStats targetEliminatedStats)
@@ -69,6 +66,8 @@ public abstract class BaseUnitStats
 
     public void HealHealth(int value)
     {
+        var healAmount = Math.Max(0, value);
+
         CurrentHealth = Math.Min(MaxHealth, CurrentHealth + value);
     }
 }
