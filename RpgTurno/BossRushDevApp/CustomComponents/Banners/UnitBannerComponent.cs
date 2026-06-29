@@ -45,8 +45,8 @@ public class UnitBannerComponent : FrameComponent
     public void SetFocusedUnit(BaseUnitEntity focusedEntity)
     {
         _nameText.SetText(focusedEntity.Name);
-        _healtText.SetText($"{focusedEntity.Health}/{focusedEntity.MaxHealth}");
-        _damageText.SetText(focusedEntity.Damage.ToString());
+        _healtText.SetText($"{focusedEntity.Stats.CurrentHealth}/{focusedEntity.Stats.MaxHealth}");
+        _damageText.SetText(focusedEntity.Stats.Attack.ToString());
         _unitIcon.SetImage(focusedEntity.Icon);
     }
 

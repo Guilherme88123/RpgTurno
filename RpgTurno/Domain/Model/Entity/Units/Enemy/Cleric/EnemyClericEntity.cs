@@ -10,7 +10,7 @@ namespace Domain.Model.Entity.Units.Enemy.Cleric;
 
 public class EnemyClericEntity : BaseUnitEntity
 {
-    public EnemyClericEntity() : base(maxHealth: 8, damage: 3)
+    public EnemyClericEntity() : base(stats: new EnemyClericStats(level: 1))
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericRun);

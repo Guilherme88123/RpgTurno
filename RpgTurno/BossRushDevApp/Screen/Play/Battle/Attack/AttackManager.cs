@@ -47,7 +47,7 @@ public class AttackManager
 
     public void ExecuteAttack()
     {
-        _target.TakeDamage(_sender.Damage);
+        _target.TakeDamage(_sender.Stats.Attack);
 
         CurrentPhase = AttackPhase.MovingBack;
         _sender.CreatureState = CreatureStateType.Running;

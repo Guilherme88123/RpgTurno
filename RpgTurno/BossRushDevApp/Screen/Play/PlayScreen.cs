@@ -143,7 +143,7 @@ public class PlayScreen : BaseScreen
     {
         var positionX = target.Center.X;
         var positionY = target.Center.Y;
-        var damageText = $"-{sender.Damage}";
+        var damageText = $"-{sender.Stats.Attack}";   
 
         _damagesTextList.Add(new DamageTextComponent((int)positionX, (int)positionY, damageText));
     }

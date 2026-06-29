@@ -10,7 +10,7 @@ namespace Domain.Model.Entity.Units.Enemy.Warrior;
 
 public class EnemyWarriorEntity : BaseUnitEntity
 {
-    public EnemyWarriorEntity() : base(maxHealth: 10, damage: 3)
+    public EnemyWarriorEntity() : base(stats: new EnemyWarriorStats(level: 1))
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorRun);

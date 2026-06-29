@@ -1,6 +1,7 @@
 ﻿using Domain.Dto.Global;
 using Domain.Model.Entity.Base;
 using Domain.Model.Entity.Units.Base.HealthBar;
+using Domain.Model.Entity.Units.Base.Stats;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 
@@ -11,10 +12,7 @@ public class BaseUnitEntity : BaseEntity
 {
     public string Name { get; set; }
 
-    public int MaxHealth { get; set; } = 10;
-    public int Health { get; set; }
-
-    public int Damage { get; set; } = 4;
+    public BaseUnitStats Stats { get; }
 
     public bool IsRanged { get; protected set; }
 
@@ -26,12 +24,11 @@ public class BaseUnitEntity : BaseEntity
     private float _currentDelayDamageTakenFlash;
     private bool HasTakeDamage => _currentDelayDamageTakenFlash > 0;
 
-    public BaseUnitEntity(int maxHealth, int damage)
+    public BaseUnitEntity(BaseUnitStats stats)
     {
-        MaxHealth = Health = maxHealth;
-        Damage = damage;
-        
-        _healthBar = new HealthBarComponent(MaxHealth, Health);
+        Stats = stats;
+
+        _healthBar = new HealthBarComponent(Stats.MaxHealth, Stats.CurrentHealth);
     }
 
     #region Update
@@ -53,7 +50,7 @@ public class BaseUnitEntity : BaseEntity
     private void UpdateHealthBarComponent()
     {
         _healthBar.SetPosition((int)PositionX + SizeX / 2 - _healthBar.Bounds.Width / 2, (int)PositionY + SizeY);
-        _healthBar.SetValues(MaxHealth, Health);
+        _healthBar.SetValues(Stats.MaxHealth, Stats.CurrentHealth);
         _healthBar.Update(GlobalVariablesDto.GameTime);
     }
 
@@ -90,9 +87,9 @@ public class BaseUnitEntity : BaseEntity
 
     public void TakeDamage(int damageAmount)
     {
-        Health -= damageAmount;
+        bool stillAlive = Stats.TakeDamage(damageAmount);
 
-        if (Health <= 0)
+        if (!stillAlive)
             Destroy();
 
         ResetTakeDamageDelay();
