@@ -22,8 +22,7 @@ public class TurnQueueManager
 
     private List<BaseUnitEntity> GetQueueOrderned(List<BaseUnitEntity> rawUnitsList)
     {
-        //TODO: Ordem de ataque por alguma estatística em específico (Velocidade, Destreza, etc)
-        var orderUnitsList = rawUnitsList.Shuffle().ToList();
+        var orderUnitsList = rawUnitsList.Shuffle().OrderByDescending(x => x.Stats.Speed).ToList();
 
         return orderUnitsList;
     }

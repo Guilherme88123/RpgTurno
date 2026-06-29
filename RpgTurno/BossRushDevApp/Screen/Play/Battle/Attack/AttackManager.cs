@@ -5,6 +5,7 @@ using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
 using RpgTurno.Screen.Play.Battle.Delay;
 using System;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace RpgTurno.Screen.Play.Battle.Attack;
 
@@ -24,8 +25,9 @@ public class AttackManager
 
     private readonly DelayManager _delayManager = new();
 
-    public Action<BaseUnitEntity, BaseUnitEntity> OnExecuteAttack { get; set; }
+    public Action<BaseUnitEntity, BaseUnitEntity, int> OnExecuteAttack { get; set; }
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
+    public Action<BaseUnitEntity> OnUnitSlay { get; set; }
 
     public bool IsExecuting()
     {
@@ -47,12 +49,15 @@ public class AttackManager
 
     public void ExecuteAttack()
     {
-        _target.TakeDamage(_sender.Stats.Attack);
+        var damage = _target.RecieveAttack(_sender);
+
+        if (_target.Stats.HasHealthFinished())
+            OnUnitSlay?.Invoke(_target);
 
         CurrentPhase = AttackPhase.MovingBack;
         _sender.CreatureState = CreatureStateType.Running;
 
-        OnExecuteAttack?.Invoke(_sender, _target);
+        OnExecuteAttack?.Invoke(_sender, _target, damage);
     }
 
     public void Update()

@@ -6,10 +6,10 @@ public class ClericStats : BaseUnitStats
 {
     public ClericStats(int level) : base(level)
     {
-        MaxHealthStat = new(8, 3);
-        AttackStat = new(4, 2);
-        DefenseStat = new(2, 1);
-        SpeedStat = new(3, 1);
+        MaxHealthStat = new(120, 15);
+        AttackStat = new(12, 2);
+        DefenseStat = new(8, 1);
+        SpeedStat = new(10, 1);
 
         Initialize();
     }

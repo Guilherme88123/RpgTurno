@@ -85,14 +85,16 @@ public class BaseUnitEntity : BaseEntity
 
     #region Take Damage
 
-    public void TakeDamage(int damageAmount)
+    public int RecieveAttack(BaseUnitEntity sender)
     {
-        bool stillAlive = Stats.TakeDamage(damageAmount);
+        var damage = Stats.RecieveAttack(sender.Stats);
 
-        if (!stillAlive)
+        if (Stats.HasHealthFinished())
             Destroy();
 
         ResetTakeDamageDelay();
+
+        return damage;
     }
 
     private void ResetTakeDamageDelay()

@@ -139,11 +139,11 @@ public class PlayScreen : BaseScreen
         _currentTurnUnitComponent.SetCurrentTurnUnit(currentTurnUnit);
     }
 
-    private void AddDamageText(BaseUnitEntity sender, BaseUnitEntity target)
+    private void AddDamageText(BaseUnitEntity sender, BaseUnitEntity target, int damage)
     {
         var positionX = target.Center.X;
         var positionY = target.Center.Y;
-        var damageText = $"-{sender.Stats.Attack}";   
+        var damageText = $"-{damage}";   
 
         _damagesTextList.Add(new DamageTextComponent((int)positionX, (int)positionY, damageText));
     }

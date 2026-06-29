@@ -24,7 +24,7 @@ public class BattleManager
     public List<BaseUnitEntity> Allies { get; private set; }
     public List<BaseUnitEntity> Enemies => _stage.GetCurrentWave().Enemies;
 
-    public Action<BaseUnitEntity, BaseUnitEntity> OnExecuteAttack { get; set; }
+    public Action<BaseUnitEntity, BaseUnitEntity, int> OnExecuteAttack { get; set; }
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
 
     public BattleState BattleState { get; set; }
@@ -40,6 +40,7 @@ public class BattleManager
 
         _attackManager.OnExecuteAttack += ExecuteAttack;
         _attackManager.OnTurnFinish += HandleTurnFinish;
+        _attackManager.OnUnitSlay += HandleEnemySlay;
 
         InitializeUnits();
 
@@ -213,9 +214,9 @@ public class BattleManager
         _attackManager.StartAttack(sender, target, IsEnemyUnit(sender));
     }
 
-    private void ExecuteAttack(BaseUnitEntity sender, BaseUnitEntity target)
+    private void ExecuteAttack(BaseUnitEntity sender, BaseUnitEntity target, int damage)
     {
-        OnExecuteAttack?.Invoke(sender, target);
+        OnExecuteAttack?.Invoke(sender, target, damage);
 
         if (target.IsDestroyed)
             RemoveUnit(target);
@@ -234,6 +235,14 @@ public class BattleManager
         OnTurnFinish?.Invoke(sender, target);
         GoToNextTurn();
         VerifyWave();
+    }
+
+    private void HandleEnemySlay(BaseUnitEntity unit)
+    {
+        if (!IsEnemyUnit(unit))
+            return;
+
+        Allies.ForEach(x => x.Stats.AddExperience(unit.Stats));
     }
 
     private void GoToNextTurn()

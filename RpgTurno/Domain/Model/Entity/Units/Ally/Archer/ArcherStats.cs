@@ -6,10 +6,10 @@ public class ArcherStats : BaseUnitStats
 {
     public ArcherStats(int level) : base(level)
     {
-        MaxHealthStat = new(7, 3);
-        AttackStat = new(5, 2);
-        DefenseStat = new(1, 1);
-        SpeedStat = new(5, 2);
+        MaxHealthStat = new(90, 12);
+        AttackStat = new(35, 5);
+        DefenseStat = new(3, 1);
+        SpeedStat = new(14, 2);
 
         Initialize();
     }

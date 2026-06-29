@@ -6,6 +6,7 @@ using System.Data;
 
 namespace Domain.Model.Texture.Sprite;
 
+//TODO: alterar para sempre usar o full resizable, pois funciona para quando é horizontal/vertical
 public class ResizableSpriteData : SpriteData
 {
     public ResizableSpriteType ResizableType { get; }
@@ -73,7 +74,6 @@ public class ResizableSpriteData : SpriteData
 
     private void DrawVerticalResizable(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
     {
-        //TODO: Implementar sprite redimensionavel vertical
     }
 
     private void DrawFullResizable(

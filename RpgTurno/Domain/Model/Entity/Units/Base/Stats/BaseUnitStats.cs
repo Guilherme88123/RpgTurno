@@ -4,7 +4,8 @@ public abstract class BaseUnitStats
 {
     public int Level { get; set; }
 
-    private ScalableStat MaxExperienceStat = new ScalableStat(10, 7);
+    private ScalableStat MaxExperienceStat = new ScalableStat(120, 30);
+    private ScalableStat ExperienceRewardStat = new ScalableStat(50, 3);
 
     protected ScalableStat MaxHealthStat;
     protected ScalableStat AttackStat;
@@ -19,6 +20,7 @@ public abstract class BaseUnitStats
     public int Attack => AttackStat.GetFinalValue(Level);
     public int Defense => DefenseStat.GetFinalValue(Level);
     public int Speed => SpeedStat.GetFinalValue(Level);
+    public int ExperienceReward => ExperienceRewardStat.GetFinalValue(Level);
 
     protected BaseUnitStats(int level)
     {
@@ -27,15 +29,42 @@ public abstract class BaseUnitStats
 
     protected void Initialize()
     {
-        CurrentExperience = MaxExperience;
         CurrentHealth = MaxHealth;
     }
 
-    public bool TakeDamage(int value)
+    public int RecieveAttack(BaseUnitStats senderStats)
     {
-        CurrentHealth = Math.Max(0, CurrentHealth - value);
+        var trueDamage = Math.Max(1, senderStats.Attack - Defense);
 
-        return CurrentHealth > 0;
+        CurrentHealth = Math.Max(0, CurrentHealth - trueDamage);
+
+        return trueDamage;
+    }
+
+    public bool HasHealthFinished()
+    {
+        return CurrentHealth <= 0;
+    }
+
+    public void AddExperience(BaseUnitStats targetEliminatedStats)
+    {
+        CurrentExperience += targetEliminatedStats.ExperienceReward;
+
+        VerifyLevelUp();
+    }
+
+    private void VerifyLevelUp()
+    {
+        while (CurrentExperience > MaxExperience)
+        {
+            LevelUp();
+        }
+    }
+
+    public void LevelUp()
+    {
+        CurrentExperience -= MaxExperience;
+        Level++;
     }
 
     public void HealHealth(int value)

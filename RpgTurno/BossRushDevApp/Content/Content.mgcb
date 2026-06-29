@@ -543,7 +543,7 @@
 /processorParam:TextureFormat=Compressed
 /build:LazyFox.spritefont
 
-#begin MeatIcon.png.png
+#begin MeatIcon.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -553,7 +553,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:MeatIcon.png.png
+/build:MeatIcon.png
 
 #begin NormalCursor.png
 /importer:TextureImporter
