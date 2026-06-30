@@ -2,11 +2,10 @@
 using Domain.Model.Sprite.Border;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Data;
 
 namespace Domain.Model.Texture.Sprite;
 
-//TODO: alterar para sempre usar o full resizable, pois funciona para quando é horizontal/vertical
+//TODO: alterar para ao invés de esticar a fatia do meio, mostra-la várias vezes até prencher o espaço
 public class ResizableSpriteData : SpriteData
 {
     public ResizableSpriteType ResizableType { get; }
@@ -74,6 +73,7 @@ public class ResizableSpriteData : SpriteData
 
     private void DrawVerticalResizable(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
     {
+        //TODO: Implementar Sprite resizable vertical
     }
 
     private void DrawFullResizable(
@@ -232,15 +232,35 @@ public class ResizableSpriteData : SpriteData
                 fv);
 
         DrawBySource(sourceTopLeft, destTopLeft, color, rotation, drawEffect, spriteBatch);
-        DrawBySource(sourceTopCenter, destTopCenter, color, rotation, drawEffect, spriteBatch);
+        DrawBySourceTiled(sourceTopCenter, destTopCenter, color, rotation, drawEffect, spriteBatch);
         DrawBySource(sourceTopRight, destTopRight, color, rotation, drawEffect, spriteBatch);
 
-        DrawBySource(sourceMidLeft, destMidLeft, color, rotation, drawEffect, spriteBatch);
-        DrawBySource(sourceMidCenter, destMidCenter, color, rotation, drawEffect, spriteBatch);
-        DrawBySource(sourceMidRight, destMidRight, color, rotation, drawEffect, spriteBatch);
+        DrawBySourceTiled(sourceMidLeft, destMidLeft, color, rotation, drawEffect, spriteBatch);
+        DrawBySourceTiled(sourceMidCenter, destMidCenter, color, rotation, drawEffect, spriteBatch);
+        DrawBySourceTiled(sourceMidRight, destMidRight, color, rotation, drawEffect, spriteBatch);
 
         DrawBySource(sourceDownLeft, destDownLeft, color, rotation, drawEffect, spriteBatch);
-        DrawBySource(sourceDownCenter, destDownCenter, color, rotation, drawEffect, spriteBatch);
+        DrawBySourceTiled(sourceDownCenter, destDownCenter, color, rotation, drawEffect, spriteBatch);
         DrawBySource(sourceDownRight, destDownRight, color, rotation, drawEffect, spriteBatch);
+    }
+
+    private void DrawBySourceTiled(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
+    {
+        var sourceWidth = sourceRectangle.Width;
+        var sourceHeight = sourceRectangle.Height;
+
+        for (int y = destinationRectangle.Y; y < destinationRectangle.Bottom; y += sourceHeight)
+        {
+            for (int x = destinationRectangle.X; x < destinationRectangle.Right; x += sourceWidth)
+            {
+                int drawWidth = Math.Min(sourceWidth, destinationRectangle.Right - x);
+                int drawHeight = Math.Min(sourceHeight, destinationRectangle.Bottom - y);
+
+                var sourcePart = new Rectangle(sourceRectangle.X, sourceRectangle.Y, drawWidth, drawHeight);
+                var destinationPart = new Rectangle(x, y, drawWidth, drawHeight);
+
+                DrawBySource(sourcePart, destinationPart, color, rotation, drawEffect, spriteBatch);
+            }
+        }
     }
 }

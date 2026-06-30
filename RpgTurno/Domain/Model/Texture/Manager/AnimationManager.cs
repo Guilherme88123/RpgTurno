@@ -20,9 +20,13 @@ public class AnimationManager
     public void Update(object key)
     {
         if (_animations.TryGetValue(key, out AnimationClip value)) 
-        { 
+        {
+            if (!Equals(key, _currentKey))
+                value.Reset();
+
             value.Start(); 
             value.Update();
+
             _currentKey = key; 
         }
     }
