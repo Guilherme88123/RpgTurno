@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Domain.Model.Entity.Units.Base;
 
-//TODO: Adicionar animação ao ser Destruído
+//TODO: Adicionar animação ao upar de level
 public class BaseUnitEntity : BaseEntity
 {
     public string Name { get; set; }
@@ -68,10 +68,7 @@ public class BaseUnitEntity : BaseEntity
 
     private void UpdateTakeDamageEffect()
     {
-        if (HasTakeDamage)
-            Color = Color.Red;
-        else 
-            Color = Color.White;
+        Color = HasTakeDamage ? Color.Red : Color.White;
     }
 
     private void VerifyDeadDelayFinish()

@@ -98,6 +98,8 @@ public static class SpriteConst
     public const string InformationIcon = "InformationIcon";
     public const string SongIcon = "SongIcon";
     public const string IndicatorIcon = "IndicatorIcon";
+    public const string HeartIcon = "HeartIcon";
+    public const string StarIcon = "StarIcon";
 
     #endregion
 

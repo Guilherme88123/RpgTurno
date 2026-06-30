@@ -9,9 +9,39 @@ public class TextComponent : BaseComponent
 {
     public string Text { get; private set; }
 
+    private bool _positionByCenter;
+    private SpriteFont _font;
+
+    public TextComponent(bool positionByCenter = false)
+    {
+        _positionByCenter = positionByCenter;
+        _font = GlobalVariablesDto.GlobalFont;
+    }
+
     public void SetText(string text)
     {
         Text = text;
+    }
+
+    public override void SetPosition(int positionX, int positionY)
+    {
+        if (_positionByCenter)
+            (positionX, positionY) = GetPositionByCenter(positionX, positionY);
+
+        base.SetPosition(positionX, positionY);
+    }
+
+    private (int, int) GetPositionByCenter(int rawPositionX, int rawPositionY)
+    {
+        if (string.IsNullOrEmpty(Text))
+            return (rawPositionX, rawPositionY);
+
+        var textSize = _font.MeasureString(Text);
+
+        var positionX = rawPositionX - textSize.X / 2;
+        var positionY = rawPositionY - textSize.Y / 2;
+
+        return ((int)positionX, (int)positionY);
     }
 
     public override void Draw(SpriteBatch spriteBatch)
@@ -25,6 +55,6 @@ public class TextComponent : BaseComponent
         if (string.IsNullOrEmpty(Text))
             return;
 
-        spriteBatch.DrawString(GlobalVariablesDto.GlobalFont, Text, new Vector2(Bounds.X, Bounds.Y), Color.Black);    
+        spriteBatch.DrawString(_font, Text, new Vector2(Bounds.X, Bounds.Y), Color.Black);    
     }
 }
