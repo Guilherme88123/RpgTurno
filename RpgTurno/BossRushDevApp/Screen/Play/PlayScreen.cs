@@ -10,6 +10,7 @@ using Domain.Model.Entity.Units.Ally.Lancer;
 using Domain.Model.Entity.Units.Ally.Warrior;
 using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using RpgTurno.CustomComponents.Background;
 using RpgTurno.CustomComponents.Banners;
 using RpgTurno.CustomComponents.DamageText;
@@ -105,6 +106,7 @@ public class PlayScreen : BaseScreen
         UpdateWaveIndicator();
 
         VerifyCursorHoveringEntities();
+        VerifyExitingStage();
     }
 
     #region Turn Components
@@ -240,6 +242,24 @@ public class PlayScreen : BaseScreen
         var totalWaves = _battleManager.GetTotalCountWaves();
 
         _waveIndicatorComponent.SetWavesNumber(currentWave, totalWaves);
+    }
+
+    #endregion
+
+    #region Return To Map Screen
+
+    private void VerifyExitingStage()
+    {
+        var teclado = Keyboard.GetState();
+
+        if (teclado.IsKeyDown(Keys.Escape))
+            ReturnToMapScreen();
+    }
+
+    private void ReturnToMapScreen()
+    {
+        GlobalVariablesDto.PopScreen();
+        GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
     }
 
     #endregion

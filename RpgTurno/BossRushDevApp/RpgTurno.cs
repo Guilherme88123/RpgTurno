@@ -11,7 +11,7 @@ public class RpgTurno : Game
 {
     public IScreenManager ScreenManager;
 
-    public string InitialScreenCode = ScreenConst.PlayScreen;
+    public string InitialScreenCode = ScreenConst.MapScreen;
 
     private int _frames;
     private float _fps;
