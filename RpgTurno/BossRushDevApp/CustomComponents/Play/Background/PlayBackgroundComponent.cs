@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RpgTurno.CustomComponents.Background;
 
-public class BackgroundComponent : ImageComponent
+public class PlayBackgroundComponent : ImageComponent
 {
-    public BackgroundComponent() : base(GetSprite(), GlobalOptionsDto.WidthSize * 4, GlobalOptionsDto.HeightSize)
+    public PlayBackgroundComponent() : base(GetSprite(), GlobalOptionsDto.WidthSize * 4, GlobalOptionsDto.HeightSize)
     {
     }
 

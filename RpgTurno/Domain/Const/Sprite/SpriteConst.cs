@@ -128,6 +128,7 @@ public static class SpriteConst
     #region Maps
 
     public const string BasicGrassMap = "BasicGrassMap";
+    public const string WorldMap = "WorldMap";
 
     #endregion
 

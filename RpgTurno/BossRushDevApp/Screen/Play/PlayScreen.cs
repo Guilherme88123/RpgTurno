@@ -33,7 +33,7 @@ public class PlayScreen : BaseScreen
     private BaseUnitEntity _focusedEntity;
     private UnitBannerComponent _focusedUnitBannerComponent;
 
-    private BackgroundComponent _backgroundImageComponent;
+    private PlayBackgroundComponent _backgroundImageComponent;
 
     private TurnQueueComponent _turnQueueComponent;
     private CurrentUnitTurnIndicatorComponent _currentTurnUnitComponent;
