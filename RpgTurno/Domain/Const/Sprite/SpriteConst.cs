@@ -78,8 +78,9 @@ public static class SpriteConst
 
     #region Banners
 
-    public const string PaperBanner = "PaperBanner";
+    public const string ScrollBanner = "ScrollBanner";
     public const string WoodBanner = "WoodBanner";
+    public const string PaperBanner = "PaperBanner";
 
     #endregion
 

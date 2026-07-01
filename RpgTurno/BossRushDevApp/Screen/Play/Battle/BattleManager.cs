@@ -15,6 +15,7 @@ using System.Linq;
 
 namespace RpgTurno.Screen.Play.Battle;
 
+//TODO: Adicionar transição ao final da batalha, quando o jogador vence ou perde, para mostrar a tela de vitória ou derrota.
 public class BattleManager
 {
     private readonly TurnQueueManager _turnManager = new();
@@ -254,7 +255,7 @@ public class BattleManager
         if (target.IsDead)
         {
             MoveUnitToDeadList(target);
-            VerifyPlayFinish(target);
+            VerifyPlayFinish();
         }
     }
 
@@ -268,12 +269,10 @@ public class BattleManager
         _deadUnits.Add(unit);
     }
 
-    private void VerifyPlayFinish(BaseUnitEntity unit)
+    private void VerifyPlayFinish()
     {
-        if (IsEnemyUnit(unit))
-            VerifyStageFinish();
-        else
-            VerifyGameOver();
+        VerifyStageFinish();
+        VerifyGameOver();
     }
 
     private void VerifyStageFinish()

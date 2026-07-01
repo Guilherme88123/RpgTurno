@@ -13,6 +13,8 @@ using System;
 
 namespace Domain.Model.Components.Custom.Banners;
 
+//TODO: Adicionar propriedade de velocidade do unit
+//TODO: Só mostrar o XP quando for aliado
 public class UnitBannerComponent : FrameComponent
 {
     private const int _fixedSlice = 112;
@@ -32,7 +34,7 @@ public class UnitBannerComponent : FrameComponent
 
     public UnitBannerComponent()
     {
-        var paperBannerSprite = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.PaperBanner);
+        var paperBannerSprite = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ScrollBanner);
         AnimationManager.Add(true, new AnimationClip([new ResizableSpriteData(paperBannerSprite, ResizableSpriteType.Full, _fixedSlice, _fixedSlice, new BorderDefinition(16, 16, 16, 16), 80)]));
 
         AddChild(_nameText);

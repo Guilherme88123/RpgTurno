@@ -10,17 +10,18 @@ using RpgTurno.Screen.Map.World.Stage.Node;
 
 namespace RpgTurno.CustomComponents.Map.Stage;
 
+//TODO: Adicionar detalhes sobre o stage
 public class MapNodeBannerComponent : FrameComponent
 {
-    private const int _fixedSlice = 112;
-    private const int _sizeX = 300;
-    private const int _sizeY = 335;
+    private const int _fixedSlice = 64;
+    private const int _sizeX = 256;
+    private const int _sizeY = 320;
     private const int _marginY = 100;
 
     public MapNodeBannerComponent()
     {
         var paperBannerSprite = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.PaperBanner);
-        AnimationManager.Add(true, new AnimationClip([new ResizableSpriteData(paperBannerSprite, ResizableSpriteType.Full, _fixedSlice, _fixedSlice, new BorderDefinition(16, 16, 16, 16), 80)]));
+        AnimationManager.Add(true, new AnimationClip([new ResizableSpriteData(paperBannerSprite, ResizableSpriteType.Full, _fixedSlice, _fixedSlice, null, 64)]));
 
         Bounds = new Rectangle(0, 0, _sizeX, _sizeY);
     }
