@@ -13,7 +13,6 @@ using System;
 
 namespace Domain.Model.Components.Custom.Banners;
 
-//TODO: Adicionar propriedade de velocidade do unit
 //TODO: Só mostrar o XP quando for aliado
 public class UnitBannerComponent : FrameComponent
 {
@@ -24,11 +23,13 @@ public class UnitBannerComponent : FrameComponent
     private readonly TextComponent _defenseText = new();
     private readonly TextComponent _damageText = new();
     private readonly TextComponent _experienceText = new();
+    private readonly TextComponent _speedText = new();
 
     private readonly ImageComponent _healthIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.HeartIcon)), 32, 32);
     private readonly ImageComponent _defenseIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ShieldIcon)), 32, 32);
     private readonly ImageComponent _damageIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SwordIcon)), 32, 32);
     private readonly ImageComponent _experienceIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.StarIcon)), 32, 32);
+    private readonly ImageComponent _speedIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.BootIcon)), 32, 32);
 
     private readonly ImageComponent _unitIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericAvatar)), 128, 128);
 
@@ -42,13 +43,15 @@ public class UnitBannerComponent : FrameComponent
         AddChild(_defenseText);
         AddChild(_damageText);
         AddChild(_experienceText);
+        AddChild(_speedText);
         AddChild(_healthIcon);
         AddChild(_defenseIcon);
         AddChild(_damageIcon);
         AddChild(_experienceIcon);
+        AddChild(_speedIcon);
         AddChild(_unitIcon);
 
-        Bounds = new Rectangle(0, 0, 300, 335);
+        Bounds = new Rectangle(0, 0, 300, 365);
     }
 
     public void SetFocusedUnit(BaseUnitEntity focusedEntity)
@@ -57,6 +60,7 @@ public class UnitBannerComponent : FrameComponent
         _healtText.SetText($"{focusedEntity.Stats.CurrentHealth}/{focusedEntity.Stats.MaxHealth}");
         _defenseText.SetText(focusedEntity.Stats.Defense.ToString());
         _damageText.SetText(focusedEntity.Stats.Attack.ToString());
+        _speedText.SetText(focusedEntity.Stats.Speed.ToString());
         _experienceText.SetText($"{focusedEntity.Stats.CurrentExperience}/{focusedEntity.Stats.MaxExperience}");
         _unitIcon.SetImage(focusedEntity.Icon);
 
@@ -80,13 +84,16 @@ public class UnitBannerComponent : FrameComponent
         _healthIcon.SetPosition(textX - iconMarginX, textY + 35 - iconMarginY);
         _healtText.SetPosition(textX, textY + 35);
 
-        _defenseIcon.SetPosition(textX - iconMarginX, textY + 65 - iconMarginY);
-        _defenseText.SetPosition(textX, textY + 65);
+        _damageIcon.SetPosition(textX - iconMarginX, textY + 65 - iconMarginY);
+        _damageText.SetPosition(textX, textY + 65);
 
-        _damageIcon.SetPosition(textX - iconMarginX, textY + 95 - iconMarginY);
-        _damageText.SetPosition(textX, textY + 95);
+        _defenseIcon.SetPosition(textX - iconMarginX, textY + 95 - iconMarginY);
+        _defenseText.SetPosition(textX, textY + 95);
 
-        _experienceIcon.SetPosition(textX - iconMarginX, textY + 125 - iconMarginY);
-        _experienceText.SetPosition(textX, textY + 125);
+        _speedIcon.SetPosition(textX - iconMarginX, textY + 125 - iconMarginY);
+        _speedText.SetPosition(textX, textY + 125);
+
+        _experienceIcon.SetPosition(textX - iconMarginX, textY + 155 - iconMarginY);
+        _experienceText.SetPosition(textX, textY + 155);
     }
 }

@@ -82,7 +82,7 @@ public class MapScreen : BaseScreen
 
     private void UpdateNodeBanner()
     {
-        if (_worldManager.Player.CurrentNode is StageMapNode stageNode)
+        if (_worldManager.Player.CurrentNode is StageMapNode stageNode && !_worldManager.Player.IsMoving)
         {
             _nodeBannerComponent.SetCurrentMapNode(stageNode);
             _nodeBannerComponent.IsVisible = true;
