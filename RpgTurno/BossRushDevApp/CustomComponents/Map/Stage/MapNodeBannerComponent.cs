@@ -1,6 +1,7 @@
 ﻿using Domain.Const.Sprite;
 using Domain.Dto.Global;
 using Domain.Enum.Sprite;
+using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Sprite.Border;
@@ -16,11 +17,15 @@ public class MapNodeBannerComponent : FrameComponent
 {
     private const int _fixedSlice = 64;
     private const int _sizeX = 256;
-    private const int _sizeY = 320;
+    private const int _sizeY = 192;
     private const int _marginY = 100;
+
+    private const int _iconSize = 48;
 
     private readonly TextComponent _nameText = new(positionByCenter: true);
     private readonly TextComponent _clearedText = new(positionByCenter: true);
+
+    private readonly ImageComponent _stageStatusIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.CloseIcon)), _iconSize, _iconSize);
 
     public MapNodeBannerComponent()
     {
@@ -29,6 +34,7 @@ public class MapNodeBannerComponent : FrameComponent
 
         AddChild(_nameText);
         AddChild(_clearedText);
+        AddChild(_stageStatusIcon);
 
         Bounds = new Rectangle(0, 0, _sizeX, _sizeY);
     }
@@ -38,7 +44,10 @@ public class MapNodeBannerComponent : FrameComponent
         SetPositionByMapNode(mapNode);
 
         _nameText.SetText(mapNode.Name);
-        _clearedText.SetText(mapNode.Cleared ? "Cleared" : "Not Cleared");
+        _clearedText.SetText("Defeated:");
+        _stageStatusIcon.SetImage(mapNode.Cleared 
+            ? new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ConfirmIcon))
+            : new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.CloseIcon)));
     }
 
     private void SetPositionByMapNode(MapNodeData mapNode)
@@ -55,7 +64,8 @@ public class MapNodeBannerComponent : FrameComponent
         base.SetPosition(positionX, bouncedPositionY);
 
         _nameText.SetPosition(positionX + Bounds.Width / 2, bouncedPositionY + 70);
-        _clearedText.SetPosition(positionX + Bounds.Width / 2, bouncedPositionY + 100);
+        _clearedText.SetPosition(positionX + Bounds.Width / 3 + 15, bouncedPositionY + 130);
+        _stageStatusIcon.SetPosition(positionX + Bounds.Width / 3 * 2 - _iconSize / 2 + 15, bouncedPositionY + 130 - _iconSize / 2);
     }
 
     private int ApplyBounce(int baseValue)
