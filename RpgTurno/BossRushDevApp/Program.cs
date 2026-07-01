@@ -1,4 +1,5 @@
 ﻿using Domain.Dto.Global;
+using Domain.Dto.Session;
 using Domain.Interface.Screen;
 using Domain.Interface.UiManager;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,10 @@ public static class Program
         var services = new ServiceCollection();
 
         #region Dependency Injection
+
+        var gameSession = new GameSession();
+
+        services.AddSingleton(gameSession);
 
         services.AddTransient<IScreen, PlayScreen>();
         services.AddTransient<IScreen, MapScreen>();

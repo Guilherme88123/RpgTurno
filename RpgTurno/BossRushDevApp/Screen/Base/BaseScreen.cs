@@ -1,4 +1,5 @@
 ﻿using Domain.Dto.Global;
+using Domain.Dto.Session;
 using Domain.Interface.Screen;
 using Domain.Interface.UiManager;
 using Domain.Model.Components.Base;
@@ -14,9 +15,10 @@ public abstract class BaseScreen : IScreen
 {
     public abstract string ScreenCode { get; }
 
-    private readonly IUiManagerService _componentsService;
-
+    protected readonly GameSession GameSession = GlobalVariablesDto.GetService<GameSession>();
     protected CursorComponent CursorComponent;
+
+    private readonly IUiManagerService _componentsService;
 
     protected BaseScreen()
     {

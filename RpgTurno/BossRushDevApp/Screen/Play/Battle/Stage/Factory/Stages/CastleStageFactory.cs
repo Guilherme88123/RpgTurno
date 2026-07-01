@@ -1,9 +1,6 @@
-﻿using RpgTurno.Screen.Play.Battle.Stage;
-using RpgTurno.Screen.Play.Battle.Stage.Factory;
+﻿namespace RpgTurno.Screen.Play.Battle.Stage.Factory.Stages;
 
-namespace Service.Stage;
-
-public static class StageFactory
+public static class CastleStageFactory
 {
     public static StageData Create()
     {
@@ -13,7 +10,7 @@ public static class StageFactory
         [
             waveGenerator.Generate(1, 5),
             waveGenerator.Generate(2, 8),
-            waveGenerator.Generate(3, 12),
+            waveGenerator.Generate(3, 13),
         ]);
     }
 }

@@ -1,13 +1,14 @@
 ﻿using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Enum.Battle;
+using Domain.Enum.Stage;
 using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.Screen.Play.Battle.Attack;
 using RpgTurno.Screen.Play.Battle.Stage;
+using RpgTurno.Screen.Play.Battle.Stage.Factory;
 using RpgTurno.Screen.Play.Battle.Turn;
-using Service.Stage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,17 +29,18 @@ public class BattleManager
 
     public Action<BaseUnitEntity, BaseUnitEntity, int> OnExecuteAttack { get; set; }
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
+    public Action<bool> OnBattleFinish { get; set; }
 
     public BattleState BattleState { get; set; }
     private readonly float _waveTransitionSpeed = 400f;
 
     #region Initialize
 
-    public void Initialize(List<BaseUnitEntity> allies)
+    public void Initialize(List<BaseUnitEntity> allies, StageCode stageCode)
     {
         Allies = allies;
 
-        _stage = StageFactory.Create();
+        _stage = StageFactory.Create(stageCode);
 
         _attackManager.OnExecuteAttack += ExecuteAttack;
         _attackManager.OnTurnFinish += HandleTurnFinish;
@@ -89,11 +91,16 @@ public class BattleManager
         _attackManager.Update();
 
         UpdateUnits();
-        UpdateDeadUnits();
         UpdateTurn();
     }
 
     private void UpdateUnits()
+    {
+        UpdateLiveUnits();
+        UpdateDeadUnits();
+    }
+
+    private void UpdateLiveUnits()
     {
         foreach (var unit in GetAllUnits())
         {
@@ -245,7 +252,10 @@ public class BattleManager
         OnExecuteAttack?.Invoke(sender, target, damage);
 
         if (target.IsDead)
+        {
             MoveUnitToDeadList(target);
+            VerifyPlayFinish(target);
+        }
     }
 
     private void MoveUnitToDeadList(BaseUnitEntity unit)
@@ -256,6 +266,41 @@ public class BattleManager
         _turnManager.RemoveUnit(unit);
 
         _deadUnits.Add(unit);
+    }
+
+    private void VerifyPlayFinish(BaseUnitEntity unit)
+    {
+        if (IsEnemyUnit(unit))
+            VerifyStageFinish();
+        else
+            VerifyGameOver();
+    }
+
+    private void VerifyStageFinish()
+    {
+        if (HasFinishedBattle())
+            BattleFinish();
+    }
+
+    private bool HasFinishedBattle()
+    {
+        return _stage.IsFinished();
+    }
+
+    private void VerifyGameOver()
+    {
+        if (HasLostBattle())
+            BattleFinish(isGameOver: true);
+    }
+
+    private bool HasLostBattle()
+    {
+        return !Allies.Any();
+    }
+
+    private void BattleFinish(bool isGameOver = false)
+    {
+        OnBattleFinish?.Invoke(isGameOver);
     }
 
     private void HandleTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
@@ -301,11 +346,6 @@ public class BattleManager
     {
         BattleState = BattleState.WaveTransition;
         Allies.ForEach(x => x.CreatureState = CreatureStateType.Running);
-    }
-
-    private bool HasFinishedBattle()
-    {
-        return _stage.IsFinished();
     }
 
     #endregion

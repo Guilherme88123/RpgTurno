@@ -4,10 +4,6 @@ using Domain.Enum.Battle;
 using Domain.Enum.Component.Cursor;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Custom.Banners;
-using Domain.Model.Entity.Units.Ally.Archer;
-using Domain.Model.Entity.Units.Ally.Cleric;
-using Domain.Model.Entity.Units.Ally.Lancer;
-using Domain.Model.Entity.Units.Ally.Warrior;
 using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -49,9 +45,10 @@ public class PlayScreen : BaseScreen
 
     protected override List<BaseComponent> InitializeComponents()
     {
-        _battleManager.Initialize(CreateAllies());
+        _battleManager.Initialize(GetAllies(), GameSession.CurrentStageCode);
         _battleManager.OnExecuteAttack += AddDamageText;
         _battleManager.OnTurnFinish += OnTurnFinish;
+        _battleManager.OnBattleFinish += BattleFinish;
 
         _selectionAreaComponent = new();
 
@@ -80,15 +77,9 @@ public class PlayScreen : BaseScreen
         };
     }
 
-    private List<BaseUnitEntity> CreateAllies()
+    private List<BaseUnitEntity> GetAllies()
     {
-        return
-        [
-            new WarriorEntity(),
-            new ArcherEntity(),
-            new LancerEntity(),
-            new ClericEntity(),
-        ];
+        return GameSession.Allies;
     }
 
     #endregion
@@ -253,11 +244,14 @@ public class PlayScreen : BaseScreen
         var teclado = Keyboard.GetState();
 
         if (teclado.IsKeyDown(Keys.Escape))
-            ReturnToMapScreen();
+            BattleFinish(isGameOver: true);
     }
 
-    private void ReturnToMapScreen()
+    private void BattleFinish(bool isGameOver = false)
     {
+        if (!isGameOver)
+            GameSession.OnStageCleared?.Invoke();
+
         GlobalVariablesDto.PopScreen();
         GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
     }

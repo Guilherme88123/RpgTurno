@@ -1,5 +1,6 @@
 ﻿using Domain.Enum.Stage;
 using Microsoft.Xna.Framework;
+using RpgTurno.Screen.Map.World.Stage.Node;
 
 namespace RpgTurno.Screen.Map.World.Stage;
 
@@ -9,13 +10,16 @@ public static class MapFactory
     {
         var map = new MapData();
 
-        var stage1 = new StageMapNode(StageCode.Tower, new Vector2(650, 500));
-        var stage2 = new StageMapNode(StageCode.Barrack, new Vector2(1100, 800));
-        var stage3 = new StageMapNode(StageCode.Castle, new Vector2(1450, 300));
+        var start = new StartMapNode(new Vector2(100, 500));
+        var stage1 = new StageMapNode(new Vector2(650, 500), StageCode.Tower);
+        var stage2 = new StageMapNode(new Vector2(1100, 800), StageCode.Barrack);
+        var stage3 = new StageMapNode(new Vector2(1450, 300), StageCode.Castle);
 
+        start.NextNodes.Add(stage1);
         stage1.NextNodes.Add(stage2);
         stage2.NextNodes.Add(stage3);
 
+        stage1.PreviousNode = start;
         stage2.PreviousNode = stage1;
         stage3.PreviousNode = stage2;
 
@@ -23,7 +27,7 @@ public static class MapFactory
         map.Nodes.Add(stage2);
         map.Nodes.Add(stage3);
 
-        map.StartStage = stage1;
+        map.StartStage = start;
 
         return map;
     }

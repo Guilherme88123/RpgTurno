@@ -6,13 +6,13 @@ using Domain.Model.Texture.Manager;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RpgTurno.Screen.Map.World.Stage;
+using RpgTurno.Screen.Map.World.Stage.Node;
 
 namespace RpgTurno.Screen.Map.World.Player;
 
 public class MapPlayerData
 {
-    public StageMapNode CurrentStage { get; set; }
+    public MapNodeData CurrentNode { get; set; }
 
     public Vector2 Position { get; set; }
     public CreatureStateType State { get; set; }
@@ -20,7 +20,7 @@ public class MapPlayerData
     public SpriteEffects DrawEffect { get; set; }
 
     public bool IsMoving => TargetStage is not null;
-    public StageMapNode TargetStage { get; private set; }
+    public MapNodeData TargetStage { get; private set; }
 
     private AnimationManager _animation = new();
     private int _size = 128;
@@ -36,9 +36,9 @@ public class MapPlayerData
         _animation.Add(CreatureStateType.Running, new AnimationClip(running, 6, 1, 0.1f, border: spriteBorder));
     }
 
-    public void SetCurrentStage(StageMapNode currentStage)
+    public void SetCurrentStage(MapNodeData currentStage)
     {
-        CurrentStage = currentStage;
+        CurrentNode = currentStage;
         Position = currentStage.Position;
     }
 
@@ -53,7 +53,7 @@ public class MapPlayerData
         DrawEffect = Direction == DirectionType.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
     }
 
-    public void StartWalking(StageMapNode targetStage)
+    public void StartWalking(MapNodeData targetStage)
     {
         State = CreatureStateType.Running;
         TargetStage = targetStage;

@@ -1,11 +1,12 @@
 ﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
 using Domain.Enum;
+using Domain.Enum.Stage;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.Screen.Map.World.Player;
 using RpgTurno.Screen.Map.World.Stage;
-using System.Linq;
-using System.Runtime.Serialization;
+using RpgTurno.Screen.Map.World.Stage.Node;
+using System;
 
 namespace RpgTurno.Screen.Map.World;
 
@@ -13,6 +14,8 @@ public class WorldManager
 {
     public MapData Map { get; set; }
     public MapPlayerData Player { get; set; }
+
+    public Action<StageCode> OnPlayScreenEntry;
 
     private const float WalkingSpeed = 500f;
 
@@ -63,44 +66,60 @@ public class WorldManager
         UpdateWalkingToTargetStage();
     }
 
-    public void VerifyEnteringStage()
+    private void VerifyEnteringStage()
     {
-        var teclado = Keyboard.GetState();
-
         if (IsConfirmPressed())
-            GlobalVariablesDto.PushScreen(ScreenConst.PlayScreen);
+            TryEnterMapNode();
     }
 
-    public void VerifyWalkingBetweenStages()
+    private void TryEnterMapNode()
     {
-        var teclado = GlobalVariablesDto.KeyboardState;
+        switch (Player.CurrentNode)
+        {
+            case StageMapNode stageNode:
+                GoToPlayStage(stageNode);
+                break;
+            case StartMapNode:
+                break;
+        };
+    }
 
+    private void GoToPlayStage(StageMapNode stageNode)
+    {
+        OnPlayScreenEntry?.Invoke(stageNode.StageCode);
+        GlobalVariablesDto.PushScreen(ScreenConst.PlayScreen);
+    }
+
+    private void VerifyWalkingBetweenStages()
+    {
         if (IsNextPressed())
-            TryWalkTo(Player.CurrentStage.GetNextNode());
+            TryWalkTo(Player.CurrentNode.GetNextNode());
 
         if (IsPreviousPressed())
-            TryWalkTo(Player.CurrentStage.PreviousNode);
+            TryWalkTo(Player.CurrentNode.PreviousNode);
     }
 
-    private void TryWalkTo(StageMapNode targetStage)
+    private void TryWalkTo(MapNodeData targetStage)
     {
         if (IsAbleToWalkTo(targetStage))
             StartWalking(targetStage);
     }
 
-    private bool IsAbleToWalkTo(StageMapNode targetStage)
+    private bool IsAbleToWalkTo(MapNodeData targetNode)
     {
-        if (targetStage is null)
+        if (targetNode is null)
             return false;
 
-        //TODO: Comentado pois lógica de desbloqueio de fase ainda não foi implementada
-        //if (!targetStage.Cleared && !Player.CurrentStage.Cleared)
-        //    return false;
+        if (targetNode is StageMapNode stageNode && 
+            !stageNode.Cleared &&
+            Player.CurrentNode is StageMapNode currentStageNode && 
+            !currentStageNode.Cleared)
+            return false;
 
         return true;
     }
 
-    private void StartWalking(StageMapNode targetStage)
+    private void StartWalking(MapNodeData targetStage)
     {
         Player.StartWalking(targetStage);
     }
