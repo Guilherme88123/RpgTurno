@@ -8,8 +8,11 @@ public class StageMapNode : MapNodeData
     public StageCode StageCode { get; set; }
     public bool Cleared { get; set; }
 
-    public StageMapNode(Vector2 position, StageCode stageCode) : base(position)
+    public string Name { get; set; }
+
+    public StageMapNode(Vector2 position, StageCode stageCode, string name) : base(position)
     {
         StageCode = stageCode;
+        Name = name;
     }
 }
