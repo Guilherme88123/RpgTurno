@@ -9,7 +9,9 @@ using Domain.Model.Entity.Units.Ally.Warrior;
 using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
 using RpgTurno.CustomComponents.Map.Background;
+using RpgTurno.CustomComponents.Map.Stage;
 using RpgTurno.Screen.Map.World;
+using RpgTurno.Screen.Map.World.Stage.Node;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
 
@@ -23,6 +25,8 @@ public class MapScreen : BaseScreen
 
     private MapBackgroundComponent _backgroundImageComponent;
 
+    private MapNodeBannerComponent _nodeBannerComponent;
+
     #region Initialize
 
     protected override List<BaseComponent> InitializeComponents()
@@ -30,10 +34,17 @@ public class MapScreen : BaseScreen
         _worldManager = new();
         _worldManager.OnPlayScreenEntry += OnPlayScreenEntry;
         _worldManager.Initialize();
+        GameSession.OnStageCleared += _worldManager.OnStageCleared;
+
+        _nodeBannerComponent = new();
+        _nodeBannerComponent.IsVisible = false;
 
         _backgroundImageComponent = new();
 
-        return new();
+        return new()
+        {
+            _nodeBannerComponent,
+        };
     }
 
     public override void Initialize()
@@ -65,6 +76,21 @@ public class MapScreen : BaseScreen
         base.Update(gameTime);
 
         _worldManager.Update();
+
+        UpdateNodeBanner();
+    }
+
+    private void UpdateNodeBanner()
+    {
+        if (_worldManager.Player.CurrentNode is StageMapNode stageNode)
+        {
+            _nodeBannerComponent.SetCurrentMapNode(stageNode);
+            _nodeBannerComponent.IsVisible = true;
+        }
+        else
+        {
+            _nodeBannerComponent.IsVisible = false;
+        }
     }
 
     #endregion

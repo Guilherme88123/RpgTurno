@@ -177,5 +177,17 @@ public class WorldManager
 
     #endregion
 
+    #region Stage Cleared
+
+    public void OnStageCleared()
+    {
+        if (Player.CurrentNode is not StageMapNode stageNode)
+            return;
+
+        stageNode.Cleared = true;
+    }
+
+    #endregion
+
     #endregion
 }

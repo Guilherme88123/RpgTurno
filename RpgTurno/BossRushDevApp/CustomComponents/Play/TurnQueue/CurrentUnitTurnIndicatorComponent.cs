@@ -6,7 +6,6 @@ using Domain.Model.Entity.Units.Base;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Drawing;
 
 namespace RpgTurno.CustomComponents.TurnQueue;
 
