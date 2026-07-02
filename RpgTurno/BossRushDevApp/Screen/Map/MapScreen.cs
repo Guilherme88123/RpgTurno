@@ -8,6 +8,7 @@ using Domain.Model.Entity.Units.Ally.Lancer;
 using Domain.Model.Entity.Units.Ally.Warrior;
 using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
+using RpgTurno.CustomComponents.Map.AlliesParty;
 using RpgTurno.CustomComponents.Map.Background;
 using RpgTurno.CustomComponents.Map.Stage;
 using RpgTurno.Screen.Map.World;
@@ -25,6 +26,8 @@ public class MapScreen : BaseScreen
 
     private MapBackgroundComponent _backgroundImageComponent;
 
+    private AlliesPartyComponent _alliesPartyComponent;
+
     private MapNodeBannerComponent _nodeBannerComponent;
 
     #region Initialize
@@ -39,11 +42,15 @@ public class MapScreen : BaseScreen
         _nodeBannerComponent = new();
         _nodeBannerComponent.IsVisible = false;
 
+        _alliesPartyComponent = new();
+        _alliesPartyComponent.SetAlliesParty(GameSession.Allies);
+
         _backgroundImageComponent = new();
 
         return new()
         {
             _nodeBannerComponent,
+            _alliesPartyComponent,
         };
     }
 
@@ -78,6 +85,7 @@ public class MapScreen : BaseScreen
         _worldManager.Update();
 
         UpdateNodeBanner();
+        UpdateAlliesParty();
     }
 
     private void UpdateNodeBanner()
@@ -91,6 +99,11 @@ public class MapScreen : BaseScreen
         {
             _nodeBannerComponent.IsVisible = false;
         }
+    }
+
+    private void UpdateAlliesParty()
+    {
+        _alliesPartyComponent.SetPositionByPlayer(_worldManager.Player);
     }
 
     #endregion

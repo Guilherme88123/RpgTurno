@@ -101,6 +101,11 @@ public class BaseUnitEntity : BaseEntity
         DrawHealthBar();
     }
 
+    public void DrawMap()
+    {
+        base.Draw();
+    }
+
     protected virtual void DrawHealthBar()
     {
         _healthBar.Draw(GlobalVariablesDto.SpriteBatchEntities);
