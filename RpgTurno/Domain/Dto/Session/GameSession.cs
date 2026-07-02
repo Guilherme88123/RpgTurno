@@ -9,4 +9,6 @@ public class GameSession
     public StageCode CurrentStageCode { get; set; }
 
     public Action OnStageCleared { get; set; }
+
+    public bool IsInBattle { get; set; }
 }

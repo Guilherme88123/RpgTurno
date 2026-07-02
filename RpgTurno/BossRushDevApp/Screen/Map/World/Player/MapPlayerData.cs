@@ -2,8 +2,6 @@
 using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Model.Sprite.Border;
-using Domain.Model.Texture.Manager;
-using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.Screen.Map.World.Stage.Node;

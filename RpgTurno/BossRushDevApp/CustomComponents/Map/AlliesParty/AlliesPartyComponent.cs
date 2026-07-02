@@ -21,11 +21,13 @@ public class AlliesPartyComponent : BaseComponent
         _alliesParty = alliesParty;
     }
 
-    public void SetPositionByPlayer(MapPlayerData playerData)
+    public void SetPositionByPlayer(MapPlayerData playerData, bool isInBattle)
     {
         SetPosition((int)playerData.Position.X, (int)playerData.Position.Y);
         SetAlliesPartyPosition((int)playerData.Position.X, (int)playerData.Position.Y);
-        SetAlliesState(playerData);
+
+        if (!isInBattle)
+            SetAlliesState(playerData);
     }
 
     private void SetAlliesPartyPosition(int positionX, int positionY)

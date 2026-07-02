@@ -15,7 +15,6 @@ using System.Linq;
 
 namespace RpgTurno.Screen.Play.Battle;
 
-//TODO: Adicionar transição ao final da batalha, quando o jogador vence ou perde, para mostrar a tela de vitória ou derrota.
 public class BattleManager
 {
     private readonly TurnQueueManager _turnManager = new();
@@ -345,6 +344,7 @@ public class BattleManager
     {
         BattleState = BattleState.WaveTransition;
         Allies.ForEach(x => x.CreatureState = CreatureStateType.Running);
+        Allies.ForEach(x => x.Direction = DirectionType.Right);
     }
 
     #endregion

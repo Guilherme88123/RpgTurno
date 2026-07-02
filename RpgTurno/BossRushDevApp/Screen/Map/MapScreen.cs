@@ -103,7 +103,7 @@ public class MapScreen : BaseScreen
 
     private void UpdateAlliesParty()
     {
-        _alliesPartyComponent.SetPositionByPlayer(_worldManager.Player);
+        _alliesPartyComponent.SetPositionByPlayer(_worldManager.Player, GameSession.IsInBattle);
     }
 
     #endregion
@@ -131,6 +131,7 @@ public class MapScreen : BaseScreen
     private void OnPlayScreenEntry(StageCode stageCode)
     {
         GameSession.CurrentStageCode = stageCode;
+        GameSession.IsInBattle = true;
     }
 
     #endregion

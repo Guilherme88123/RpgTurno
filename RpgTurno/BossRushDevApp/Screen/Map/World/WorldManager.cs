@@ -1,5 +1,6 @@
 ﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
+using Domain.Dto.Session;
 using Domain.Enum;
 using Domain.Enum.Stage;
 using Microsoft.Xna.Framework.Input;
@@ -10,7 +11,6 @@ using System;
 
 namespace RpgTurno.Screen.Map.World;
 
-//TODO: Adicionar toda a party de aliados andando no mapa
 public class WorldManager
 {
     public MapData Map { get; set; }

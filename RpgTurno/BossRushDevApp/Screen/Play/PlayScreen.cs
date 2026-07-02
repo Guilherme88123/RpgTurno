@@ -249,6 +249,8 @@ public class PlayScreen : BaseScreen
 
     private void BattleFinish(bool isGameOver = false)
     {
+        GameSession.IsInBattle = false;
+
         if (!isGameOver)
             GameSession.OnStageCleared?.Invoke();
 
