@@ -47,6 +47,10 @@ public class TextComponent : BaseComponent
     public override void Draw(SpriteBatch spriteBatch)
     {
         base.Draw(spriteBatch);
+
+        if (!IsVisible)
+            return;
+
         DrawText(spriteBatch);
     }
 

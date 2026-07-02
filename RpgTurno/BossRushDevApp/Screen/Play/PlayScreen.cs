@@ -154,7 +154,7 @@ public class PlayScreen : BaseScreen
     {
         _focusedEntity = entity;
         _selectionAreaComponent.SetDestinationRectangle(entity.Rectangle);
-        _focusedUnitBannerComponent.SetFocusedUnit(entity);
+        _focusedUnitBannerComponent.SetFocusedUnit(entity, _battleManager.IsEnemyUnit(entity));
     }
 
     private void ClearFocusedEntity()

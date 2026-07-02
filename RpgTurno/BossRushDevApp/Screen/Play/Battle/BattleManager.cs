@@ -209,7 +209,7 @@ public class BattleManager
             UpdateAllyTurn(currentUnit);
     }
 
-    private bool IsEnemyUnit(BaseUnitEntity unit)
+    public bool IsEnemyUnit(BaseUnitEntity unit)
     {
         return Enemies.Contains(unit);
     }

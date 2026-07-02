@@ -13,7 +13,6 @@ using System;
 
 namespace Domain.Model.Components.Custom.Banners;
 
-//TODO: Só mostrar o XP quando for aliado
 public class UnitBannerComponent : FrameComponent
 {
     private const int _fixedSlice = 112;
@@ -32,6 +31,8 @@ public class UnitBannerComponent : FrameComponent
     private readonly ImageComponent _speedIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.BootIcon)), 32, 32);
 
     private readonly ImageComponent _unitIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericAvatar)), 128, 128);
+
+    private bool _isEnemyUnit;
 
     public UnitBannerComponent()
     {
@@ -54,7 +55,7 @@ public class UnitBannerComponent : FrameComponent
         Bounds = new Rectangle(0, 0, 300, 365);
     }
 
-    public void SetFocusedUnit(BaseUnitEntity focusedEntity)
+    public void SetFocusedUnit(BaseUnitEntity focusedEntity, bool isEnemy)
     {
         _nameText.SetText($"{focusedEntity.Name} Lvl {focusedEntity.Stats.Level}");
         _healtText.SetText($"{focusedEntity.Stats.CurrentHealth}/{focusedEntity.Stats.MaxHealth}");
@@ -63,6 +64,7 @@ public class UnitBannerComponent : FrameComponent
         _speedText.SetText(focusedEntity.Stats.Speed.ToString());
         _experienceText.SetText($"{focusedEntity.Stats.CurrentExperience}/{focusedEntity.Stats.MaxExperience}");
         _unitIcon.SetImage(focusedEntity.Icon);
+        _isEnemyUnit = isEnemy;
 
         SetPosition(Bounds.X, Bounds.Y);
     }
@@ -93,6 +95,8 @@ public class UnitBannerComponent : FrameComponent
         _speedIcon.SetPosition(textX - iconMarginX, textY + 125 - iconMarginY);
         _speedText.SetPosition(textX, textY + 125);
 
+        _experienceIcon.IsVisible = !_isEnemyUnit;
+        _experienceText.IsVisible = !_isEnemyUnit;
         _experienceIcon.SetPosition(textX - iconMarginX, textY + 155 - iconMarginY);
         _experienceText.SetPosition(textX, textY + 155);
     }
