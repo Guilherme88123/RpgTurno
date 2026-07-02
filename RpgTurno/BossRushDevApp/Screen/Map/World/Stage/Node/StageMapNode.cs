@@ -10,9 +10,12 @@ public class StageMapNode : MapNodeData
 
     public string Name { get; set; }
 
-    public StageMapNode(Vector2 position, StageCode stageCode, string name) : base(position)
+    public int Difficulty { get; set; }
+
+    public StageMapNode(Vector2 position, StageCode stageCode, string name, int difficulty) : base(position)
     {
         StageCode = stageCode;
         Name = name;
+        Difficulty = difficulty;
     }
 }

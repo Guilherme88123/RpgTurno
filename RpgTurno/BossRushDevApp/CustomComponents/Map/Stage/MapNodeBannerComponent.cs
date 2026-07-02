@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.Screen.Map.World.Stage.Node;
 using RpgTurno.Screen.Play.Battle.Stage.Factory;
 using System;
+using System.Diagnostics;
 
 namespace RpgTurno.CustomComponents.Map.Stage;
 
@@ -19,7 +20,7 @@ public class MapNodeBannerComponent : FrameComponent
     private const int _fixedSlice = 64;
     private const int _sizeX = 256;
     private const int _sizeY = 256;
-    private const int _marginY = 100;
+    private const int _marginY = 200;
 
     private const int _iconSize = 32;
     private const int _difficultyIconSize = 32;
@@ -68,9 +69,7 @@ public class MapNodeBannerComponent : FrameComponent
             ? new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ConfirmIcon))
             : new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.CloseIcon)));
 
-        var stage = StageFactory.Create(mapNode.StageCode);
-
-        _starsCount = GetCountStarsByDificulty(stage.Difficulty);
+        _starsCount = mapNode.Difficulty;
     }
 
     private void SetPositionByMapNode(MapNodeData mapNode)
