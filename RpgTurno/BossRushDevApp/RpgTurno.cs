@@ -22,7 +22,7 @@ public class RpgTurno : Game
         GraphicsDeviceManager graphics = new GraphicsDeviceManager(this);
         graphics.PreferredBackBufferWidth = GlobalOptionsDto.WidthSize;
         graphics.PreferredBackBufferHeight = GlobalOptionsDto.HeightSize;
-        graphics.HardwareModeSwitch = false;
+        graphics.HardwareModeSwitch = true;
         graphics.IsFullScreen = GlobalOptionsDto.Fullscreen;
         graphics.SynchronizeWithVerticalRetrace = false;
         IsFixedTimeStep = true;

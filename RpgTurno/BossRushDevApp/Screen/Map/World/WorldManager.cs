@@ -10,6 +10,7 @@ using System;
 
 namespace RpgTurno.Screen.Map.World;
 
+//TODO: Adicionar toda a party de aliados andando no mapa
 public class WorldManager
 {
     public MapData Map { get; set; }

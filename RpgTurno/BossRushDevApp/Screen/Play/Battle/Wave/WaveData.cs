@@ -8,6 +8,8 @@ public class WaveData
 {
     public List<BaseUnitEntity> Enemies { get; }
 
+    public int Difficulty => Enemies.Sum(enemy => enemy.Power);
+
     public WaveData(List<BaseUnitEntity> enemies)
     {
         Enemies = enemies;

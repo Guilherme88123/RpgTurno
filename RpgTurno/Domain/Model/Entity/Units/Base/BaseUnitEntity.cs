@@ -21,11 +21,17 @@ public class BaseUnitEntity : BaseEntity
 
     private readonly HealthBarComponent _healthBar;
 
+    public bool IsDead { get; protected set; }
+
+    public int Power =>
+        Stats.Attack +
+        Stats.Defense +
+        Stats.MaxHealth / 10 +
+        Stats.Speed;
+
     private const float DelayDamageTakenFlash = 0.1f;
     private float _currentDelayDamageTakenFlash;
     private bool HasTakeDamage => _currentDelayDamageTakenFlash > 0;
-
-    public bool IsDead { get; protected set; }
 
     private const float DelayDeadAnimation = 1f;
     private float _currentDelayDeadAnimation;

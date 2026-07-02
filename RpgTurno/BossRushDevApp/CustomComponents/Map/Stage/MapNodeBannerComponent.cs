@@ -9,23 +9,34 @@ using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.Screen.Map.World.Stage.Node;
+using RpgTurno.Screen.Play.Battle.Stage.Factory;
+using System;
 
 namespace RpgTurno.CustomComponents.Map.Stage;
 
-//TODO: Adicionar detalhes sobre o stage
 public class MapNodeBannerComponent : FrameComponent
 {
     private const int _fixedSlice = 64;
     private const int _sizeX = 256;
-    private const int _sizeY = 192;
+    private const int _sizeY = 256;
     private const int _marginY = 100;
 
     private const int _iconSize = 48;
+    private const int _difficultyIconSize = 32;
 
     private readonly TextComponent _nameText = new(positionByCenter: true);
+    private readonly TextComponent _difficultyText = new(positionByCenter: true);
     private readonly TextComponent _clearedText = new(positionByCenter: true);
 
     private readonly ImageComponent _stageStatusIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.CloseIcon)), _iconSize, _iconSize);
+
+    private readonly ImageComponent _difficulty1StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.StarIcon)), _difficultyIconSize, _difficultyIconSize);
+    private readonly ImageComponent _difficulty2StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.StarIcon)), _difficultyIconSize, _difficultyIconSize);
+    private readonly ImageComponent _difficulty3StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.StarIcon)), _difficultyIconSize, _difficultyIconSize);
+    private readonly ImageComponent _difficulty4StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.StarIcon)), _difficultyIconSize, _difficultyIconSize);
+    private readonly ImageComponent _difficulty5StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.StarIcon)), _difficultyIconSize, _difficultyIconSize);
+
+    private int _starsCount = 0;
 
     public MapNodeBannerComponent()
     {
@@ -33,9 +44,15 @@ public class MapNodeBannerComponent : FrameComponent
         AnimationManager.Add(true, new AnimationClip([new ResizableSpriteData(paperBannerSprite, ResizableSpriteType.Full, _fixedSlice, _fixedSlice, null, 64)]));
 
         AddChild(_nameText);
+        AddChild(_difficultyText);
         AddChild(_clearedText);
         AddChild(_stageStatusIcon);
 
+        AddChild(_difficulty1StarIcon);
+        AddChild(_difficulty2StarIcon);
+        AddChild(_difficulty3StarIcon);
+        AddChild(_difficulty4StarIcon);
+        AddChild(_difficulty5StarIcon);
         Bounds = new Rectangle(0, 0, _sizeX, _sizeY);
     }
 
@@ -44,10 +61,15 @@ public class MapNodeBannerComponent : FrameComponent
         SetPositionByMapNode(mapNode);
 
         _nameText.SetText(mapNode.Name);
+        _difficultyText.SetText("Difficulty:");
         _clearedText.SetText("Defeated:");
         _stageStatusIcon.SetImage(mapNode.Cleared 
             ? new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ConfirmIcon))
             : new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.CloseIcon)));
+
+        var stage = StageFactory.Create(mapNode.StageCode);
+
+        _starsCount = GetCountStarsByDificulty(stage.Difficulty);
     }
 
     private void SetPositionByMapNode(MapNodeData mapNode)
@@ -64,8 +86,12 @@ public class MapNodeBannerComponent : FrameComponent
         base.SetPosition(positionX, bouncedPositionY);
 
         _nameText.SetPosition(positionX + Bounds.Width / 2, bouncedPositionY + 70);
-        _clearedText.SetPosition(positionX + Bounds.Width / 3 + 15, bouncedPositionY + 130);
-        _stageStatusIcon.SetPosition(positionX + Bounds.Width / 3 * 2 - _iconSize / 2 + 15, bouncedPositionY + 130 - _iconSize / 2);
+
+        _difficultyText.SetPosition(positionX + Bounds.Width / 2, bouncedPositionY + 105);
+        FixDificultyIconsPosition();
+
+        _clearedText.SetPosition(positionX + Bounds.Width / 3 + 15, bouncedPositionY + 190);
+        _stageStatusIcon.SetPosition(positionX + Bounds.Width / 3 * 2 - _iconSize / 2 + 15, bouncedPositionY + 190 - _iconSize / 2);
     }
 
     private int ApplyBounce(int baseValue)
@@ -73,5 +99,50 @@ public class MapNodeBannerComponent : FrameComponent
         var bounce = GlobalVariablesDto.GetBounceValue();
 
         return baseValue - bounce;
+    }
+
+    private void FixDificultyIconsPosition()
+    {
+        var startX = Bounds.X + Bounds.Width / 2 - (_difficultyIconSize * _starsCount) / 2;
+
+        var positionY = Bounds.Y + 125;
+
+        for (int i = 0; i < _starsCount; i++)
+        {
+            var icon = GetDifficultyIconByIndex(i);
+            icon.IsVisible = true;
+            icon.SetPosition(startX + i * _difficultyIconSize, positionY);
+        }
+
+        for (int i = _starsCount; i < 5; i++)
+        {
+            var icon = GetDifficultyIconByIndex(i);
+            icon.IsVisible = false;
+        }
+    }
+
+    private ImageComponent GetDifficultyIconByIndex(int index)
+    {
+        return index switch
+        {
+            0 => _difficulty1StarIcon,
+            1 => _difficulty2StarIcon,
+            2 => _difficulty3StarIcon,
+            3 => _difficulty4StarIcon,
+            4 => _difficulty5StarIcon,
+            _ => throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 0 and 4.")
+        };
+    }
+
+    private int GetCountStarsByDificulty(int difficulty)
+    {
+        return difficulty switch
+        {
+            _ when difficulty <= 200 => 1,
+            _ when difficulty <= 500 => 2,
+            _ when difficulty <= 900 => 3,
+            _ when difficulty <= 1400 => 4,
+            _ when difficulty > 1400 => 5,
+        };
     }
 }

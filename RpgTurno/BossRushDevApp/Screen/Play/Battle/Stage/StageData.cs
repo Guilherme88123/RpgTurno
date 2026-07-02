@@ -1,5 +1,6 @@
 ﻿using RpgTurno.Screen.Play.Battle.Wave;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RpgTurno.Screen.Play.Battle.Stage;
 
@@ -8,6 +9,8 @@ public class StageData
     private int _currentWaveIndex;
 
     public List<WaveData> Waves { get; }
+
+    public int Difficulty => Waves.Sum(x => x.Difficulty);
 
     public StageData(List<WaveData> waves)
     {

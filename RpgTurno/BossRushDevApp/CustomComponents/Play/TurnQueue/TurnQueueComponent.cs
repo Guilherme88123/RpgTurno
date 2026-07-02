@@ -8,11 +8,15 @@ using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
 namespace RpgTurno.CustomComponents.TurnQueue;
 
+//TODO: Interligar com Hover no personagem para mostrar detalhes do personagem:
+// Ou seja, quando passar o mouse no ícone do personagem, mostrar detalhes no banner, e quando hover normalmente, mostrar 
+// onde ele está na fila
+
+//TODO: Animação de transição da fila
 public class TurnQueueComponent : BaseComponent
 {
     private const int MaxIconsCount = 7;
