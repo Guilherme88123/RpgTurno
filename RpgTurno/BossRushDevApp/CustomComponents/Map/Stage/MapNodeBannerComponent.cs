@@ -21,7 +21,7 @@ public class MapNodeBannerComponent : FrameComponent
     private const int _sizeY = 256;
     private const int _marginY = 100;
 
-    private const int _iconSize = 48;
+    private const int _iconSize = 32;
     private const int _difficultyIconSize = 32;
 
     private readonly TextComponent _nameText = new(positionByCenter: true);
@@ -30,11 +30,11 @@ public class MapNodeBannerComponent : FrameComponent
 
     private readonly ImageComponent _stageStatusIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.CloseIcon)), _iconSize, _iconSize);
 
-    private readonly ImageComponent _difficulty1StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.StarIcon)), _difficultyIconSize, _difficultyIconSize);
-    private readonly ImageComponent _difficulty2StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.StarIcon)), _difficultyIconSize, _difficultyIconSize);
-    private readonly ImageComponent _difficulty3StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.StarIcon)), _difficultyIconSize, _difficultyIconSize);
-    private readonly ImageComponent _difficulty4StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.StarIcon)), _difficultyIconSize, _difficultyIconSize);
-    private readonly ImageComponent _difficulty5StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.StarIcon)), _difficultyIconSize, _difficultyIconSize);
+    private readonly ImageComponent _difficulty1StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.YellowStarIcon)), _difficultyIconSize, _difficultyIconSize);
+    private readonly ImageComponent _difficulty2StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.YellowStarIcon)), _difficultyIconSize, _difficultyIconSize);
+    private readonly ImageComponent _difficulty3StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.YellowStarIcon)), _difficultyIconSize, _difficultyIconSize);
+    private readonly ImageComponent _difficulty4StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.YellowStarIcon)), _difficultyIconSize, _difficultyIconSize);
+    private readonly ImageComponent _difficulty5StarIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.YellowStarIcon)), _difficultyIconSize, _difficultyIconSize);
 
     private int _starsCount = 0;
 
@@ -90,8 +90,8 @@ public class MapNodeBannerComponent : FrameComponent
         _difficultyText.SetPosition(positionX + Bounds.Width / 2, bouncedPositionY + 105);
         FixDificultyIconsPosition();
 
-        _clearedText.SetPosition(positionX + Bounds.Width / 3 + 15, bouncedPositionY + 190);
-        _stageStatusIcon.SetPosition(positionX + Bounds.Width / 3 * 2 - _iconSize / 2 + 15, bouncedPositionY + 190 - _iconSize / 2);
+        _clearedText.SetPosition(positionX + Bounds.Width / 3 + 20, bouncedPositionY + 190);
+        _stageStatusIcon.SetPosition(positionX + Bounds.Width / 3 * 2 - _iconSize / 2 + 10, bouncedPositionY + 190 - 3 - _iconSize / 2);
     }
 
     private int ApplyBounce(int baseValue)
