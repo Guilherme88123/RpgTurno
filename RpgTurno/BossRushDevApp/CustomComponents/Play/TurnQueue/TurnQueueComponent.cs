@@ -3,6 +3,7 @@ using Domain.Dto.Global;
 using Domain.Enum.Sprite;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Image;
+using Domain.Model.Entity.Units.Base.Particle;
 using Domain.Model.Sprite.Border;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
@@ -29,6 +30,8 @@ public class TurnQueueComponent : BaseComponent
             ResizableSpriteType.Horizontal, 64, 0, new BorderDefinition(0, 576, 0, 0), 64),
             GlobalOptionsDto.WidthSize / 3, 80);
 
+    private SmallDustEffect _dustEffect = new();
+
     private bool _isInTransition = false;
     private float _transitionOffset;
 
@@ -41,6 +44,7 @@ public class TurnQueueComponent : BaseComponent
     public void StartTransition()
     {
         _isInTransition = true;
+        _dustEffect.Reset();
     }
 
     public void SetUnitsList(List<SpriteData> unitsList)
@@ -62,6 +66,8 @@ public class TurnQueueComponent : BaseComponent
     private void UpdateTransition()
     {
         _transitionOffset += IconSize * 2 * GlobalVariablesDto.DeltaTime;
+
+        _dustEffect.Update();
 
         if (_transitionOffset > IconSize)
             FinishTransition();
@@ -100,6 +106,7 @@ public class TurnQueueComponent : BaseComponent
         {
             if (_isInTransition && unit == _unitsList.First())
             {
+                DrawDustEffect(spriteBatch, initialPosition);
                 count++;
                 continue;
             }
@@ -112,6 +119,12 @@ public class TurnQueueComponent : BaseComponent
 
             count++;
         }
+    }
+
+    private void DrawDustEffect(SpriteBatch spriteBatch, int initialPosition)
+    {
+        var dustRectangle = new Rectangle(initialPosition - IconSize, Bounds.Y, IconSize, IconSize);
+        _dustEffect.Draw(dustRectangle, Color, Rotation, SpriteEffects, spriteBatch);
     }
 
     #endregion

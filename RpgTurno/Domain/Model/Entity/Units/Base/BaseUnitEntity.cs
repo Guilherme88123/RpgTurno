@@ -36,7 +36,7 @@ public class BaseUnitEntity : BaseEntity
     private const float DelayDeadAnimation = 1f;
     private float _currentDelayDeadAnimation;
     private bool HasDeadAnimationFinished => _currentDelayDeadAnimation == 0;
-    private DustEffect _deadAnimation = new(); 
+    private LargeDustEffect _deadAnimation = new(); 
 
     public BaseUnitEntity(BaseUnitStats stats)
     {

@@ -212,18 +212,6 @@
 /processorParam:TextureFormat=Color
 /build:ConfirmIcon.png
 
-#begin DustEffect.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:DustEffect.png
-
 #begin Enemy_Archer_Idle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -584,6 +572,18 @@
 /processorParam:TextureFormat=Color
 /build:LancerAvatar.png
 
+#begin LargeDustEffect.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LargeDustEffect.png
+
 #begin LazyFox.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -722,6 +722,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SmallBar_Fill.png
+
+#begin SmallDustEffect.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SmallDustEffect.png
 
 #begin SmallRibbons.png
 /importer:TextureImporter

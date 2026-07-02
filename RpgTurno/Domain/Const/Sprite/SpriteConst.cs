@@ -138,7 +138,8 @@ public static class SpriteConst
 
     #region Particle FX
 
-    public const string DustEffect = "DustEffect";
+    public const string LargeDustEffect = "LargeDustEffect";
+    public const string SmallDustEffect = "SmallDustEffect";
 
     #endregion
 }

@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Domain.Model.Entity.Units.Base.Particle;
 
-public class DustEffect : AnimationClip
+public class SmallDustEffect : AnimationClip
 {
-    public DustEffect() : base(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.DustEffect), 10, 1, 0.1f, 1)
+    public SmallDustEffect() : base(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallDustEffect), 8, 1, 0.1f, 1)
     {
     }
 }
