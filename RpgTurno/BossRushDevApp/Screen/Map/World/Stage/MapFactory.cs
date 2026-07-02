@@ -10,10 +10,10 @@ public static class MapFactory
     {
         var map = new MapData();
 
-        var start = new StartMapNode(new Vector2(100, 500));
-        var stage1 = new StageMapNode(new Vector2(650, 500), StageCode.Tower, "Evil Tower");
-        var stage2 = new StageMapNode(new Vector2(1100, 800), StageCode.Barrack, "Barracks of Valor");
-        var stage3 = new StageMapNode(new Vector2(1450, 300), StageCode.Castle, "The Castle");
+        var start = new StartMapNode(new Vector2(100, 650));
+        var stage1 = new StageMapNode(new Vector2(650, 650), StageCode.Tower, "Evil Tower");
+        var stage2 = new StageMapNode(new Vector2(1100, 950), StageCode.Barrack, "Barracks of Valor");
+        var stage3 = new StageMapNode(new Vector2(1450, 450), StageCode.Castle, "The Castle");
 
         start.NextNodes.Add(stage1);
         stage1.NextNodes.Add(stage2);

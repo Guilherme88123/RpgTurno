@@ -35,6 +35,9 @@ public class BaseEntity
     public Rectangle Rectangle => new Rectangle((int)PositionX, (int)PositionY, SizeX, SizeY);
     public Rectangle AnimationRectangle => GetAnimationRectangle();
 
+    public virtual int FeetPadding => 0;
+    public virtual Point FeetOffset => new(AnimationRectangle.Width / 2, AnimationRectangle.Height - FeetPadding);
+
     public CreatureStateType CreatureState;
 
     public virtual void Update()

@@ -53,6 +53,7 @@ public class MapNodeBannerComponent : FrameComponent
         AddChild(_difficulty3StarIcon);
         AddChild(_difficulty4StarIcon);
         AddChild(_difficulty5StarIcon);
+
         Bounds = new Rectangle(0, 0, _sizeX, _sizeY);
     }
 

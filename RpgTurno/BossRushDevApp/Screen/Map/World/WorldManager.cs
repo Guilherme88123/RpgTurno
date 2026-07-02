@@ -111,11 +111,11 @@ public class WorldManager
         if (targetNode is null)
             return false;
 
-        if (targetNode is StageMapNode stageNode && 
-            !stageNode.Cleared &&
-            Player.CurrentNode is StageMapNode currentStageNode && 
-            !currentStageNode.Cleared)
-            return false;
+        //if (targetNode is StageMapNode stageNode && 
+        //    !stageNode.Cleared &&
+        //    Player.CurrentNode is StageMapNode currentStageNode && 
+        //    !currentStageNode.Cleared)
+        //    return false;
 
         return true;
     }

@@ -101,9 +101,26 @@ public class BaseUnitEntity : BaseEntity
         DrawHealthBar();
     }
 
-    public void DrawMap()
+    public void DrawMap(int positionX, int positionY)
     {
-        base.Draw();
+        float scale = 1.5f;
+
+        int width = (int)(AnimationRectangle.Width / scale);
+        int height = (int)(AnimationRectangle.Height / scale);
+
+        int pivotX = (int)(FeetOffset.X / scale);
+        int pivotY = (int)(FeetOffset.Y / scale);
+
+        Animation.Draw(
+            new Rectangle(
+                positionX - pivotX,
+                positionY - pivotY,
+                width,
+                height),
+            Color,
+            ActualAngle,
+            DrawEffect,
+            GlobalVariablesDto.SpriteBatchEntities);
     }
 
     protected virtual void DrawHealthBar()

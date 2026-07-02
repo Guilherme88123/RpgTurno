@@ -22,18 +22,12 @@ public class MapPlayerData
     public bool IsMoving => TargetStage is not null;
     public MapNodeData TargetStage { get; private set; }
 
-    private AnimationManager _animation = new();
-    private int _size = 128;
-
     public MapPlayerData()
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.WarriorIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.WarriorRun);
 
         var spriteBorder = new BorderDefinition(0, 0, 0, 0);
-
-        _animation.Add(CreatureStateType.Idle, new AnimationClip(idle, 8, 1, 0.1f, border: spriteBorder));
-        _animation.Add(CreatureStateType.Running, new AnimationClip(running, 6, 1, 0.1f, border: spriteBorder));
     }
 
     public void SetCurrentStage(MapNodeData currentStage)
@@ -44,7 +38,6 @@ public class MapPlayerData
 
     public void Update()
     {
-        _animation.Update(State);
         UpdateDirectionEffect();
     }
 
@@ -63,11 +56,5 @@ public class MapPlayerData
     {
         State = CreatureStateType.Idle;
         TargetStage = null;
-    }
-
-    public void Draw()
-    {
-        var destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, _size, _size);
-        _animation.Draw(destinationRectangle, Color.White, 0f, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
     }
 }

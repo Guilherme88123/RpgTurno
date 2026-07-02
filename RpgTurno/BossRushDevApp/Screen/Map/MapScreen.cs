@@ -113,14 +113,8 @@ public class MapScreen : BaseScreen
     public override void Draw()
     {
         DrawBackground();
-        DrawPlayer();
 
         base.Draw();
-    }
-
-    public void DrawPlayer()
-    {
-        _worldManager.Player.Draw();
     }
 
     private void DrawBackground()

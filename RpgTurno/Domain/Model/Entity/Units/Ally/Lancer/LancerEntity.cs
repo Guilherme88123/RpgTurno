@@ -4,12 +4,15 @@ using Domain.Enum;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Sprite.Border;
 using Domain.Model.Texture.Sprite;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Domain.Model.Entity.Units.Ally.Lancer;
 
 public class LancerEntity : BaseUnitEntity
 {
+    public override int FeetPadding => 64;
+
     public LancerEntity() : base(stats: new LancerStats(level: 1))
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.LancerIdle);
