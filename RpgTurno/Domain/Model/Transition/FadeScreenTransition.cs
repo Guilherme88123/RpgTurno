@@ -12,7 +12,7 @@ public class FadeScreenTransition : IScreenTransition
     private bool _isOpening;
     private Action _middleAction;
 
-    public bool IsRunning => _isClosing || _isOpening;
+    public bool IsRunning => _isClosing;
 
     public void Start(Action middleAction)
     {

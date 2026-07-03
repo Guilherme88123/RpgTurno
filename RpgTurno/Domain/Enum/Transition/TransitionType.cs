@@ -3,6 +3,6 @@
 public enum TransitionType
 {
     Fade,
-    Slide,
+    Side,
     Circle,
 }

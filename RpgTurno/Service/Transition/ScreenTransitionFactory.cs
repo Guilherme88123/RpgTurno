@@ -11,6 +11,7 @@ public static class ScreenTransitionFactory
         return type switch
         {
             TransitionType.Fade => new FadeScreenTransition(),
+            TransitionType.Side => new SideScreenTransition(),
             TransitionType.Circle => new CircleScreenTransition(),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
