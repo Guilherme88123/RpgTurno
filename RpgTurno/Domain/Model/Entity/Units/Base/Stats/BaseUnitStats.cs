@@ -5,7 +5,7 @@ public abstract class BaseUnitStats
     public int Level { get; set; }
 
     private ScalableStat MaxExperienceStat = new ScalableStat(120, 30);
-    private ScalableStat ExperienceRewardStat = new ScalableStat(50, 3);
+    private ScalableStat ExperienceRewardStat = new ScalableStat(500, 3);
 
     protected ScalableStat MaxHealthStat;
     protected ScalableStat AttackStat;
@@ -23,6 +23,8 @@ public abstract class BaseUnitStats
     public int ExperienceReward => ExperienceRewardStat.GetFinalValue(Level);
 
     public bool IsDead => CurrentHealth <= 0;
+
+    public Action OnLevelUp { get; set; }
 
     protected BaseUnitStats(int level)
     {
@@ -62,6 +64,7 @@ public abstract class BaseUnitStats
     {
         CurrentExperience -= MaxExperience;
         Level++;
+        OnLevelUp?.Invoke();
     }
 
     public void HealHealth(int value)

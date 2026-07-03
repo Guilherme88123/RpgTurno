@@ -27,7 +27,6 @@ public static class SpriteConst
     public const string ClericIdle = "Cleric_Idle";
     public const string ClericRun = "Cleric_Run";
     public const string ClericAttack = "Cleric_Heal";
-    public const string HealEffect = "Heal_Effect";
 
     #endregion
 
@@ -140,6 +139,8 @@ public static class SpriteConst
 
     public const string LargeDustEffect = "LargeDustEffect";
     public const string SmallDustEffect = "SmallDustEffect";
+    public const string HealEffect = "HealEffect";
+    public const string LevelUpEffect = "LevelUpEffect";
 
     #endregion
 }

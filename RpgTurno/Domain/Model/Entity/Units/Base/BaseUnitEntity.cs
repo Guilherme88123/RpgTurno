@@ -1,7 +1,7 @@
 ﻿using Domain.Dto.Global;
+using Domain.Model.Effect;
 using Domain.Model.Entity.Base;
 using Domain.Model.Entity.Units.Base.HealthBar;
-using Domain.Model.Entity.Units.Base.Particle;
 using Domain.Model.Entity.Units.Base.Stats;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
@@ -35,11 +35,17 @@ public class BaseUnitEntity : BaseEntity
     private const float DelayDeadAnimation = 1f;
     private float _currentDelayDeadAnimation;
     private bool HasDeadAnimationFinished => _currentDelayDeadAnimation == 0;
-    private LargeDustEffect _deadAnimation = new(); 
+    private LargeDustEffect _deadAnimation = new();
+
+    private const float DelayLevelUpAnimation = 1.1f;
+    private float _currentDelayLevelUpAnimation;
+    private bool HasLevelUp => _currentDelayLevelUpAnimation > 0;
+    private LevelUpEffect _levelUpAnimation = new();
 
     public BaseUnitEntity(BaseUnitStats stats)
     {
         Stats = stats;
+        Stats.OnLevelUp += StartLevelUpAnimation;
 
         _healthBar = new HealthBarComponent(Stats.MaxHealth, Stats.CurrentHealth);
     }
@@ -56,12 +62,16 @@ public class BaseUnitEntity : BaseEntity
 
         if (IsDead)
             VerifyDeadDelayFinish();
+
+        if (HasLevelUp)
+            UpdateLevelUpAnimation();
     }
 
     private void UpdateDelays()
     {
         _currentDelayDamageTakenFlash = Math.Max(0, _currentDelayDamageTakenFlash - GlobalVariablesDto.DeltaTime);
         _currentDelayDeadAnimation = Math.Max(0, _currentDelayDeadAnimation - GlobalVariablesDto.DeltaTime);
+        _currentDelayLevelUpAnimation = Math.Max(0, _currentDelayLevelUpAnimation - GlobalVariablesDto.DeltaTime);
     }
 
     private void UpdateHealthBarComponent()
@@ -84,6 +94,11 @@ public class BaseUnitEntity : BaseEntity
             Destroy();
     }
 
+    private void UpdateLevelUpAnimation()
+    {
+        _levelUpAnimation.Update();
+    }
+
     #endregion
 
     #region Draw
@@ -98,6 +113,9 @@ public class BaseUnitEntity : BaseEntity
 
         base.Draw();
         DrawHealthBar();
+
+        if (HasLevelUp)
+            DrawLevelUpAnimation();
     }
 
     public void DrawMap(int positionX, int positionY)
@@ -130,6 +148,11 @@ public class BaseUnitEntity : BaseEntity
     protected virtual void DrawDeadAnimation()
     {
         _deadAnimation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
+    }
+
+    protected virtual void DrawLevelUpAnimation()
+    {
+        _levelUpAnimation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
     }
 
     #endregion
@@ -174,6 +197,16 @@ public class BaseUnitEntity : BaseEntity
     private void ResetDelayDeadAnimation()
     {
         _currentDelayDeadAnimation = DelayDeadAnimation;
+    }
+
+    #endregion
+
+    #region Level Up
+
+    private void StartLevelUpAnimation()
+    {
+        _currentDelayLevelUpAnimation = DelayLevelUpAnimation;
+        _levelUpAnimation.Reset();
     }
 
     #endregion

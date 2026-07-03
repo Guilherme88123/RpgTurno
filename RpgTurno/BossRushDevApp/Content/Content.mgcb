@@ -25,18 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:../../../Sprites/Png/Arrow.png;Arrow.png
 
-#begin ../../../Sprites/Png/Heal_Effect.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../Sprites/Png/Heal_Effect.png;Heal_Effect.png
-
 #begin Archer_Idle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -464,6 +452,18 @@
 /processorParam:TextureFormat=Color
 /build:HammerIcon.png
 
+#begin HealEffect.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HealEffect.png
+
 #begin HeartIcon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -590,6 +590,18 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:LazyFox.spritefont
+
+#begin LevelUpEffect.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LevelUpEffect.png
 
 #begin MeatIcon.png
 /importer:TextureImporter

@@ -3,7 +3,7 @@ using Domain.Dto.Global;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Domain.Model.Entity.Units.Base.Particle;
+namespace Domain.Model.Effect;
 
 public class LargeDustEffect : AnimationClip
 {
