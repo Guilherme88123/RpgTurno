@@ -161,16 +161,16 @@ public class BaseUnitEntity : BaseEntity
 
     #region Take Damage
 
-    public int RecieveAttack(BaseUnitEntity sender)
+    public int RecieveAttack(int damage)
     {
-        var damage = Stats.RecieveAttack(sender.Stats);
+        var damageTaken = Stats.RecieveAttack(damage);
 
         if (Stats.IsDead)
             MakeDead();
         else
             ResetTakeDamageDelay();
 
-        return damage;
+        return damageTaken;
     }
 
     private void ResetTakeDamageDelay()

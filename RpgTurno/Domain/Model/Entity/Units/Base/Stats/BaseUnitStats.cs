@@ -36,9 +36,9 @@ public abstract class BaseUnitStats
         CurrentHealth = MaxHealth;
     }
 
-    public int RecieveAttack(BaseUnitStats senderStats)
+    public int RecieveAttack(int damage)
     {
-        var trueDamage = Math.Max(1, senderStats.Attack - Defense);
+        var trueDamage = Math.Max(1, damage - Defense);
 
         CurrentHealth = Math.Max(0, CurrentHealth - trueDamage);
 
