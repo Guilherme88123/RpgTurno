@@ -25,6 +25,8 @@ public class TurnQueueComponent : BaseComponent
     private List<UnitIconComponent> _unitsIconList = new();
     private BaseUnitEntity _focusedUnit;
 
+    private List<BaseUnitEntity> _pendingUnitsList;
+
     private ImageComponent _queueBackground = new(
         new ResizableSpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallRibbons),
             ResizableSpriteType.Horizontal, 64, 0, new BorderDefinition(0, 576, 0, 0), 64),
@@ -50,8 +52,16 @@ public class TurnQueueComponent : BaseComponent
     public void SetUnitsList(List<BaseUnitEntity> unitsList)
     {
         if (_isInTransition)
+        {
+            _pendingUnitsList = unitsList;
             return;
+        }
 
+        ApplyUnitsList(unitsList);
+    }
+
+    private void ApplyUnitsList(List<BaseUnitEntity> unitsList)
+    {
         foreach (var unit in unitsList)
         {
             if (!_icons.ContainsKey(unit))
@@ -117,6 +127,12 @@ public class TurnQueueComponent : BaseComponent
     {
         _transitionOffset = 0;
         _isInTransition = false;
+
+        if (_pendingUnitsList is not null)
+        {
+            ApplyUnitsList(_pendingUnitsList);
+            _pendingUnitsList = null;
+        }
     }
 
     #region Draw

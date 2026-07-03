@@ -5,7 +5,7 @@ public abstract class BaseUnitStats
     public int Level { get; set; }
 
     private ScalableStat MaxExperienceStat = new ScalableStat(120, 30);
-    private ScalableStat ExperienceRewardStat = new ScalableStat(500, 3);
+    private ScalableStat ExperienceRewardStat = new ScalableStat(50, 3);
 
     protected ScalableStat MaxHealthStat;
     protected ScalableStat AttackStat;
