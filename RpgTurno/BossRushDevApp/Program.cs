@@ -1,11 +1,13 @@
 ﻿using Domain.Dto.Global;
 using Domain.Dto.Session;
 using Domain.Interface.Screen;
+using Domain.Interface.Transition;
 using Domain.Interface.UiManager;
 using Microsoft.Extensions.DependencyInjection;
 using RpgTurno.Screen.Map;
 using RpgTurno.Screen.Play;
 using Service.Screen;
+using Service.Transition;
 using Service.UiManager;
 using System;
 
@@ -32,6 +34,7 @@ public static class Program
 
         services.AddTransient<IScreenManager, ScreenManager>();
         services.AddTransient<IUiManagerService, UiManagerService>();
+        services.AddTransient<ITransitionManager, TransitionManager>();
 
         #endregion
 

@@ -160,7 +160,12 @@ public class TurnQueueComponent : BaseComponent
 
     private void DrawDustEffect(SpriteBatch spriteBatch)
     {
-        var dustRectangle = _unitsIconList.First().Rectangle;
+        var dustRectangle = new Rectangle(
+                InitialPositionX - IconSize,
+                Bounds.Y,
+                IconSize,
+                IconSize);
+
         _dustEffect.Draw(dustRectangle, Color, Rotation, SpriteEffects, spriteBatch);
     }
 

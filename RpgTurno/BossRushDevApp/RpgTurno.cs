@@ -1,6 +1,8 @@
 ﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
+using Domain.Enum.Transition;
 using Domain.Interface.Screen;
+using Domain.Interface.Transition;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -10,6 +12,7 @@ namespace RpgTurnoApp;
 public class RpgTurno : Game
 {
     public IScreenManager ScreenManager;
+    public ITransitionManager TransitionManager;
 
     public string InitialScreenCode = ScreenConst.MapScreen;
 
@@ -37,11 +40,12 @@ public class RpgTurno : Game
     protected override void Initialize()
     {
         ScreenManager = GlobalVariablesDto.GetService<IScreenManager>();
+        TransitionManager = GlobalVariablesDto.GetService<ITransitionManager>();
 
         GlobalVariablesDto.Content = Content;
         GlobalVariablesDto.ChangeScreen = ScreenManager.ChangeScreen;
         GlobalVariablesDto.PushScreen = ScreenManager.PushScreen;
-        GlobalVariablesDto.PopScreen = ScreenManager.PopScreen;
+        GlobalVariablesDto.PopScreen = () => TransitionManager.StartTransition(TransitionType.Fade, ScreenManager.PopScreen);
         GlobalVariablesDto.Exit = Exit;
 
         base.Initialize();
@@ -80,11 +84,16 @@ public class RpgTurno : Game
         GlobalVariablesDto.DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
         GlobalVariablesDto.AcumulatedDeltaTime += GlobalVariablesDto.DeltaTime;
 
-        ScreenManager.ActualScreen.Update(gameTime);
-
         UpdateFpsCounter();
 
         base.Update(gameTime);
+
+        TransitionManager.Update(gameTime);
+
+        if (TransitionManager.IsTransitionRunning)
+            return;
+
+        ScreenManager.ActualScreen.Update(gameTime);
     }
 
     private void UpdateFpsCounter()
@@ -110,6 +119,7 @@ public class RpgTurno : Game
         GlobalVariablesDto.SpriteBatchInterface.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
         ScreenManager.ActualScreen.Draw();
+        TransitionManager.Draw(GlobalVariablesDto.SpriteBatchInterface);
         DrawFps();
 
         GlobalVariablesDto.SpriteBatchBackground.End();
