@@ -120,10 +120,7 @@ public class PlayScreen : BaseScreen
 
     private void UpdateTurnQueueListComponent()
     {
-        var ordenedUnitsList = _battleManager.GetUnitsTurnQueue();
-        var spritesIconsList = ordenedUnitsList.Select(x => x.Icon).ToList();
-
-        _turnQueueComponent.SetUnitsList(spritesIconsList);
+        _turnQueueComponent.SetUnitsList(_battleManager.GetUnitsTurnQueue());
     }
 
     private void UpdateCurrentTurnUnitComponent()
@@ -155,11 +152,13 @@ public class PlayScreen : BaseScreen
         _focusedEntity = entity;
         _selectionAreaComponent.SetDestinationRectangle(entity.Rectangle);
         _focusedUnitBannerComponent.SetFocusedUnit(entity, _battleManager.IsEnemyUnit(entity));
+        _turnQueueComponent.SetFocusedUnit(entity);
     }
 
     private void ClearFocusedEntity()
     {
         _focusedEntity = null;
+        _turnQueueComponent.ClearFocusedUnit();
     }
 
     #endregion
@@ -191,11 +190,27 @@ public class PlayScreen : BaseScreen
 
         if (_battleManager.HasCursorHoveringEntity())
         {
-            SetFocusedEntity(_battleManager.GetCursorHoveringEntity());
-            SetHoverCursor();
+            OnHoverInUnitAction(_battleManager.GetCursorHoveringEntity());
             return;
         }
 
+        if (_turnQueueComponent.HasCursorHoveringEntity())
+        {
+            OnHoverInUnitAction(_turnQueueComponent.GetCursorHoveringEntity());
+            return;
+        }
+
+        OnHoverOutUnitAction();
+    }
+
+    private void OnHoverInUnitAction(BaseUnitEntity unit)
+    {
+        SetFocusedEntity(unit);
+        SetHoverCursor();
+    }
+
+    private void OnHoverOutUnitAction()
+    {
         ClearFocusedEntity();
         SetNormalCursor();
     }
