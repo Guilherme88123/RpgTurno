@@ -49,7 +49,7 @@ public class AttackManager
 
     public void ExecuteAttack()
     {
-        var damage = _target.RecieveAttack(_sender);
+        var damage = _target.RecieveAttack(_sender.Stats.Attack);
 
         if (_target.Stats.IsDead)
             OnUnitSlay?.Invoke(_target);
