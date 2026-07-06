@@ -10,7 +10,7 @@ namespace Domain.Model.Entity.Units.Enemy.Cleric;
 
 public class EnemyClericEntity : BaseUnitEntity
 {
-    public EnemyClericEntity() : base(stats: new EnemyClericStats(level: 1))
+    public EnemyClericEntity() : base(stats: new EnemyClericStats(level: 1), skillTree: new EnemyClericSkillTree())
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericRun);
@@ -31,7 +31,5 @@ public class EnemyClericEntity : BaseUnitEntity
 
         var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericAvatar);
         Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
-
-        IsRanged = true;
     }
 }

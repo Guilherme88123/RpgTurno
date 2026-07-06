@@ -1,0 +1,32 @@
+﻿using Domain.Enum.Skill.Target;
+using Domain.Model.Skill.Base;
+using Domain.Model.Skill.Base.Animation;
+using Domain.Model.Skill.Base.Data;
+using Domain.Model.Skill.Base.Result;
+
+namespace Domain.Model.Skill;
+
+public class ShootSkill : BaseSkill
+{
+    public override string Name => "Shoot";
+    public override string Description => "A ranged bow attack.";
+
+    public override TargetSkillType TargetType => TargetSkillType.Enemy;
+    public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;
+
+    public override float PowerMin => 0.75f;
+    public override float PowerMax => 1.25f;
+
+    public override int Cooldown => 0;
+
+    public override SkillAnimation Animation => new SkillAnimation(null, null, true, 1.0f);
+
+    public override SkillResult ExecuteSkill(SkillExecuteData skillData)
+    {
+        var damage = skillData.Sender.Stats.Attack;
+
+        skillData.Target.RecieveAttack(damage);
+
+        return new SkillResult(skillData.Sender, skillData.Target, damage);
+    }
+}

@@ -3,6 +3,8 @@ using Domain.Enum;
 using Domain.Enum.Battle;
 using Domain.Enum.Stage;
 using Domain.Model.Entity.Units.Base;
+using Domain.Model.Skill.Base;
+using Domain.Model.Skill.Base.Unit;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.Screen.Play.Battle.Attack;
@@ -29,7 +31,11 @@ public class BattleManager
 
     public Action<BaseUnitEntity, BaseUnitEntity, int> OnExecuteAttack { get; set; }
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
+    public Action<BaseUnitEntity, bool> OnTurnStart { get; set; }
     public Action<bool> OnBattleFinish { get; set; }
+
+    private UnitSkill _skill;
+    private bool HasAttacked;
 
     public BattleState BattleState { get; set; }
     private readonly float _waveTransitionSpeed = 400f;
@@ -42,7 +48,7 @@ public class BattleManager
 
         _stage = StageFactory.Create(stageCode);
 
-        _attackManager.OnExecuteAttack += ExecuteAttack;
+        _attackManager.OnExecuteSkill += ExecuteAttack;
         _attackManager.OnTurnFinish += HandleTurnFinish;
         _attackManager.OnUnitSlay += HandleEnemySlay;
 
@@ -133,16 +139,40 @@ public class BattleManager
 
     private void UpdateTurn()
     {
-        if (_attackManager.IsExecuting())
+        if (!CanTurnContinue())
             return;
 
-        if (BattleState == BattleState.WaveTransition)
+        switch (BattleState)
         {
-            UpdateWaveTransition();
-            return;
+            case BattleState.WaveTransition:
+                UpdateWaveTransition();
+                break;
+            case BattleState.WaitingSkillSelect:
+                UpdateSkillSelect();
+                break;
+            case BattleState.Fighting:
+                UpdateTurnAction();
+                break;
+        }
+    }
+
+    private bool CanTurnContinue()
+    {
+        var isAttacking = _attackManager.IsExecuting();
+
+        if (isAttacking)
+        {
+            HasAttacked = true;
+            return false;
         }
 
-        UpdateTurnAction();
+        if (!isAttacking && HasAttacked && BattleState != BattleState.WaveTransition)
+        {
+            HasAttacked = false;
+            StartTurn();
+        }
+
+        return true;
     }
 
     private void UpdateWaveTransition()
@@ -195,7 +225,51 @@ public class BattleManager
 
         _turnManager.SetUnitsQueue(GetAllUnits());
 
+        StartTurn();
+    }
+
+    private void StartTurn()
+    {
+        BattleState = BattleState.WaitingSkillSelect;
+
+        var unitTurn = _turnManager.GetPeekUnit();
+        OnTurnStart?.Invoke(unitTurn, IsEnemyUnit(unitTurn));
+    }
+
+    private void UpdateSkillSelect()
+    {
+        var currentUnit = _turnManager.GetPeekUnit();
+
+        if (IsEnemyUnit(currentUnit))
+            EnemySkillSelect(currentUnit);
+        else
+            AllySkillSelect(currentUnit);
+    }
+
+    private void EnemySkillSelect(BaseUnitEntity enemy)
+    {
+        //TODO: Adicionar Heurística para decisão de Skill
+        var skill = enemy.Skills.Shuffle().FirstOrDefault();
+
+        if (skill is null)
+            return;
+
+        _skill = skill;
+
         BattleState = BattleState.Fighting;
+    }
+
+    private void AllySkillSelect(BaseUnitEntity ally)
+    {
+        if (_skill is null)
+            return;
+
+        BattleState = BattleState.Fighting;
+    }
+
+    public void SetPlayerSelectedSkill(UnitSkill skill)
+    {
+        _skill = skill;
     }
 
     private void UpdateTurnAction()
@@ -218,6 +292,7 @@ public class BattleManager
         if (!Allies.Any())
             return;
 
+        //TODO: Adicionar Heurística para seleção de target
         var targetAlly = Allies.Shuffle().First();
 
         StartAttack(enemyUnit, targetAlly);
@@ -225,6 +300,9 @@ public class BattleManager
 
     private void UpdateAllyTurn(BaseUnitEntity allyUnit)
     {
+        if (_skill is null)
+            return;
+
         if (GlobalVariablesDto.PreviousMouseDown)
             return;
 
@@ -244,12 +322,14 @@ public class BattleManager
 
     private void StartAttack(BaseUnitEntity sender, BaseUnitEntity target)
     {
-        _attackManager.StartAttack(sender, target, IsEnemyUnit(sender));
+        _attackManager.StartAttack(sender, target, _skill, IsEnemyUnit(sender));
     }
 
     private void ExecuteAttack(BaseUnitEntity sender, BaseUnitEntity target, int damage)
     {
         OnExecuteAttack?.Invoke(sender, target, damage);
+
+        _skill = null;
 
         if (target.IsDead)
         {
@@ -305,6 +385,7 @@ public class BattleManager
     {
         OnTurnFinish?.Invoke(sender, target);
         GoToNextTurn();
+
         VerifyWave();
     }
 

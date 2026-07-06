@@ -83,6 +83,15 @@ public static class SpriteConst
 
     #endregion
 
+    #region Buttons
+
+    public const string BlueButtonRegular = "BlueButtonRegular";
+    public const string BlueButtonPressed = "BlueButtonPressed";
+    public const string RedButtonRegular = "RedButtonRegular";
+    public const string RedButtonPressed = "RedButtonPressed";
+
+    #endregion
+
     #region Icons
 
     public const string HammerIcon = "HammerIcon";

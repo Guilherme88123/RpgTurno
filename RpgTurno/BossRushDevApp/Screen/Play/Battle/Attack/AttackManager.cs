@@ -2,10 +2,11 @@
 using Domain.Enum;
 using Domain.Enum.Attack;
 using Domain.Model.Entity.Units.Base;
+using Domain.Model.Skill.Base.Data;
+using Domain.Model.Skill.Base.Unit;
 using Microsoft.Xna.Framework;
 using RpgTurno.Screen.Play.Battle.Delay;
 using System;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace RpgTurno.Screen.Play.Battle.Attack;
 
@@ -15,6 +16,7 @@ public class AttackManager
 
     private BaseUnitEntity _sender;
     private BaseUnitEntity _target;
+    private UnitSkill _skill;
 
     private Vector2 _senderOriginPosition;
     private Vector2 _targetPosition;
@@ -25,7 +27,7 @@ public class AttackManager
 
     private readonly DelayManager _delayManager = new();
 
-    public Action<BaseUnitEntity, BaseUnitEntity, int> OnExecuteAttack { get; set; }
+    public Action<BaseUnitEntity, BaseUnitEntity, int> OnExecuteSkill { get; set; }
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
     public Action<BaseUnitEntity> OnUnitSlay { get; set; }
 
@@ -34,12 +36,14 @@ public class AttackManager
         return CurrentPhase != AttackPhase.Idle;
     }
 
-    public void StartAttack(BaseUnitEntity sender, BaseUnitEntity target, bool isEnemy)
+    public void StartAttack(BaseUnitEntity sender, BaseUnitEntity target, UnitSkill skill, bool isEnemy)
     {
         _sender = sender;
         _target = target;
+        _skill = skill;
+
         _senderOriginPosition = new Vector2(sender.PositionX, sender.PositionY);
-        _targetPosition = sender.IsRanged
+        _targetPosition = skill.Animation.IsRanged
             ? new Vector2(sender.Center.X + (isEnemy ? -_walkFrontDistance : _walkFrontDistance), sender.Center.Y)
             : new Vector2(target.Center.X + (isEnemy ? _targetDistance : -_targetDistance), target.Center.Y);
 
@@ -49,7 +53,7 @@ public class AttackManager
 
     public void ExecuteAttack()
     {
-        var damage = _target.RecieveAttack(_sender.Stats.Attack);
+        var result = _skill.ExecuteSkill(new SkillExecuteData(_sender, _target));
 
         if (_target.Stats.IsDead)
             OnUnitSlay?.Invoke(_target);
@@ -57,7 +61,7 @@ public class AttackManager
         CurrentPhase = AttackPhase.MovingBack;
         _sender.CreatureState = CreatureStateType.Running;
 
-        OnExecuteAttack?.Invoke(_sender, _target, damage);
+        OnExecuteSkill?.Invoke(_sender, _target, result.Value);
     }
 
     public void Update()

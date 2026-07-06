@@ -10,7 +10,7 @@ namespace Domain.Model.Entity.Units.Ally.Cleric;
 
 public class ClericEntity : BaseUnitEntity
 {
-    public ClericEntity() : base(stats: new ClericStats(level: 1))
+    public ClericEntity() : base(stats: new ClericStats(level: 1), skillTree: new ClericSkillTree())
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ClericIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ClericRun);
@@ -31,7 +31,5 @@ public class ClericEntity : BaseUnitEntity
 
         var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ClericAvatar);
         Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
-
-        IsRanged = true;
     }
 }

@@ -1,0 +1,47 @@
+﻿using Domain.Enum.Skill.Type;
+using Domain.Model.Skill.Base.Animation;
+using Domain.Model.Skill.Base.Data;
+using Domain.Model.Skill.Base.Factory;
+using Domain.Model.Skill.Base.Result;
+
+namespace Domain.Model.Skill.Base.Unit;
+
+public class UnitSkill
+{
+    public SkillType SkillCode { get; private set; }
+    private BaseSkill _skill { get; set; }
+
+    public string Name => _skill.Name;
+    public string Description => _skill.Description;
+
+    public SkillAnimation Animation => _skill.Animation;
+
+    public int CurrentCooldown { get; private set; }
+
+    public UnitSkill(SkillType skillCode)
+    {
+        SkillCode = skillCode;
+        _skill = SkillFactory.Create(skillCode);
+    }
+
+    public bool CanExecuteSkill()
+    {
+        return CurrentCooldown <= 0;
+    }
+
+    public SkillResult ExecuteSkill(SkillExecuteData skillData)
+    {
+        if (!CanExecuteSkill())
+            throw new InvalidOperationException("Skill is on cooldown.");
+
+        CurrentCooldown = _skill.Cooldown;
+
+        return _skill.ExecuteSkill(skillData);
+    }
+
+    public void TickCooldown()
+    {
+        if (CurrentCooldown > 0)
+            CurrentCooldown--;
+    }
+}

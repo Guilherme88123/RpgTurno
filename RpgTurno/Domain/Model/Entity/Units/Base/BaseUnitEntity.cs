@@ -1,9 +1,11 @@
 ﻿using Domain.Dto.Global;
-using Domain.Model.Effect;
 using Domain.Model.Entity.Base;
 using Domain.Model.Entity.Units.Base.HealthBar;
+using Domain.Model.Entity.Units.Base.Skill.SkillTree;
 using Domain.Model.Entity.Units.Base.Stats;
+using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite;
+using Domain.Model.Texture.Sprite.CustomSprites;
 using Microsoft.Xna.Framework;
 
 namespace Domain.Model.Entity.Units.Base;
@@ -14,19 +16,14 @@ public class BaseUnitEntity : BaseEntity
 
     public BaseUnitStats Stats { get; }
 
-    public bool IsRanged { get; protected set; }
+    private BaseSkillTree _skillTree;
+    public List<UnitSkill> Skills { get; private set; }
 
     public SpriteData Icon { get; protected set; }
 
     private readonly HealthBarComponent _healthBar;
 
     public bool IsDead { get; protected set; }
-
-    public int Power =>
-        Stats.Attack +
-        Stats.Defense +
-        Stats.MaxHealth / 10 +
-        Stats.Speed;
 
     private const float DelayDamageTakenFlash = 0.1f;
     private float _currentDelayDamageTakenFlash;
@@ -35,17 +32,20 @@ public class BaseUnitEntity : BaseEntity
     private const float DelayDeadAnimation = 1f;
     private float _currentDelayDeadAnimation;
     private bool HasDeadAnimationFinished => _currentDelayDeadAnimation == 0;
-    private LargeDustEffect _deadAnimation = new();
+    private LargeDustAnimation _deadAnimation = new();
 
     private const float DelayLevelUpAnimation = 1.1f;
     private float _currentDelayLevelUpAnimation;
-    private bool HasLevelUp => _currentDelayLevelUpAnimation > 0;
-    private LevelUpEffect _levelUpAnimation = new();
+    private bool HasLevelUpAnimation => _currentDelayLevelUpAnimation > 0;
+    private LevelUpAnimation _levelUpAnimation = new();
 
-    public BaseUnitEntity(BaseUnitStats stats)
+    public BaseUnitEntity(BaseUnitStats stats, BaseSkillTree skillTree)
     {
         Stats = stats;
-        Stats.OnLevelUp += StartLevelUpAnimation;
+        Stats.OnLevelUp += HasLevelUp;
+
+        _skillTree = skillTree;
+        ReloadSkills();
 
         _healthBar = new HealthBarComponent(Stats.MaxHealth, Stats.CurrentHealth);
     }
@@ -63,7 +63,7 @@ public class BaseUnitEntity : BaseEntity
         if (IsDead)
             VerifyDeadDelayFinish();
 
-        if (HasLevelUp)
+        if (HasLevelUpAnimation)
             UpdateLevelUpAnimation();
     }
 
@@ -114,7 +114,7 @@ public class BaseUnitEntity : BaseEntity
         base.Draw();
         DrawHealthBar();
 
-        if (HasLevelUp)
+        if (HasLevelUpAnimation)
             DrawLevelUpAnimation();
     }
 
@@ -203,10 +203,21 @@ public class BaseUnitEntity : BaseEntity
 
     #region Level Up
 
+    private void HasLevelUp()
+    {
+        StartLevelUpAnimation();
+        ReloadSkills();
+    }
+
     private void StartLevelUpAnimation()
     {
         _currentDelayLevelUpAnimation = DelayLevelUpAnimation;
         _levelUpAnimation.Reset();
+    }
+
+    private void ReloadSkills()
+    {
+        Skills = _skillTree.GetAvaliableSkills(Stats.Level);
     }
 
     #endregion

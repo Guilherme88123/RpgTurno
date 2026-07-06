@@ -10,8 +10,6 @@ public class StageData
 
     public List<WaveData> Waves { get; }
 
-    public int Difficulty => Waves.Sum(x => x.Difficulty);
-
     public StageData(List<WaveData> waves)
     {
         Waves = waves;

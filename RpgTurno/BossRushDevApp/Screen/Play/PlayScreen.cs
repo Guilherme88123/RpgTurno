@@ -3,16 +3,17 @@ using Domain.Dto.Global;
 using Domain.Enum.Battle;
 using Domain.Enum.Component.Cursor;
 using Domain.Model.Components.Base;
-using Domain.Model.Components.Custom.Banners;
 using Domain.Model.Entity.Units.Base;
+using Domain.Model.Entity.Units.Base.Skill.Definition;
+using Domain.Model.Skill.Base.Unit;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using RpgTurno.CustomComponents.Background;
-using RpgTurno.CustomComponents.Banners;
-using RpgTurno.CustomComponents.DamageText;
-using RpgTurno.CustomComponents.Selection;
-using RpgTurno.CustomComponents.TurnQueue;
-using RpgTurno.CustomComponents.Wave;
+using RpgTurno.Custom.CustomComponents.Play.Background;
+using RpgTurno.Custom.CustomComponents.Play.Banners;
+using RpgTurno.Custom.CustomComponents.Play.DamageText;
+using RpgTurno.Custom.CustomComponents.Play.Selection;
+using RpgTurno.Custom.CustomComponents.Play.TurnQueue;
+using RpgTurno.Custom.CustomComponents.Play.Wave;
 using RpgTurno.Screen.Play.Battle;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ public class PlayScreen : BaseScreen
 
     private readonly List<DamageTextComponent> _damagesTextList = new();
 
-    private AttackSelectBannerComponent _attackSelectComponent;
+    private SkillSelectBannerComponent _skillSelectComponent;
 
     private WaveIndicatorComponent _waveIndicatorComponent;
 
@@ -47,6 +48,7 @@ public class PlayScreen : BaseScreen
     {
         _battleManager.Initialize(GetAllies(), GameSession.CurrentStageCode);
         _battleManager.OnExecuteAttack += AddDamageText;
+        _battleManager.OnTurnStart += OnTurnStart;
         _battleManager.OnTurnFinish += OnTurnFinish;
         _battleManager.OnBattleFinish += BattleFinish;
 
@@ -60,9 +62,10 @@ public class PlayScreen : BaseScreen
         _turnQueueComponent = new();
         _currentTurnUnitComponent = new();
 
-        _attackSelectComponent = new();
-        _attackSelectComponent.SetPosition(30, GlobalOptionsDto.HeightSize - _attackSelectComponent.Bounds.Height - 30);
-        _attackSelectComponent.IsVisible = false;
+        _skillSelectComponent = new();
+        _skillSelectComponent.SetPosition(30, GlobalOptionsDto.HeightSize - _skillSelectComponent.Bounds.Height - 30);
+        _skillSelectComponent.OnSkillSelect = SetSelectedSkill;
+        _skillSelectComponent.IsVisible = false;
 
         _waveIndicatorComponent = new();
         _waveIndicatorComponent.SetPosition(GlobalOptionsDto.WidthSize - 140, 30);
@@ -72,7 +75,7 @@ public class PlayScreen : BaseScreen
             _focusedUnitBannerComponent, 
             _turnQueueComponent,
             _currentTurnUnitComponent,
-            _attackSelectComponent,
+            _skillSelectComponent,
             _waveIndicatorComponent,
         };
     }
@@ -107,12 +110,13 @@ public class PlayScreen : BaseScreen
         SeTurnComponentVisibilityByBattleState();
         UpdateTurnQueueListComponent();
         UpdateCurrentTurnUnitComponent();
+        UpdateSelectSkillComponent();
     }
 
     private void SeTurnComponentVisibilityByBattleState()
     {
         var battleState = _battleManager.BattleState;
-        var isFighting = battleState == BattleState.Fighting;
+        var isFighting = battleState != BattleState.WaveTransition;
 
         _turnQueueComponent.IsVisible = isFighting;
         _currentTurnUnitComponent.IsVisible = isFighting;
@@ -141,6 +145,28 @@ public class PlayScreen : BaseScreen
     private void OnTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
     {
         _turnQueueComponent.StartTransition();
+    }
+
+    private void OnTurnStart(BaseUnitEntity sender, bool isEnemy)
+    {
+        if (isEnemy)
+            return;
+
+        _skillSelectComponent.SetUnit(sender);
+    }
+
+    #endregion
+
+    #region Skill Select
+
+    private void UpdateSelectSkillComponent()
+    {
+        _skillSelectComponent.IsVisible = _battleManager.BattleState == BattleState.WaitingSkillSelect;
+    }
+
+    private void SetSelectedSkill(UnitSkill skill)
+    {
+        _battleManager.SetPlayerSelectedSkill(skill);
     }
 
     #endregion

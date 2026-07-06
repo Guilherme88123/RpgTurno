@@ -13,6 +13,11 @@ public class FrameComponent : BaseComponent
         _children.Add(child);
     }
 
+    public void ClearChildren()
+    {
+        _children.Clear();
+    }
+
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);

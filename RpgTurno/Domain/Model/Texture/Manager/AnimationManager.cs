@@ -17,6 +17,12 @@ public class AnimationManager
         _currentKey ??= key;
     }
 
+    public void Add(object key, SpriteData sprite)
+    {
+        _animations[key] = new AnimationClip([sprite]);
+        _currentKey ??= key;
+    }
+
     public void Update(object key)
     {
         if (_animations.TryGetValue(key, out AnimationClip value)) 

@@ -10,7 +10,7 @@ namespace Domain.Model.Entity.Units.Enemy.Archer;
 
 public class EnemyArcherEntity : BaseUnitEntity
 {
-    public EnemyArcherEntity() : base(stats: new EnemyArcherStats(level: 1))
+    public EnemyArcherEntity() : base(stats: new EnemyArcherStats(level: 1), skillTree: new EnemyArcherSkillTree())
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyArcherIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyArcherRun);
@@ -31,7 +31,5 @@ public class EnemyArcherEntity : BaseUnitEntity
 
         var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyArcherAvatar);
         Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
-
-        IsRanged = true;
     }
 }

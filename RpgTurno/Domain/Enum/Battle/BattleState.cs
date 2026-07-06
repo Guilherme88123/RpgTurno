@@ -4,4 +4,5 @@ public enum BattleState
 {
     Fighting,
     WaveTransition,
+    WaitingSkillSelect,
 }
