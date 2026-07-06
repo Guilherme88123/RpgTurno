@@ -17,8 +17,31 @@ public abstract class BaseSkill
     public virtual float PowerMax => 0;
 
     public abstract int Cooldown { get; }
+    private int _currentCooldown;
 
-    public abstract SkillResult ExecuteSkill(SkillExecuteData skillData);
+    public SkillResult Execute(SkillExecuteData skillData)
+    {
+        ResetCooldown();
+        return ExecuteSkill(skillData);
+    }
 
+    protected abstract SkillResult ExecuteSkill(SkillExecuteData skillData);
+    
     public abstract SkillAnimation GetSkillAnimation();
+
+    public int GetCurrentCooldown()
+    {
+        return _currentCooldown;
+    }
+
+    public void DecreaseCooldown()
+    {
+        if (_currentCooldown > 0)
+            _currentCooldown--;
+    }
+
+    private void ResetCooldown()
+    {
+        _currentCooldown = Cooldown;
+    }
 }
