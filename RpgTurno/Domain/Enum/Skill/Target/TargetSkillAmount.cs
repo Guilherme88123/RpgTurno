@@ -4,5 +4,4 @@ public enum TargetSkillAmount
 {
     Single,
     All,
-    Random,
 }

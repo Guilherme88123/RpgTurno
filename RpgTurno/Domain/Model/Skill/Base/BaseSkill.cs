@@ -21,4 +21,14 @@ public abstract class BaseSkill
     public abstract SkillResult ExecuteSkill(SkillExecuteData skillData);
     
     public abstract SkillAnimation Animation { get; }
+
+    protected float GetRandomMultiplier()
+    {
+        return Random.Shared.NextSingle() * (PowerMax - PowerMin) + PowerMin;
+    }
+
+    protected int CalculateValue(SkillExecuteData data)
+    {
+        return (int)(data.Sender.Stats.Attack * GetRandomMultiplier());
+    }
 }

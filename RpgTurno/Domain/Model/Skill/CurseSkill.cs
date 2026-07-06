@@ -23,7 +23,7 @@ public class CurseSkill : BaseSkill
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
-        var damage = skillData.Sender.Stats.Attack;
+        var damage = CalculateValue(skillData);
 
         skillData.Target.RecieveAttack(damage);
 

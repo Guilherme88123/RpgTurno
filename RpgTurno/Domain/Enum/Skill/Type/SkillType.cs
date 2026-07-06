@@ -6,4 +6,6 @@ public enum SkillType
     Shoot,
     Pierce,
     Curse,
+    ArrowRain,
+    Heal,
 }

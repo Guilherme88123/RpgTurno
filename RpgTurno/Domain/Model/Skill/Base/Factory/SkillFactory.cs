@@ -12,6 +12,8 @@ public static class SkillFactory
             SkillType.Pierce => new PierceSkill(),
             SkillType.Shoot => new ShootSkill(),
             SkillType.Curse => new CurseSkill(),
+            SkillType.ArrowRain => new ArrowRainSkill(),
+            SkillType.Heal => new HealSkill(),
 
             _ => throw new ArgumentOutOfRangeException(nameof(skillCode), skillCode, null)
         };

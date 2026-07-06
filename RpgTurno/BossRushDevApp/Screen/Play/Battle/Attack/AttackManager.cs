@@ -7,6 +7,7 @@ using Domain.Model.Skill.Base.Unit;
 using Microsoft.Xna.Framework;
 using RpgTurno.Screen.Play.Battle.Delay;
 using System;
+using System.Xml.Serialization;
 
 namespace RpgTurno.Screen.Play.Battle.Attack;
 
@@ -14,8 +15,9 @@ public class AttackManager
 {
     public AttackPhase CurrentPhase { get; private set; }
 
-    private BaseUnitEntity _sender;
-    private BaseUnitEntity _target;
+    private SkillExecuteData _executeData;
+    private BaseUnitEntity _sender => _executeData.Sender;
+    private BaseUnitEntity _principalTarget => _executeData.Target;
     private UnitSkill _skill;
 
     private Vector2 _senderOriginPosition;
@@ -36,32 +38,39 @@ public class AttackManager
         return CurrentPhase != AttackPhase.Idle;
     }
 
-    public void StartAttack(BaseUnitEntity sender, BaseUnitEntity target, UnitSkill skill, bool isEnemy)
+    public void StartAttack(SkillExecuteData data, UnitSkill skill, bool isEnemy)
     {
-        _sender = sender;
-        _target = target;
+        _executeData = data;
         _skill = skill;
 
-        _senderOriginPosition = new Vector2(sender.PositionX, sender.PositionY);
+        _senderOriginPosition = new Vector2(_sender.PositionX, _sender.PositionY);
         _targetPosition = skill.Animation.IsRanged
-            ? new Vector2(sender.Center.X + (isEnemy ? -_walkFrontDistance : _walkFrontDistance), sender.Center.Y)
-            : new Vector2(target.Center.X + (isEnemy ? _targetDistance : -_targetDistance), target.Center.Y);
+            ? new Vector2(_sender.Center.X + (isEnemy ? -_walkFrontDistance : _walkFrontDistance), _sender.Center.Y)
+            : new Vector2(_principalTarget.Center.X + (isEnemy ? _targetDistance : -_targetDistance), _principalTarget.Center.Y);
 
         CurrentPhase = AttackPhase.MovingToTarget;
-        sender.CreatureState = CreatureStateType.Running;
+        _sender.CreatureState = CreatureStateType.Running;
     }
 
     public void ExecuteAttack()
     {
-        var result = _skill.ExecuteSkill(new SkillExecuteData(_sender, _target));
+        var result = _skill.ExecuteSkill(_executeData);
 
-        if (_target.Stats.IsDead)
-            OnUnitSlay?.Invoke(_target);
+        VerifyDeadUnits();
 
         CurrentPhase = AttackPhase.MovingBack;
         _sender.CreatureState = CreatureStateType.Running;
 
-        OnExecuteSkill?.Invoke(_sender, _target, result.Value);
+        OnExecuteSkill?.Invoke(_sender, _principalTarget, result.Value);
+    }
+
+    private void VerifyDeadUnits()
+    {
+        foreach (var target in _executeData.Targets)
+        {
+            if (target.Stats.IsDead)
+                OnUnitSlay?.Invoke(_principalTarget);
+        }
     }
 
     public void Update()
@@ -139,7 +148,7 @@ public class AttackManager
         if (!HasTurnDelayFinished())
             return;
 
-        OnTurnFinish?.Invoke(_sender, _target);
+        OnTurnFinish?.Invoke(_sender, _principalTarget);
 
         GoToIdlePhase();
     }
@@ -147,8 +156,6 @@ public class AttackManager
     public void GoToIdlePhase()
     {
         CurrentPhase = AttackPhase.Idle;
-        _sender = null;
-        _target = null;
     }
 
     #region Delay Manager

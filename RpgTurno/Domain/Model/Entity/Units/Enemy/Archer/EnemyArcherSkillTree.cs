@@ -8,6 +8,7 @@ public class EnemyArcherSkillTree : BaseSkillTree
 {
     protected override IReadOnlyList<UnitSkillDefinition> Definitions =>
     [
-        new UnitSkillDefinition(SkillType.Shoot, 1)
+        new UnitSkillDefinition(SkillType.Shoot, 1),
+        new UnitSkillDefinition(SkillType.ArrowRain, 1),
     ];
 }

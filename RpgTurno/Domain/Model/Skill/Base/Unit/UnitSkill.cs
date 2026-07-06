@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Type;
+﻿using Domain.Enum.Skill.Target;
+using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Factory;
@@ -13,6 +14,8 @@ public class UnitSkill
 
     public string Name => _skill.Name;
     public string Description => _skill.Description;
+    public TargetSkillType TargetType => _skill.TargetType;
+    public TargetSkillAmount TargetAmount => _skill.TargetAmount;
 
     public SkillAnimation Animation => _skill.Animation;
 
@@ -24,14 +27,14 @@ public class UnitSkill
         _skill = SkillFactory.Create(skillCode);
     }
 
-    public bool CanExecuteSkill()
+    public bool CanUse()
     {
         return CurrentCooldown <= 0;
     }
 
     public SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
-        if (!CanExecuteSkill())
+        if (!CanUse())
             throw new InvalidOperationException("Skill is on cooldown.");
 
         CurrentCooldown = _skill.Cooldown;

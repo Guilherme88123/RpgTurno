@@ -9,5 +9,6 @@ public class ClericSkillTree : BaseSkillTree
     protected override IReadOnlyList<UnitSkillDefinition> Definitions =>
     [
         new UnitSkillDefinition(SkillType.Curse, 1),
+        new UnitSkillDefinition(SkillType.Heal, 1),
     ];
 }

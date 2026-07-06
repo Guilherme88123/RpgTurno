@@ -1,9 +1,11 @@
 ﻿using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Enum.Battle;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Stage;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Skill.Base;
+using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Unit;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -34,10 +36,12 @@ public class BattleManager
     public Action<BaseUnitEntity, bool> OnTurnStart { get; set; }
     public Action<bool> OnBattleFinish { get; set; }
 
-    private UnitSkill _skill;
+    private UnitSkill _selectedSkill;
     private bool HasAttacked;
 
     public BattleState BattleState { get; set; }
+    public bool CanSelectSkill => BattleState == BattleState.WaitingSkillSelect || BattleState == BattleState.WaitingTargetSelect;
+
     private readonly float _waveTransitionSpeed = 400f;
 
     #region Initialize
@@ -147,10 +151,13 @@ public class BattleManager
             case BattleState.WaveTransition:
                 UpdateWaveTransition();
                 break;
+
             case BattleState.WaitingSkillSelect:
                 UpdateSkillSelect();
                 break;
+
             case BattleState.Fighting:
+            case BattleState.WaitingTargetSelect:
                 UpdateTurnAction();
                 break;
         }
@@ -249,19 +256,19 @@ public class BattleManager
     private void EnemySkillSelect(BaseUnitEntity enemy)
     {
         //TODO: Adicionar Heurística para decisão de Skill
-        var skill = enemy.Skills.Shuffle().FirstOrDefault();
+        var skill = enemy.Skills.Shuffle().FirstOrDefault(x => x.CanUse());
 
         if (skill is null)
             return;
 
-        _skill = skill;
+        _selectedSkill = skill;
 
         BattleState = BattleState.Fighting;
     }
 
     private void AllySkillSelect(BaseUnitEntity ally)
     {
-        if (_skill is null)
+        if (_selectedSkill is null)
             return;
 
         BattleState = BattleState.Fighting;
@@ -269,7 +276,10 @@ public class BattleManager
 
     public void SetPlayerSelectedSkill(UnitSkill skill)
     {
-        _skill = skill;
+        if (!skill.CanUse())
+            return;
+
+        _selectedSkill = skill;
     }
 
     private void UpdateTurnAction()
@@ -292,15 +302,21 @@ public class BattleManager
         if (!Allies.Any())
             return;
 
-        //TODO: Adicionar Heurística para seleção de target
-        var targetAlly = Allies.Shuffle().First();
+        var avaliable = GetAvaliableTargets(enemyUnit);
 
-        StartAttack(enemyUnit, targetAlly);
+        //TODO: Adicionar Heurística para seleção de target
+        var allySelected = avaliable.Shuffle().First();
+
+        var target = GetTargetsBySelectedUnit(allySelected, avaliable);
+
+        StartAttack(enemyUnit, target);
     }
 
     private void UpdateAllyTurn(BaseUnitEntity allyUnit)
     {
-        if (_skill is null)
+        BattleState = BattleState.WaitingTargetSelect;
+
+        if (_selectedSkill is null)
             return;
 
         if (GlobalVariablesDto.PreviousMouseDown)
@@ -312,24 +328,29 @@ public class BattleManager
         if (!HasCursorHoveringEntity())
             return;
 
-        var targetEnemy = GetCursorHoveringEntity();
+        var enemySelected = GetCursorHoveringEntity();
 
-        if (Allies.Contains(targetEnemy))
+        var avaliable = GetAvaliableTargets(enemySelected);
+
+        if (!avaliable.Contains(enemySelected))
             return;
 
-        StartAttack(allyUnit, targetEnemy);
+        var target = GetTargetsBySelectedUnit(enemySelected, avaliable);
+
+        BattleState = BattleState.Fighting;
+        StartAttack(allyUnit, target);
     }
 
-    private void StartAttack(BaseUnitEntity sender, BaseUnitEntity target)
+    private void StartAttack(BaseUnitEntity sender, List<BaseUnitEntity> targets)
     {
-        _attackManager.StartAttack(sender, target, _skill, IsEnemyUnit(sender));
+        _attackManager.StartAttack(new SkillExecuteData(sender, targets), _selectedSkill, IsEnemyUnit(sender));
     }
 
     private void ExecuteAttack(BaseUnitEntity sender, BaseUnitEntity target, int damage)
     {
         OnExecuteAttack?.Invoke(sender, target, damage);
 
-        _skill = null;
+        _selectedSkill = null;
 
         if (target.IsDead)
         {
@@ -385,8 +406,14 @@ public class BattleManager
     {
         OnTurnFinish?.Invoke(sender, target);
         GoToNextTurn();
+        TickSkills();
 
         VerifyWave();
+    }
+
+    private void TickSkills()
+    {
+        GetAllUnits().ForEach(x => x.TickSkills());
     }
 
     private void HandleEnemySlay(BaseUnitEntity unit)
@@ -426,6 +453,30 @@ public class BattleManager
         BattleState = BattleState.WaveTransition;
         Allies.ForEach(x => x.CreatureState = CreatureStateType.Running);
         Allies.ForEach(x => x.Direction = DirectionType.Right);
+    }
+
+    #endregion
+
+    #region Avaliable Targets
+
+    private List<BaseUnitEntity> GetAvaliableTargets(BaseUnitEntity sender)
+    {
+        return _selectedSkill.TargetType switch
+        {
+            TargetSkillType.Self => [sender],
+            TargetSkillType.Ally => IsEnemyUnit(sender) ? Enemies : Allies,
+            TargetSkillType.Enemy => IsEnemyUnit(sender) ? Allies : Enemies,
+            TargetSkillType.Any => GetAllUnits(),
+        };
+    }
+
+    private List<BaseUnitEntity> GetTargetsBySelectedUnit(BaseUnitEntity selectedUnit, List<BaseUnitEntity> avaliable)
+    {
+        return _selectedSkill.TargetAmount switch
+        {
+            TargetSkillAmount.Single => [selectedUnit],
+            TargetSkillAmount.All => avaliable,
+        };
     }
 
     #endregion

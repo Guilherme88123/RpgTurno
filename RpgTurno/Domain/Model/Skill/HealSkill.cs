@@ -1,0 +1,32 @@
+﻿using Domain.Enum.Skill.Target;
+using Domain.Model.Skill.Base;
+using Domain.Model.Skill.Base.Animation;
+using Domain.Model.Skill.Base.Data;
+using Domain.Model.Skill.Base.Result;
+
+namespace Domain.Model.Skill;
+
+public class HealSkill : BaseSkill
+{
+    public override string Name => "Heal";
+    public override string Description => "A heal that save your allies.";
+
+    public override TargetSkillType TargetType => TargetSkillType.Ally;
+    public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;
+
+    public override float PowerMin => 0.7f;
+    public override float PowerMax => 1.0f;
+
+    public override int Cooldown => 2;
+
+    public override SkillAnimation Animation => new SkillAnimation(null, null, true, 1.0f);
+
+    public override SkillResult ExecuteSkill(SkillExecuteData skillData)
+    {
+        var healAmount = CalculateValue(skillData);
+
+        skillData.Target.Stats.HealHealth(healAmount);
+
+        return new SkillResult(skillData.Sender, skillData.Target, healAmount);
+    }
+}

@@ -67,10 +67,12 @@ public abstract class BaseUnitStats
         OnLevelUp?.Invoke();
     }
 
-    public void HealHealth(int value)
+    public int HealHealth(int value)
     {
         var healAmount = Math.Max(0, value);
 
         CurrentHealth = Math.Min(MaxHealth, CurrentHealth + value);
+
+        return healAmount;
     }
 }

@@ -222,5 +222,14 @@ public class BaseUnitEntity : BaseEntity
 
     #endregion
 
+    #region Tick Cooldown
+
+    public void TickSkills()
+    {
+        Skills.ForEach(x => x.TickCooldown());
+    }
+
+    #endregion
+
     #endregion
 }

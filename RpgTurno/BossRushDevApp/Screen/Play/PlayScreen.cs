@@ -161,7 +161,7 @@ public class PlayScreen : BaseScreen
 
     private void UpdateSelectSkillComponent()
     {
-        _skillSelectComponent.IsVisible = _battleManager.BattleState == BattleState.WaitingSkillSelect;
+        _skillSelectComponent.IsVisible = _battleManager.CanSelectSkill;
     }
 
     private void SetSelectedSkill(UnitSkill skill)

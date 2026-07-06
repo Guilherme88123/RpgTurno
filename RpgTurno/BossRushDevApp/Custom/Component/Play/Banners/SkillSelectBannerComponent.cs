@@ -3,7 +3,6 @@ using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite.Custom.Sprite;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using RpgTurno.Custom.Component.Play.Banners;
 using System;
 using System.Collections.Generic;
@@ -12,9 +11,14 @@ namespace RpgTurno.Custom.CustomComponents.Play.Banners;
 
 public class SkillSelectBannerComponent : FrameComponent
 {
+    public Action<UnitSkill> OnSkillSelect { get; set; }
+
     private List<SkillSelectButtonComponent> _buttons = new();
 
-    public Action<UnitSkill> OnSkillSelect { get; set; }
+    private const int MarginX = 64;
+    private const int MarginY = 64;
+    private const int Spacing = 16;
+    private const int Columns = 2;
 
     public SkillSelectBannerComponent()
     {
@@ -33,7 +37,7 @@ public class SkillSelectBannerComponent : FrameComponent
         {
             var button = new SkillSelectButtonComponent(this, skill);
 
-            var (positionX, positionY) = GetButtonPositionByIndex(index);
+            var (positionX, positionY) = GetButtonPositionByIndex(index, button);
             button.SetPosition(positionX, positionY);
 
             _buttons.Add(button);
@@ -43,16 +47,13 @@ public class SkillSelectBannerComponent : FrameComponent
         }
     }
 
-    private (int, int) GetButtonPositionByIndex(int index)
+    private (int, int) GetButtonPositionByIndex(int index, SkillSelectButtonComponent button)
     {
-        var initialPositionX = Bounds.X;
-        var initialPositionY = Bounds.Y;
+        int column = index % Columns;
+        int row = index / Columns;
 
-        var marginX = 64;
-        var marginY = 64;
-
-        var positionX = initialPositionX + marginX;
-        var positionY = initialPositionY + marginY;
+        var positionX = Bounds.X + MarginX + column * (button.Bounds.Width + Spacing);
+        var positionY = Bounds.Y + MarginY + row * (button.Bounds.Height + Spacing);
 
         return (positionX, positionY);
     }
