@@ -1,4 +1,5 @@
-﻿using Domain.Model.Components.Image;
+﻿using Domain.Dto.Global;
+using Domain.Model.Components.Image;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Skill.Base.Unit;
@@ -8,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.Custom.Component.Play.Banners;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RpgTurno.Custom.CustomComponents.Play.Banners;
 
@@ -30,6 +32,28 @@ public class SkillSelectBannerComponent : FrameComponent
         AnimationManager.Add(true, new WoodBannerSprite());
 
         Bounds = new Rectangle(0, 0, 512, 384);
+    }
+
+    public bool HasCursorHoveringButton()
+    {
+        var hoverButton = GetHoverButton();
+        return hoverButton is not null;
+    }
+
+    public bool CanUseFocusedButton()
+    {
+        var hoverButton = GetHoverButton();
+
+        if (hoverButton is null)
+            return false;
+
+        return hoverButton.CanUseSkill();
+    }
+
+    public SkillSelectButtonComponent GetHoverButton()
+    {
+        var mouse = GlobalVariablesDto.MouseState;
+        return _buttons.FirstOrDefault(x => x.Bounds.Contains(mouse.Position));
     }
 
     public override void Update(GameTime gameTime)

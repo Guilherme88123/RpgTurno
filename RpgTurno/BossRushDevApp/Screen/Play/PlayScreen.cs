@@ -227,6 +227,12 @@ public class PlayScreen : BaseScreen
     {
         UpdateFocusedUnitComponentsVisibility();
 
+        if (_skillSelectComponent.HasCursorHoveringButton() && _skillSelectComponent.IsVisible)
+        {
+            OnHoverInSkillButtonAction(_skillSelectComponent.CanUseFocusedButton());
+            return;
+        }
+
         if (_battleManager.HasCursorHoveringEntity())
         {
             OnHoverInUnitAction(_battleManager.GetCursorHoveringEntity());
@@ -239,7 +245,7 @@ public class PlayScreen : BaseScreen
             return;
         }
 
-        OnHoverOutUnitAction();
+        OnHoverOutAction();
     }
 
     private void OnHoverInUnitAction(BaseUnitEntity unit)
@@ -248,7 +254,15 @@ public class PlayScreen : BaseScreen
         SetHoverCursor();
     }
 
-    private void OnHoverOutUnitAction()
+    private void OnHoverInSkillButtonAction(bool canUse)
+    {
+        if (canUse)
+            SetHoverCursor();
+        else
+            SetBlockCursor();
+    }
+
+    private void OnHoverOutAction()
     {
         ClearFocusedEntity();
         SetNormalCursor();
