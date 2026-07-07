@@ -18,7 +18,6 @@ namespace RpgTurno.Custom.CustomComponents.Map.Stage;
 
 public class MapNodeBannerComponent : FrameComponent
 {
-    private const int _fixedSlice = 64;
     private const int _sizeX = 256;
     private const int _sizeY = 256;
     private const int _marginY = 200;

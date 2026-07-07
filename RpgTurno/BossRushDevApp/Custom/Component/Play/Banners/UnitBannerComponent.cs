@@ -1,15 +1,13 @@
 ﻿using Domain.Const.Sprite;
 using Domain.Dto.Global;
-using Domain.Enum.Sprite;
 using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.MenuComponents.Frame;
-using Domain.Model.Sprite.Border;
 using Domain.Model.Texture.Sprite;
+using Domain.Model.Texture.Sprite.Custom.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace RpgTurno.Custom.CustomComponents.Play.Banners;
 
@@ -36,8 +34,7 @@ public class UnitBannerComponent : FrameComponent
 
     public UnitBannerComponent()
     {
-        var paperBannerSprite = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ScrollBanner);
-        AnimationManager.Add(true, new AnimationClip([new ResizableSpriteData(paperBannerSprite, ResizableSpriteType.Full, _fixedSlice, _fixedSlice, new BorderDefinition(16, 16, 16, 16), 80)]));
+        AnimationManager.Add(true, new ScrollBannerSprite());
 
         AddChild(_nameText);
         AddChild(_healtText);

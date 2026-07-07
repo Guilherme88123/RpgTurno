@@ -20,6 +20,8 @@ public class SkillSelectBannerComponent : FrameComponent
     private List<SkillSelectButtonComponent> _buttons = new();
     private SkillSelectButtonComponent _selectedButton = null;
 
+    private SkillDetailsBannerComponent _detailsBanner = new();
+
     private ImageComponent _selectedSkillMark = new(new ConfirmIconSprite(), 64, 64);
 
     private const int MarginX = 64;
@@ -59,13 +61,32 @@ public class SkillSelectBannerComponent : FrameComponent
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+
         VerifyVisibility();
+
+        if (HasCursorHoveringButton())
+            SetDetailsBannerOnHoverButton();
+        else
+            SetDetailsBannerInvisible();
     }
 
     private void VerifyVisibility()
     {
         if (!IsVisible)
             _selectedButton = null;
+    }
+
+    private void SetDetailsBannerOnHoverButton()
+    {
+        _detailsBanner.IsVisible = true;
+
+        var button = GetHoverButton();
+        _detailsBanner.SetHoverSkillButton(button);
+    }
+
+    private void SetDetailsBannerInvisible()
+    {
+        _detailsBanner.IsVisible = false;
     }
 
     public void SetUnit(BaseUnitEntity unit)
@@ -116,6 +137,8 @@ public class SkillSelectBannerComponent : FrameComponent
 
         if (_selectedButton is not null)
             DrawSelectMark(spriteBatch);
+
+        _detailsBanner.Draw(spriteBatch);
     }
 
     private void DrawSelectMark(SpriteBatch spriteBatch)
