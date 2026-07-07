@@ -7,6 +7,7 @@ using Domain.Model.Skill.Base.Unit;
 using Microsoft.Xna.Framework;
 using RpgTurno.Screen.Play.Battle.Delay;
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace RpgTurno.Screen.Play.Battle.Attack;
@@ -29,7 +30,7 @@ public class AttackManager
 
     private readonly DelayManager _delayManager = new();
 
-    public Action<BaseUnitEntity, BaseUnitEntity, int> OnExecuteSkill { get; set; }
+    public Action<BaseUnitEntity, List<BaseUnitEntity>, int> OnExecuteSkill { get; set; }
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
     public Action<BaseUnitEntity> OnUnitSlay { get; set; }
 
@@ -61,7 +62,7 @@ public class AttackManager
         CurrentPhase = AttackPhase.MovingBack;
         _sender.CreatureState = CreatureStateType.Running;
 
-        OnExecuteSkill?.Invoke(_sender, _principalTarget, result.Value);
+        OnExecuteSkill?.Invoke(_sender, _executeData.Targets, result.Value);
     }
 
     private void VerifyDeadUnits()

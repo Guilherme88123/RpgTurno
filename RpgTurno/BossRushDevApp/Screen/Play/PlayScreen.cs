@@ -47,7 +47,7 @@ public class PlayScreen : BaseScreen
     protected override List<BaseComponent> InitializeComponents()
     {
         _battleManager.Initialize(GetAllies(), GameSession.CurrentStageCode);
-        _battleManager.OnExecuteAttack += AddDamageText;
+        _battleManager.OnSkillExecute += AddSkillText;
         _battleManager.OnTurnStart += OnTurnStart;
         _battleManager.OnTurnFinish += OnTurnFinish;
         _battleManager.OnBattleFinish += BattleFinish;
@@ -71,8 +71,8 @@ public class PlayScreen : BaseScreen
         _waveIndicatorComponent.SetPosition(GlobalOptionsDto.WidthSize - 140, 30);
 
         return new() {
-            _selectionAreaComponent, 
-            _focusedUnitBannerComponent, 
+            _selectionAreaComponent,
+            _focusedUnitBannerComponent,
             _turnQueueComponent,
             _currentTurnUnitComponent,
             _skillSelectComponent,
@@ -96,7 +96,7 @@ public class PlayScreen : BaseScreen
         _battleManager.Update(gameTime);
 
         UpdateTurnComponents();
-        UpdateDamageTexts(gameTime);
+        UpdateSkillTexts(gameTime);
         UpdateWaveIndicator();
 
         VerifyCursorHoveringEntities();
@@ -133,13 +133,12 @@ public class PlayScreen : BaseScreen
         _currentTurnUnitComponent.SetCurrentTurnUnit(currentTurnUnit);
     }
 
-    private void AddDamageText(BaseUnitEntity sender, BaseUnitEntity target, int damage)
+    private void AddSkillText(BaseUnitEntity sender, List<BaseUnitEntity> targets, int value)
     {
-        var positionX = target.Center.X;
-        var positionY = target.Center.Y;
-        var damageText = $"-{damage}";   
+        var valueText = $"-{value}";
 
-        _damagesTextList.Add(new DamageTextComponent((int)positionX, (int)positionY, damageText));
+        foreach (var target in targets)
+            _damagesTextList.Add(new DamageTextComponent((int)target.Center.X, (int)target.Center.Y, valueText));
     }
 
     private void OnTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
@@ -256,9 +255,9 @@ public class PlayScreen : BaseScreen
 
     #endregion
 
-    #region Damage Texts
+    #region Skill Texts
 
-    private void UpdateDamageTexts(GameTime gameTime)
+    private void UpdateSkillTexts(GameTime gameTime)
     {
         _damagesTextList.ForEach(x => x.Update(gameTime));
         _damagesTextList.RemoveAll(x => x.IsDestroyed);
@@ -310,7 +309,7 @@ public class PlayScreen : BaseScreen
         DrawBackground();
         DrawBattle();
         DrawDamageTexts();
-        
+
         base.Draw();
     }
 
