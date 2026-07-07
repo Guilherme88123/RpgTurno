@@ -25,9 +25,9 @@ public class MapNodeBannerComponent : FrameComponent
     private const int _iconSize = 32;
     private const int _difficultyIconSize = 32;
 
-    private readonly TextComponent _nameText = new(positionByCenter: true);
-    private readonly TextComponent _difficultyText = new(positionByCenter: true);
-    private readonly TextComponent _clearedText = new(positionByCenter: true);
+    private readonly TextComponent _nameText = new(positionXByCenter: true, positionYByCenter: true);
+    private readonly TextComponent _difficultyText = new(positionXByCenter: true, positionYByCenter: true);
+    private readonly TextComponent _clearedText = new(positionXByCenter: true, positionYByCenter: true);
 
     private readonly ImageComponent _stageStatusIcon = new(new CloseIconSprite(), _iconSize, _iconSize);
 

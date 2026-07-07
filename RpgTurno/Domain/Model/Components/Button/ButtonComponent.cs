@@ -16,7 +16,7 @@ public class ButtonComponent : BaseComponent
 
     public Action Click { get; set; }
 
-    public readonly TextComponent Text = new(positionByCenter: true);
+    public readonly TextComponent Text = new(positionXByCenter: true, positionYByCenter: true);
 
     public override void Update(GameTime gameTime)
     {

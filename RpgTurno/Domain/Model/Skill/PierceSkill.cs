@@ -10,7 +10,7 @@ namespace Domain.Model.Skill;
 public class PierceSkill : BaseSkill
 {
     public override string Name => "Pierce";
-    public override string Description => "A piercing attack.";
+    public override string Description => "A piercing attack";
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

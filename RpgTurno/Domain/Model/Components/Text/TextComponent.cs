@@ -9,14 +9,16 @@ public class TextComponent : BaseComponent
 {
     public string Text { get; private set; }
 
-    private bool _positionByCenter;
+    public bool IsPositionXByCenter { get; private set; }
+    public bool IsPositionYByCenter { get; private set; }
     private SpriteFont _font;
 
     public Color Color { get; set; } = Color.Black;
 
-    public TextComponent(bool positionByCenter = false)
+    public TextComponent(bool positionXByCenter = false, bool positionYByCenter = false)
     {
-        _positionByCenter = positionByCenter;
+        IsPositionXByCenter = positionXByCenter;
+        IsPositionYByCenter = positionYByCenter;
         _font = GlobalVariablesDto.GlobalFont;
     }
 
@@ -27,7 +29,7 @@ public class TextComponent : BaseComponent
 
     public override void SetPosition(int positionX, int positionY)
     {
-        if (_positionByCenter)
+        if (IsPositionXByCenter || IsPositionYByCenter)
             (positionX, positionY) = GetPositionByCenter(positionX, positionY);
 
         base.SetPosition(positionX, positionY);
@@ -40,8 +42,8 @@ public class TextComponent : BaseComponent
 
         var textSize = _font.MeasureString(Text);
 
-        var positionX = rawPositionX - textSize.X / 2;
-        var positionY = rawPositionY - textSize.Y / 2;
+        var positionX = IsPositionXByCenter ? rawPositionX - textSize.X / 2 : rawPositionX;
+        var positionY = IsPositionYByCenter ? rawPositionY - textSize.Y / 2 : rawPositionY;
 
         return ((int)positionX, (int)positionY);
     }

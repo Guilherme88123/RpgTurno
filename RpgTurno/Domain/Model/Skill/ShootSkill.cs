@@ -10,7 +10,7 @@ namespace Domain.Model.Skill;
 public class ShootSkill : BaseSkill
 {
     public override string Name => "Shoot";
-    public override string Description => "A ranged bow attack.";
+    public override string Description => "A ranged bow attack";
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

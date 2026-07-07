@@ -36,6 +36,11 @@ public class SkillSelectButtonComponent : ButtonComponent
         return _skill.CanUse();
     }
 
+    public UnitSkill GetSkill()
+    {
+        return _skill;
+    }
+
     public void OnSkillButtonSelect()
     {
         _banner.SelectSkill(_skill, this);

@@ -10,7 +10,7 @@ namespace Domain.Model.Skill;
 public class SlashSkill : BaseSkill
 {
     public override string Name => "Slash";
-    public override string Description => "A powerful slash attack.";
+    public override string Description => "A powerful \nslash attack";
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

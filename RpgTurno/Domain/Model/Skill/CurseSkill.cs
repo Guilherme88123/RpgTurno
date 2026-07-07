@@ -10,7 +10,7 @@ namespace Domain.Model.Skill;
 public class CurseSkill : BaseSkill
 {
     public override string Name => "Curse";
-    public override string Description => "A red curse attack.";
+    public override string Description => "A red curse attack";
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

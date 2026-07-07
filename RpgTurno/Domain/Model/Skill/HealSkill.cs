@@ -11,7 +11,7 @@ namespace Domain.Model.Skill;
 public class HealSkill : BaseSkill
 {
     public override string Name => "Heal";
-    public override string Description => "A heal that save your allies.";
+    public override string Description => "A heal that \nsave your allies";
 
     public override TargetSkillType TargetType => TargetSkillType.Ally;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

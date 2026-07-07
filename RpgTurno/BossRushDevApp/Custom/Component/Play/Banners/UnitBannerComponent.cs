@@ -15,7 +15,7 @@ public class UnitBannerComponent : FrameComponent
 {
     private const int _fixedSlice = 112;
 
-    private readonly TextComponent _nameText = new(positionByCenter: true);
+    private readonly TextComponent _nameText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly TextComponent _healtText = new();
     private readonly TextComponent _defenseText = new();
     private readonly TextComponent _damageText = new();
