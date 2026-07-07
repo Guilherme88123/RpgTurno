@@ -2,10 +2,7 @@
 
 public enum SkillType
 {
-    Slash,
-    Shoot,
-    Pierce,
-    Curse,
-    ArrowRain,
+    Attack,
     Heal,
+    Stats,
 }

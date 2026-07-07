@@ -1,4 +1,4 @@
-﻿using Domain.Enum.Skill.Type;
+﻿using Domain.Enum.Skill;
 using Domain.Model.Entity.Units.Base.Skill.Definition;
 using Domain.Model.Entity.Units.Base.Skill.SkillTree;
 
@@ -8,7 +8,7 @@ public class ArcherSkillTree : BaseSkillTree
 {
     protected override IReadOnlyList<UnitSkillDefinition> Definitions =>
     [
-        new UnitSkillDefinition(SkillType.Shoot, 1),
-        new UnitSkillDefinition(SkillType.ArrowRain, 1),
+        new UnitSkillDefinition(SkillCode.Shoot, 1),
+        new UnitSkillDefinition(SkillCode.ArrowRain, 1),
     ];
 }

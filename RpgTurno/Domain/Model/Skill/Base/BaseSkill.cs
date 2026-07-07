@@ -1,4 +1,5 @@
 ﻿using Domain.Enum.Skill.Target;
+using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
@@ -12,6 +13,7 @@ public abstract class BaseSkill
 
     public abstract TargetSkillType TargetType { get; }
     public abstract TargetSkillAmount TargetAmount { get; }
+    public abstract SkillType Type { get; }
 
     public virtual float PowerMin => 0;
     public virtual float PowerMax => 0;

@@ -31,7 +31,7 @@ public class BattleManager
 
     private List<BaseUnitEntity> _deadUnits = new();
 
-    public Action<BaseUnitEntity, List<BaseUnitEntity>, int> OnSkillExecute { get; set; }
+    public Action<BaseUnitEntity, List<BaseUnitEntity>, UnitSkill, int> OnSkillExecute { get; set; }
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
     public Action<BaseUnitEntity, bool> OnTurnStart { get; set; }
     public Action<bool> OnBattleFinish { get; set; }
@@ -352,9 +352,9 @@ public class BattleManager
         _attackManager.StartAttack(new SkillExecuteData(sender, targets), _selectedSkill, IsEnemyUnit(sender));
     }
 
-    private void ExecuteAttack(BaseUnitEntity sender, List<BaseUnitEntity> targets, int damage)
+    private void ExecuteAttack(BaseUnitEntity sender, List<BaseUnitEntity> targets, UnitSkill skill, int damage)
     {
-        OnSkillExecute?.Invoke(sender, targets, damage);
+        OnSkillExecute?.Invoke(sender, targets, skill, damage);
 
         _selectedSkill = null;
 

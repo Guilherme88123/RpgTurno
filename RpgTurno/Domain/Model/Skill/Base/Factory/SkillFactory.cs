@@ -1,19 +1,19 @@
-﻿using Domain.Enum.Skill.Type;
+﻿using Domain.Enum.Skill;
 
 namespace Domain.Model.Skill.Base.Factory;
 
 public static class SkillFactory
 {
-    public static BaseSkill Create(SkillType skillCode)
+    public static BaseSkill Create(SkillCode skillCode)
     {
         return skillCode switch
         {
-            SkillType.Slash => new SlashSkill(),
-            SkillType.Pierce => new PierceSkill(),
-            SkillType.Shoot => new ShootSkill(),
-            SkillType.Curse => new CurseSkill(),
-            SkillType.ArrowRain => new ArrowRainSkill(),
-            SkillType.Heal => new HealSkill(),
+            SkillCode.Slash => new SlashSkill(),
+            SkillCode.Pierce => new PierceSkill(),
+            SkillCode.Shoot => new ShootSkill(),
+            SkillCode.Curse => new CurseSkill(),
+            SkillCode.ArrowRain => new ArrowRainSkill(),
+            SkillCode.Heal => new HealSkill(),
 
             _ => throw new ArgumentOutOfRangeException(nameof(skillCode), skillCode, null)
         };

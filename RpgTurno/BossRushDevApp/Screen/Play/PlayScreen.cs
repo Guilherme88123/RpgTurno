@@ -2,6 +2,7 @@
 using Domain.Dto.Global;
 using Domain.Enum.Battle;
 using Domain.Enum.Component.Cursor;
+using Domain.Enum.Skill.Type;
 using Domain.Model.Components.Base;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Entity.Units.Base.Skill.Definition;
@@ -133,12 +134,25 @@ public class PlayScreen : BaseScreen
         _currentTurnUnitComponent.SetCurrentTurnUnit(currentTurnUnit);
     }
 
-    private void AddSkillText(BaseUnitEntity sender, List<BaseUnitEntity> targets, int value)
+    private void AddSkillText(BaseUnitEntity sender, List<BaseUnitEntity> targets, UnitSkill skill, int value)
     {
-        var valueText = $"-{value}";
+        var (valueText, color) = GetSkillStyleByType(skill.Type, value);
+
+        if (string.IsNullOrEmpty(valueText))
+            return;
 
         foreach (var target in targets)
-            _damagesTextList.Add(new DamageTextComponent((int)target.Center.X, (int)target.Center.Y, valueText));
+            _damagesTextList.Add(new DamageTextComponent((int)target.Center.X, (int)target.Center.Y, valueText, color));
+    }
+
+    private (string, Color) GetSkillStyleByType(SkillType type, int value)
+    {
+        return type switch
+        {
+            SkillType.Attack => ($"-{value}", Color.Red),
+            SkillType.Heal => ($"+{value}", Color.Green),
+            _ => (string.Empty, Color.White),
+        };
     }
 
     private void OnTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)

@@ -1,4 +1,4 @@
-﻿using Domain.Enum.Skill.Type;
+﻿using Domain.Enum.Skill;
 using Domain.Model.Entity.Units.Base.Skill.Definition;
 using Domain.Model.Entity.Units.Base.Skill.SkillTree;
 
@@ -8,6 +8,6 @@ public class EnemyWarriorSkillTree : BaseSkillTree
 {
     protected override IReadOnlyList<UnitSkillDefinition> Definitions =>
     [
-        new UnitSkillDefinition(SkillType.Slash, 1)
+        new UnitSkillDefinition(SkillCode.Slash, 1)
     ];
 }

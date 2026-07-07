@@ -12,6 +12,8 @@ public class TextComponent : BaseComponent
     private bool _positionByCenter;
     private SpriteFont _font;
 
+    public Color Color { get; set; } = Color.Black;
+
     public TextComponent(bool positionByCenter = false)
     {
         _positionByCenter = positionByCenter;
@@ -59,6 +61,6 @@ public class TextComponent : BaseComponent
         if (string.IsNullOrEmpty(Text))
             return;
 
-        spriteBatch.DrawString(_font, Text, new Vector2(Bounds.X, Bounds.Y), Color.Black);    
+        spriteBatch.DrawString(_font, Text, new Vector2(Bounds.X, Bounds.Y), Color);    
     }
 }

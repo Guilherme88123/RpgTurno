@@ -29,6 +29,10 @@ public class BaseUnitEntity : BaseEntity
     private float _currentDelayDamageTakenFlash;
     private bool HasTakeDamage => _currentDelayDamageTakenFlash > 0;
 
+    private const float DelayHealTakenFlash = 0.1f;
+    private float _currentDelayHealTakenFlash;
+    private bool HasTakeHeal => _currentDelayHealTakenFlash > 0;
+
     private const float DelayDeadAnimation = 1f;
     private float _currentDelayDeadAnimation;
     private bool HasDeadAnimationFinished => _currentDelayDeadAnimation == 0;
@@ -58,7 +62,7 @@ public class BaseUnitEntity : BaseEntity
 
         UpdateDelays();
         UpdateHealthBarComponent();
-        UpdateTakeDamageEffect();
+        UpdateColorEffect();
 
         if (IsDead)
             VerifyDeadDelayFinish();
@@ -70,6 +74,7 @@ public class BaseUnitEntity : BaseEntity
     private void UpdateDelays()
     {
         _currentDelayDamageTakenFlash = Math.Max(0, _currentDelayDamageTakenFlash - GlobalVariablesDto.DeltaTime);
+        _currentDelayHealTakenFlash = Math.Max(0, _currentDelayHealTakenFlash - GlobalVariablesDto.DeltaTime);
         _currentDelayDeadAnimation = Math.Max(0, _currentDelayDeadAnimation - GlobalVariablesDto.DeltaTime);
         _currentDelayLevelUpAnimation = Math.Max(0, _currentDelayLevelUpAnimation - GlobalVariablesDto.DeltaTime);
     }
@@ -81,9 +86,14 @@ public class BaseUnitEntity : BaseEntity
         _healthBar.Update(GlobalVariablesDto.GameTime);
     }
 
-    private void UpdateTakeDamageEffect()
+    private void UpdateColorEffect()
     {
-        Color = HasTakeDamage ? Color.Red : Color.White;
+        Color = true switch
+        {
+            _ when HasTakeDamage => Color.Red,
+            _ when HasTakeHeal => Color.Green,
+            _ => Color.White,
+        };
     }
 
     private void VerifyDeadDelayFinish()
@@ -176,6 +186,24 @@ public class BaseUnitEntity : BaseEntity
     private void ResetTakeDamageDelay()
     {
         _currentDelayDamageTakenFlash = DelayDamageTakenFlash;
+    }
+
+    #endregion
+
+    #region Take Heal
+
+    public int RecieveHeal(int healAmount)
+    {
+        var damageTaken = Stats.HealHealth(healAmount);
+
+        ResetTakeHealDelay();
+
+        return damageTaken;
+    }
+
+    private void ResetTakeHealDelay()
+    {
+        _currentDelayHealTakenFlash = DelayHealTakenFlash;
     }
 
     #endregion

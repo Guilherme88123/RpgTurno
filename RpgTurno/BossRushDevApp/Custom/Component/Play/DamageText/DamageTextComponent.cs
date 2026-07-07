@@ -1,27 +1,24 @@
 ﻿using Domain.Dto.Global;
-using Domain.Model.Components.Base;
 using Domain.Model.Components.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace RpgTurno.Custom.CustomComponents.Play.DamageText;
 
-public class DamageTextComponent : BaseComponent
+public class DamageTextComponent : TextComponent
 {
     private const float DelayDissapear = 1.0f;
     private float _currentDelayDissapear = DelayDissapear;
 
     public bool IsDestroyed { get; private set; }
 
-    private readonly TextComponent _textComponent = new();
-
-    public DamageTextComponent(int positionX, int positionY, string text)
+    public DamageTextComponent(int positionX, int positionY, string text, Color color)
     {
         positionX = GetRandomByPositionX(positionX);
 
         SetPosition(positionX, positionY);
+        SetText(text);
 
-        _textComponent.SetText(text);
+        Color = color;
     }
 
     private int GetRandomByPositionX(int positionX)
@@ -34,8 +31,6 @@ public class DamageTextComponent : BaseComponent
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-
-        _textComponent.Update(gameTime);
 
         UpdateDelay();
 
@@ -50,17 +45,5 @@ public class DamageTextComponent : BaseComponent
         {
             IsDestroyed = true;
         }
-    }
-
-    public override void SetPosition(int positionX, int positionY)
-    {
-        base.SetPosition(positionX, positionY);
-        _textComponent.SetPosition(positionX, positionY);
-    }
-
-    public override void Draw(SpriteBatch spriteBatch)
-    {
-        base.Draw(spriteBatch);
-        _textComponent.Draw(spriteBatch);
     }
 }

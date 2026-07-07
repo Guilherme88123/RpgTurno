@@ -1,4 +1,5 @@
 ﻿using Domain.Enum.Skill.Target;
+using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
@@ -13,6 +14,7 @@ public class HealSkill : BaseSkill
 
     public override TargetSkillType TargetType => TargetSkillType.Ally;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;
+    public override SkillType Type => SkillType.Heal;
 
     public override float PowerMin => 0.7f;
     public override float PowerMax => 1.0f;
@@ -25,7 +27,7 @@ public class HealSkill : BaseSkill
     {
         var healAmount = CalculateValue(skillData);
 
-        skillData.Target.Stats.HealHealth(healAmount);
+        skillData.Target.RecieveHeal(healAmount);
 
         return new SkillResult(skillData.Sender, skillData.Target, healAmount);
     }

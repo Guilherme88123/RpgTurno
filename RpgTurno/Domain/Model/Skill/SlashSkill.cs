@@ -1,4 +1,5 @@
 ﻿using Domain.Enum.Skill.Target;
+using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
@@ -13,6 +14,7 @@ public class SlashSkill : BaseSkill
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;
+    public override SkillType Type => SkillType.Attack;
 
     public override float PowerMin => 0.8f;
     public override float PowerMax => 1.2f;
