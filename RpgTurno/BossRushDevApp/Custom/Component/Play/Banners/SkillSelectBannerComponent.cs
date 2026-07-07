@@ -1,8 +1,10 @@
-﻿using Domain.Model.Entity.Units.Base;
+﻿using Domain.Model.Components.Image;
+using Domain.Model.Entity.Units.Base;
 using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite.Custom.Sprite;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.Custom.Component.Play.Banners;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,9 @@ public class SkillSelectBannerComponent : FrameComponent
     public Action<UnitSkill> OnSkillSelect { get; set; }
 
     private List<SkillSelectButtonComponent> _buttons = new();
+    private SkillSelectButtonComponent _selectedButton = null;
+
+    private ImageComponent _selectedSkillMark = new(new ConfirmIconSprite(), 64, 64);
 
     private const int MarginX = 64;
     private const int MarginY = 64;
@@ -25,6 +30,18 @@ public class SkillSelectBannerComponent : FrameComponent
         AnimationManager.Add(true, new WoodBannerSprite());
 
         Bounds = new Rectangle(0, 0, 512, 384);
+    }
+
+    public override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+        VerifyVisibility();
+    }
+
+    private void VerifyVisibility()
+    {
+        if (!IsVisible)
+            _selectedButton = null;
     }
 
     public void SetUnit(BaseUnitEntity unit)
@@ -56,5 +73,29 @@ public class SkillSelectBannerComponent : FrameComponent
         var positionY = Bounds.Y + MarginY + row * (button.Bounds.Height + Spacing);
 
         return (positionX, positionY);
+    }
+
+    public void SelectSkill(UnitSkill skill, SkillSelectButtonComponent button)
+    {
+        if (!skill.CanUse())
+            return;
+
+        _selectedButton = button;
+        _selectedSkillMark.SetPosition(button.Bounds.X, button.Bounds.Y);
+
+        OnSkillSelect?.Invoke(skill);
+    }
+
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        base.Draw(spriteBatch);
+
+        if (_selectedButton is not null)
+            DrawSelectMark(spriteBatch);
+    }
+
+    private void DrawSelectMark(SpriteBatch spriteBatch)
+    {
+        _selectedSkillMark.Draw(spriteBatch);
     }
 }

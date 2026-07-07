@@ -33,9 +33,6 @@ public class SkillSelectButtonComponent : ButtonComponent
 
     public void OnSkillButtonSelect()
     {
-        if (!_skill.CanUse())
-            return;
-
-        _banner.OnSkillSelect?.Invoke(_skill);
+        _banner.SelectSkill(_skill, this);
     }
 }

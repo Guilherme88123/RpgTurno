@@ -36,7 +36,8 @@ public class UiManagerService : IUiManagerService
 
     public void UpdateComponents(GameTime gameTime)
     {
-        _components.ForEach(component => component.Update(gameTime));
+        var enableComponents = _components.Where(x => x.IsEnable).ToList();
+        enableComponents.ForEach(component => component.Update(gameTime));
     }
 
     #endregion
@@ -45,7 +46,8 @@ public class UiManagerService : IUiManagerService
 
     public void DrawComponents(SpriteBatch spriteBatch)
     {
-        _components.ForEach(component => component.Draw(spriteBatch));
+        var visibleComponents = _components.Where(x => x.IsVisible).ToList();
+        visibleComponents.ForEach(component => component.Draw(spriteBatch));
     }
 
     #endregion

@@ -277,7 +277,7 @@ public class BattleManager
         if (_selectedSkill is null)
             return;
 
-        BattleState = BattleState.Fighting;
+        BattleState = BattleState.WaitingTargetSelect;
     }
 
     public void SetPlayerSelectedSkill(UnitSkill skill)
