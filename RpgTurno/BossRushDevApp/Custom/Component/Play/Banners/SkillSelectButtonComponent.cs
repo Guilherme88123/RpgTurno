@@ -17,7 +17,11 @@ public class SkillSelectButtonComponent : ButtonComponent
         _banner = parentBanner;
         _skill = skill;
 
-        Text.SetText(skill.Name);
+        var canUse = skill.CanUse();
+
+        Text.SetText(canUse ? skill.Name : $"Cooldown {skill.CurrentCooldown}");
+        Color = canUse ? Color.White : Color.Gray;
+        IsEnable = canUse;
 
         AnimationManager.Add(ButtonInteractionState.Regular, new BlueButtonRegularSprite());
         AnimationManager.Add(ButtonInteractionState.Pressed, new BlueButtonPressedSprite());
@@ -29,6 +33,9 @@ public class SkillSelectButtonComponent : ButtonComponent
 
     public void OnSkillButtonSelect()
     {
+        if (!_skill.CanUse())
+            return;
+
         _banner.OnSkillSelect?.Invoke(_skill);
     }
 }

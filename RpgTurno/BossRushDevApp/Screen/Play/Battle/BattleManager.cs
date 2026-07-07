@@ -241,6 +241,12 @@ public class BattleManager
 
         var unitTurn = _turnManager.GetPeekUnit();
         OnTurnStart?.Invoke(unitTurn, IsEnemyUnit(unitTurn));
+        TickSkills(unitTurn);
+    }
+
+    private void TickSkills(BaseUnitEntity unit)
+    {
+        unit.TickSkills();
     }
 
     private void UpdateSkillSelect()
@@ -330,7 +336,7 @@ public class BattleManager
 
         var enemySelected = GetCursorHoveringEntity();
 
-        var avaliable = GetAvaliableTargets(enemySelected);
+        var avaliable = GetAvaliableTargets(allyUnit);
 
         if (!avaliable.Contains(enemySelected))
             return;
@@ -406,14 +412,8 @@ public class BattleManager
     {
         OnTurnFinish?.Invoke(sender, target);
         GoToNextTurn();
-        TickSkills();
 
         VerifyWave();
-    }
-
-    private void TickSkills()
-    {
-        GetAllUnits().ForEach(x => x.TickSkills());
     }
 
     private void HandleEnemySlay(BaseUnitEntity unit)

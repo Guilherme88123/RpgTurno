@@ -8,8 +8,8 @@ namespace Domain.Model.Skill;
 
 public class ArrowRainSkill : BaseSkill
 {
-    public override string Name => "Shoot";
-    public override string Description => "A ranged bow attack.";
+    public override string Name => "Arrow Rain";
+    public override string Description => "Attack all targets with porwerfull arrows.";
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.All;

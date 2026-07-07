@@ -11,6 +11,8 @@ namespace Application.Model.MenuElements.Button;
 public class ButtonComponent : BaseComponent
 {
     public ButtonInteractionState State { get; set; }
+    private const float DelayPressed = 0.2f;
+    private float _currentDelay = DelayPressed;
 
     public Action Click { get; set; }
 
@@ -28,17 +30,45 @@ public class ButtonComponent : BaseComponent
         if (botaoPressionado && !GlobalVariablesDto.PreviousMouseDown && HoverState.IsHover)
         {
             State = ButtonInteractionState.Pressed;
+            _currentDelay = DelayPressed;
+            SetPositionText();
+
             Click?.Invoke();
 
             return;
         }
 
-        State = ButtonInteractionState.Regular;
+        if (State == ButtonInteractionState.Pressed)
+            UpdatePressedDelay();
+    }
+
+    private void UpdatePressedDelay()
+    {
+        _currentDelay -= GlobalVariablesDto.DeltaTime;
+
+        if (_currentDelay < 0)
+        {
+            State = ButtonInteractionState.Regular;
+            SetPositionText();
+        }
     }
 
     public override void SetPosition(int positionX, int positionY)
     {
         base.SetPosition(positionX, positionY);
+        SetPositionText(positionX, positionY);
+    }
+
+    private void SetPositionText()
+    {
+        SetPositionText(Bounds.X, Bounds.Y);
+    }
+
+    private void SetPositionText(int positionX, int positionY)
+    {
+        if (State == ButtonInteractionState.Pressed)
+            positionY += 10;
+
         Text.SetPosition(positionX + Bounds.Width / 2, positionY + Bounds.Height / 2);
     }
 

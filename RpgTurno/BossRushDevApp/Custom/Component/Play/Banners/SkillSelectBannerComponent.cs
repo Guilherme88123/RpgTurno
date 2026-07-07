@@ -17,7 +17,7 @@ public class SkillSelectBannerComponent : FrameComponent
 
     private const int MarginX = 64;
     private const int MarginY = 64;
-    private const int Spacing = 16;
+    private const int Spacing = 0;
     private const int Columns = 2;
 
     public SkillSelectBannerComponent()
