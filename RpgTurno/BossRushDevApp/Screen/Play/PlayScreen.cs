@@ -5,9 +5,10 @@ using Domain.Enum.Component.Cursor;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Components.Base;
 using Domain.Model.Entity.Units.Base;
-using Domain.Model.Entity.Units.Base.Skill.Definition;
 using Domain.Model.Skill.Base.Unit;
+using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.Custom.CustomComponents.Play.Background;
 using RpgTurno.Custom.CustomComponents.Play.Banners;
@@ -18,7 +19,6 @@ using RpgTurno.Custom.CustomComponents.Play.Wave;
 using RpgTurno.Screen.Play.Battle;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RpgTurno.Screen.Play;
 
@@ -38,6 +38,7 @@ public class PlayScreen : BaseScreen
     private CurrentUnitTurnIndicatorComponent _currentTurnUnitComponent;
 
     private readonly List<DamageTextComponent> _damagesTextList = new();
+    private readonly List<PositionableAnimation> _skillAnimationsList = new();
 
     private SkillSelectBannerComponent _skillSelectComponent;
 
@@ -52,6 +53,8 @@ public class PlayScreen : BaseScreen
         _battleManager.OnTurnStart += OnTurnStart;
         _battleManager.OnTurnFinish += OnTurnFinish;
         _battleManager.OnBattleFinish += BattleFinish;
+        _battleManager.OnPlaySenderAnimation += AddAnimation;
+        _battleManager.OnPlayTargetsAnimation += AddAnimation;
 
         _selectionAreaComponent = new();
 
@@ -99,6 +102,7 @@ public class PlayScreen : BaseScreen
         UpdateTurnComponents();
         UpdateSkillTexts(gameTime);
         UpdateWaveIndicator();
+        UpdateSkillAnimations();
 
         VerifyCursorHoveringEntities();
         VerifyExitingStage();
@@ -134,9 +138,73 @@ public class PlayScreen : BaseScreen
         _currentTurnUnitComponent.SetCurrentTurnUnit(currentTurnUnit);
     }
 
+    private void OnTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
+    {
+        _turnQueueComponent.StartTransition();
+    }
+
+    private void OnTurnStart(BaseUnitEntity sender, bool isEnemy)
+    {
+        if (isEnemy)
+            return;
+
+        _skillSelectComponent.SetUnit(sender);
+    }
+
+    #endregion
+
+    #region Skill
+
+    #region Skill Animation
+
+    private void UpdateSkillAnimations()
+    {
+        List<PositionableAnimation> toRemoveAnimations = new();
+
+        foreach (var skillAnimation in _skillAnimationsList)
+        {
+            if (skillAnimation.Animation.IsFinished)
+                toRemoveAnimations.Add(skillAnimation);
+
+            skillAnimation.Update();
+        }
+
+        toRemoveAnimations.ForEach(x => _skillAnimationsList.Remove(x));
+    }
+
+    private void AddAnimation(List<BaseUnitEntity> units, AnimationClip animation)
+    {
+        foreach (var unit in units)
+            AddAnimation(unit, animation);
+    }
+
+    private void AddAnimation(BaseUnitEntity unit, AnimationClip animation)
+    {
+        animation.IsLoop = false;
+        _skillAnimationsList.Add(new PositionableAnimation(unit.Rectangle, animation));
+    }
+
+    #endregion
+
+    #region Skill Select
+
+    private void UpdateSelectSkillComponent()
+    {
+        _skillSelectComponent.IsVisible = _battleManager.CanSelectSkill;
+    }
+
+    private void SetSelectedSkill(UnitSkill skill)
+    {
+        _battleManager.SetPlayerSelectedSkill(skill);
+    }
+
+    #endregion
+
+    #region Skill Text
+
     private void AddSkillText(BaseUnitEntity sender, List<BaseUnitEntity> targets, UnitSkill skill, int value)
     {
-        var (valueText, color) = GetSkillStyleByType(skill.Type, value);
+        var (valueText, color) = GetSkillStyleByType(skill.Definition.Type, value);
 
         if (string.IsNullOrEmpty(valueText))
             return;
@@ -155,32 +223,13 @@ public class PlayScreen : BaseScreen
         };
     }
 
-    private void OnTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
+    private void UpdateSkillTexts(GameTime gameTime)
     {
-        _turnQueueComponent.StartTransition();
-    }
-
-    private void OnTurnStart(BaseUnitEntity sender, bool isEnemy)
-    {
-        if (isEnemy)
-            return;
-
-        _skillSelectComponent.SetUnit(sender);
+        _damagesTextList.ForEach(x => x.Update(gameTime));
+        _damagesTextList.RemoveAll(x => x.IsDestroyed);
     }
 
     #endregion
-
-    #region Skill Select
-
-    private void UpdateSelectSkillComponent()
-    {
-        _skillSelectComponent.IsVisible = _battleManager.CanSelectSkill;
-    }
-
-    private void SetSelectedSkill(UnitSkill skill)
-    {
-        _battleManager.SetPlayerSelectedSkill(skill);
-    }
 
     #endregion
 
@@ -283,16 +332,6 @@ public class PlayScreen : BaseScreen
 
     #endregion
 
-    #region Skill Texts
-
-    private void UpdateSkillTexts(GameTime gameTime)
-    {
-        _damagesTextList.ForEach(x => x.Update(gameTime));
-        _damagesTextList.RemoveAll(x => x.IsDestroyed);
-    }
-
-    #endregion
-
     #region Wave Indicator
 
     private void UpdateWaveIndicator()
@@ -336,6 +375,7 @@ public class PlayScreen : BaseScreen
     {
         DrawBackground();
         DrawBattle();
+        DrawSkillAnimations();
         DrawDamageTexts();
 
         base.Draw();
@@ -351,10 +391,37 @@ public class PlayScreen : BaseScreen
         _battleManager.GetAllUnits().ForEach(x => x.Draw());
     }
 
+    private void DrawSkillAnimations()
+    {
+        _skillAnimationsList.ForEach(x => x.Draw());
+    }
+
     private void DrawDamageTexts()
     {
         _damagesTextList.ForEach(x => x.Draw(GlobalVariablesDto.SpriteBatchInterface));
     }
 
     #endregion
+}
+
+public class PositionableAnimation
+{
+    public Rectangle Rectangle { get; set; }
+    public AnimationClip Animation { get; set; }
+
+    public PositionableAnimation(Rectangle rectangle, AnimationClip animation)
+    {
+        Rectangle = rectangle;
+        Animation = animation;
+    }
+
+    public void Update()
+    {
+        Animation.Update();
+    }
+
+    public void Draw()
+    {
+        Animation.Draw(Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchInterface);
+    }
 }

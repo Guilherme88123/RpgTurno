@@ -21,7 +21,7 @@ public class PierceSkill : BaseSkill
 
     public override int Cooldown => 0;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, false, 1.0f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, false, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

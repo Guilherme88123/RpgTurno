@@ -11,10 +11,9 @@ public class DelayManager
     public void ResetDelayTurnExecution() => _currentDelayTurnExecution = DelayTurnExecution;
     public bool HasDelayTurnExecutionComplete() => _currentDelayTurnExecution <= 0;
 
-    private const float DelayAttackExecution = 0.5f;
     private float _currentDelayAttackExecution;
 
-    public void ResetDelayAttackExecution() => _currentDelayAttackExecution = DelayAttackExecution;
+    public void ResetDelayAttackExecution(float attackTime) => _currentDelayAttackExecution = attackTime;
     public bool HasDelayAttackExecutionComplete() => _currentDelayAttackExecution <= 0;
 
     public void Update()

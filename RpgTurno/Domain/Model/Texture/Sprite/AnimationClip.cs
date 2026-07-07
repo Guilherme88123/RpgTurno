@@ -14,18 +14,24 @@ public class AnimationClip
     private float _currentFrameTimeLeft;
     private bool _isPlaying = true;
 
-    public AnimationClip(List<SpriteData> frames, float frameTime = 0f)
+    public bool IsLoop { get; set; } = true;
+
+    public bool IsFinished => !IsLoop && _currentFrameIndex == _frames.Count - 1;
+
+    public AnimationClip(List<SpriteData> frames, float frameTime = 0f, bool isLoop = true)
     {
         _frames = frames;
         _frameTime = frameTime;
         _currentFrameTimeLeft = frameTime;
+        IsLoop = isLoop;
     }
 
-    public AnimationClip(Texture2D texture, int framesX = 1, int framesY = 1, float frameTime = 0f, int row = 1, BorderDefinition border = null)
+    public AnimationClip(Texture2D texture, int framesX = 1, int framesY = 1, float frameTime = 0f, int row = 1, BorderDefinition border = null, bool isLoop = true)
     {
         _frames = new List<SpriteData>();
         _frameTime = frameTime;
         _currentFrameTimeLeft = frameTime;
+        IsLoop = isLoop;
 
         var frameWidth = texture.Width / framesX;
         var frameHeight = texture.Height / framesY;
@@ -60,11 +66,18 @@ public class AnimationClip
 
         _currentFrameTimeLeft -= GlobalVariablesDto.DeltaTime;
 
-        if (_currentFrameTimeLeft <= 0)
-        {
-            _currentFrameTimeLeft += _frameTime;
-            _currentFrameIndex = (_currentFrameIndex + 1) % _frames.Count;
-        }
+        if (_currentFrameTimeLeft > 0)
+            return;
+
+        _currentFrameTimeLeft += _frameTime;
+
+        if (_currentFrameIndex < _frames.Count - 1)
+            _currentFrameIndex++;
+        else if (IsLoop)
+            _currentFrameIndex = 0;
+        else
+            _isPlaying = false;
+
     }
 
     public void Draw(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)

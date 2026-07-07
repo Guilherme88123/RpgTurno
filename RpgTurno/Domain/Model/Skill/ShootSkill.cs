@@ -21,7 +21,7 @@ public class ShootSkill : BaseSkill
 
     public override int Cooldown => 0;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, true, 1.0f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

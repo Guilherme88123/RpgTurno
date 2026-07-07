@@ -7,6 +7,7 @@ using Domain.Model.Entity.Units.Base;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Unit;
+using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.Screen.Play.Battle.Attack;
@@ -36,6 +37,9 @@ public class BattleManager
     public Action<BaseUnitEntity, bool> OnTurnStart { get; set; }
     public Action<bool> OnBattleFinish { get; set; }
 
+    public Action<BaseUnitEntity, AnimationClip> OnPlaySenderAnimation { get; set; }
+    public Action<List<BaseUnitEntity>, AnimationClip> OnPlayTargetsAnimation { get; set; }
+
     private UnitSkill _selectedSkill;
     private bool HasAttacked;
 
@@ -55,6 +59,8 @@ public class BattleManager
         _attackManager.OnExecuteSkill += ExecuteAttack;
         _attackManager.OnTurnFinish += HandleTurnFinish;
         _attackManager.OnUnitSlay += HandleEnemySlay;
+        _attackManager.OnPlaySenderAnimation += PlaySenderAnimation;
+        _attackManager.OnPlayTargetsAnimation += PlayTargetsAnimation;
 
         InitializeUnits();
 
@@ -261,7 +267,7 @@ public class BattleManager
 
     private void EnemySkillSelect(BaseUnitEntity enemy)
     {
-        //TODO: Adicionar Heurística para decisão de Skill
+        //TODO: Adicionar Heurística para decisão de Definition
         var skill = enemy.Skills.Shuffle().FirstOrDefault(x => x.CanUse());
 
         if (skill is null)
@@ -466,7 +472,7 @@ public class BattleManager
 
     private List<BaseUnitEntity> GetAvaliableTargets(BaseUnitEntity sender)
     {
-        return _selectedSkill.TargetType switch
+        return _selectedSkill.Definition.TargetType switch
         {
             TargetSkillType.Self => [sender],
             TargetSkillType.Ally => IsEnemyUnit(sender) ? Enemies : Allies,
@@ -477,11 +483,25 @@ public class BattleManager
 
     private List<BaseUnitEntity> GetTargetsBySelectedUnit(BaseUnitEntity selectedUnit, List<BaseUnitEntity> avaliable)
     {
-        return _selectedSkill.TargetAmount switch
+        return _selectedSkill.Definition.TargetAmount switch
         {
             TargetSkillAmount.Single => [selectedUnit],
             TargetSkillAmount.All => avaliable,
         };
+    }
+
+    #endregion
+
+    #region Skill Animation
+
+    private void PlaySenderAnimation(BaseUnitEntity sender, AnimationClip animation)
+    {
+        OnPlaySenderAnimation?.Invoke(sender, animation);
+    }
+
+    private void PlayTargetsAnimation(List<BaseUnitEntity> targets, AnimationClip animation)
+    {
+        OnPlayTargetsAnimation?.Invoke(targets, animation);
     }
 
     #endregion

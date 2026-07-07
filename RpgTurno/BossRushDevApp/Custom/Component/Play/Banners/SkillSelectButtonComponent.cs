@@ -19,7 +19,7 @@ public class SkillSelectButtonComponent : ButtonComponent
 
         var canUse = skill.CanUse();
 
-        Text.SetText(canUse ? skill.Name : $"Cooldown {skill.CurrentCooldown}");
+        Text.SetText(canUse ? skill.Definition.Name : $"Cooldown {skill.CurrentCooldown}");
         Color = canUse ? Color.White : Color.Gray;
         IsEnable = canUse;
 

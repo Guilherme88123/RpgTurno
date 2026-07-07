@@ -4,11 +4,11 @@ using Domain.Enum.Attack;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Unit;
+using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using RpgTurno.Screen.Play.Battle.Delay;
 using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 
 namespace RpgTurno.Screen.Play.Battle.Attack;
 
@@ -34,6 +34,9 @@ public class AttackManager
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
     public Action<BaseUnitEntity> OnUnitSlay { get; set; }
 
+    public Action<BaseUnitEntity, AnimationClip> OnPlaySenderAnimation { get; set; } 
+    public Action<List<BaseUnitEntity>, AnimationClip> OnPlayTargetsAnimation { get; set; } 
+
     public bool IsExecuting()
     {
         return CurrentPhase != AttackPhase.Idle;
@@ -57,12 +60,22 @@ public class AttackManager
     {
         var result = _skill.ExecuteSkill(_executeData);
 
+        PlaySkillAnimations();
         VerifyDeadUnits();
 
         CurrentPhase = AttackPhase.MovingBack;
         _sender.CreatureState = CreatureStateType.Running;
 
         OnExecuteSkill?.Invoke(_sender, _executeData.Targets, _skill, result.Value);
+    }
+
+    private void PlaySkillAnimations()
+    {
+        if (_skill.Definition.Animation.SenderAnimation is not null)
+            OnPlaySenderAnimation?.Invoke(_executeData.Sender, _skill.Definition.Animation.SenderAnimation);
+
+        if (_skill.Definition.Animation.TargetAnimation is not null)
+            OnPlayTargetsAnimation?.Invoke(_executeData.Targets, _skill.Definition.Animation.TargetAnimation);
     }
 
     private void VerifyDeadUnits()
@@ -73,6 +86,13 @@ public class AttackManager
                 OnUnitSlay?.Invoke(_principalTarget);
         }
     }
+
+    public void GoToIdlePhase()
+    {
+        CurrentPhase = AttackPhase.Idle;
+    }
+
+    #region Update
 
     public void Update()
     {
@@ -104,7 +124,7 @@ public class AttackManager
         {
             CurrentPhase = AttackPhase.Attacking;
             _sender.CreatureState = CreatureStateType.Attacking;
-            ResetDelayAttack();
+            ResetDelayAttack(_skill.Definition.Animation.ExecutionTime);
             return;
         }
 
@@ -154,16 +174,13 @@ public class AttackManager
         GoToIdlePhase();
     }
 
-    public void GoToIdlePhase()
-    {
-        CurrentPhase = AttackPhase.Idle;
-    }
+    #endregion
 
     #region Delay Manager
 
-    public void ResetDelayAttack()
+    public void ResetDelayAttack(float attackTime)
     {
-        _delayManager.ResetDelayAttackExecution();
+        _delayManager.ResetDelayAttackExecution(attackTime);
     }
 
     public bool HasAttackDelayFinished()
@@ -173,12 +190,12 @@ public class AttackManager
 
     public void ResetDelayTurn()
     {
-        _delayManager.ResetDelayAttackExecution();
+        _delayManager.ResetDelayTurnExecution();
     }
 
     public bool HasTurnDelayFinished()
     {
-        return _delayManager.HasDelayAttackExecutionComplete();
+        return _delayManager.HasDelayTurnExecutionComplete();
     }
 
     #endregion
