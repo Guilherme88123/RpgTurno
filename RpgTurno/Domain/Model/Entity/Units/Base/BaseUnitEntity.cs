@@ -1,12 +1,15 @@
 ﻿using Domain.Dto.Global;
+using Domain.Model.Effect.Base;
 using Domain.Model.Entity.Base;
 using Domain.Model.Entity.Units.Base.HealthBar;
 using Domain.Model.Entity.Units.Base.Skill.SkillTree;
 using Domain.Model.Entity.Units.Base.Stats;
+using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite;
 using Domain.Model.Texture.Sprite.CustomSprites;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Domain.Model.Entity.Units.Base;
 
@@ -18,6 +21,8 @@ public class BaseUnitEntity : BaseEntity
 
     private BaseSkillTree _skillTree;
     public List<UnitSkill> Skills { get; private set; }
+
+    public List<BaseEffect> Effects { get; } = new();
 
     public SpriteData Icon { get; protected set; }
 
@@ -123,6 +128,7 @@ public class BaseUnitEntity : BaseEntity
 
         base.Draw();
         DrawHealthBar();
+        DrawEffects();
 
         if (HasLevelUpAnimation)
             DrawLevelUpAnimation();
@@ -155,6 +161,27 @@ public class BaseUnitEntity : BaseEntity
         _healthBar.Draw(GlobalVariablesDto.SpriteBatchEntities);
     }
 
+    private void DrawEffects()
+    {
+        var index = 0;
+        foreach (var effect in Effects)
+        {
+            DrawEffectIconByIndex(effect.Icon, index);
+            index++;
+        }
+    }
+
+    private void DrawEffectIconByIndex(SpriteData icon, int index)
+    {
+        var iconSize = 24;
+        var indexMargin = iconSize * index;
+
+        var effectRectangle = new Rectangle((int)(PositionX + indexMargin), (int)(PositionY + SizeY + 32), iconSize, iconSize);
+
+        GlobalVariablesDto.SpriteBatchEntities.Draw(GlobalVariablesDto.Pixel, effectRectangle, Color.Gray);
+        icon.Draw(effectRectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
+    }
+
     protected virtual void DrawDeadAnimation()
     {
         _deadAnimation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
@@ -175,12 +202,26 @@ public class BaseUnitEntity : BaseEntity
     {
         var damageTaken = Stats.RecieveAttack(damage);
 
+        TickDamageRecieved();
+
+        return damageTaken;
+    }
+
+    public int RecieveTrueDamage(int damage)
+    {
+        var damageTaken = Stats.RecieveTrueDamage(damage);
+
+        TickDamageRecieved();
+
+        return damageTaken;
+    }
+
+    private void TickDamageRecieved()
+    {
         if (Stats.IsDead)
             MakeDead();
         else
             ResetTakeDamageDelay();
-
-        return damageTaken;
     }
 
     private void ResetTakeDamageDelay()
@@ -250,11 +291,54 @@ public class BaseUnitEntity : BaseEntity
 
     #endregion
 
-    #region Tick Cooldown
+    #region Turn Start
 
-    public void TickSkills()
+    public void OnTurnStart()
+    {
+        Tick();
+        ApplyEffectOnTurnStart();
+        RemoveExpiredEffects();
+    }
+
+    public void Tick()
     {
         Skills.ForEach(x => x.TickCooldown());
+        Effects.ForEach(x => x.TickDuration());
+    }
+
+    public void ApplyEffectOnTurnStart()
+    {
+        Effects.ForEach(x => x.OnTurnStart(this));
+    }
+
+    public void RemoveExpiredEffects()
+    {
+        var effectsToRemove = Effects.Where(x => x.HasFinished).ToList();
+        
+        foreach (var effect in effectsToRemove)
+            Effects.Remove(effect);
+    }
+
+    #endregion
+
+    #region Effects
+
+    public void AddEffect(BaseEffect effect)
+    {
+        Effects.Add(effect);
+        effect.OnApply(this);
+    }
+
+    public void ApplyReciveAttackEffects(SkillContext context)
+    {
+        foreach (var effect in Effects)
+            effect.OnReceiveAttack(context);
+    }
+
+    public void ApplyExecuteAttackEffects(SkillContext context)
+    {
+        foreach (var effect in Effects)
+            effect.OnAttack(context);
     }
 
     #endregion

@@ -6,6 +6,7 @@ using Domain.Enum.Stage;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Data;
+using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
@@ -32,7 +33,7 @@ public class BattleManager
 
     private List<BaseUnitEntity> _deadUnits = new();
 
-    public Action<BaseUnitEntity, List<BaseUnitEntity>, UnitSkill, int> OnSkillExecute { get; set; }
+    public Action<UnitSkill, SkillResult> OnSkillExecute { get; set; }
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
     public Action<BaseUnitEntity, bool> OnTurnStart { get; set; }
     public Action<bool> OnBattleFinish { get; set; }
@@ -252,7 +253,7 @@ public class BattleManager
 
     private void TickSkills(BaseUnitEntity unit)
     {
-        unit.TickSkills();
+        unit.OnTurnStart();
     }
 
     private void UpdateSkillSelect()
@@ -358,15 +359,15 @@ public class BattleManager
         _attackManager.StartAttack(new SkillExecuteData(sender, targets), _selectedSkill, IsEnemyUnit(sender));
     }
 
-    private void ExecuteAttack(BaseUnitEntity sender, List<BaseUnitEntity> targets, UnitSkill skill, int damage)
+    private void ExecuteAttack(UnitSkill skill, SkillResult result)
     {
-        OnSkillExecute?.Invoke(sender, targets, skill, damage);
+        OnSkillExecute?.Invoke(skill, result);
 
         _selectedSkill = null;
 
-        MoveUnitToDeadList(targets.Where(x => x.IsDead).ToList());
+        MoveUnitToDeadList(result.Targets.Where(x => x.IsDead).ToList());
 
-        if (targets.Any(x => x.IsDead))
+        if (result.Targets.Any(x => x.IsDead))
             VerifyPlayFinish();
     }
 

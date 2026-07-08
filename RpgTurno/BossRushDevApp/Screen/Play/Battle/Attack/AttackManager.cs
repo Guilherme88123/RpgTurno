@@ -3,6 +3,7 @@ using Domain.Enum;
 using Domain.Enum.Attack;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Skill.Base.Data;
+using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
@@ -30,7 +31,7 @@ public class AttackManager
 
     private readonly DelayManager _delayManager = new();
 
-    public Action<BaseUnitEntity, List<BaseUnitEntity>, UnitSkill, int> OnExecuteSkill { get; set; }
+    public Action<UnitSkill, SkillResult> OnExecuteSkill { get; set; }
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
     public Action<BaseUnitEntity> OnUnitSlay { get; set; }
 
@@ -66,7 +67,7 @@ public class AttackManager
         CurrentPhase = AttackPhase.MovingBack;
         _sender.CreatureState = CreatureStateType.Running;
 
-        OnExecuteSkill?.Invoke(_sender, _executeData.Targets, _skill, result.Value);
+        OnExecuteSkill?.Invoke(_skill, result);
     }
 
     private void PlaySkillAnimations()

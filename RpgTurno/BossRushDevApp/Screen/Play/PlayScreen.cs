@@ -5,6 +5,7 @@ using Domain.Enum.Component.Cursor;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Components.Base;
 using Domain.Model.Entity.Units.Base;
+using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
@@ -202,23 +203,32 @@ public class PlayScreen : BaseScreen
 
     #region Skill Text
 
-    private void AddSkillText(BaseUnitEntity sender, List<BaseUnitEntity> targets, UnitSkill skill, int value)
+    private void AddSkillText(UnitSkill skill, SkillResult result)
     {
-        var (valueText, color) = GetSkillStyleByType(skill.Definition.Type, value);
+        var (valuePrefix, color) = GetSkillStyleByType(skill.Definition.Type);
 
-        if (string.IsNullOrEmpty(valueText))
+        if (string.IsNullOrEmpty(valuePrefix))
             return;
 
-        foreach (var target in targets)
-            _damagesTextList.Add(new DamageTextComponent((int)target.Center.X, (int)target.Center.Y, valueText, color));
+        foreach (var context in result.Contexts)
+        {
+            var valueText = valuePrefix + context.Value.ToString();
+
+            _damagesTextList.Add(
+                new DamageTextComponent(
+                    (int)context.Target.Center.X, 
+                    (int)context.Target.Center.Y, 
+                    valueText, 
+                    color));
+        }
     }
 
-    private (string, Color) GetSkillStyleByType(SkillType type, int value)
+    private (string, Color) GetSkillStyleByType(SkillType type)
     {
         return type switch
         {
-            SkillType.Attack => ($"-{value}", Color.Red),
-            SkillType.Heal => ($"+{value}", Color.Green),
+            SkillType.Attack => ("-", Color.Red),
+            SkillType.Heal => ("+", Color.Green),
             _ => (string.Empty, Color.White),
         };
     }

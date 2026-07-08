@@ -8,6 +8,7 @@ public class LancerSkillTree : BaseSkillTree
 {
     protected override IReadOnlyList<UnitSkillDefinition> Definitions =>
     [
-        new UnitSkillDefinition(SkillCode.Pierce, 1)
+        new UnitSkillDefinition(SkillCode.Pierce, 1),
+        new UnitSkillDefinition(SkillCode.Defend, 1),
     ];
 }

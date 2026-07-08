@@ -28,8 +28,12 @@ public class HealSkill : BaseSkill
     {
         var healAmount = CalculateValue(skillData);
 
+        var context = new SkillContext(skillData.Sender, skillData.Target, healAmount);
+
+        skillData.Sender.ApplyExecuteAttackEffects(context);
+
         skillData.Target.RecieveHeal(healAmount);
 
-        return new SkillResult(skillData.Sender, skillData.Target, healAmount);
+        return new SkillResult(context);
     }
 }

@@ -9,5 +9,6 @@ public class WarriorSkillTree : BaseSkillTree
     protected override IReadOnlyList<UnitSkillDefinition> Definitions =>
     [
         new UnitSkillDefinition(SkillCode.Slash, 1),
+        new UnitSkillDefinition(SkillCode.Rage, 1),
     ];
 }

@@ -8,4 +8,6 @@ public enum SkillCode
     Curse,
     ArrowRain,
     Heal,
+    Defend,
+    Rage,
 }

@@ -40,9 +40,19 @@ public abstract class BaseUnitStats
     {
         var trueDamage = Math.Max(1, damage - Defense);
 
-        CurrentHealth = Math.Max(0, CurrentHealth - trueDamage);
+        return RecieveDamage(trueDamage);
+    }
 
-        return trueDamage;
+    public int RecieveTrueDamage(int trueDamage)
+    {
+        return RecieveDamage(trueDamage);
+    }
+
+    private int RecieveDamage(int damage)
+    {
+        CurrentHealth = Math.Max(0, CurrentHealth - damage);
+
+        return damage;
     }
 
     public void AddExperience(BaseUnitStats targetEliminatedStats)

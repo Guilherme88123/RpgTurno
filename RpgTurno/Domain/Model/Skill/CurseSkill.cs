@@ -27,8 +27,14 @@ public class CurseSkill : BaseSkill
     {
         var damage = CalculateValue(skillData);
 
+        var context = new SkillContext(skillData.Sender, skillData.Target, damage);
+
+        skillData.Sender.ApplyExecuteAttackEffects(context);
+
+        skillData.Target.ApplyReciveAttackEffects(context);
+
         skillData.Target.RecieveAttack(damage);
 
-        return new SkillResult(skillData.Sender, skillData.Target, damage);
+        return new SkillResult(context);
     }
 }

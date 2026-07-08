@@ -4,21 +4,16 @@ namespace Domain.Model.Skill.Base.Result;
 
 public record SkillResult
 {
-    public BaseUnitEntity Sender { get; set; }
-    public List<BaseUnitEntity> Targets { get; set; }
-    public int Value { get; set; }
+    public List<SkillContext> Contexts { get; set; }
+    public List<BaseUnitEntity> Targets => Contexts.Select(x => x.Target).ToList();
 
-    public SkillResult(BaseUnitEntity sender, List<BaseUnitEntity> targets, int damage)
+    public SkillResult(SkillContext context)
     {
-        Sender = sender;
-        Targets = targets;
-        Value = damage;
+        Contexts = [context];
     }
 
-    public SkillResult(BaseUnitEntity sender, BaseUnitEntity target, int damage)
+    public SkillResult(List<SkillContext> contexts)
     {
-        Sender = sender;
-        Targets = [target];
-        Value = damage;
+        Contexts = contexts;
     }
 }

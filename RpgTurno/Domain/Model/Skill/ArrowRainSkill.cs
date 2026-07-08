@@ -4,6 +4,7 @@ using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
+using System.Reflection;
 
 namespace Domain.Model.Skill;
 
@@ -25,11 +26,23 @@ public class ArrowRainSkill : BaseSkill
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
-        var damage = CalculateValue(skillData);
+        List<SkillContext> contextList = new List<SkillContext>();
 
         foreach (var target in skillData.Targets)
+        {
+            var damage = CalculateValue(skillData);
+
+            var context = new SkillContext(skillData.Sender, target, damage);
+
+            skillData.Sender.ApplyExecuteAttackEffects(context);
+
+            target.ApplyReciveAttackEffects(context);
+
             target.RecieveAttack(damage);
 
-        return new SkillResult(skillData.Sender, skillData.Target, damage);
+            contextList.Add(context);
+        }
+
+        return new SkillResult(contextList);
     }
 }
