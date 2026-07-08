@@ -150,6 +150,7 @@ public static class SpriteConst
     public const string SmallDustEffect = "SmallDustEffect";
     public const string HealEffect = "HealEffect";
     public const string LevelUpEffect = "LevelUpEffect";
+    public const string CurseEffect = "CurseEffect";
 
     #endregion
 }

@@ -1,9 +1,11 @@
 ﻿using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
+using Domain.Model.Effect;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
+using Domain.Model.Texture.Sprite.CustomSprites;
 
 namespace Domain.Model.Skill;
 
@@ -21,7 +23,7 @@ public class CurseSkill : BaseSkill
 
     public override int Cooldown => 0;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(new CurseAnimation(), null, true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
@@ -32,6 +34,8 @@ public class CurseSkill : BaseSkill
         skillData.Sender.ApplyExecuteAttackEffects(context);
 
         skillData.Target.ApplyReciveAttackEffects(context);
+
+        skillData.Target.AddEffect(new CurseEffect());
 
         skillData.Target.RecieveAttack(damage);
 
