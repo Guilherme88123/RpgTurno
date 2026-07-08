@@ -33,7 +33,6 @@ public class BattleManager
 
     private List<BaseUnitEntity> _deadUnits = new();
 
-    public Action<UnitSkill, SkillResult> OnSkillExecute { get; set; }
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
     public Action<BaseUnitEntity, bool> OnTurnStart { get; set; }
     public Action<bool> OnBattleFinish { get; set; }
@@ -361,8 +360,6 @@ public class BattleManager
 
     private void ExecuteAttack(UnitSkill skill, SkillResult result)
     {
-        OnSkillExecute?.Invoke(skill, result);
-
         _selectedSkill = null;
 
         MoveUnitToDeadList(result.Targets.Where(x => x.IsDead).ToList());

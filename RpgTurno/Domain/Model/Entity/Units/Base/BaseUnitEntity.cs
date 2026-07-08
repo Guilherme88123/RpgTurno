@@ -3,6 +3,7 @@ using Domain.Model.Effect.Base;
 using Domain.Model.Entity.Base;
 using Domain.Model.Entity.Units.Base.HealthBar;
 using Domain.Model.Entity.Units.Base.Skill.SkillTree;
+using Domain.Model.Entity.Units.Base.Skill.Text;
 using Domain.Model.Entity.Units.Base.Stats;
 using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
@@ -49,6 +50,8 @@ public class BaseUnitEntity : BaseEntity
     private bool HasLevelUpAnimation => _currentDelayLevelUpAnimation > 0;
     private LevelUpAnimation _levelUpAnimation = new();
 
+    private List<SkillResultTextComponent> _skillResultTexts = new();
+
     public BaseUnitEntity(BaseUnitStats stats, BaseSkillTree skillTree)
     {
         Stats = stats;
@@ -69,6 +72,7 @@ public class BaseUnitEntity : BaseEntity
         UpdateDelays();
         UpdateHealthBarComponent();
         UpdateColorEffect();
+        UpdateSkillTexts();
 
         if (IsDead)
             VerifyDeadDelayFinish();
@@ -115,6 +119,12 @@ public class BaseUnitEntity : BaseEntity
         _levelUpAnimation.Update();
     }
 
+    private void UpdateSkillTexts()
+    {
+        _skillResultTexts.ForEach(x => x.Update(GlobalVariablesDto.GameTime));
+        _skillResultTexts.RemoveAll(x => x.IsDestroyed);
+    }
+
     #endregion
 
     #region Draw
@@ -133,6 +143,8 @@ public class BaseUnitEntity : BaseEntity
 
         if (HasLevelUpAnimation)
             DrawLevelUpAnimation();
+
+        DrawSkillTexts();
     }
 
     public void DrawMap(int positionX, int positionY)
@@ -193,6 +205,11 @@ public class BaseUnitEntity : BaseEntity
         _levelUpAnimation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
     }
 
+    private void DrawSkillTexts()
+    {
+        _skillResultTexts.ForEach(x => x.Draw(GlobalVariablesDto.SpriteBatchEntities));
+    }
+
     #endregion
 
     #region Functions
@@ -204,6 +221,7 @@ public class BaseUnitEntity : BaseEntity
         var damageTaken = Stats.RecieveAttack(damage);
 
         TickDamageRecieved();
+        AddAttackSkillText(damageTaken);
 
         return damageTaken;
     }
@@ -213,6 +231,7 @@ public class BaseUnitEntity : BaseEntity
         var damageTaken = Stats.RecieveTrueDamage(damage);
 
         TickDamageRecieved();
+        AddAttackSkillText(damageTaken);
 
         return damageTaken;
     }
@@ -236,11 +255,12 @@ public class BaseUnitEntity : BaseEntity
 
     public int RecieveHeal(int healAmount)
     {
-        var damageTaken = Stats.HealHealth(healAmount);
+        var trueHealAmount = Stats.HealHealth(healAmount);
 
         ResetTakeHealDelay();
+        AddHealthSkillText(trueHealAmount);
 
-        return damageTaken;
+        return trueHealAmount;
     }
 
     private void ResetTakeHealDelay()
@@ -340,6 +360,25 @@ public class BaseUnitEntity : BaseEntity
     {
         foreach (var effect in Effects)
             effect.OnAttack(context);
+    }
+
+    #endregion
+
+    #region Skill Result Text
+
+    private void AddAttackSkillText(int damage)
+    {
+        AddSkillText($"-{damage}", Color.Red);
+    }
+
+    private void AddHealthSkillText(int healthAmount)
+    {
+        AddSkillText($"+{healthAmount}", Color.Green);
+    }
+
+    public void AddSkillText(string text, Color color)
+    {
+        _skillResultTexts.Add(new((int)Center.X, (int)Center.Y, text, color));
     }
 
     #endregion

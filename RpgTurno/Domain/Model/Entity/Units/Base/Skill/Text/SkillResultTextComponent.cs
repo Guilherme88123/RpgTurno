@@ -2,16 +2,16 @@
 using Domain.Model.Components.Text;
 using Microsoft.Xna.Framework;
 
-namespace RpgTurno.Custom.CustomComponents.Play.DamageText;
+namespace Domain.Model.Entity.Units.Base.Skill.Text;
 
-public class DamageTextComponent : TextComponent
+public class SkillResultTextComponent : TextComponent
 {
     private const float DelayDissapear = 1.0f;
     private float _currentDelayDissapear = DelayDissapear;
 
     public bool IsDestroyed { get; private set; }
 
-    public DamageTextComponent(int positionX, int positionY, string text, Color color)
+    public SkillResultTextComponent(int positionX, int positionY, string text, Color color)
     {
         positionX = GetRandomByPositionX(positionX);
 

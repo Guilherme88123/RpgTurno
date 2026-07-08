@@ -2,10 +2,8 @@
 using Domain.Dto.Global;
 using Domain.Enum.Battle;
 using Domain.Enum.Component.Cursor;
-using Domain.Enum.Skill.Type;
 using Domain.Model.Components.Base;
 using Domain.Model.Entity.Units.Base;
-using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
@@ -13,7 +11,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.Custom.CustomComponents.Play.Background;
 using RpgTurno.Custom.CustomComponents.Play.Banners;
-using RpgTurno.Custom.CustomComponents.Play.DamageText;
 using RpgTurno.Custom.CustomComponents.Play.Selection;
 using RpgTurno.Custom.CustomComponents.Play.TurnQueue;
 using RpgTurno.Custom.CustomComponents.Play.Wave;
@@ -38,7 +35,6 @@ public class PlayScreen : BaseScreen
     private TurnQueueComponent _turnQueueComponent;
     private CurrentUnitTurnIndicatorComponent _currentTurnUnitComponent;
 
-    private readonly List<DamageTextComponent> _damagesTextList = new();
     private readonly List<PositionableAnimation> _skillAnimationsList = new();
 
     private SkillSelectBannerComponent _skillSelectComponent;
@@ -50,7 +46,6 @@ public class PlayScreen : BaseScreen
     protected override List<BaseComponent> InitializeComponents()
     {
         _battleManager.Initialize(GetAllies(), GameSession.CurrentStageCode);
-        _battleManager.OnSkillExecute += AddSkillText;
         _battleManager.OnTurnStart += OnTurnStart;
         _battleManager.OnTurnFinish += OnTurnFinish;
         _battleManager.OnBattleFinish += BattleFinish;
@@ -101,7 +96,6 @@ public class PlayScreen : BaseScreen
         _battleManager.Update(gameTime);
 
         UpdateTurnComponents();
-        UpdateSkillTexts(gameTime);
         UpdateWaveIndicator();
         UpdateSkillAnimations();
 
@@ -197,46 +191,6 @@ public class PlayScreen : BaseScreen
     private void SetSelectedSkill(UnitSkill skill)
     {
         _battleManager.SetPlayerSelectedSkill(skill);
-    }
-
-    #endregion
-
-    #region Skill Text
-
-    private void AddSkillText(UnitSkill skill, SkillResult result)
-    {
-        var (valuePrefix, color) = GetSkillStyleByType(skill.Definition.Type);
-
-        if (string.IsNullOrEmpty(valuePrefix))
-            return;
-
-        foreach (var context in result.Contexts)
-        {
-            var valueText = valuePrefix + context.Value.ToString();
-
-            _damagesTextList.Add(
-                new DamageTextComponent(
-                    (int)context.Target.Center.X, 
-                    (int)context.Target.Center.Y, 
-                    valueText, 
-                    color));
-        }
-    }
-
-    private (string, Color) GetSkillStyleByType(SkillType type)
-    {
-        return type switch
-        {
-            SkillType.Attack => ("-", Color.Red),
-            SkillType.Heal => ("+", Color.Green),
-            _ => (string.Empty, Color.White),
-        };
-    }
-
-    private void UpdateSkillTexts(GameTime gameTime)
-    {
-        _damagesTextList.ForEach(x => x.Update(gameTime));
-        _damagesTextList.RemoveAll(x => x.IsDestroyed);
     }
 
     #endregion
@@ -386,7 +340,6 @@ public class PlayScreen : BaseScreen
         DrawBackground();
         DrawBattle();
         DrawSkillAnimations();
-        DrawDamageTexts();
 
         base.Draw();
     }
@@ -404,11 +357,6 @@ public class PlayScreen : BaseScreen
     private void DrawSkillAnimations()
     {
         _skillAnimationsList.ForEach(x => x.Draw());
-    }
-
-    private void DrawDamageTexts()
-    {
-        _damagesTextList.ForEach(x => x.Draw(GlobalVariablesDto.SpriteBatchInterface));
     }
 
     #endregion
