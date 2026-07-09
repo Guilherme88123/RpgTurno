@@ -509,13 +509,13 @@ public class BattleManager
     public bool HasCursorHoveringEntity()
     {
         var mouse = GlobalVariablesDto.MouseState;
-        return GetAllUnits().Any(x => x.Rectangle.Contains(mouse.X, mouse.Y));
+        return GetAllUnits().Any(x => x.IsHovering(mouse.Position));
     }
 
     public BaseUnitEntity GetCursorHoveringEntity()
     {
         var mouse = GlobalVariablesDto.MouseState;
-        return GetAllUnits().First(x => x.Rectangle.Contains(mouse.X, mouse.Y));
+        return GetAllUnits().First(x => x.IsHovering(mouse.Position));
     }
 
     #endregion

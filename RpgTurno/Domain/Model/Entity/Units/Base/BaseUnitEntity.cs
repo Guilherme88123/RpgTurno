@@ -12,6 +12,8 @@ using Domain.Model.Texture.Sprite.Custom.Sprite;
 using Domain.Model.Texture.Sprite.CustomSprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using RpgTurno.Custom.Component.Play.Banners;
 
 namespace Domain.Model.Entity.Units.Base;
 
@@ -29,6 +31,7 @@ public class BaseUnitEntity : BaseEntity
     public SpriteData Icon { get; protected set; }
 
     private readonly HealthBarComponent _healthBar;
+    private readonly EffectDetailsBannerComponent _effectBanner;
 
     public bool IsDead { get; protected set; }
 
@@ -61,6 +64,7 @@ public class BaseUnitEntity : BaseEntity
         ReloadSkills();
 
         _healthBar = new HealthBarComponent(Stats.MaxHealth, Stats.CurrentHealth);
+        _effectBanner = new();
     }
 
     #region Update
@@ -128,6 +132,12 @@ public class BaseUnitEntity : BaseEntity
 
     private void UpdateEffects()
     {
+        UpdateEffectsRectangle();
+        UpdateEffectsHover();
+    }
+
+    private void UpdateEffectsRectangle()
+    {
         var iconSize = 24;
         var margin = 2;
 
@@ -140,6 +150,20 @@ public class BaseUnitEntity : BaseEntity
 
             index++;
         }
+    }
+
+    private void UpdateEffectsHover()
+    {
+        var mousePosition = GlobalVariablesDto.MouseState.Position;
+        var isHovering = IsHoveringEffect(mousePosition);
+
+        _effectBanner.IsVisible = isHovering;
+
+        if (!isHovering)
+            return;
+
+        var unitEffect = GetHoveringEffect(mousePosition);
+        _effectBanner.SetHoverSkillButton(unitEffect.Effect, unitEffect.Rectangle);
     }
 
     #endregion
@@ -162,6 +186,7 @@ public class BaseUnitEntity : BaseEntity
             DrawLevelUpAnimation();
 
         DrawSkillTexts();
+        DrawEffectBanner();
     }
 
     public void DrawMap(int positionX, int positionY)
@@ -215,9 +240,39 @@ public class BaseUnitEntity : BaseEntity
         _skillResultTexts.ForEach(x => x.Draw(GlobalVariablesDto.SpriteBatchEntities));
     }
 
+    private void DrawEffectBanner()
+    {
+        if (_effectBanner.IsVisible)
+            _effectBanner.Draw(GlobalVariablesDto.SpriteBatchInterface);
+    }
+
     #endregion
 
     #region Functions
+
+    #region Hover
+
+    public bool IsHovering(Point mousePosition)
+    {
+        return IsHoveringUnit(mousePosition) || IsHoveringEffect(mousePosition);
+    }
+
+    private bool IsHoveringUnit(Point mousePosition)
+    {
+        return Rectangle.Contains(mousePosition);
+    }
+
+    private bool IsHoveringEffect(Point mousePosition)
+    {
+        return Effects.Any(x => x.Rectangle.Contains(mousePosition));
+    }
+
+    private UnitEffect GetHoveringEffect(Point mousePosition)
+    {
+        return Effects.First(x => x.Rectangle.Contains(mousePosition));
+    }
+
+    #endregion
 
     #region Take Damage
 

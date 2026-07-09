@@ -1,9 +1,8 @@
 ﻿using Domain.Dto.Global;
 using Domain.Model.Components.Text;
-using Domain.Model.Effect.Base;
 using Domain.Model.MenuComponents.Frame;
+using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite.Custom.Sprite;
-using Microsoft.Xna.Framework;
 
 namespace RpgTurno.Custom.Component.Play.Banners;
 
@@ -14,7 +13,9 @@ public class SkillDetailsBannerComponent : FrameComponent
 
     private readonly TextComponent _nameText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly TextComponent _descriptionText = new(positionXByCenter: true);
-    private readonly TextComponent _durationText = new(positionXByCenter: true, positionYByCenter: true);
+    private readonly TextComponent _targetTypeText = new(positionXByCenter: true, positionYByCenter: true);
+    private readonly TextComponent _targetAmountText = new(positionXByCenter: true, positionYByCenter: true);
+    private readonly TextComponent _cooldownText = new(positionXByCenter: true, positionYByCenter: true);
 
     public SkillDetailsBannerComponent()
     {
@@ -22,25 +23,29 @@ public class SkillDetailsBannerComponent : FrameComponent
 
         AddChild(_nameText);
         AddChild(_descriptionText);
-        AddChild(_durationText);
+        AddChild(_targetTypeText);
+        AddChild(_targetAmountText);
+        AddChild(_cooldownText);
 
         Bounds = new(0, 0, _sizeX, _sizeY);
     }
 
-    public void SetHoverSkillButton(BaseEffect effect, Rectangle rectangle)
+    public void SetHoverSkillButton(SkillSelectButtonComponent button)
     {
-        var x = rectangle.X + rectangle.Width / 2 - _sizeX / 2;
-        var y = rectangle.Y - _sizeY;
+        var x = button.Bounds.X + button.Bounds.Width / 2 - _sizeX / 2;
+        var y = button.Bounds.Y - _sizeY;
 
-        SetSkill(effect);
+        SetSkill(button.GetSkill());
         SetPosition(x, y);
     }
 
-    private void SetSkill(BaseEffect effect)
+    private void SetSkill(UnitSkill skill)
     {
-        _nameText.SetText(effect.Name);
-        _descriptionText.SetText(effect.Description);
-        _durationText.SetText($"Duration: {effect.Duration}");
+        _nameText.SetText(skill.Definition.Name);
+        _descriptionText.SetText(skill.Definition.Description);
+        _targetTypeText.SetText($"Target Type: {skill.Definition.TargetType.ToString()}");
+        _targetAmountText.SetText($"Target Amount: {skill.Definition.TargetAmount.ToString()}");
+        _cooldownText.SetText($"Cooldown: {skill.Definition.Cooldown.ToString()}");
     }
 
     public override void SetPosition(int positionX, int positionY)
@@ -50,7 +55,9 @@ public class SkillDetailsBannerComponent : FrameComponent
 
         SetFieldPositionByIndex(_nameText, 1);
         SetFieldPositionByIndex(_descriptionText, 2);
-        SetFieldPositionByIndex(_durationText, 5);
+        SetFieldPositionByIndex(_targetTypeText, 5);
+        SetFieldPositionByIndex(_targetAmountText, 6);
+        SetFieldPositionByIndex(_cooldownText, 7);
     }
 
     private int ApplyBounce(int baseValue)

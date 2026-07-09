@@ -8,7 +8,7 @@ namespace Domain.Model.Effect;
 public class DefendingEffect : BaseEffect
 {
     public override string Name => "Defense";
-    public override string Description => "This unit is on a defense posture, reducing damage taken by 30%";
+    public override string Description => "This unit is on \na defense posture, \nreducing damage \ntaken by 30%";
     public override SpriteData Icon => new ShieldIconSprite();
 
     public DefendingEffect() : base(duration: 1)
