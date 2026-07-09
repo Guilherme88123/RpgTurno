@@ -24,7 +24,7 @@ public class BaseUnitEntity : BaseEntity
     private BaseSkillTree _skillTree;
     public List<UnitSkill> Skills { get; private set; }
 
-    public List<BaseEffect> Effects { get; } = new();
+    public List<UnitEffect> Effects { get; } = new();
 
     public SpriteData Icon { get; protected set; }
 
@@ -73,6 +73,7 @@ public class BaseUnitEntity : BaseEntity
         UpdateHealthBarComponent();
         UpdateColorEffect();
         UpdateSkillTexts();
+        UpdateEffects();
 
         if (IsDead)
             VerifyDeadDelayFinish();
@@ -123,6 +124,22 @@ public class BaseUnitEntity : BaseEntity
     {
         _skillResultTexts.ForEach(x => x.Update(GlobalVariablesDto.GameTime));
         _skillResultTexts.RemoveAll(x => x.IsDestroyed);
+    }
+
+    private void UpdateEffects()
+    {
+        var iconSize = 24;
+        var margin = 2;
+
+        var index = 0;
+        foreach (var unitEffect in Effects)
+        {
+            var indexMargin = (iconSize + margin) * index;
+
+            unitEffect.Rectangle = new Rectangle((int)(PositionX + indexMargin), (int)(PositionY + SizeY + 32), iconSize, iconSize);
+
+            index++;
+        }
     }
 
     #endregion
@@ -176,23 +193,11 @@ public class BaseUnitEntity : BaseEntity
 
     private void DrawEffects()
     {
-        var index = 0;
-        foreach (var effect in Effects)
+        foreach (var unitEffect in Effects)
         {
-            DrawEffectIconByIndex(effect.Icon, index);
-            index++;
+            new ScrollMiddleBannerSprite().Draw(unitEffect.Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
+            unitEffect.Effect.Icon.Draw(unitEffect.Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
         }
-    }
-
-    private void DrawEffectIconByIndex(SpriteData icon, int index)
-    {
-        var iconSize = 24;
-        var indexMargin = iconSize * index;
-
-        var effectRectangle = new Rectangle((int)(PositionX + indexMargin), (int)(PositionY + SizeY + 32), iconSize, iconSize);
-
-        new ScrollMiddleBannerSprite().Draw(effectRectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
-        icon.Draw(effectRectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
     }
 
     protected virtual void DrawDeadAnimation()
@@ -324,17 +329,17 @@ public class BaseUnitEntity : BaseEntity
     public void Tick()
     {
         Skills.ForEach(x => x.TickCooldown());
-        Effects.ForEach(x => x.TickDuration());
+        Effects.ForEach(x => x.Effect.TickDuration());
     }
 
     public void ApplyEffectOnTurnStart()
     {
-        Effects.ForEach(x => x.OnTurnStart(this));
+        Effects.ForEach(x => x.Effect.OnTurnStart(this));
     }
 
     public void RemoveExpiredEffects()
     {
-        var effectsToRemove = Effects.Where(x => x.HasFinished).ToList();
+        var effectsToRemove = Effects.Where(x => x.Effect.HasFinished).ToList();
         
         foreach (var effect in effectsToRemove)
             Effects.Remove(effect);
@@ -344,23 +349,33 @@ public class BaseUnitEntity : BaseEntity
 
     #region Effects
 
+    #region Apply
+
     public void AddEffect(BaseEffect effect)
     {
-        Effects.Add(effect);
+        Effects.Add(new(effect));
         effect.OnApply(this);
     }
 
     public void ApplyReciveAttackEffects(SkillContext context)
     {
-        foreach (var effect in Effects)
-            effect.OnReceiveAttack(context);
+        foreach (var unitEffect in Effects)
+            unitEffect.Effect.OnReceiveAttack(context);
     }
 
     public void ApplyExecuteAttackEffects(SkillContext context)
     {
-        foreach (var effect in Effects)
-            effect.OnAttack(context);
+        foreach (var unitEffect in Effects)
+            unitEffect.Effect.OnAttack(context);
     }
+
+    #endregion
+
+    #region Hover
+
+    //public bool IsHovering
+
+    #endregion
 
     #endregion
 
@@ -384,4 +399,22 @@ public class BaseUnitEntity : BaseEntity
     #endregion
 
     #endregion
+}
+
+public class UnitEffect
+{
+    public BaseEffect Effect { get; set; }
+    public Rectangle Rectangle { get; set; }
+
+    public UnitEffect(BaseEffect effect, Rectangle rectangle)
+    {
+        Effect = effect;
+        Rectangle = rectangle;
+    }
+
+    public UnitEffect(BaseEffect effect)
+    {
+        Effect = effect;
+        Rectangle = Rectangle.Empty;
+    }
 }
