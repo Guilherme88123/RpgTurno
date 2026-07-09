@@ -108,7 +108,7 @@ public static class SpriteConst
     public const string SongIcon = "SongIcon";
     public const string IndicatorIcon = "IndicatorIcon";
     public const string HeartIcon = "HeartIcon";
-    public const string StarIcon = "StarIcon";
+    public const string PurpleStarIcon = "StarIcon";
     public const string ConfirmIcon = "ConfirmIcon";
     public const string BootIcon = "BootIcon";
     public const string YellowStarIcon = "YellowStarIcon";

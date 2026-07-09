@@ -55,7 +55,7 @@ public class PlayScreen : BaseScreen
         _selectionAreaComponent = new();
 
         _focusedUnitBannerComponent = new();
-        _focusedUnitBannerComponent.SetPosition(50, 300);
+        _focusedUnitBannerComponent.SetPosition(70, 204);
 
         _backgroundImageComponent = new();
 
@@ -338,10 +338,11 @@ public class PlayScreen : BaseScreen
     public override void Draw()
     {
         DrawBackground();
-        DrawBattle();
         DrawSkillAnimations();
 
         base.Draw();
+
+        DrawBattle();
     }
 
     private void DrawBackground()

@@ -1,19 +1,15 @@
-﻿using Domain.Const.Sprite;
-using Domain.Dto.Global;
-using Domain.Model.Components.Image;
+﻿using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.MenuComponents.Frame;
-using Domain.Model.Texture.Sprite;
 using Domain.Model.Texture.Sprite.Custom.Sprite;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace RpgTurno.Custom.CustomComponents.Play.Banners;
 
 public class UnitBannerComponent : FrameComponent
 {
-    private const int _fixedSlice = 112;
+    private const int _iconSize = 128;
 
     private readonly TextComponent _nameText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly TextComponent _healtText = new();
@@ -22,15 +18,13 @@ public class UnitBannerComponent : FrameComponent
     private readonly TextComponent _experienceText = new();
     private readonly TextComponent _speedText = new();
 
-    private readonly ImageComponent _healthIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.HeartIcon)), 32, 32);
-    private readonly ImageComponent _defenseIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ShieldIcon)), 32, 32);
-    private readonly ImageComponent _damageIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SwordIcon)), 32, 32);
-    private readonly ImageComponent _experienceIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.StarIcon)), 32, 32);
-    private readonly ImageComponent _speedIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.BootIcon)), 32, 32);
+    private readonly ImageComponent _healthIcon = new(new HeartIconSprite(), 32, 32);
+    private readonly ImageComponent _defenseIcon = new(new ShieldIconSprite(), 32, 32);
+    private readonly ImageComponent _damageIcon = new(new SwordIconSprite(), 32, 32);
+    private readonly ImageComponent _experienceIcon = new(new PurpleStarIconSprite(), 32, 32);
+    private readonly ImageComponent _speedIcon = new(new BootIconSprite(), 32, 32);
 
-    private readonly ImageComponent _unitIcon = new(new SpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericAvatar)), 128, 128);
-
-    private bool _isEnemyUnit;
+    private readonly ImageComponent _unitIcon = new(new SwordIconSprite(), _iconSize, _iconSize);
 
     public UnitBannerComponent()
     {
@@ -49,7 +43,7 @@ public class UnitBannerComponent : FrameComponent
         AddChild(_speedIcon);
         AddChild(_unitIcon);
 
-        Bounds = new Rectangle(0, 0, 300, 365);
+        Bounds = new Rectangle(0, 0, 320, 480);
     }
 
     public void SetFocusedUnit(BaseUnitEntity focusedEntity, bool isEnemy)
@@ -61,7 +55,9 @@ public class UnitBannerComponent : FrameComponent
         _speedText.SetText(focusedEntity.Stats.Speed.ToString());
         _experienceText.SetText($"{focusedEntity.Stats.CurrentExperience}/{focusedEntity.Stats.MaxExperience}");
         _unitIcon.SetImage(focusedEntity.Icon);
-        _isEnemyUnit = isEnemy;
+
+        _experienceIcon.IsVisible = !isEnemy;
+        _experienceText.IsVisible = !isEnemy;
 
         SetPosition(Bounds.X, Bounds.Y);
     }
@@ -70,31 +66,54 @@ public class UnitBannerComponent : FrameComponent
     {
         base.SetPosition(positionX, positionY);
 
-        _unitIcon.SetPosition(positionX + Bounds.Width / 2 - 64, positionY - 20);
+        _unitIcon.SetPosition(Bounds.Center.X - _iconSize / 2, Bounds.Y + _iconSize / 2);
 
-        var textX = positionX + _fixedSlice + 10;
-        var textY = positionY + 105;
+        SetFieldPositionByIndex(_nameText, null, 0);
+        SetFieldPositionByIndex(_healtText, _healthIcon, 1);
+        SetFieldPositionByIndex(_damageText, _damageIcon, 2);
+        SetFieldPositionByIndex(_defenseText, _defenseIcon, 3);
+        SetFieldPositionByIndex(_speedText, _speedIcon, 4);
+        SetFieldPositionByIndex(_experienceText, _experienceIcon, 5);
+    }
 
-        _nameText.SetPosition(positionX + Bounds.Width / 2, textY);
+    private void SetFieldPositionByIndex(TextComponent textComponent, ImageComponent imageComponent, int index)
+    {
+        SetTextPositionByIndex(textComponent, index);
 
+        if (imageComponent is not null)
+            SetImagePositionByIndex(imageComponent, index);
+    }
+
+    private void SetTextPositionByIndex(TextComponent textComponent, int index)
+    {
+        var positionY = Bounds.Y + GetYOffsetByIndex(index);
+        var positionX = textComponent.IsPositionXByCenter ? Bounds.X + Bounds.Width / 2 : Bounds.X + GetXOffset();
+
+        textComponent.SetPosition(positionX, positionY);
+    }
+
+    private void SetImagePositionByIndex(ImageComponent imageComponent, int index)
+    {
         var iconMarginX = 37;
         var iconMarginY = 5;
 
-        _healthIcon.SetPosition(textX - iconMarginX, textY + 35 - iconMarginY);
-        _healtText.SetPosition(textX, textY + 35);
+        var positionY = Bounds.Y + GetYOffsetByIndex(index) - iconMarginY;
+        var positionX = Bounds.X + GetXOffset() - iconMarginX;
 
-        _damageIcon.SetPosition(textX - iconMarginX, textY + 65 - iconMarginY);
-        _damageText.SetPosition(textX, textY + 65);
+        imageComponent.SetPosition(positionX, positionY);
+    }
 
-        _defenseIcon.SetPosition(textX - iconMarginX, textY + 95 - iconMarginY);
-        _defenseText.SetPosition(textX, textY + 95);
+    private int GetYOffsetByIndex(int index)
+    {
+        var marginY = 204;
+        var textHeight = 32;
 
-        _speedIcon.SetPosition(textX - iconMarginX, textY + 125 - iconMarginY);
-        _speedText.SetPosition(textX, textY + 125);
+        return marginY + textHeight * index;
+    }
 
-        _experienceIcon.IsVisible = !_isEnemyUnit;
-        _experienceText.IsVisible = !_isEnemyUnit;
-        _experienceIcon.SetPosition(textX - iconMarginX, textY + 155 - iconMarginY);
-        _experienceText.SetPosition(textX, textY + 155);
+    private int GetXOffset()
+    {
+        var marginX = 122;
+        return marginX;
     }
 }
