@@ -10,6 +10,9 @@ namespace Domain.Model.Components.Cursor;
 
 public class CursorComponent : BaseComponent
 {
+    private const int _hotspotX = 25;
+    private const int _hotspotY = 21;
+
     private CursorStateType _state;
 
     public CursorComponent(Texture2D normalSPrite, Texture2D hoverSprite, Texture2D blockSprite)
@@ -30,7 +33,7 @@ public class CursorComponent : BaseComponent
         base.Update(gameTime);
 
         var mouse = GlobalVariablesDto.MouseState;
-        var cursorRectangle = new Rectangle(mouse.X, mouse.Y, Bounds.Width, Bounds.Height);
+        var cursorRectangle = new Rectangle(mouse.X - _hotspotX, mouse.Y - _hotspotY, Bounds.Width, Bounds.Height);
         Bounds = cursorRectangle;
 
         AnimationManager.Update(_state);

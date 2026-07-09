@@ -55,11 +55,11 @@ public class EffectDetailsBannerComponent : FrameComponent
         var bouncedPositionY = ApplyBounce(positionY);
         base.SetPosition(positionX, bouncedPositionY);
 
-        _effectIcon.SetPosition(Bounds.X + Bounds.Width / 2 - _iconSize / 2, Bounds.Y - _iconSize / 2);
+        _effectIcon.SetPosition(Bounds.X + Bounds.Width / 2 - _iconSize / 2, Bounds.Y + _iconSize / 2);
 
-        SetFieldPositionByIndex(_nameText, 1);
-        SetFieldPositionByIndex(_descriptionText, 2);
-        SetFieldPositionByIndex(_durationText, 6);
+        SetFieldPositionByIndex(_nameText, 3);
+        SetFieldPositionByIndex(_descriptionText, 4);
+        SetFieldPositionByIndex(_durationText, 8);
     }
 
     private int ApplyBounce(int baseValue)
