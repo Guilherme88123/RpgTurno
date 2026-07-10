@@ -139,12 +139,12 @@ public class BattleManager
 
     private void UpdateTurn()
     {
+        if (!CanTurnContinue())
+            return;
+
         VerifyDeadUnits();
         VerifyWaveFinish();
         VerifyPlayFinish();
-
-        if (!CanTurnContinue())
-            return;
 
         switch (BattleState)
         {
