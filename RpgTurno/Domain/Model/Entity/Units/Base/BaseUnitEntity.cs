@@ -43,10 +43,7 @@ public class BaseUnitEntity : BaseEntity
     private float _currentDelayHealTakenFlash;
     private bool HasTakeHeal => _currentDelayHealTakenFlash > 0;
 
-    private const float DelayDeadAnimation = 1f;
-    private float _currentDelayDeadAnimation;
-    private bool HasDeadAnimationFinished => _currentDelayDeadAnimation == 0;
-    private LargeDustAnimation _deadAnimation = new();
+    private LargeDustAnimation _deadAnimation;
 
     private const float DelayLevelUpAnimation = 1.1f;
     private float _currentDelayLevelUpAnimation;
@@ -65,6 +62,9 @@ public class BaseUnitEntity : BaseEntity
 
         _healthBar = new HealthBarComponent(Stats.MaxHealth, Stats.CurrentHealth);
         _effectBanner = new();
+
+        _deadAnimation = new();
+        _deadAnimation.IsLoop = false;
     }
 
     #region Update
@@ -90,7 +90,6 @@ public class BaseUnitEntity : BaseEntity
     {
         _currentDelayDamageTakenFlash = Math.Max(0, _currentDelayDamageTakenFlash - GlobalVariablesDto.DeltaTime);
         _currentDelayHealTakenFlash = Math.Max(0, _currentDelayHealTakenFlash - GlobalVariablesDto.DeltaTime);
-        _currentDelayDeadAnimation = Math.Max(0, _currentDelayDeadAnimation - GlobalVariablesDto.DeltaTime);
         _currentDelayLevelUpAnimation = Math.Max(0, _currentDelayLevelUpAnimation - GlobalVariablesDto.DeltaTime);
     }
 
@@ -115,7 +114,7 @@ public class BaseUnitEntity : BaseEntity
     {
         _deadAnimation.Update();
 
-        if (HasDeadAnimationFinished)
+        if (_deadAnimation.IsFinished)
             Destroy();
     }
 
@@ -340,14 +339,7 @@ public class BaseUnitEntity : BaseEntity
 
         IsDead = true;
 
-        ResetDelayDeadAnimation();
-
         _deadAnimation.Reset();
-    }
-
-    private void ResetDelayDeadAnimation()
-    {
-        _currentDelayDeadAnimation = DelayDeadAnimation;
     }
 
     #endregion

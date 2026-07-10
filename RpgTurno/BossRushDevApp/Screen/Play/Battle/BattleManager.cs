@@ -77,6 +77,11 @@ public class BattleManager
         return [.. Allies, .. Enemies, .. _deadUnits];
     }
 
+    public List<BaseUnitEntity> GetLiveUnits()
+    {
+        return [.. Allies, .. Enemies];
+    }
+
     public List<BaseUnitEntity> GetUnitsTurnQueue()
     {
         return _turnManager.GetUnitQueueList();
@@ -111,23 +116,9 @@ public class BattleManager
 
     private void UpdateUnits()
     {
-        UpdateLiveUnits();
-        UpdateDeadUnits();
-    }
-
-    private void UpdateLiveUnits()
-    {
-        foreach (var unit in GetAllUnits())
-        {
-            unit.Update();
-        }
-    }
-
-    private void UpdateDeadUnits()
-    {
         List<BaseUnitEntity> destroyedUnits = new();
 
-        foreach (var unit in _deadUnits)
+        foreach (var unit in GetAllUnits())
         {
             unit.Update();
 
@@ -364,7 +355,7 @@ public class BattleManager
 
     private void VerifyDeadUnits()
     {
-        var deadUnits = GetAllUnits()
+        var deadUnits = GetLiveUnits()
             .Where(x => x.IsDead)
             .ToList();
 
