@@ -10,5 +10,6 @@ public class ClericSkillTree : BaseSkillTree
     [
         new UnitSkillDefinition(SkillCode.Curse, 1),
         new UnitSkillDefinition(SkillCode.Heal, 1),
+        new UnitSkillDefinition(SkillCode.Regeneration, 1),
     ];
 }

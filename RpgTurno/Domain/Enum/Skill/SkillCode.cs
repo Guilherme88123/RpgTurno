@@ -10,4 +10,5 @@ public enum SkillCode
     Heal,
     Defend,
     Rage,
+    Regeneration,
 }

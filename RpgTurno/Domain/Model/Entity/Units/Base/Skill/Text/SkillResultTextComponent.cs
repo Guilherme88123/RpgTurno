@@ -23,9 +23,7 @@ public class SkillResultTextComponent : TextComponent
 
     private int GetRandomByPositionX(int positionX)
     {
-        var bounce = GlobalVariablesDto.GetBounceValue();
-
-        return positionX + 5 * bounce - 3;
+        return new Random().Next(positionX, positionX + 64);
     }
 
     public override void Update(GameTime gameTime)

@@ -16,6 +16,7 @@ public static class SkillFactory
             SkillCode.Heal => new HealSkill(),
             SkillCode.Defend => new DefendSkill(),
             SkillCode.Rage => new RageSkill(),
+            SkillCode.Regeneration => new RegenerationSkill(),
 
             _ => throw new ArgumentOutOfRangeException(nameof(skillCode), skillCode, null)
         };

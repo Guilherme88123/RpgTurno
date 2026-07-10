@@ -17,8 +17,8 @@ public class HealSkill : BaseSkill
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;
     public override SkillType Type => SkillType.Heal;
 
-    public override float PowerMin => 0.7f;
-    public override float PowerMax => 1.0f;
+    public override float PowerMin => 1.2f;
+    public override float PowerMax => 1.8f;
 
     public override int Cooldown => 2;
 

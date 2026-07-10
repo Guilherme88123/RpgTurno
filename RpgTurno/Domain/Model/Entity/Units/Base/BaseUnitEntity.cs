@@ -175,6 +175,7 @@ public class BaseUnitEntity : BaseEntity
         if (IsDead)
         {
             DrawDeadAnimation();
+            DrawSkillTexts();
             return;
         }
 
