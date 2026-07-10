@@ -169,14 +169,13 @@ public class PlayScreen : BaseScreen
 
     private void AddAnimation(List<BaseUnitEntity> units, AnimationClip animation)
     {
-        foreach (var unit in units)
-            AddAnimation(unit, animation);
+        animation.IsLoop = false;
+        _skillAnimationsList.Add(new PositionableAnimation(units, animation));
     }
 
     private void AddAnimation(BaseUnitEntity unit, AnimationClip animation)
     {
-        animation.IsLoop = false;
-        _skillAnimationsList.Add(new PositionableAnimation(unit.Rectangle, animation));
+        AddAnimation([unit], animation);
     }
 
     #endregion
@@ -365,12 +364,12 @@ public class PlayScreen : BaseScreen
 
 public class PositionableAnimation
 {
-    public Rectangle Rectangle { get; set; }
+    public List<BaseUnitEntity> Units { get; set; }
     public AnimationClip Animation { get; set; }
 
-    public PositionableAnimation(Rectangle rectangle, AnimationClip animation)
+    public PositionableAnimation(List<BaseUnitEntity> units, AnimationClip animation)
     {
-        Rectangle = rectangle;
+        Units = units;
         Animation = animation;
     }
 
@@ -381,6 +380,7 @@ public class PositionableAnimation
 
     public void Draw()
     {
-        Animation.Draw(Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchInterface);
+        foreach (var unit in Units)
+            Animation.Draw(unit.Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchInterface);
     }
 }

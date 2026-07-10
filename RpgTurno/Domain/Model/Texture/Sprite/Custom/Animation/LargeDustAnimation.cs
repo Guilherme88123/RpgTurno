@@ -6,7 +6,7 @@ namespace Domain.Model.Texture.Sprite.CustomSprites;
 
 public class LargeDustAnimation : AnimationClip
 {
-    public LargeDustAnimation() : base(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.LargeDustEffect), 10, 1, 0.1f, 1)
+    public LargeDustAnimation() : base(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.LargeDustEffect), 10, 1, 0.2f, 1)
     {
     }
 }
