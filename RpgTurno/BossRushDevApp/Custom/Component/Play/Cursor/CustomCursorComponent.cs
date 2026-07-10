@@ -1,16 +1,14 @@
-﻿using Domain.Const.Sprite;
-using Domain.Dto.Global;
-using Domain.Model.Components.Cursor;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Domain.Model.Components.Cursor;
+using Domain.Model.Texture.Sprite.Custom.Sprite;
 
 namespace RpgTurno.Custom.CustomComponents.Play.Cursor;
 
 public class CustomCursorComponent : CursorComponent
 {
-    public CustomCursorComponent() : 
-        base(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.NormalCursor), 
-             GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.HoverCursor), 
-             GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.BlockCursor))
+    public CustomCursorComponent() : base(
+        new NormalCursorSprite(), 
+        new HoverCursorSprite(), 
+        new BlockCursorSprite())
     {
     }
 }

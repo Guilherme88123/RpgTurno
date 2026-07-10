@@ -24,7 +24,7 @@ public class MapScreen : BaseScreen
 
     private WorldManager _worldManager;
 
-    private MapBackgroundComponent _backgroundImageComponent;
+    private WorldMapBackgroundComponent _backgroundImageComponent;
 
     private AlliesPartyComponent _alliesPartyComponent;
 

@@ -3,7 +3,6 @@ using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.Screen.Map.World.Player;
-using SharpDX.MediaFoundation;
 using System.Collections.Generic;
 
 namespace RpgTurno.Custom.CustomComponents.Map.AlliesParty;

@@ -15,13 +15,13 @@ public class CursorComponent : BaseComponent
 
     private CursorStateType _state;
 
-    public CursorComponent(Texture2D normalSPrite, Texture2D hoverSprite, Texture2D blockSprite)
+    public CursorComponent(SpriteData normalSPrite, SpriteData hoverSprite, SpriteData blockSprite)
     {
         _state = CursorStateType.Normal;
 
-        AnimationManager.Add(CursorStateType.Normal, new AnimationClip(normalSPrite));
-        AnimationManager.Add(CursorStateType.Hover, new AnimationClip(hoverSprite));
-        AnimationManager.Add(CursorStateType.Block, new AnimationClip(blockSprite));
+        AnimationManager.Add(CursorStateType.Normal, normalSPrite);
+        AnimationManager.Add(CursorStateType.Hover, hoverSprite);
+        AnimationManager.Add(CursorStateType.Block, blockSprite);
 
         AnimationManager.Update(_state);
 

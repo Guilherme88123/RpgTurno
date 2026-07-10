@@ -6,6 +6,7 @@ using Domain.Model.Components.Image;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Sprite.Border;
 using Domain.Model.Texture.Sprite;
+using Domain.Model.Texture.Sprite.Custom.Sprite;
 using Domain.Model.Texture.Sprite.CustomSprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,10 +28,7 @@ public class TurnQueueComponent : BaseComponent
 
     private List<BaseUnitEntity> _pendingUnitsList;
 
-    private ImageComponent _queueBackground = new(
-        new ResizableSpriteData(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallRibbons),
-            ResizableSpriteType.Horizontal, 64, 0, new BorderDefinition(0, 576, 0, 0), 64),
-            GlobalOptionsDto.WidthSize / 3, 80);
+    private ImageComponent _queueBackground = new(new BlueSmallRibbonSprite(), GlobalOptionsDto.WidthSize / 3, IconSize);
 
     private SmallDustAnimation _dustEffect = new();
 
