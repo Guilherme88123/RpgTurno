@@ -4,7 +4,6 @@ using Domain.Enum.Battle;
 using Domain.Enum.Skill.Target;
 using Domain.Enum.Stage;
 using Domain.Model.Entity.Units.Base;
-using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
@@ -149,6 +148,10 @@ public class BattleManager
 
     private void UpdateTurn()
     {
+        VerifyDeadUnits();
+        VerifyWaveFinish();
+        VerifyPlayFinish();
+
         if (!CanTurnContinue())
             return;
 
@@ -246,13 +249,9 @@ public class BattleManager
         BattleState = BattleState.WaitingSkillSelect;
 
         var unitTurn = _turnManager.GetPeekUnit();
-        OnTurnStart?.Invoke(unitTurn, IsEnemyUnit(unitTurn));
-        TickSkills(unitTurn);
-    }
 
-    private void TickSkills(BaseUnitEntity unit)
-    {
-        unit.OnTurnStart();
+        OnTurnStart?.Invoke(unitTurn, IsEnemyUnit(unitTurn));
+        unitTurn.OnTurnStart();
     }
 
     private void UpdateSkillSelect()
@@ -361,11 +360,15 @@ public class BattleManager
     private void ExecuteAttack(UnitSkill skill, SkillResult result)
     {
         _selectedSkill = null;
+    }
 
-        MoveUnitToDeadList(result.Targets.Where(x => x.IsDead).ToList());
+    private void VerifyDeadUnits()
+    {
+        var deadUnits = GetAllUnits()
+            .Where(x => x.IsDead)
+            .ToList();
 
-        if (result.Targets.Any(x => x.IsDead))
-            VerifyPlayFinish();
+        MoveUnitToDeadList(deadUnits);
     }
 
     private void MoveUnitToDeadList(List<BaseUnitEntity> units)
@@ -422,7 +425,7 @@ public class BattleManager
         OnTurnFinish?.Invoke(sender, target);
         GoToNextTurn();
 
-        VerifyWave();
+        VerifyWaveFinish();
     }
 
     private void HandleEnemySlay(BaseUnitEntity unit)
@@ -438,7 +441,7 @@ public class BattleManager
         _turnManager.NextTurn();
     }
 
-    private void VerifyWave()
+    private void VerifyWaveFinish()
     {
         if (Enemies.Any())
             return;
