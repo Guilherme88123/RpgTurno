@@ -23,8 +23,6 @@ public class ButtonComponent : BaseComponent
         base.Update(gameTime);
         Text.Update(gameTime);
 
-        AnimationManager.Update(State);
-
         bool botaoPressionado = GlobalVariablesDto.MouseState.LeftButton == ButtonState.Pressed;
 
         if (botaoPressionado && !GlobalVariablesDto.PreviousMouseDown && HoverState.IsHover)
@@ -33,13 +31,13 @@ public class ButtonComponent : BaseComponent
             _currentDelay = DelayPressed;
             SetPositionText();
 
-            Click?.Invoke();
-
             return;
         }
 
         if (State == ButtonInteractionState.Pressed)
             UpdatePressedDelay();
+
+        AnimationManager.Update(State);
     }
 
     private void UpdatePressedDelay()
@@ -48,6 +46,8 @@ public class ButtonComponent : BaseComponent
 
         if (_currentDelay < 0)
         {
+            Click?.Invoke();
+
             State = ButtonInteractionState.Regular;
             SetPositionText();
         }
@@ -76,5 +76,10 @@ public class ButtonComponent : BaseComponent
     {
         base.Draw(spriteBatch);
         Text.Draw(spriteBatch);
+    }
+
+    public void SetText(string text)
+    {
+        Text.SetText(text);
     }
 }
