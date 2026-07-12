@@ -6,6 +6,7 @@ using Domain.Interface.UiManager;
 using Microsoft.Extensions.DependencyInjection;
 using RpgTurno.Screen.Map;
 using RpgTurno.Screen.Menu;
+using RpgTurno.Screen.Option;
 using RpgTurno.Screen.Play;
 using Service.Screen;
 using Service.Transition;
@@ -30,10 +31,12 @@ public static class Program
         services.AddTransient<IScreen, PlayScreen>();
         services.AddTransient<IScreen, MapScreen>();
         services.AddTransient<IScreen, MenuScreen>();
+        services.AddTransient<IScreen, OptionScreen>();
 
         services.AddTransient<PlayScreen>();
         services.AddTransient<MapScreen>();
         services.AddTransient<MenuScreen>();
+        services.AddTransient<OptionScreen>();
 
         services.AddTransient<IScreenManager, ScreenManager>();
         services.AddTransient<IUiManagerService, UiManagerService>();

@@ -33,6 +33,7 @@ public class MenuScreen : BaseScreen
         exitButton.SetPositionWithIndex(initialPositionY, 3);
 
         startButton.Click = StartGame;
+        optionsButton.Click = GoToOptionsScreen;
         exitButton.Click = ExitGame;
 
         return new()
@@ -49,6 +50,11 @@ public class MenuScreen : BaseScreen
     private void StartGame()
     {
         GlobalVariablesDto.ChangeScreen?.Invoke(ScreenConst.MapScreen);
+    }
+
+    private void GoToOptionsScreen()
+    {
+        GlobalVariablesDto.PushScreen?.Invoke(ScreenConst.OptionScreen);
     }
 
     private void ExitGame()
