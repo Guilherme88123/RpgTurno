@@ -8,6 +8,8 @@ using Domain.Model.Entity.Units.Ally.Lancer;
 using Domain.Model.Entity.Units.Ally.Warrior;
 using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using RpgTurno.Custom.Component.Map.Banner;
 using RpgTurno.Custom.CustomComponents.Map.AlliesParty;
 using RpgTurno.Custom.CustomComponents.Map.Background;
 using RpgTurno.Custom.CustomComponents.Map.Stage;
@@ -24,11 +26,14 @@ public class MapScreen : BaseScreen
 
     private WorldManager _worldManager;
 
+    private KeyboardState _previousKeyboardState;
+    private bool _isPaused;
+    private Keys _pauseKey = Keys.Escape;
+
     private WorldMapBackgroundComponent _backgroundImageComponent;
-
     private AlliesPartyComponent _alliesPartyComponent;
-
     private MapNodeBannerComponent _nodeBannerComponent;
+    private MapPauseBannerComponent _pauseBannerComponent;
 
     #region Initialize
 
@@ -47,10 +52,17 @@ public class MapScreen : BaseScreen
 
         _backgroundImageComponent = new();
 
+        _pauseBannerComponent = new();
+        _pauseBannerComponent.IsVisible = false;
+        _pauseBannerComponent.SetPosition(
+            GlobalOptionsDto.WidthSize / 2 - _pauseBannerComponent.Bounds.Width / 2,
+            GlobalOptionsDto.HeightSize / 2 - _pauseBannerComponent.Bounds.Height / 2);
+
         return new()
         {
             _nodeBannerComponent,
             _alliesPartyComponent,
+            _pauseBannerComponent,
         };
     }
 
@@ -79,8 +91,14 @@ public class MapScreen : BaseScreen
     #region Update
 
     public override void Update(GameTime gameTime)
-    {
+    { 
         base.Update(gameTime);
+
+        VerifyPause();
+        UpdatePauseFlag();
+
+        if (_isPaused)
+            return;
 
         _worldManager.Update();
 
@@ -106,6 +124,37 @@ public class MapScreen : BaseScreen
         _alliesPartyComponent.SetPositionByPlayer(_worldManager.Player, GameSession.IsInBattle);
     }
 
+    private void UpdatePauseFlag()
+    {
+        _pauseBannerComponent.IsVisible = _isPaused;
+        _pauseBannerComponent.IsEnable = _isPaused;
+
+        _alliesPartyComponent.IsEnable = !_isPaused;
+
+        _nodeBannerComponent.IsVisible = !_isPaused;
+        _nodeBannerComponent.IsEnable = !_isPaused;
+    }
+
+    private void VerifyPause()
+    {
+        bool isPauseKeyPressed = IsPauseKeyPressed();
+
+        if (isPauseKeyPressed)
+            TogglePauseFlag();
+
+        _previousKeyboardState = GlobalVariablesDto.KeyboardState;
+    }
+
+    private void TogglePauseFlag()
+    {
+        _isPaused = !_isPaused;
+    }
+
+    private bool IsPauseKeyPressed()
+    {
+        return GlobalVariablesDto.KeyboardState.IsKeyDown(_pauseKey) && _previousKeyboardState.IsKeyUp(_pauseKey);
+    }
+
     #endregion
 
     #region Draw
@@ -114,12 +163,21 @@ public class MapScreen : BaseScreen
     {
         DrawBackground();
 
+        if (_isPaused)
+           DrawPausedShade();
+
         base.Draw();
     }
 
     private void DrawBackground()
     {
         _backgroundImageComponent.Draw(GlobalVariablesDto.SpriteBatchBackground);
+    }
+
+    private void DrawPausedShade()
+    {
+        var screenRectangle = new Rectangle(0, 0, GlobalOptionsDto.WidthSize, GlobalOptionsDto.HeightSize);
+        GlobalVariablesDto.SpriteBatchInterface.Draw(GlobalVariablesDto.Pixel, screenRectangle, Color.Black * 0.2f);
     }
 
     #endregion

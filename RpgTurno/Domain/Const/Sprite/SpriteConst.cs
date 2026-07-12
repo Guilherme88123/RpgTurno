@@ -80,6 +80,7 @@ public static class SpriteConst
     public const string ScrollBanner = "ScrollBanner";
     public const string WoodBanner = "WoodBanner";
     public const string PaperBanner = "PaperBanner";
+    public const string SpecialPaperBanner = "SpecialPaperBanner";
 
     #endregion
 
