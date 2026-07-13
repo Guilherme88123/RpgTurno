@@ -24,8 +24,9 @@ public class ButtonComponent : BaseComponent
         Text.Update(gameTime);
 
         bool botaoPressionado = GlobalVariablesDto.MouseState.LeftButton == ButtonState.Pressed;
+        bool pressState = State == ButtonInteractionState.Pressed;
 
-        if (botaoPressionado && !GlobalVariablesDto.PreviousMouseDown && HoverState.IsHover)
+        if (botaoPressionado && !GlobalVariablesDto.PreviousMouseDown && HoverState.IsHover && !pressState)
         {
             State = ButtonInteractionState.Pressed;
             _currentDelay = DelayPressed;

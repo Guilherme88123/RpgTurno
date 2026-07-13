@@ -52,7 +52,11 @@ public class MapScreen : BaseScreen
 
         _backgroundImageComponent = new();
 
-        _pauseBannerComponent = new();
+        _pauseBannerComponent = new(
+            onResumeAction: OnResumeAction,
+            onOptionsAction: OnOptionsAction,
+            onMenuAction: OnMenuAction,
+            onExitAction: OnExitAction);
         _pauseBannerComponent.IsVisible = false;
         _pauseBannerComponent.SetPosition(
             GlobalOptionsDto.WidthSize / 2 - _pauseBannerComponent.Bounds.Width / 2,
@@ -177,7 +181,7 @@ public class MapScreen : BaseScreen
     private void DrawPausedShade()
     {
         var screenRectangle = new Rectangle(0, 0, GlobalOptionsDto.WidthSize, GlobalOptionsDto.HeightSize);
-        GlobalVariablesDto.SpriteBatchInterface.Draw(GlobalVariablesDto.Pixel, screenRectangle, Color.Black * 0.2f);
+        GlobalVariablesDto.SpriteBatchInterface.Draw(GlobalVariablesDto.Pixel, screenRectangle, Color.Black * 0.3f);
     }
 
     #endregion
@@ -190,6 +194,30 @@ public class MapScreen : BaseScreen
     {
         GameSession.CurrentStageCode = stageCode;
         GameSession.IsInBattle = true;
+    }
+
+    #endregion
+
+    #region Pause Menu Actions
+
+    private void OnResumeAction()
+    {
+        TogglePauseFlag();
+    }
+
+    private void OnOptionsAction()
+    {
+        GlobalVariablesDto.PushScreen?.Invoke(ScreenConst.OptionScreen);
+    }
+
+    private void OnMenuAction()
+    {
+        GlobalVariablesDto.ChangeScreen?.Invoke(ScreenConst.MenuScreen);
+    }
+
+    private void OnExitAction()
+    {
+        GlobalVariablesDto.Exit?.Invoke();
     }
 
     #endregion

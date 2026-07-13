@@ -18,7 +18,7 @@ public class MenuScreen : BaseScreen
         MenuButtonComponent startButton = new();
         MenuButtonComponent optionsButton = new();
         MenuButtonComponent creditsButton = new();
-        MenuButtonComponent exitButton = new();
+        MenuButtonComponent exitButton = new(isDanger: true);
 
         startButton.SetText("Start");
         optionsButton.SetText("Options");
