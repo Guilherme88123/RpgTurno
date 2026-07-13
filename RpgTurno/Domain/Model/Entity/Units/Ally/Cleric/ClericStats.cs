@@ -10,6 +10,8 @@ public class ClericStats : BaseUnitStats
         AttackStat = new(12, 2);
         DefenseStat = new(8, 1);
         SpeedStat = new(10, 1);
+        MaxManaStat = new(40, 4);
+        ManaRegenStat = new(6, 0.4f);
 
         Initialize();
     }

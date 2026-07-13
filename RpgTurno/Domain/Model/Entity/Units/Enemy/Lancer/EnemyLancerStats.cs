@@ -10,6 +10,8 @@ public class EnemyLancerStats : BaseUnitStats
         AttackStat = new(16, 2);
         DefenseStat = new(13, 3);
         SpeedStat = new(5, 0);
+        MaxManaStat = new(18, 2);
+        ManaRegenStat = new(2, 0.2f);
 
         Initialize();
     }

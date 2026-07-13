@@ -30,7 +30,8 @@ public class BaseUnitEntity : BaseEntity
 
     public SpriteData Icon { get; protected set; }
 
-    private readonly HealthBarComponent _healthBar;
+    private readonly UnitBarComponent _healthBar;
+    private readonly UnitBarComponent _manaBar;
     private readonly EffectDetailsBannerComponent _effectBanner;
 
     public bool IsDead { get; protected set; }
@@ -60,7 +61,8 @@ public class BaseUnitEntity : BaseEntity
         _skillTree = skillTree;
         ReloadSkills();
 
-        _healthBar = new HealthBarComponent(Stats.MaxHealth, Stats.CurrentHealth);
+        _healthBar = new UnitBarComponent(Stats.MaxHealth, Stats.CurrentHealth, Color.White);
+        _manaBar = new UnitBarComponent(Stats.MaxMana, Stats.CurrentMana, Color.LightBlue);
         _effectBanner = new();
 
         _deadAnimation = new();
@@ -75,6 +77,7 @@ public class BaseUnitEntity : BaseEntity
 
         UpdateDelays();
         UpdateHealthBarComponent();
+        UpdateManaBarComponent();
         UpdateColorEffect();
         UpdateSkillTexts();
         UpdateEffects();
@@ -98,6 +101,13 @@ public class BaseUnitEntity : BaseEntity
         _healthBar.SetPosition((int)PositionX + SizeX / 2 - _healthBar.Bounds.Width / 2, (int)PositionY + SizeY);
         _healthBar.SetValues(Stats.MaxHealth, Stats.CurrentHealth);
         _healthBar.Update(GlobalVariablesDto.GameTime);
+    }
+
+    private void UpdateManaBarComponent()
+    {
+        _manaBar.SetPosition((int)PositionX + SizeX / 2 - _healthBar.Bounds.Width / 2, (int)PositionY + SizeY + 16);
+        _manaBar.SetValues(Stats.MaxMana, Stats.CurrentMana);
+        _manaBar.Update(GlobalVariablesDto.GameTime);
     }
 
     private void UpdateColorEffect()
@@ -145,7 +155,7 @@ public class BaseUnitEntity : BaseEntity
         {
             var indexMargin = (iconSize + margin) * index;
 
-            unitEffect.Rectangle = new Rectangle((int)(PositionX + indexMargin), (int)(PositionY + SizeY + 32), iconSize, iconSize);
+            unitEffect.Rectangle = new Rectangle((int)(PositionX + indexMargin), (int)(PositionY + SizeY + 48), iconSize, iconSize);
 
             index++;
         }
@@ -180,6 +190,7 @@ public class BaseUnitEntity : BaseEntity
 
         base.Draw();
         DrawHealthBar();
+        DrawManaBar();
         DrawEffects();
 
         if (HasLevelUpAnimation)
@@ -214,6 +225,11 @@ public class BaseUnitEntity : BaseEntity
     protected virtual void DrawHealthBar()
     {
         _healthBar.Draw(GlobalVariablesDto.SpriteBatchEntities);
+    }
+
+    protected virtual void DrawManaBar()
+    {
+        _manaBar.Draw(GlobalVariablesDto.SpriteBatchEntities);
     }
 
     private void DrawEffects()
@@ -378,6 +394,7 @@ public class BaseUnitEntity : BaseEntity
     {
         Skills.ForEach(x => x.TickCooldown());
         Effects.ForEach(x => x.Effect.TickDuration());
+        Stats.RecoveryMana(Stats.ManaRegen);
     }
 
     public void ApplyEffectOnTurnStart()

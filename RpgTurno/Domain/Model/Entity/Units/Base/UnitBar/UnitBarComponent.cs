@@ -9,11 +9,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Domain.Model.Entity.Units.Base.HealthBar;
 
-public class HealthBarComponent : ProgressBarComponent
+public class UnitBarComponent : ProgressBarComponent
 {
     private const int _sliceWidth = 16;
 
-    public HealthBarComponent(int maxValue, int currentValue) : base(GetFillSprite(), maxValue, currentValue, _sliceWidth)
+    public UnitBarComponent(int maxValue, int currentValue, Color fillColor) : base(GetFillSprite(), maxValue, currentValue, fillColor, _sliceWidth)
     {
         var baseTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SmallBarBase);
         AnimationManager.Add(true, new AnimationClip([new ResizableSpriteData(baseTexture, ResizableSpriteType.Horizontal, _sliceWidth, 0, new BorderDefinition(16, 16, 48, 48), piecesGap: 64)]));

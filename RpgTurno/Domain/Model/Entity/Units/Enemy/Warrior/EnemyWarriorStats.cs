@@ -10,6 +10,8 @@ public class EnemyWarriorStats : BaseUnitStats
         AttackStat = new(22, 3);
         DefenseStat = new(10, 2);
         SpeedStat = new(8, 1);
+        MaxManaStat = new(20, 2);
+        ManaRegenStat = new(3, 0.2f);
 
         Initialize();
     }

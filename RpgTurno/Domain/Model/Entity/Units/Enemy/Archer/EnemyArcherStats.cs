@@ -10,6 +10,8 @@ public class EnemyArcherStats : BaseUnitStats
         AttackStat = new(35, 5);
         DefenseStat = new(3, 1);
         SpeedStat = new(14, 2);
+        MaxManaStat = new(30, 3);
+        ManaRegenStat = new(4, 0.3f);
 
         Initialize();
     }

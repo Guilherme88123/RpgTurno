@@ -3,7 +3,7 @@
 public class ScalableStat
 {
     public int BaseValue { get; }
-    public int PerLevel { get; }
+    public float PerLevel { get; }
 
     public ScalableStat(int baseValue, int perLevel)
     {
@@ -11,8 +11,14 @@ public class ScalableStat
         PerLevel = perLevel;
     }
 
+    public ScalableStat(int baseValue, float perLevel)
+    {
+        BaseValue = baseValue;
+        PerLevel = perLevel;
+    }
+
     public int GetFinalValue(int level)
     {
-        return BaseValue + PerLevel * (level - 1);
+        return (int)(BaseValue + PerLevel * (level - 1));
     }
 }
