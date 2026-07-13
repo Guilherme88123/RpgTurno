@@ -1,7 +1,7 @@
 ﻿using Domain.Dto.Global;
 using Domain.Model.Effect.Base;
 using Domain.Model.Entity.Base;
-using Domain.Model.Entity.Units.Base.HealthBar;
+using Domain.Model.Entity.Units.Base.Bar;
 using Domain.Model.Entity.Units.Base.Skill.SkillTree;
 using Domain.Model.Entity.Units.Base.Skill.Text;
 using Domain.Model.Entity.Units.Base.Stats;
@@ -12,7 +12,6 @@ using Domain.Model.Texture.Sprite.Custom.Sprite;
 using Domain.Model.Texture.Sprite.CustomSprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using RpgTurno.Custom.Component.Play.Banners;
 
 namespace Domain.Model.Entity.Units.Base;
@@ -30,8 +29,8 @@ public class BaseUnitEntity : BaseEntity
 
     public SpriteData Icon { get; protected set; }
 
-    private readonly UnitBarComponent _healthBar;
-    private readonly UnitBarComponent _manaBar;
+    private readonly HealthBarComponent _healthBar;
+    private readonly ManaBarComponent _manaBar;
     private readonly EffectDetailsBannerComponent _effectBanner;
 
     public bool IsDead { get; protected set; }
@@ -61,8 +60,8 @@ public class BaseUnitEntity : BaseEntity
         _skillTree = skillTree;
         ReloadSkills();
 
-        _healthBar = new UnitBarComponent(Stats.MaxHealth, Stats.CurrentHealth, Color.White);
-        _manaBar = new UnitBarComponent(Stats.MaxMana, Stats.CurrentMana, Color.LightBlue);
+        _healthBar = new HealthBarComponent(Stats.MaxHealth, Stats.CurrentHealth);
+        _manaBar = new ManaBarComponent(Stats.MaxMana, Stats.CurrentMana);
         _effectBanner = new();
 
         _deadAnimation = new();
@@ -105,7 +104,7 @@ public class BaseUnitEntity : BaseEntity
 
     private void UpdateManaBarComponent()
     {
-        _manaBar.SetPosition((int)PositionX + SizeX / 2 - _healthBar.Bounds.Width / 2, (int)PositionY + SizeY + 16);
+        _manaBar.SetPosition((int)PositionX + SizeX / 2 - _healthBar.Bounds.Width / 2, (int)PositionY + SizeY + 18);
         _manaBar.SetValues(Stats.MaxMana, Stats.CurrentMana);
         _manaBar.Update(GlobalVariablesDto.GameTime);
     }
@@ -155,7 +154,7 @@ public class BaseUnitEntity : BaseEntity
         {
             var indexMargin = (iconSize + margin) * index;
 
-            unitEffect.Rectangle = new Rectangle((int)(PositionX + indexMargin), (int)(PositionY + SizeY + 48), iconSize, iconSize);
+            unitEffect.Rectangle = new Rectangle((int)(PositionX + indexMargin), (int)(PositionY + SizeY + 50), iconSize, iconSize);
 
             index++;
         }

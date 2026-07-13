@@ -62,7 +62,8 @@ public static class SpriteConst
     #region Bars
 
     public const string SmallBarBase = "SmallBar_Base";
-    public const string SmallBarFill = "SmallBar_Fill";
+    public const string SmallBarRedFill = "SmallBar_Fill";
+    public const string SmallBarBlueFill = "SmallBar_BlueFill";
 
     #endregion
 

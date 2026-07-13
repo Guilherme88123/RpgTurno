@@ -10,18 +10,15 @@ public class ProgressBarComponent : BaseComponent
     public int MaxValue { get; private set; }
     public int CurrentValue { get; private set; }
 
-    private readonly Color _fillColor;
-
     private readonly SpriteData _fillSprite;
 
     private readonly int _fixedSlice;
 
-    public ProgressBarComponent(SpriteData fillSprite, int maxValue, int currentValue, Color fillColor, int fixedSlice = 0)
+    public ProgressBarComponent(SpriteData fillSprite, int maxValue, int currentValue, int fixedSlice = 0)
     {
         _fillSprite = fillSprite;
         MaxValue = maxValue;
         CurrentValue = currentValue;
-        _fillColor = fillColor;
         _fixedSlice = fixedSlice;
     }
 
@@ -36,7 +33,7 @@ public class ProgressBarComponent : BaseComponent
     {
         var fillRectangle = GetFillRectangle();
 
-        _fillSprite.Draw(fillRectangle, _fillColor, Rotation, SpriteEffects, spriteBatch);
+        _fillSprite.Draw(fillRectangle, Color, Rotation, SpriteEffects, spriteBatch);
     }
 
     private Rectangle GetFillRectangle()

@@ -13,12 +13,14 @@ public class UnitBannerComponent : FrameComponent
 
     private readonly TextComponent _nameText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly TextComponent _healtText = new();
+    private readonly TextComponent _manaText = new();
     private readonly TextComponent _defenseText = new();
     private readonly TextComponent _damageText = new();
     private readonly TextComponent _experienceText = new();
     private readonly TextComponent _speedText = new();
 
     private readonly ImageComponent _healthIcon = new(new HeartIconSprite(), 32, 32);
+    private readonly ImageComponent _manaIcon = new(new YellowStarIconSprite(), 32, 32);
     private readonly ImageComponent _defenseIcon = new(new ShieldIconSprite(), 32, 32);
     private readonly ImageComponent _damageIcon = new(new SwordIconSprite(), 32, 32);
     private readonly ImageComponent _experienceIcon = new(new PurpleStarIconSprite(), 32, 32);
@@ -32,11 +34,13 @@ public class UnitBannerComponent : FrameComponent
 
         AddChild(_nameText);
         AddChild(_healtText);
+        AddChild(_manaText);
         AddChild(_defenseText);
         AddChild(_damageText);
         AddChild(_experienceText);
         AddChild(_speedText);
         AddChild(_healthIcon);
+        AddChild(_manaIcon);
         AddChild(_defenseIcon);
         AddChild(_damageIcon);
         AddChild(_experienceIcon);
@@ -50,6 +54,7 @@ public class UnitBannerComponent : FrameComponent
     {
         _nameText.SetText($"{focusedEntity.Name} Lvl {focusedEntity.Stats.Level}");
         _healtText.SetText($"{focusedEntity.Stats.CurrentHealth}/{focusedEntity.Stats.MaxHealth}");
+        _manaText.SetText($"{focusedEntity.Stats.CurrentMana}/{focusedEntity.Stats.MaxMana}");
         _defenseText.SetText(focusedEntity.Stats.Defense.ToString());
         _damageText.SetText(focusedEntity.Stats.Attack.ToString());
         _speedText.SetText(focusedEntity.Stats.Speed.ToString());
@@ -70,10 +75,11 @@ public class UnitBannerComponent : FrameComponent
 
         SetFieldPositionByIndex(_nameText, null, 0);
         SetFieldPositionByIndex(_healtText, _healthIcon, 1);
-        SetFieldPositionByIndex(_damageText, _damageIcon, 2);
-        SetFieldPositionByIndex(_defenseText, _defenseIcon, 3);
-        SetFieldPositionByIndex(_speedText, _speedIcon, 4);
-        SetFieldPositionByIndex(_experienceText, _experienceIcon, 5);
+        SetFieldPositionByIndex(_manaText, _manaIcon, 2);
+        SetFieldPositionByIndex(_damageText, _damageIcon, 3);
+        SetFieldPositionByIndex(_defenseText, _defenseIcon, 4);
+        SetFieldPositionByIndex(_speedText, _speedIcon, 5);
+        SetFieldPositionByIndex(_experienceText, _experienceIcon, 6);
     }
 
     private void SetFieldPositionByIndex(TextComponent textComponent, ImageComponent imageComponent, int index)
