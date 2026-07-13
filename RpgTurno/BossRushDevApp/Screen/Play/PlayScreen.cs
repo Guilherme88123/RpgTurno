@@ -9,6 +9,7 @@ using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RpgTurno.Custom.Component.Play.Banners.Pause;
 using RpgTurno.Custom.CustomComponents.Play.Background;
 using RpgTurno.Custom.CustomComponents.Play.Banners;
 using RpgTurno.Custom.CustomComponents.Play.Selection;
@@ -24,7 +25,12 @@ public class PlayScreen : BaseScreen
 {
     public override string ScreenCode => ScreenConst.PlayScreen;
 
-    private readonly BattleManager _battleManager = new();
+    private KeyboardState _previousKeyboardState;
+    private bool _isPaused;
+    private Keys _pauseKey = Keys.Escape;
+    private PlayPauseBannerComponent _pauseBannerComponent;
+
+    private BattleManager _battleManager;
 
     private SelectionAreaComponent _selectionAreaComponent;
     private BaseUnitEntity _focusedEntity;
@@ -45,12 +51,7 @@ public class PlayScreen : BaseScreen
 
     protected override List<BaseComponent> InitializeComponents()
     {
-        _battleManager.Initialize(GetAllies(), GameSession.CurrentStageCode);
-        _battleManager.OnTurnStart += OnTurnStart;
-        _battleManager.OnTurnFinish += OnTurnFinish;
-        _battleManager.OnBattleFinish += BattleFinish;
-        _battleManager.OnPlaySenderAnimation += AddAnimation;
-        _battleManager.OnPlayTargetsAnimation += AddAnimation;
+        InitializeBattleManager();
 
         _selectionAreaComponent = new();
 
@@ -70,6 +71,16 @@ public class PlayScreen : BaseScreen
         _waveIndicatorComponent = new();
         _waveIndicatorComponent.SetPosition(GlobalOptionsDto.WidthSize - 140, 30);
 
+        _pauseBannerComponent = new(
+            onResumeAction: OnResumeAction,
+            onOptionsAction: OnOptionsAction,
+            onRestartAction: OnRestartAction,
+            onMapAction: OnMapAction);
+        _pauseBannerComponent.IsVisible = false;
+        _pauseBannerComponent.SetPosition(
+            GlobalOptionsDto.WidthSize / 2 - _pauseBannerComponent.Bounds.Width / 2,
+            GlobalOptionsDto.HeightSize / 2 - _pauseBannerComponent.Bounds.Height / 2);
+
         return new() {
             _selectionAreaComponent,
             _focusedUnitBannerComponent,
@@ -77,7 +88,19 @@ public class PlayScreen : BaseScreen
             _currentTurnUnitComponent,
             _skillSelectComponent,
             _waveIndicatorComponent,
+            _pauseBannerComponent,
         };
+    }
+
+    private void InitializeBattleManager()
+    {
+        _battleManager = new();
+        _battleManager.Initialize(GetAllies(), GameSession.CurrentStageCode);
+        _battleManager.OnTurnStart += OnTurnStart;
+        _battleManager.OnTurnFinish += OnTurnFinish;
+        _battleManager.OnBattleFinish += BattleFinish;
+        _battleManager.OnPlaySenderAnimation += AddAnimation;
+        _battleManager.OnPlayTargetsAnimation += AddAnimation;
     }
 
     private List<BaseUnitEntity> GetAllies()
@@ -93,6 +116,12 @@ public class PlayScreen : BaseScreen
     {
         base.Update(gameTime);
 
+        VerifyPause();
+        UpdatePauseFlag();
+
+        if (_isPaused)
+            return;
+
         _battleManager.Update(gameTime);
 
         UpdateTurnComponents();
@@ -100,8 +129,52 @@ public class PlayScreen : BaseScreen
         UpdateSkillAnimations();
 
         VerifyCursorHoveringEntities();
-        VerifyExitingStage();
     }
+
+    #region Pause
+
+    private void UpdatePauseFlag()
+    {
+        _pauseBannerComponent.IsVisible = _isPaused;
+        _pauseBannerComponent.IsEnable = _isPaused;
+
+        _selectionAreaComponent.IsEnable = !_isPaused;
+        _selectionAreaComponent.IsVisible = !_isPaused;
+
+        _focusedUnitBannerComponent.IsEnable = !_isPaused;
+        _focusedUnitBannerComponent.IsVisible = !_isPaused;
+
+        _turnQueueComponent.IsEnable = !_isPaused;
+        _turnQueueComponent.IsVisible = !_isPaused;
+
+        _currentTurnUnitComponent.IsEnable = !_isPaused;
+        _currentTurnUnitComponent.IsVisible = !_isPaused;
+
+        _skillSelectComponent.IsEnable = !_isPaused;
+        _skillSelectComponent.IsVisible = !_isPaused;
+    }
+
+    private void VerifyPause()
+    {
+        bool isPauseKeyPressed = IsPauseKeyPressed();
+
+        if (isPauseKeyPressed)
+            TogglePauseFlag();
+
+        _previousKeyboardState = GlobalVariablesDto.KeyboardState;
+    }
+
+    private void TogglePauseFlag()
+    {
+        _isPaused = !_isPaused;
+    }
+
+    private bool IsPauseKeyPressed()
+    {
+        return GlobalVariablesDto.KeyboardState.IsKeyDown(_pauseKey) && _previousKeyboardState.IsKeyUp(_pauseKey);
+    }
+
+    #endregion
 
     #region Turn Components
 
@@ -309,14 +382,6 @@ public class PlayScreen : BaseScreen
 
     #region Return To Map Screen
 
-    private void VerifyExitingStage()
-    {
-        var teclado = Keyboard.GetState();
-
-        if (teclado.IsKeyDown(Keys.Escape))
-            BattleFinish(isGameOver: true);
-    }
-
     private void BattleFinish(bool isGameOver = false)
     {
         GameSession.IsInBattle = false;
@@ -339,6 +404,9 @@ public class PlayScreen : BaseScreen
         DrawBackground();
         DrawSkillAnimations();
 
+        if (_isPaused)
+            DrawPausedShade();
+
         base.Draw();
 
         DrawBattle();
@@ -358,6 +426,42 @@ public class PlayScreen : BaseScreen
     {
         _skillAnimationsList.ForEach(x => x.Draw());
     }
+
+    private void DrawPausedShade()
+    {
+        var screenRectangle = new Rectangle(0, 0, GlobalOptionsDto.WidthSize, GlobalOptionsDto.HeightSize);
+        GlobalVariablesDto.SpriteBatchInterface.Draw(GlobalVariablesDto.Pixel, screenRectangle, Color.Black * 0.4f);
+    }
+
+    #endregion
+
+    #region Events
+
+    #region Pause Menu Actions
+
+    private void OnResumeAction()
+    {
+        TogglePauseFlag();
+    }
+
+    private void OnOptionsAction()
+    {
+        GlobalVariablesDto.PushScreen?.Invoke(ScreenConst.OptionScreen);
+    }
+
+    private void OnRestartAction()
+    {
+        base.Initialize();
+        GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
+        OnResumeAction();
+    }
+
+    private void OnMapAction()
+    {
+        BattleFinish(isGameOver: true);
+    }
+
+    #endregion
 
     #endregion
 }

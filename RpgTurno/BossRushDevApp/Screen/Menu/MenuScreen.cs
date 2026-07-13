@@ -34,6 +34,7 @@ public class MenuScreen : BaseScreen
 
         startButton.Click = StartGame;
         optionsButton.Click = GoToOptionsScreen;
+        //creditsButton.Click = GoToCreditsScreen;
         exitButton.Click = ExitGame;
 
         return new()

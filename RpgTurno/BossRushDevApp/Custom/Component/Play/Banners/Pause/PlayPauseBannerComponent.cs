@@ -1,12 +1,11 @@
 ﻿using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Texture.Sprite.Custom.Sprite;
-using RpgTurno.Custom.Component.Play.Banners.Pause;
 using System;
 
-namespace RpgTurno.Custom.Component.Map.Banner;
+namespace RpgTurno.Custom.Component.Play.Banners.Pause;
 
-public class MapPauseBannerComponent : FrameComponent
+public class PlayPauseBannerComponent : FrameComponent
 {
     private const int Spacing = -16;
     private const int MarginTop = 80;
@@ -16,24 +15,24 @@ public class MapPauseBannerComponent : FrameComponent
 
     private readonly ButtonPlayPauseBannerComponent _resumeButton;
     private readonly ButtonPlayPauseBannerComponent _optionsButton;
-    private readonly ButtonPlayPauseBannerComponent _menuButton;
-    private readonly ButtonPlayPauseBannerComponent _exitButton;
+    private readonly ButtonPlayPauseBannerComponent _restartButton;
+    private readonly ButtonPlayPauseBannerComponent _mapButton;
 
-    public MapPauseBannerComponent(Action onResumeAction, Action onOptionsAction, Action onMenuAction, Action onExitAction)
+    public PlayPauseBannerComponent(Action onResumeAction, Action onOptionsAction, Action onRestartAction, Action onMapAction)
     {
         AnimationManager.Add(true, new SpecialPaperBannerSprite());
 
         _titleText.SetText("Paused");
         _resumeButton = new("Resume", onResumeAction);
         _optionsButton = new("Options", onOptionsAction);
-        _menuButton = new("Main Menu", onMenuAction);
-        _exitButton = new("Exit", onExitAction, isDanger: true);
+        _restartButton = new("Restart", onRestartAction, isDanger: true);
+        _mapButton = new("Return To Map", onMapAction, isDanger: true);
 
         AddChild(_titleText);
         AddChild(_resumeButton);
         AddChild(_optionsButton);
-        AddChild(_menuButton);
-        AddChild(_exitButton);
+        AddChild(_restartButton);
+        AddChild(_mapButton);
 
         Bounds = new(0, 0, 320, 640);
     }
@@ -46,8 +45,8 @@ public class MapPauseBannerComponent : FrameComponent
 
         SetButtonPositionByIndex(_resumeButton, 3);
         SetButtonPositionByIndex(_optionsButton, 2);
-        SetButtonPositionByIndex(_menuButton, 1);
-        SetButtonPositionByIndex(_exitButton, 0);
+        SetButtonPositionByIndex(_restartButton, 1);
+        SetButtonPositionByIndex(_mapButton, 0);
     }
 
     private void SetButtonPositionByIndex(ButtonPlayPauseBannerComponent button, int index)

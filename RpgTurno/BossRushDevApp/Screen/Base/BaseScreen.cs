@@ -29,6 +29,7 @@ public abstract class BaseScreen : IScreen
 
     public virtual void Initialize()
     {
+        _componentsService.ClearComponents();
         _componentsService.AddComponent(InitializeComponents());
         InitializeCursor();
     }
