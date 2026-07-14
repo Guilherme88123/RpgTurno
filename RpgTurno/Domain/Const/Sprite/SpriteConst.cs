@@ -117,6 +117,7 @@ public static class SpriteConst
     public const string BootIcon = "BootIcon";
     public const string YellowStarIcon = "YellowStarIcon";
     public const string ManaIcon = "ManaIcon";
+    public const string CriticalIcon = "CriticalIcon";
 
     #endregion
 

@@ -1,6 +1,10 @@
 ﻿using Domain.Dto.Global;
+using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
+using Domain.Model.Texture.Sprite;
+using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Icons;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Domain.Model.Entity.Units.Base.Skill.Text;
 
@@ -9,9 +13,13 @@ public class SkillResultTextComponent : TextComponent
     private const float DelayDissapear = 1.0f;
     private float _currentDelayDissapear = DelayDissapear;
 
+    private bool _isCritical;
+    private readonly SpriteData _criticalSimbol = new CriticalIconSprite();
+    private const int _criticalSimbolSize = 16;
+
     public bool IsDestroyed { get; private set; }
 
-    public SkillResultTextComponent(int positionX, int positionY, string text, Color color)
+    public SkillResultTextComponent(int positionX, int positionY, string text, Color color, bool isCritical = false)
     {
         positionX = GetRandomByPositionX(positionX);
 
@@ -19,6 +27,8 @@ public class SkillResultTextComponent : TextComponent
         SetText(text);
 
         Color = color;
+
+        _isCritical = isCritical;
     }
 
     private int GetRandomByPositionX(int positionX)
@@ -43,5 +53,22 @@ public class SkillResultTextComponent : TextComponent
         {
             IsDestroyed = true;
         }
+    }
+
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        base.Draw(spriteBatch);
+
+        if (_isCritical)
+            DrawCriticalSimbol(spriteBatch);
+    }
+
+    private void DrawCriticalSimbol(SpriteBatch spriteBatch)
+    {
+        var textWidth = (int)Font.MeasureString(Text).X;
+
+        var criticalSimbolRectangle = new Rectangle(Bounds.X + textWidth, Bounds.Y, _criticalSimbolSize, _criticalSimbolSize);
+
+        _criticalSimbol.Draw(criticalSimbolRectangle, Color.White, Rotation, SpriteEffects, spriteBatch);
     }
 }

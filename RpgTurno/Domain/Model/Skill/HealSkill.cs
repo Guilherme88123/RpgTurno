@@ -36,7 +36,7 @@ public class HealSkill : BaseSkill
 
         skillData.Sender.ApplyExecuteAttackEffects(context);
 
-        skillData.Target.RecieveHeal(healAmount);
+        skillData.Target.RecieveHeal(healAmount, context.HasCritical);
 
         return new SkillResult(context);
     }

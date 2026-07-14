@@ -471,7 +471,7 @@ public class BaseUnitEntity : BaseEntity
 
     private void AddCriticalAttackSkillText(int damage)
     {
-        AddSkillText($"--{damage}", Color.DarkRed);
+        AddSkillText($"-{damage}", Color.DarkRed, isCritical: true);
     }
 
     private void AddAttackSkillText(int damage)
@@ -481,7 +481,7 @@ public class BaseUnitEntity : BaseEntity
 
     private void AddCriticalHealthSkillText(int healthAmount)
     {
-        AddSkillText($"++{healthAmount}", Color.DarkGreen);
+        AddSkillText($"+{healthAmount}", Color.DarkGreen, isCritical: true);
     }
 
     private void AddHealthSkillText(int healthAmount)
@@ -489,9 +489,9 @@ public class BaseUnitEntity : BaseEntity
         AddSkillText($"+{healthAmount}", Color.Green);
     }
 
-    public void AddSkillText(string text, Color color)
+    public void AddSkillText(string text, Color color, bool isCritical = false)
     {
-        _skillResultTexts.Add(new((int)Center.X, (int)Center.Y, text, color));
+        _skillResultTexts.Add(new((int)Center.X, (int)Center.Y, text, color, isCritical));
     }
 
     #endregion
