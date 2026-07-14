@@ -26,16 +26,6 @@ public class ShootSkill : BaseSkill
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
-        var damage = CalculateValue(skillData);
-
-        var context = new SkillContext(skillData.Sender, skillData.Target, damage);
-
-        skillData.Sender.ApplyExecuteAttackEffects(context);
-
-        skillData.Target.ApplyReciveAttackEffects(context);
-
-        skillData.Target.RecieveAttack(damage);
-
-        return new SkillResult(context);
+        return ExecuteDefaultSingleTargetAttack(skillData);
     }
 }

@@ -1,12 +1,12 @@
 ﻿using Domain.Model.Components.Cursor;
-using Domain.Model.Texture.Sprite.Custom.Sprite;
+using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Cursor;
 
 namespace RpgTurno.Custom.CustomComponents.Play.Cursor;
 
 public class CustomCursorComponent : CursorComponent
 {
     public CustomCursorComponent() : base(
-        new NormalCursorSprite(), 
+        new NormalCursorSprite(),
         new HoverCursorSprite(), 
         new BlockCursorSprite())
     {

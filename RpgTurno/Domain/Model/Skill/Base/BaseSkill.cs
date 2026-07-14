@@ -1,5 +1,6 @@
 ﻿using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
+using Domain.Model.Entity.Units.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
@@ -22,7 +23,7 @@ public abstract class BaseSkill
     public abstract int ManaCost { get; }
 
     public abstract SkillResult ExecuteSkill(SkillExecuteData skillData);
-    
+
     public abstract SkillAnimation Animation { get; }
 
     protected float GetRandomMultiplier()
@@ -34,4 +35,133 @@ public abstract class BaseSkill
     {
         return (int)(data.Sender.Stats.Attack * GetRandomMultiplier());
     }
+
+    protected void ApplySubtractTargetDefense(SkillContext context, BaseUnitEntity target)
+    {
+        context.Value = Math.Max(0, context.Value - target.Stats.Defense);
+    }
+
+    #region Miss
+
+    protected bool HasHitAttack(BaseUnitEntity sender, BaseUnitEntity target)
+    {
+        var chance = CalculateHitAttackChance(sender, target);
+        return HasSuccessByChance(chance);
+    }
+
+    private int CalculateHitAttackChance(BaseUnitEntity sender, BaseUnitEntity target)
+    {
+        var senderAccuracy = sender.Stats.Accuracy;
+        var targetEvasion = target.Stats.Evasion;
+
+        var rawChance = senderAccuracy - targetEvasion;
+
+        return Math.Clamp(rawChance, 5, 100);
+    }
+
+    #endregion
+
+    #region Critical
+
+    protected bool HasCriticalAttack(BaseUnitEntity sender)
+    {
+        var chance = CalculateCriticalAttackChance(sender);
+        return HasSuccessByChance(chance);
+    }
+
+    private int CalculateCriticalAttackChance(BaseUnitEntity sender)
+    {
+        return sender.Stats.CriticalChance;
+    }
+
+    protected void ApplyCriticalModifier(SkillContext context, BaseUnitEntity sender)
+    {
+        context.Value = (int)(context.Value * sender.Stats.CriticalDamage);
+        context.HasCritical = true;
+    }
+
+    #endregion
+
+    private bool HasSuccessByChance(int chance)
+    {
+        return Random.Shared.Next(100) < chance;
+    }
+
+    #region Apply Attack
+
+    protected void ApplySkillAttack(BaseUnitEntity target, SkillContext context)
+    {
+        target.RecieveAttack(context.Value, context.HasMissed, context.HasCritical);
+    }
+
+    #endregion
+
+    #region Default Parterns
+
+    protected SkillResult ExecuteDefaultSingleTargetAttack(SkillExecuteData skillData)
+    {
+        var damage = CalculateValue(skillData);
+
+        var context = new SkillContext(skillData.Sender, skillData.Target, damage);
+
+        if (!HasHitAttack(skillData.Sender, skillData.Target))
+        {
+            var missContext = new SkillContext(skillData.Sender, skillData.Target, hasMissed: true);
+
+            ApplySkillAttack(skillData.Target, context);
+
+            return new SkillResult(missContext);
+        }
+
+        if (HasCriticalAttack(skillData.Sender))
+            ApplyCriticalModifier(context, skillData.Sender);
+
+        skillData.Sender.ApplyExecuteAttackEffects(context);
+        skillData.Target.ApplyReciveAttackEffects(context);
+
+        ApplySubtractTargetDefense(context, skillData.Target);
+
+        ApplySkillAttack(skillData.Target, context);
+
+        return new SkillResult(context);
+    }
+
+    protected SkillResult ExecuteDefaultMultipleTargetAttack(SkillExecuteData skillData)
+    {
+        List<SkillContext> contextList = new List<SkillContext>();
+
+        foreach (var target in skillData.Targets)
+        {
+            var damage = CalculateValue(skillData);
+
+            var context = new SkillContext(skillData.Sender, target, damage);
+
+            if (!HasHitAttack(skillData.Sender, target))
+            {
+                var missContext = new SkillContext(skillData.Sender, target, hasMissed: true);
+
+                ApplySkillAttack(target, context);
+
+                contextList.Add(missContext);
+
+                continue;
+            }
+
+            if (HasCriticalAttack(skillData.Sender))
+                ApplyCriticalModifier(context, skillData.Sender);
+
+            skillData.Sender.ApplyExecuteAttackEffects(context);
+            target.ApplyReciveAttackEffects(context);
+
+            ApplySubtractTargetDefense(context, target);
+
+            ApplySkillAttack(target, context);
+
+            contextList.Add(context);
+        }
+
+        return new SkillResult(contextList);
+    }
+
+    #endregion
 }

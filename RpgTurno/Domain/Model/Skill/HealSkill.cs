@@ -31,6 +31,9 @@ public class HealSkill : BaseSkill
 
         var context = new SkillContext(skillData.Sender, skillData.Target, healAmount);
 
+        if (HasCriticalAttack(skillData.Sender))
+            ApplyCriticalModifier(context, skillData.Sender);
+
         skillData.Sender.ApplyExecuteAttackEffects(context);
 
         skillData.Target.RecieveHeal(healAmount);

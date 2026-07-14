@@ -1,6 +1,6 @@
 ﻿using Domain.Dto.Global;
 using Domain.Model.Components.Base;
-using Domain.Model.Texture.Sprite.Custom.Sprite;
+using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Cursor;
 using Microsoft.Xna.Framework;
 
 namespace RpgTurno.Custom.CustomComponents.Play.Selection;

@@ -1,7 +1,7 @@
 ﻿using Domain.Dto.Global;
 using Domain.Model.Components.Image;
 using Domain.Model.Entity.Units.Base;
-using Domain.Model.Texture.Sprite.Custom.Sprite;
+using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Icons;
 
 namespace RpgTurno.Custom.CustomComponents.Play.TurnQueue;
 

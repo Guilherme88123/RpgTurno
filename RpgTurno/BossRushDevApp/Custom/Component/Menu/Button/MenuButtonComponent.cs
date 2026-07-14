@@ -2,7 +2,7 @@
 using Domain.Dto.Global;
 using Domain.Enum.Component.Button;
 using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Sprite;
+using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Buttons;
 
 namespace RpgTurno.Custom.Component.Menu.Button;
 

@@ -1,12 +1,8 @@
-﻿using Domain.Const.Sprite;
-using Domain.Dto.Global;
-using Domain.Enum.Sprite;
+﻿using Domain.Dto.Global;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Image;
 using Domain.Model.Entity.Units.Base;
-using Domain.Model.Sprite.Border;
-using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Sprite;
+using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Ribbons;
 using Domain.Model.Texture.Sprite.CustomSprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

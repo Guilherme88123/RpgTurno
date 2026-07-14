@@ -7,6 +7,12 @@ public abstract class BaseUnitStats
     private ScalableStat MaxExperienceStat = new ScalableStat(120, 30);
     private ScalableStat ExperienceRewardStat = new ScalableStat(50, 3);
 
+    public int Accuracy { get; protected set; }
+    public int Evasion { get; protected set; }
+
+    public int CriticalChance { get; protected set; }
+    public float CriticalDamage { get; protected set; }
+
     protected ScalableStat MaxHealthStat;
     protected ScalableStat AttackStat;
     protected ScalableStat DefenseStat;
@@ -44,19 +50,7 @@ public abstract class BaseUnitStats
 
     #region Attack
 
-    public int RecieveAttack(int damage)
-    {
-        var trueDamage = Math.Max(1, damage - Defense);
-
-        return RecieveDamage(trueDamage);
-    }
-
-    public int RecieveTrueDamage(int trueDamage)
-    {
-        return RecieveDamage(trueDamage);
-    }
-
-    private int RecieveDamage(int damage)
+    public int RecieveDamage(int damage)
     {
         CurrentHealth = Math.Max(0, CurrentHealth - damage);
 

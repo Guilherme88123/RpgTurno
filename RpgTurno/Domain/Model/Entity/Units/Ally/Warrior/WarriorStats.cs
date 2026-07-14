@@ -12,6 +12,10 @@ public class WarriorStats : BaseUnitStats
         SpeedStat = new(8, 1);
         MaxManaStat = new(20, 2);
         ManaRegenStat = new(3, 0.2f);
+        Accuracy = 95;
+        Evasion = 5;
+        CriticalChance = 5;
+        CriticalDamage = 1.5f;
 
         Initialize();
     }

@@ -1,5 +1,5 @@
 ﻿using Domain.Model.MenuComponents.Frame;
-using Domain.Model.Texture.Sprite.Custom.Sprite;
+using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Banners;
 
 namespace RpgTurno.Custom.Component.Option.Banner;
 

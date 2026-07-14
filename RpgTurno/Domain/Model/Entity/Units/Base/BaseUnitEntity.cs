@@ -9,6 +9,7 @@ using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite;
 using Domain.Model.Texture.Sprite.Custom.Sprite;
+using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Banners;
 using Domain.Model.Texture.Sprite.CustomSprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -291,22 +292,12 @@ public class BaseUnitEntity : BaseEntity
 
     #region Take Damage
 
-    public int RecieveAttack(int damage)
+    public int RecieveAttack(int damage, bool hasMissed = false, bool hasCritical = false)
     {
-        var damageTaken = Stats.RecieveAttack(damage);
+        var damageTaken = Stats.RecieveDamage(damage);
 
         TickDamageRecieved();
-        AddAttackSkillText(damageTaken);
-
-        return damageTaken;
-    }
-
-    public int RecieveTrueDamage(int damage)
-    {
-        var damageTaken = Stats.RecieveTrueDamage(damage);
-
-        TickDamageRecieved();
-        AddAttackSkillText(damageTaken);
+        AddAttackSkillTextByContext(damage, hasMissed, hasCritical);
 
         return damageTaken;
     }
@@ -324,16 +315,33 @@ public class BaseUnitEntity : BaseEntity
         _currentDelayDamageTakenFlash = DelayDamageTakenFlash;
     }
 
+    private void AddAttackSkillTextByContext(int damage, bool hasMissed, bool hasCritical)
+    {
+        if (hasMissed)
+        {
+            AddAttackMissSkillText();
+            return;
+        }
+
+        if (hasCritical)
+        {
+            AddCriticalAttackSkillText(damage);
+            return;
+        }
+
+        AddAttackSkillText(damage);
+    }
+
     #endregion
 
     #region Take Heal
 
-    public int RecieveHeal(int healAmount)
+    public int RecieveHeal(int healAmount, bool hasCritical = false)
     {
         var trueHealAmount = Stats.HealHealth(healAmount);
 
         ResetTakeHealDelay();
-        AddHealthSkillText(trueHealAmount);
+        AddHealSkillTextByContext(trueHealAmount, hasCritical);
 
         return trueHealAmount;
     }
@@ -341,6 +349,17 @@ public class BaseUnitEntity : BaseEntity
     private void ResetTakeHealDelay()
     {
         _currentDelayHealTakenFlash = DelayHealTakenFlash;
+    }
+
+    private void AddHealSkillTextByContext(int healAmount, bool hasCritical)
+    {
+        if (hasCritical)
+        {
+            AddCriticalHealthSkillText(healAmount);
+            return;
+        }
+
+        AddHealthSkillText(healAmount);
     }
 
     #endregion
@@ -445,9 +464,24 @@ public class BaseUnitEntity : BaseEntity
 
     #region Skill Result Text
 
+    private void AddAttackMissSkillText()
+    {
+        AddSkillText($"Miss", Color.Yellow);
+    }
+
+    private void AddCriticalAttackSkillText(int damage)
+    {
+        AddSkillText($"--{damage}", Color.DarkRed);
+    }
+
     private void AddAttackSkillText(int damage)
     {
         AddSkillText($"-{damage}", Color.Red);
+    }
+
+    private void AddCriticalHealthSkillText(int healthAmount)
+    {
+        AddSkillText($"++{healthAmount}", Color.DarkGreen);
     }
 
     private void AddHealthSkillText(int healthAmount)

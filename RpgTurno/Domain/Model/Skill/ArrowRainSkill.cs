@@ -27,23 +27,6 @@ public class ArrowRainSkill : BaseSkill
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
-        List<SkillContext> contextList = new List<SkillContext>();
-
-        foreach (var target in skillData.Targets)
-        {
-            var damage = CalculateValue(skillData);
-
-            var context = new SkillContext(skillData.Sender, target, damage);
-
-            skillData.Sender.ApplyExecuteAttackEffects(context);
-
-            target.ApplyReciveAttackEffects(context);
-
-            target.RecieveAttack(damage);
-
-            contextList.Add(context);
-        }
-
-        return new SkillResult(contextList);
+        return ExecuteDefaultMultipleTargetAttack(skillData);
     }
 }

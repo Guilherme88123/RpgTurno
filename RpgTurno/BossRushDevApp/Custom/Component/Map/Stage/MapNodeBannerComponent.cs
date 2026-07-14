@@ -1,18 +1,12 @@
-﻿using Domain.Const.Sprite;
-using Domain.Dto.Global;
-using Domain.Enum.Sprite;
+﻿using Domain.Dto.Global;
 using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
-using Domain.Model.Sprite.Border;
-using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Sprite;
+using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Banners;
+using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Icons;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.Screen.Map.World.Stage.Node;
-using RpgTurno.Screen.Play.Battle.Stage.Factory;
 using System;
-using System.Diagnostics;
 
 namespace RpgTurno.Custom.CustomComponents.Map.Stage;
 
