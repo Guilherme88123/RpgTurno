@@ -639,6 +639,18 @@
 /processorParam:TextureFormat=Color
 /build:LevelUpEffect.png
 
+#begin ManaIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ManaIcon.png
+
 #begin MeatIcon.png
 /importer:TextureImporter
 /processor:TextureProcessor

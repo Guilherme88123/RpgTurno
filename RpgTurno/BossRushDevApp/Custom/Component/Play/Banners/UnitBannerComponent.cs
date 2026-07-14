@@ -20,7 +20,7 @@ public class UnitBannerComponent : FrameComponent
     private readonly TextComponent _speedText = new();
 
     private readonly ImageComponent _healthIcon = new(new HeartIconSprite(), 32, 32);
-    private readonly ImageComponent _manaIcon = new(new YellowStarIconSprite(), 32, 32);
+    private readonly ImageComponent _manaIcon = new(new ManaIconSprite(), 32, 32);
     private readonly ImageComponent _defenseIcon = new(new ShieldIconSprite(), 32, 32);
     private readonly ImageComponent _damageIcon = new(new SwordIconSprite(), 32, 32);
     private readonly ImageComponent _experienceIcon = new(new PurpleStarIconSprite(), 32, 32);
