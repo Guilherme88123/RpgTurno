@@ -16,10 +16,10 @@ public class SkillSelectButtonComponent : ButtonComponent
     {
         _banner = parentBanner;
         _skill = skill;
+        Text.SetText(skill.Definition.Name);
 
         var canUse = skill.CanUse();
 
-        Text.SetText(canUse ? skill.Definition.Name : $"Cooldown {skill.CurrentCooldown}");
         Color = canUse ? Color.White : Color.Gray;
         IsEnable = canUse;
 

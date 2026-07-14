@@ -7,11 +7,11 @@ public abstract class BaseSkillTree
 {
     protected abstract IReadOnlyList<UnitSkillDefinition> Definitions { get; }
 
-    public List<UnitSkill> GetAvaliableSkills(int level)
+    public List<UnitSkill> GetAvaliableSkills(BaseUnitEntity ownerUnit, int level)
     {
         return Definitions
             .Where(x => x.RequiredLevel <= level)
-            .Select(x => new UnitSkill(x.SkillCode))
+            .Select(x => new UnitSkill(ownerUnit, x.SkillCode))
             .ToList();
     }
 }

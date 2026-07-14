@@ -21,6 +21,7 @@ public class ArrowRainSkill : BaseSkill
     public override float PowerMax => 0.9f;
 
     public override int Cooldown => 2;
+    public override int ManaCost => 20;
 
     public override SkillAnimation Animation => new SkillAnimation(null, null, true, 0.5f);
 

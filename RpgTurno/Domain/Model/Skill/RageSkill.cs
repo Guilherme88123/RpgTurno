@@ -19,6 +19,7 @@ public class RageSkill : BaseSkill
     public override SkillType Type => SkillType.Stats;
 
     public override int Cooldown => 3;
+    public override int ManaCost => 17;
 
     public override SkillAnimation Animation => new SkillAnimation(null, null, true, 0.5f);
 

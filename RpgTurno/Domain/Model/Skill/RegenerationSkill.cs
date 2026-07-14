@@ -19,6 +19,7 @@ public class RegenerationSkill : BaseSkill
     public override SkillType Type => SkillType.Stats;
 
     public override int Cooldown => 4;
+    public override int ManaCost => 28;
 
     public override SkillAnimation Animation => new SkillAnimation(new HealAnimation(), null, true, 0.5f);
 

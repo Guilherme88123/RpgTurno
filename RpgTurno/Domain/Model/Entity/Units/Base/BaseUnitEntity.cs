@@ -375,7 +375,7 @@ public class BaseUnitEntity : BaseEntity
 
     private void ReloadSkills()
     {
-        Skills = _skillTree.GetAvaliableSkills(Stats.Level);
+        Skills = _skillTree.GetAvaliableSkills(this, Stats.Level);
     }
 
     #endregion

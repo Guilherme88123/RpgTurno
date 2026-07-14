@@ -9,13 +9,15 @@ namespace RpgTurno.Custom.Component.Play.Banners;
 public class SkillDetailsBannerComponent : FrameComponent
 {
     private const int _sizeX = 256;
-    private const int _sizeY = 320;
+    private const int _sizeY = 384;
 
     private readonly TextComponent _nameText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly TextComponent _descriptionText = new(positionXByCenter: true);
     private readonly TextComponent _targetTypeText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly TextComponent _targetAmountText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly TextComponent _cooldownText = new(positionXByCenter: true, positionYByCenter: true);
+    private readonly TextComponent _currentCooldownText = new(positionXByCenter: true, positionYByCenter: true);
+    private readonly TextComponent _manaCostText = new(positionXByCenter: true, positionYByCenter: true);
 
     public SkillDetailsBannerComponent()
     {
@@ -26,6 +28,8 @@ public class SkillDetailsBannerComponent : FrameComponent
         AddChild(_targetTypeText);
         AddChild(_targetAmountText);
         AddChild(_cooldownText);
+        AddChild(_currentCooldownText);
+        AddChild(_manaCostText);
 
         Bounds = new(0, 0, _sizeX, _sizeY);
     }
@@ -46,6 +50,16 @@ public class SkillDetailsBannerComponent : FrameComponent
         _targetTypeText.SetText($"Target Type: {skill.Definition.TargetType.ToString()}");
         _targetAmountText.SetText($"Target Amount: {skill.Definition.TargetAmount.ToString()}");
         _cooldownText.SetText($"Cooldown: {skill.Definition.Cooldown.ToString()}");
+        _currentCooldownText.SetText($"Current Cooldown: {skill.CurrentCooldown.ToString()}");
+        _manaCostText.SetText($"Mana Cost: {skill.Definition.ManaCost.ToString()}");
+
+        _currentCooldownText.Color = skill.CurrentCooldown <= 0
+            ? Microsoft.Xna.Framework.Color.Black
+            : Microsoft.Xna.Framework.Color.Red;
+
+        _manaCostText.Color = skill.OwnerUnit.Stats.CanSpendMana(skill.Definition.ManaCost)
+            ? Microsoft.Xna.Framework.Color.Black 
+            : Microsoft.Xna.Framework.Color.Red;
     }
 
     public override void SetPosition(int positionX, int positionY)
@@ -58,6 +72,8 @@ public class SkillDetailsBannerComponent : FrameComponent
         SetFieldPositionByIndex(_targetTypeText, 5);
         SetFieldPositionByIndex(_targetAmountText, 6);
         SetFieldPositionByIndex(_cooldownText, 7);
+        SetFieldPositionByIndex(_currentCooldownText, 8);
+        SetFieldPositionByIndex(_manaCostText, 9);
     }
 
     private int ApplyBounce(int baseValue)

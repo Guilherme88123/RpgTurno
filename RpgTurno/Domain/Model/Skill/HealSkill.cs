@@ -21,6 +21,7 @@ public class HealSkill : BaseSkill
     public override float PowerMax => 1.8f;
 
     public override int Cooldown => 2;
+    public override int ManaCost => 15;
 
     public override SkillAnimation Animation => new SkillAnimation(new HealAnimation(), null, true, 0.5f);
 

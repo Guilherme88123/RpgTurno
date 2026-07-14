@@ -19,6 +19,7 @@ public class DefendSkill : BaseSkill
     public override SkillType Type => SkillType.Stats;
 
     public override int Cooldown => 0;
+    public override int ManaCost => 0;
 
     public override SkillAnimation Animation => new SkillAnimation(null, null, true, 0.5f);
 

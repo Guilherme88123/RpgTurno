@@ -22,6 +22,7 @@ public class CurseSkill : BaseSkill
     public override float PowerMax => 1.15f;
 
     public override int Cooldown => 0;
+    public override int ManaCost => 0;
 
     public override SkillAnimation Animation => new SkillAnimation(new CurseAnimation(), null, true, 0.5f);
 

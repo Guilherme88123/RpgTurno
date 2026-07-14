@@ -47,7 +47,7 @@ public class UnitBannerComponent : FrameComponent
         AddChild(_speedIcon);
         AddChild(_unitIcon);
 
-        Bounds = new Rectangle(0, 0, 320, 480);
+        Bounds = new Rectangle(0, 0, 320, 512);
     }
 
     public void SetFocusedUnit(BaseUnitEntity focusedEntity, bool isEnemy)

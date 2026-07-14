@@ -20,6 +20,7 @@ public class ShootSkill : BaseSkill
     public override float PowerMax => 1.25f;
 
     public override int Cooldown => 0;
+    public override int ManaCost => 0;
 
     public override SkillAnimation Animation => new SkillAnimation(null, null, true, 0.5f);
 

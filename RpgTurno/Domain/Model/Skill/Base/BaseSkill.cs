@@ -19,6 +19,7 @@ public abstract class BaseSkill
     public virtual float PowerMax => 0;
 
     public abstract int Cooldown { get; }
+    public abstract int ManaCost { get; }
 
     public abstract SkillResult ExecuteSkill(SkillExecuteData skillData);
     
