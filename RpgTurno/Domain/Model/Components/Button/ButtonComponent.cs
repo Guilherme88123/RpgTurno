@@ -11,10 +11,13 @@ namespace Application.Model.MenuElements.Button;
 public class ButtonComponent : BaseComponent
 {
     public ButtonInteractionState State { get; set; }
-    private const float DelayPressed = 0.2f;
-    private float _currentDelay = DelayPressed;
 
     public Action Click { get; set; }
+
+    public bool AffectCursor { get; set; } = true;
+
+    private const float DelayPressed = 0.2f;
+    private float _currentDelay = DelayPressed;
 
     public readonly TextComponent Text = new(positionXByCenter: true, positionYByCenter: true);
 
@@ -23,22 +26,44 @@ public class ButtonComponent : BaseComponent
         base.Update(gameTime);
         Text.Update(gameTime);
 
-        bool botaoPressionado = GlobalVariablesDto.MouseState.LeftButton == ButtonState.Pressed;
-        bool pressState = State == ButtonInteractionState.Pressed;
-
-        if (botaoPressionado && !GlobalVariablesDto.PreviousMouseDown && HoverState.IsHover && !pressState)
-        {
-            State = ButtonInteractionState.Pressed;
-            _currentDelay = DelayPressed;
-            SetPositionText();
-
-            return;
-        }
-
         if (State == ButtonInteractionState.Pressed)
             UpdatePressedDelay();
 
+        if (!CanClick())
+            return;
+
+        CursorManager.RequestHover();
+
+        if (IsTryingClick())
+            ExecuteClick();
+
         AnimationManager.Update(State);
+    }
+
+    private bool CanClick()
+    {
+        if (State == ButtonInteractionState.Pressed)
+            return false;
+
+        if (!HoverState.IsHover)
+            return false;
+
+        if (GlobalVariablesDto.PreviousMouseDown)
+            return false;
+
+        return true;
+    }
+
+    private bool IsTryingClick()
+    {
+        return GlobalVariablesDto.MouseState.LeftButton == ButtonState.Pressed;
+    }
+
+    private void ExecuteClick()
+    {
+        State = ButtonInteractionState.Pressed;
+        _currentDelay = DelayPressed;
+        SetPositionText();
     }
 
     private void UpdatePressedDelay()

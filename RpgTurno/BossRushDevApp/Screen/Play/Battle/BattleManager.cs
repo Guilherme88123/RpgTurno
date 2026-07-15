@@ -241,8 +241,8 @@ public class BattleManager
 
         var unitTurn = _turnManager.GetPeekUnit();
 
-        unitTurn.OnTurnStart();
         OnTurnStart?.Invoke(unitTurn, IsEnemyUnit(unitTurn));
+        unitTurn.OnTurnStart();
     }
 
     private void UpdateSkillSelect()
