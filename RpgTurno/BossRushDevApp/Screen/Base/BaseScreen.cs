@@ -16,7 +16,6 @@ public abstract class BaseScreen : IScreen
     public abstract string ScreenCode { get; }
 
     protected readonly GameSession GameSession = GlobalVariablesDto.GetService<GameSession>();
-    protected CursorComponent CursorComponent;
 
     private readonly IUiManagerService _componentsService;
 
@@ -31,17 +30,11 @@ public abstract class BaseScreen : IScreen
     {
         _componentsService.ClearComponents();
         _componentsService.AddComponent(InitializeComponents());
-        InitializeCursor();
     }
 
     protected virtual List<BaseComponent> InitializeComponents()
     {
         return new();
-    }
-
-    private void InitializeCursor()
-    {
-        CursorComponent = new CustomCursorComponent();
     }
 
     #endregion
@@ -54,8 +47,6 @@ public abstract class BaseScreen : IScreen
 
         GlobalVariablesDto.PreviousMouseDown = GlobalVariablesDto.MouseState.LeftButton == ButtonState.Pressed;
 
-        UpdateCursor(gameTime);
-
         UpdateInputsState();
     }
 
@@ -65,11 +56,6 @@ public abstract class BaseScreen : IScreen
         GlobalVariablesDto.MouseState = Mouse.GetState();
     }
 
-    private void UpdateCursor(GameTime gameTime)
-    {
-        CursorComponent.Update(gameTime);
-    }
-
     #endregion
 
     #region Drawing
@@ -77,17 +63,11 @@ public abstract class BaseScreen : IScreen
     public virtual void Draw()
     {
         DrawComponents();
-        DrawCursor();
     }
 
     private void DrawComponents()
     {
         _componentsService.DrawComponents(GlobalVariablesDto.SpriteBatchInterface);
-    }
-
-    private void DrawCursor()
-    {
-        CursorComponent.Draw(GlobalVariablesDto.SpriteBatchInterface);
     }
 
     #endregion

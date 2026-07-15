@@ -1,5 +1,6 @@
 ﻿using Domain.Dto.Global;
 using Domain.Dto.Session;
+using Domain.Interface.Cursor;
 using Domain.Interface.Screen;
 using Domain.Interface.Transition;
 using Domain.Interface.UiManager;
@@ -8,6 +9,7 @@ using RpgTurno.Screen.Map;
 using RpgTurno.Screen.Menu;
 using RpgTurno.Screen.Option;
 using RpgTurno.Screen.Play;
+using Service.Cursor;
 using Service.Screen;
 using Service.Transition;
 using Service.UiManager;
@@ -41,6 +43,7 @@ public static class Program
         services.AddTransient<IScreenManager, ScreenManager>();
         services.AddTransient<IUiManagerService, UiManagerService>();
         services.AddTransient<ITransitionManager, TransitionManager>();
+        services.AddSingleton<ICursorManager, CursorManager>();
 
         #endregion
 

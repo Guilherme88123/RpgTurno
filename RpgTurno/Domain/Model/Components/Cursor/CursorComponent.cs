@@ -13,17 +13,17 @@ public class CursorComponent : BaseComponent
     private const int _hotspotX = 25;
     private const int _hotspotY = 21;
 
-    private CursorStateType _state;
+    public CursorStateType State { get; private set; }
 
     public CursorComponent(SpriteData normalSPrite, SpriteData hoverSprite, SpriteData blockSprite)
     {
-        _state = CursorStateType.Normal;
+        State = CursorStateType.Normal;
 
         AnimationManager.Add(CursorStateType.Normal, normalSPrite);
         AnimationManager.Add(CursorStateType.Hover, hoverSprite);
         AnimationManager.Add(CursorStateType.Block, blockSprite);
 
-        AnimationManager.Update(_state);
+        AnimationManager.Update(State);
 
         Bounds = new Rectangle(0, 0, normalSPrite.Width, normalSPrite.Height);
     }
@@ -36,11 +36,11 @@ public class CursorComponent : BaseComponent
         var cursorRectangle = new Rectangle(mouse.X - _hotspotX, mouse.Y - _hotspotY, Bounds.Width, Bounds.Height);
         Bounds = cursorRectangle;
 
-        AnimationManager.Update(_state);
+        AnimationManager.Update(State);
     }
 
     public void SetCursorState(CursorStateType state)
     {
-        _state = state;
+        State = state;
     }
 }

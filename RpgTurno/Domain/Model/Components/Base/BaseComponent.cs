@@ -1,4 +1,6 @@
-﻿using Domain.Model.Texture.Manager;
+﻿using Domain.Dto.Global;
+using Domain.Interface.Cursor;
+using Domain.Model.Texture.Manager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -7,6 +9,8 @@ namespace Domain.Model.Components.Base;
 public class BaseComponent
 {
     public Rectangle Bounds { get; protected set; }
+
+    protected ICursorManager CursorManager => GlobalVariablesDto.GetService<ICursorManager>();
 
     protected HoverState HoverState { get; } = new();
 

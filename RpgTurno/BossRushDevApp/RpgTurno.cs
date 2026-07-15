@@ -1,10 +1,13 @@
 ﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
 using Domain.Enum.Transition;
+using Domain.Interface.Cursor;
 using Domain.Interface.Screen;
 using Domain.Interface.Transition;
+using Domain.Model.Components.Cursor;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Service.Cursor;
 using System;
 
 namespace RpgTurnoApp;
@@ -13,6 +16,7 @@ public class RpgTurno : Game
 {
     public IScreenManager ScreenManager;
     public ITransitionManager TransitionManager;
+    public ICursorManager CursorManager;
 
     public string InitialScreenCode = ScreenConst.MenuScreen;
 
@@ -47,6 +51,8 @@ public class RpgTurno : Game
         GlobalVariablesDto.PushScreen = screenCode => TransitionManager.StartTransition(TransitionType.Fade, () => ScreenManager.PushScreen(screenCode));
         GlobalVariablesDto.PopScreen = () => TransitionManager.StartTransition(TransitionType.Fade, ScreenManager.PopScreen);
         GlobalVariablesDto.Exit = Exit;
+
+        CursorManager = GlobalVariablesDto.GetService<ICursorManager>();
 
         base.Initialize();
     }
@@ -89,11 +95,16 @@ public class RpgTurno : Game
         base.Update(gameTime);
 
         TransitionManager.Update(gameTime);
+        CursorManager.Update(gameTime);
 
         if (TransitionManager.IsTransitionRunning)
             return;
 
+        CursorManager.BeginFrame();
+
         ScreenManager.ActualScreen.Update(gameTime);
+
+        CursorManager.EndFrame();
     }
 
     private void UpdateFpsCounter()
@@ -120,6 +131,7 @@ public class RpgTurno : Game
 
         ScreenManager.ActualScreen.Draw();
         TransitionManager.Draw(GlobalVariablesDto.SpriteBatchInterface);
+        CursorManager.Draw(GlobalVariablesDto.SpriteBatchInterface);
         DrawFps();
 
         GlobalVariablesDto.SpriteBatchBackground.End();

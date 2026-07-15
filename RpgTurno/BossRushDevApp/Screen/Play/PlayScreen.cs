@@ -2,6 +2,7 @@
 using Domain.Dto.Global;
 using Domain.Enum.Battle;
 using Domain.Enum.Component.Cursor;
+using Domain.Interface.Cursor;
 using Domain.Model.Components.Base;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Skill.Base.Unit;
@@ -24,6 +25,8 @@ namespace RpgTurno.Screen.Play;
 public class PlayScreen : BaseScreen
 {
     public override string ScreenCode => ScreenConst.PlayScreen;
+
+    private ICursorManager _cursorManager => GlobalVariablesDto.GetService<ICursorManager>();
 
     private KeyboardState _previousKeyboardState;
     private bool _isPaused;
@@ -289,19 +292,14 @@ public class PlayScreen : BaseScreen
 
     #region Cursor
 
-    private void SetNormalCursor()
-    {
-        CursorComponent.SetCursorState(CursorStateType.Normal);
-    }
-
     private void SetHoverCursor()
     {
-        CursorComponent.SetCursorState(CursorStateType.Hover);
+        _cursorManager.RequestHover();
     }
 
     private void SetBlockCursor()
     {
-        CursorComponent.SetCursorState(CursorStateType.Block);
+        _cursorManager.RequestBlock();
     }
 
     #endregion
@@ -350,7 +348,6 @@ public class PlayScreen : BaseScreen
     private void OnHoverOutAction()
     {
         ClearFocusedEntity();
-        SetNormalCursor();
     }
 
     private void UpdateFocusedUnitComponentsVisibility()
