@@ -147,8 +147,8 @@ public class BaseUnitEntity : BaseEntity
 
     private void UpdateEffectsRectangle()
     {
-        var iconSize = 24;
-        var margin = 2;
+        var iconSize = 20;
+        var margin = 16;
 
         var index = 0;
         foreach (var unitEffect in Effects)
@@ -234,9 +234,16 @@ public class BaseUnitEntity : BaseEntity
 
     private void DrawEffects()
     {
+        int bannerSize = 32;
+
         foreach (var unitEffect in Effects)
         {
-            new ScrollMiddleBannerSprite().Draw(unitEffect.Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
+            var bannerRectangle = new Rectangle(
+                unitEffect.Rectangle.X + unitEffect.Rectangle.Width / 2 - bannerSize / 2,
+                unitEffect.Rectangle.Y + unitEffect.Rectangle.Height / 2 - bannerSize / 2 + 2,
+                bannerSize, bannerSize);
+
+            new SquareBannerSprite().Draw(bannerRectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
             unitEffect.Effect.Icon.Draw(unitEffect.Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
         }
     }

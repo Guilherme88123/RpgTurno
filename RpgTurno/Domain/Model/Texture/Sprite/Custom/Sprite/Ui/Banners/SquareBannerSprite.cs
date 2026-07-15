@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Banners;
 
-public class ScrollMiddleBannerSprite : SpriteData
+public class SquareBannerSprite : SpriteData
 {
-    public ScrollMiddleBannerSprite() : base(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ScrollBanner), border: new BorderDefinition(208, 208, 208, 208))
+    public SquareBannerSprite() : base(GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.SquareBanner), border: new(0, 8, 7, 7))
     {
     }
 }
