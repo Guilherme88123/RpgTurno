@@ -8,7 +8,6 @@ using Domain.Model.Entity.Units.Base.Stats;
 using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Sprite;
 using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Banners;
 using Domain.Model.Texture.Sprite.CustomSprites;
 using Microsoft.Xna.Framework;

@@ -9,7 +9,7 @@ public class CurseEffect : BaseEffect
 {
     public override string Name => "Cursed";
     public override string Description => "This unit is cursed";
-    public override SpriteData Icon => new MeatIconSprite();
+    public override SpriteData Icon => new CurseIconSprite();
 
     public CurseEffect() : base(duration: 2)
     {
