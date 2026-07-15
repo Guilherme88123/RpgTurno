@@ -147,15 +147,18 @@ public class BaseUnitEntity : BaseEntity
 
     private void UpdateEffectsRectangle()
     {
-        var iconSize = 20;
-        var margin = 16;
+        var iconSize = 32;
+        var margin = 4;
+
+        var accumulatedIconSize = Effects.Count * iconSize;
+        var initialX = Center.X - accumulatedIconSize / 2 - margin / 2;
 
         var index = 0;
         foreach (var unitEffect in Effects)
         {
             var indexMargin = (iconSize + margin) * index;
 
-            unitEffect.Rectangle = new Rectangle((int)(PositionX + indexMargin), (int)(PositionY + SizeY + 50), iconSize, iconSize);
+            unitEffect.Rectangle = new Rectangle((int)(initialX + indexMargin), (int)(PositionY + SizeY + 50), iconSize, iconSize);
 
             index++;
         }
@@ -234,17 +237,17 @@ public class BaseUnitEntity : BaseEntity
 
     private void DrawEffects()
     {
-        int bannerSize = 32;
+        int iconSize = 20;
 
         foreach (var unitEffect in Effects)
         {
-            var bannerRectangle = new Rectangle(
-                unitEffect.Rectangle.X + unitEffect.Rectangle.Width / 2 - bannerSize / 2,
-                unitEffect.Rectangle.Y + unitEffect.Rectangle.Height / 2 - bannerSize / 2 + 2,
-                bannerSize, bannerSize);
+            var iconRectangle = new Rectangle(
+                unitEffect.Rectangle.X + unitEffect.Rectangle.Width / 2 - iconSize / 2,
+                unitEffect.Rectangle.Y + unitEffect.Rectangle.Height / 2 - iconSize / 2 - 2,
+                iconSize, iconSize);
 
-            new SquareBannerSprite().Draw(bannerRectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
-            unitEffect.Effect.Icon.Draw(unitEffect.Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
+            new SquareBannerSprite().Draw(unitEffect.Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
+            unitEffect.Effect.Icon.Draw(iconRectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
         }
     }
 
