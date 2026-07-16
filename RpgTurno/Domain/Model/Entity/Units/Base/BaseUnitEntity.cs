@@ -305,7 +305,9 @@ public class BaseUnitEntity : BaseEntity
     {
         var damageTaken = Stats.RecieveDamage(damage);
 
-        TickDamageRecieved();
+        if (!hasMissed)
+            TickDamageRecieved();
+
         AddAttackSkillTextByContext(damage, hasMissed, hasCritical);
 
         return damageTaken;

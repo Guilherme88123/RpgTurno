@@ -108,7 +108,7 @@ public abstract class BaseSkill
         {
             var missContext = new SkillContext(skillData.Sender, skillData.Target, hasMissed: true);
 
-            ApplySkillAttack(skillData.Target, context);
+            ApplySkillAttack(skillData.Target, missContext);
 
             return new SkillResult(missContext);
         }
@@ -140,7 +140,7 @@ public abstract class BaseSkill
             {
                 var missContext = new SkillContext(skillData.Sender, target, hasMissed: true);
 
-                ApplySkillAttack(target, context);
+                ApplySkillAttack(target, missContext);
 
                 contextList.Add(missContext);
 
