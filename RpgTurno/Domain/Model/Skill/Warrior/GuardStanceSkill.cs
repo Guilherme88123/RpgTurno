@@ -7,19 +7,19 @@ using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
 using Domain.Model.Texture.Sprite.CustomSprites;
 
-namespace Domain.Model.Skill;
+namespace Domain.Model.Skill.Warrior;
 
-public class DefendSkill : BaseSkill
+public class GuardStanceSkill : BaseSkill
 {
-    public override string Name => "Defend";
-    public override string Description => "Puts this unit \ninto defense mode";
+    public override string Name => "Guard Stance";
+    public override string Description => "Place this unit \nin a guard stance.";
 
     public override TargetSkillType TargetType => TargetSkillType.Self;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;
     public override SkillType Type => SkillType.Stats;
 
-    public override int Cooldown => 0;
-    public override int ManaCost => 0;
+    public override int Cooldown => 3;
+    public override int ManaCost => 10;
 
     public override SkillAnimation Animation => new SkillAnimation(null, null, true, 0.5f);
 
@@ -27,7 +27,7 @@ public class DefendSkill : BaseSkill
     {
         var context = new SkillContext(skillData.Sender, skillData.Target);
 
-        skillData.Target.AddEffect(new DefendingEffect());
+        skillData.Target.AddEffect(new GuardStanceEffect());
 
         return new SkillResult(context);
     }

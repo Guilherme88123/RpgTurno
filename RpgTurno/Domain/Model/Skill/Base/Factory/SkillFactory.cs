@@ -1,4 +1,5 @@
 ﻿using Domain.Enum.Skill;
+using Domain.Model.Skill.Warrior;
 
 namespace Domain.Model.Skill.Base.Factory;
 
@@ -14,7 +15,7 @@ public static class SkillFactory
             SkillCode.Curse => new CurseSkill(),
             SkillCode.ArrowRain => new ArrowRainSkill(),
             SkillCode.Heal => new HealSkill(),
-            SkillCode.Defend => new DefendSkill(),
+            SkillCode.GuardStance => new GuardStanceSkill(),
             SkillCode.Rage => new RageSkill(),
             SkillCode.Regeneration => new RegenerationSkill(),
 

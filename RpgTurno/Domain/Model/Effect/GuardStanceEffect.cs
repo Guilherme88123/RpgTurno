@@ -5,13 +5,13 @@ using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Icons;
 
 namespace Domain.Model.Effect;
 
-public class DefendingEffect : BaseEffect
+public class GuardStanceEffect : BaseEffect
 {
-    public override string Name => "Defense";
-    public override string Description => "This unit is on \na defense posture, \nreducing damage \ntaken by 30%";
+    public override string Name => "Guard Stance";
+    public override string Description => "This unit is in \na guard stance, \nreducing damage \ntaken by 30%";
     public override SpriteData Icon => new ShieldIconSprite();
 
-    public DefendingEffect() : base(duration: 1)
+    public GuardStanceEffect() : base(duration: 2)
     {
     }
 
