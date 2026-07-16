@@ -4,8 +4,8 @@ public abstract class BaseUnitStats
 {
     public int Level { get; set; }
 
-    private ScalableStat MaxExperienceStat = new ScalableStat(120, 30);
-    private ScalableStat ExperienceRewardStat = new ScalableStat(50, 3);
+    private ScalableStat MaxExperienceStat = new ScalableStat(100, 20);
+    private ScalableStat ExperienceRewardStat = new ScalableStat(45, 7);
 
     public int Accuracy { get; protected set; }
     public int Evasion { get; protected set; }
