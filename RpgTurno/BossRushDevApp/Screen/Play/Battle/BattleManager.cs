@@ -139,10 +139,11 @@ public class BattleManager
 
     private void UpdateTurn()
     {
+        VerifyDeadUnits();
+
         if (!CanTurnContinue())
             return;
 
-        VerifyDeadUnits();
         VerifyWaveFinish();
         VerifyPlayFinish();
 
@@ -241,8 +242,9 @@ public class BattleManager
 
         var unitTurn = _turnManager.GetPeekUnit();
 
-        OnTurnStart?.Invoke(unitTurn, IsEnemyUnit(unitTurn));
         unitTurn.OnTurnStart();
+
+        OnTurnStart?.Invoke(unitTurn, IsEnemyUnit(unitTurn));
     }
 
     private void UpdateSkillSelect()
