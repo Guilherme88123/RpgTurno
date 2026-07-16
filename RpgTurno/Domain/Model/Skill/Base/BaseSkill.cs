@@ -56,7 +56,7 @@ public abstract class BaseSkill
 
         var rawChance = senderAccuracy - targetEvasion;
 
-        return Math.Clamp(rawChance, 5, 100);
+        return Math.Clamp(rawChance, 5, 99);
     }
 
     #endregion

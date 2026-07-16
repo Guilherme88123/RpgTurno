@@ -6,16 +6,16 @@ public class WarriorStats : BaseUnitStats
 {
     public WarriorStats(int level) : base(level)
     {
-        MaxHealthStat = new(140, 20);
-        AttackStat = new(22, 3);
-        DefenseStat = new(10, 2);
-        SpeedStat = new(8, 1);
-        MaxManaStat = new(20, 2);
+        MaxHealthStat = new(220, 24);
+        AttackStat = new(42, 4);
+        DefenseStat = new(20, 2.4f);
+        SpeedStat = new(16, 0.7f);
+        MaxManaStat = new(20, 3);
         ManaRegenStat = new(3, 0.2f);
         Accuracy = 95;
         Evasion = 5;
-        CriticalChance = 5;
-        CriticalDamage = 1.5f;
+        CriticalChance = 10;
+        CriticalDamage = 1.7f;
 
         Initialize();
     }
