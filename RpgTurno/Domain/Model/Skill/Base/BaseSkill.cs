@@ -65,15 +65,16 @@ public abstract class BaseSkill
 
     #region Critical
 
-    protected bool HasCriticalAttack(BaseUnitEntity sender)
+    protected bool HasCriticalAttack(BaseUnitEntity sender, float chanceMultiplier = 1.0f)
     {
-        var chance = CalculateCriticalAttackChance(sender);
+        var chance = CalculateCriticalAttackChance(sender, chanceMultiplier);
+
         return HasSuccessByChance(chance);
     }
 
-    private int CalculateCriticalAttackChance(BaseUnitEntity sender)
+    private int CalculateCriticalAttackChance(BaseUnitEntity sender, float chanceMultiplier)
     {
-        return sender.Stats.CriticalChance;
+        return (int)(sender.Stats.CriticalChance * chanceMultiplier);
     }
 
     protected void ApplyCriticalModifier(SkillContext context, BaseUnitEntity sender)

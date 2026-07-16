@@ -26,6 +26,20 @@ public class SnipeSkill : BaseSkill
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
-        return ExecuteDefaultSingleTargetAttack(skillData);
+        var damage = CalculateValue(skillData);
+
+        var context = new SkillContext(skillData.Sender, skillData.Target, damage);
+
+        if (HasCriticalAttack(skillData.Sender, chanceMultiplier: 1.2f))
+            ApplyCriticalModifier(context, skillData.Sender);
+
+        skillData.Sender.ApplyExecuteAttackEffects(context);
+        skillData.Target.ApplyReciveAttackEffects(context);
+
+        ApplySubtractTargetDefense(context, skillData.Target);
+
+        ApplySkillAttack(skillData.Target, context);
+
+        return new SkillResult(context);
     }
 }
