@@ -43,7 +43,7 @@ public class DivineLightSkill : BaseSkill
 
             skillData.Sender.ApplyExecuteAttackEffects(context);
 
-            skillData.Target.RecieveHeal(healAmount, context.HasCritical);
+            target.RecieveHeal(healAmount, context.HasCritical);
 
             contextList.Add(context);
         }

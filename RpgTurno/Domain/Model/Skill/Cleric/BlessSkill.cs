@@ -24,7 +24,7 @@ public class BlessSkill : BaseSkill
     public override int Cooldown => 3;
     public override int ManaCost => 10;
 
-    public override SkillAnimation Animation => new SkillAnimation(new CurseAnimation(), null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(new HealAnimation(), null, true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

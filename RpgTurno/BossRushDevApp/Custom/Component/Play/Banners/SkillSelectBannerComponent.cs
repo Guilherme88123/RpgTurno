@@ -34,7 +34,7 @@ public class SkillSelectBannerComponent : FrameComponent
     {
         AnimationManager.Add(true, new WoodBannerSprite());
 
-        Bounds = new Rectangle(0, 0, 512, 384);
+        Bounds = new Rectangle(0, 0, 512, 512);
     }
 
     public bool HasCursorHoveringButton()

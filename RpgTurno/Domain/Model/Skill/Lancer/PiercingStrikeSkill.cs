@@ -9,7 +9,7 @@ namespace Domain.Model.Skill.Lancer;
 
 public class PiercingStrikeSkill : BaseSkill
 {
-    public override string Name => "Piercing Strike";
+    public override string Name => "Piercing \nStrike";
     public override string Description => "A piercing attack \nthat ignores the \ntarget's armor";
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;

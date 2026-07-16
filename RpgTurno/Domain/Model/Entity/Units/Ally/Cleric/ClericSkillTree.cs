@@ -8,8 +8,10 @@ public class ClericSkillTree : BaseSkillTree
 {
     protected override IReadOnlyList<UnitSkillDefinition> Definitions =>
     [
-        new UnitSkillDefinition(SkillCode.Curse, 1),
+        new UnitSkillDefinition(SkillCode.Smite, 1),
         new UnitSkillDefinition(SkillCode.Heal, 1),
-        new UnitSkillDefinition(SkillCode.Regeneration, 1),
+        new UnitSkillDefinition(SkillCode.Bless, 2),
+        new UnitSkillDefinition(SkillCode.Curse, 2),
+        new UnitSkillDefinition(SkillCode.DivineLight, 3),
     ];
 }

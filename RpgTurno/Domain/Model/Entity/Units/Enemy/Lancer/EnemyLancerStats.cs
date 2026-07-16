@@ -6,16 +6,16 @@ public class EnemyLancerStats : BaseUnitStats
 {
     public EnemyLancerStats(int level) : base(level)
     {
-        MaxHealthStat = new(200, 30);
-        AttackStat = new(16, 2);
-        DefenseStat = new(13, 3);
-        SpeedStat = new(5, 0);
+        MaxHealthStat = new(280, 30);
+        AttackStat = new(28, 3);
+        DefenseStat = new(30, 3);
+        SpeedStat = new(12, 0.5f);
         MaxManaStat = new(18, 2);
-        ManaRegenStat = new(2, 0.2f);
+        ManaRegenStat = new(2, 0.15f);
         Accuracy = 90;
-        Evasion = 3;
-        CriticalChance = 3;
-        CriticalDamage = 1.4f;
+        Evasion = 10;
+        CriticalChance = 5;
+        CriticalDamage = 1.6f;
 
         Initialize();
     }

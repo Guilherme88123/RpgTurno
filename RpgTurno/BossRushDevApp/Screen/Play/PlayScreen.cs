@@ -59,7 +59,7 @@ public class PlayScreen : BaseScreen
         _selectionAreaComponent = new();
 
         _focusedUnitBannerComponent = new();
-        _focusedUnitBannerComponent.SetPosition(70, 204);
+        _focusedUnitBannerComponent.SetPosition(70, 48);
 
         _backgroundImageComponent = new();
 

@@ -8,7 +8,10 @@ public class EnemyLancerSkillTree : BaseSkillTree
 {
     protected override IReadOnlyList<UnitSkillDefinition> Definitions =>
     [
-        new UnitSkillDefinition(SkillCode.Pierce, 1),
-        new UnitSkillDefinition(SkillCode.GuardStance, 1),
+        new UnitSkillDefinition(SkillCode.Pike, 1),
+        new UnitSkillDefinition(SkillCode.PiercingStrike, 1),
+        new UnitSkillDefinition(SkillCode.Fortress, 2),
+        new UnitSkillDefinition(SkillCode.SpearSweep, 2),
+        new UnitSkillDefinition(SkillCode.LastBastion, 3),
     ];
 }

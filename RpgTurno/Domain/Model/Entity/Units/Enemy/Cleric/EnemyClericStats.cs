@@ -6,15 +6,15 @@ public class EnemyClericStats : BaseUnitStats
 {
     public EnemyClericStats(int level) : base(level)
     {
-        MaxHealthStat = new(120, 15);
-        AttackStat = new(12, 2);
-        DefenseStat = new(8, 1);
-        SpeedStat = new(10, 1);
-        MaxManaStat = new(40, 4);
-        ManaRegenStat = new(6, 0.4f);
-        Accuracy = 95;
+        MaxHealthStat = new(180, 20);
+        AttackStat = new(24, 2.5f);
+        DefenseStat = new(18, 2);
+        SpeedStat = new(18, 0.8f);
+        MaxManaStat = new(40, 5);
+        ManaRegenStat = new(6, 0.5f);
+        Accuracy = 92;
         Evasion = 8;
-        CriticalChance = 8;
+        CriticalChance = 5;
         CriticalDamage = 1.5f;
 
         Initialize();

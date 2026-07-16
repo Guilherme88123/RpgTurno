@@ -6,16 +6,16 @@ public class EnemyArcherStats : BaseUnitStats
 {
     public EnemyArcherStats(int level) : base(level)
     {
-        MaxHealthStat = new(90, 12);
-        AttackStat = new(35, 5);
-        DefenseStat = new(3, 1);
-        SpeedStat = new(14, 2);
-        MaxManaStat = new(30, 3);
-        ManaRegenStat = new(4, 0.3f);
-        Accuracy = 100;
-        Evasion = 12;
+        MaxHealthStat = new(150, 16);
+        AttackStat = new(50, 5);
+        DefenseStat = new(10, 1);
+        SpeedStat = new(24, 1.1f);
+        MaxManaStat = new(30, 4);
+        ManaRegenStat = new(4, 0.35f);
+        Accuracy = 98;
+        Evasion = 15;
         CriticalChance = 20;
-        CriticalDamage = 1.8f;
+        CriticalDamage = 1.9f;
 
         Initialize();
     }
