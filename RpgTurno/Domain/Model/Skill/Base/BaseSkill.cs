@@ -38,7 +38,9 @@ public abstract class BaseSkill
 
     protected void ApplySubtractTargetDefense(SkillContext context, BaseUnitEntity target)
     {
-        context.Value = Math.Max(0, context.Value - target.Stats.Defense);
+        float reduction = 100f / (100f + target.Stats.Defense);
+
+        context.Value = (int)MathF.Max(1, context.Value * reduction);
     }
 
     #region Miss
