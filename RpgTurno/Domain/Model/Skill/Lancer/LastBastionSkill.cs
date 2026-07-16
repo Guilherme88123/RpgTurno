@@ -5,21 +5,20 @@ using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
-using Domain.Model.Texture.Sprite.CustomSprites;
 
-namespace Domain.Model.Skill;
+namespace Domain.Model.Skill.Lancer;
 
-public class RageSkill : BaseSkill
+public class LastBastionSkill : BaseSkill
 {
-    public override string Name => "Rage";
-    public override string Description => "This unit is \novercome by rage";
+    public override string Name => "Last Bastion";
+    public override string Description => "The final point \nbetween death \nand glory";
 
     public override TargetSkillType TargetType => TargetSkillType.Self;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;
     public override SkillType Type => SkillType.Stats;
 
-    public override int Cooldown => 3;
-    public override int ManaCost => 17;
+    public override int Cooldown => 5;
+    public override int ManaCost => 20;
 
     public override SkillAnimation Animation => new SkillAnimation(null, null, true, 0.5f);
 
@@ -27,7 +26,7 @@ public class RageSkill : BaseSkill
     {
         var context = new SkillContext(skillData.Sender, skillData.Target);
 
-        skillData.Target.AddEffect(new RageEffect());
+        skillData.Target.AddEffect(new LastBastionEffect());
 
         return new SkillResult(context);
     }

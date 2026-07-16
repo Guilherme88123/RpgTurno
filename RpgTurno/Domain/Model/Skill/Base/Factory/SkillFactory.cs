@@ -9,15 +9,15 @@ public static class SkillFactory
     {
         return skillCode switch
         {
-            SkillCode.Slash => new SlashSkill(),
-            SkillCode.Pierce => new PierceSkill(),
-            SkillCode.Shoot => new ShootSkill(),
-            SkillCode.Curse => new CurseSkill(),
-            SkillCode.ArrowRain => new ArrowRainSkill(),
-            SkillCode.Heal => new HealSkill(),
-            SkillCode.GuardStance => new GuardStanceSkill(),
-            SkillCode.Rage => new RageSkill(),
-            SkillCode.Regeneration => new RegenerationSkill(),
+            //SkillCode.Slash => new SlashSkill(),
+            //SkillCode.Pierce => new PierceSkill(),
+            //SkillCode.Shoot => new ShootSkill(),
+            //SkillCode.Curse => new CurseSkill(),
+            //SkillCode.ArrowRain => new ArrowRainSkill(),
+            //SkillCode.Heal => new HealSkill(),
+            //SkillCode.GuardStance => new GuardStanceSkill(),
+            //SkillCode.Rage => new RageSkill(),
+            //SkillCode.Regeneration => new RegenerationSkill(),
 
             _ => throw new ArgumentOutOfRangeException(nameof(skillCode), skillCode, null)
         };

@@ -7,19 +7,22 @@ using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
 using Domain.Model.Texture.Sprite.CustomSprites;
 
-namespace Domain.Model.Skill;
+namespace Domain.Model.Skill.Cleric;
 
-public class RegenerationSkill : BaseSkill
+public class DivineLightSkill : BaseSkill
 {
-    public override string Name => "Regeneration";
-    public override string Description => "A skill that \nblesses your allies \nwith health points";
+    public override string Name => "Divine Light";
+    public override string Description => "It carries the \ndivine light as \na companion";
 
     public override TargetSkillType TargetType => TargetSkillType.Ally;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.All;
     public override SkillType Type => SkillType.Stats;
 
-    public override int Cooldown => 4;
-    public override int ManaCost => 28;
+    public override float PowerMin => 1.4f;
+    public override float PowerMax => 1.85f;
+
+    public override int Cooldown => 5;
+    public override int ManaCost => 24;
 
     public override SkillAnimation Animation => new SkillAnimation(new HealAnimation(), null, true, 0.5f);
 
@@ -29,9 +32,18 @@ public class RegenerationSkill : BaseSkill
 
         foreach (var target in skillData.Targets)
         {
-            var context = new SkillContext(skillData.Sender, target);
+            var healAmount = CalculateValue(skillData);
+
+            var context = new SkillContext(skillData.Sender, skillData.Target, healAmount);
 
             target.AddEffect(new RegenerationEffect());
+
+            if (HasCriticalAttack(skillData.Sender))
+                ApplyCriticalModifier(context, skillData.Sender);
+
+            skillData.Sender.ApplyExecuteAttackEffects(context);
+
+            skillData.Target.RecieveHeal(healAmount, context.HasCritical);
 
             contextList.Add(context);
         }

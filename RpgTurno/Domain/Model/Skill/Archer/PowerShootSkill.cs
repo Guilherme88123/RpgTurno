@@ -4,29 +4,28 @@ using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
-using System.Reflection;
 
 namespace Domain.Model.Skill;
 
-public class ArrowRainSkill : BaseSkill
+public class PowerShootSkill : BaseSkill
 {
-    public override string Name => "Arrow Rain";
-    public override string Description => "Attack all \ntargets with \nporwerfull arrows";
+    public override string Name => "Power Shoot";
+    public override string Description => "A more powerful \nrange attack";
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
-    public override TargetSkillAmount TargetAmount => TargetSkillAmount.All;
+    public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;
     public override SkillType Type => SkillType.Attack;
 
-    public override float PowerMin => 0.55f;
-    public override float PowerMax => 0.9f;
+    public override float PowerMin => 1.3f;
+    public override float PowerMax => 1.6f;
 
     public override int Cooldown => 2;
-    public override int ManaCost => 20;
+    public override int ManaCost => 8;
 
     public override SkillAnimation Animation => new SkillAnimation(null, null, true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
-        return ExecuteDefaultMultipleTargetAttack(skillData);
+        return ExecuteDefaultSingleTargetAttack(skillData);
     }
 }

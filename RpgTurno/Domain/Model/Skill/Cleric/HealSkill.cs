@@ -6,7 +6,7 @@ using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
 using Domain.Model.Texture.Sprite.CustomSprites;
 
-namespace Domain.Model.Skill;
+namespace Domain.Model.Skill.Cleric;
 
 public class HealSkill : BaseSkill
 {
@@ -17,11 +17,11 @@ public class HealSkill : BaseSkill
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;
     public override SkillType Type => SkillType.Heal;
 
-    public override float PowerMin => 1.2f;
-    public override float PowerMax => 1.8f;
+    public override float PowerMin => 1.1f;
+    public override float PowerMax => 1.35f;
 
-    public override int Cooldown => 2;
-    public override int ManaCost => 15;
+    public override int Cooldown => 1;
+    public override int ManaCost => 8;
 
     public override SkillAnimation Animation => new SkillAnimation(new HealAnimation(), null, true, 0.5f);
 

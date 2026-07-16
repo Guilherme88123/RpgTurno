@@ -5,18 +5,18 @@ using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Icons;
 
 namespace Domain.Model.Effect;
 
-public class GuardStanceEffect : BaseEffect
+public class FortressEffect : BaseEffect
 {
-    public override string Name => "Guard Stance";
-    public override string Description => "This unit is in \na guard stance, \nreducing damage \ntaken by 45%";
+    public override string Name => "Fortress";
+    public override string Description => "This unit looks \nlike a fortress, \nreducing damage \ntaken by 30%";
     public override SpriteData Icon => new ShieldIconSprite();
 
-    public GuardStanceEffect() : base(duration: 2)
+    public FortressEffect() : base(duration: 3)
     {
     }
 
     public override void OnReceiveAttack(SkillContext context)
     {
-        context.Value = (int)(context.Value * 0.65f);
+        context.Value = (int)(context.Value * 0.7f);
     }
 }

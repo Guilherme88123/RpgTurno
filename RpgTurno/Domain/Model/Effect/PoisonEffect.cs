@@ -5,18 +5,18 @@ using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Icons;
 
 namespace Domain.Model.Effect;
 
-public class CurseEffect : BaseEffect
+public class PoisonEffect : BaseEffect
 {
-    public override string Name => "Cursed";
-    public override string Description => "This unit is cursed";
+    public override string Name => "Poison";
+    public override string Description => "This unit is poisoned";
     public override SpriteData Icon => new CurseIconSprite();
 
-    public CurseEffect() : base(duration: 3)
+    public PoisonEffect() : base(duration: 3)
     {
     }
 
     public override void OnTurnStart(BaseUnitEntity unit)
     {
-        unit.RecieveAttack(12);
+        unit.RecieveAttack(7);
     }
 }

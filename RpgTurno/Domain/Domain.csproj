@@ -18,10 +18,4 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.6" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Model\Skill\Cleric\" />
-	  <Folder Include="Model\Skill\Archer\" />
-	  <Folder Include="Model\Skill\Lancer\" />
-	</ItemGroup>
-
 </Project>
