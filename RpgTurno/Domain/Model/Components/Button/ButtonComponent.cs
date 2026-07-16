@@ -26,8 +26,13 @@ public class ButtonComponent : BaseComponent
         base.Update(gameTime);
         Text.Update(gameTime);
 
+        AnimationManager.Update(State);
+
         if (State == ButtonInteractionState.Pressed)
+        {
             UpdatePressedDelay();
+            return;
+        }
 
         if (!CanClick())
             return;
@@ -36,8 +41,6 @@ public class ButtonComponent : BaseComponent
 
         if (IsTryingClick())
             ExecuteClick();
-
-        AnimationManager.Update(State);
     }
 
     private bool CanClick()
@@ -75,6 +78,7 @@ public class ButtonComponent : BaseComponent
             Click?.Invoke();
 
             State = ButtonInteractionState.Regular;
+            AnimationManager.Update(State);
             SetPositionText();
         }
     }
