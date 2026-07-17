@@ -45,7 +45,9 @@ public class BattleManager
     private bool HasAttacked;
 
     public BattleState BattleState { get; set; }
-    public bool CanSelectSkill => BattleState == BattleState.WaitingSkillSelect || BattleState == BattleState.WaitingTargetSelect;
+    public bool CanSelectSkill => 
+        (BattleState == BattleState.WaitingSkillSelect || BattleState == BattleState.WaitingTargetSelect)
+        && !IsEnemyUnit(CurrentTurnUnit);
 
     private readonly float _waveTransitionSpeed = 400f;
 
