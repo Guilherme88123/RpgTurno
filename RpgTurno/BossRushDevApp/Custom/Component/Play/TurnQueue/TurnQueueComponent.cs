@@ -3,6 +3,7 @@ using Domain.Model.Components.Base;
 using Domain.Model.Components.Image;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Ribbons;
+using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Ribbons.Small;
 using Domain.Model.Texture.Sprite.CustomSprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

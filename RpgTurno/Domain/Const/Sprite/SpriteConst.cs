@@ -143,6 +143,7 @@ public static class SpriteConst
 
     public const string SmallRibbons = "SmallRibbons";
     public const string BigRibbons = "BigRibbons";
+    public const string SwordRibbons = "SwordRibbons";
 
     #endregion
 

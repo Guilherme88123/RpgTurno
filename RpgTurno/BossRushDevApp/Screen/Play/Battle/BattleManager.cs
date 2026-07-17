@@ -37,6 +37,7 @@ public class BattleManager
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
     public Action<BaseUnitEntity, bool> OnTurnStart { get; set; }
     public Action<bool> OnBattleFinish { get; set; }
+    public Action<UnitSkill> OnSkillSelect { get; set; }
 
     public Action<BaseUnitEntity, AnimationClip> OnPlaySenderAnimation { get; set; }
     public Action<List<BaseUnitEntity>, AnimationClip> OnPlayTargetsAnimation { get; set; }
@@ -48,6 +49,8 @@ public class BattleManager
     public bool CanSelectSkill => 
         (BattleState == BattleState.WaitingSkillSelect || BattleState == BattleState.WaitingTargetSelect)
         && !IsEnemyUnit(CurrentTurnUnit);
+
+    public bool IsAttacking => BattleState == BattleState.Fighting;
 
     private readonly float _waveTransitionSpeed = 400f;
 
@@ -270,6 +273,7 @@ public class BattleManager
             return;
 
         SelectedSkill = skill;
+        OnSkillSelect?.Invoke(skill);
 
         BattleState = BattleState.Fighting;
     }
@@ -288,6 +292,7 @@ public class BattleManager
             return;
 
         SelectedSkill = skill;
+        OnSkillSelect?.Invoke(skill);
     }
 
     private void UpdateTurnAction()

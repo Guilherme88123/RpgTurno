@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.Custom.Component.Play.Banners.Pause;
+using RpgTurno.Custom.Component.Play.Skill;
 using RpgTurno.Custom.CustomComponents.Play.Background;
 using RpgTurno.Custom.CustomComponents.Play.Banners;
 using RpgTurno.Custom.CustomComponents.Play.Selection;
@@ -48,6 +49,7 @@ public class PlayScreen : BaseScreen
     private readonly List<PositionableAnimation> _skillAnimationsList = new();
 
     private SkillSelectBannerComponent _skillSelectComponent;
+    private UsedSkillIndicatorComponent _usedSkillIndicator;
 
     private WaveIndicatorComponent _waveIndicatorComponent;
 
@@ -72,6 +74,9 @@ public class PlayScreen : BaseScreen
         _skillSelectComponent.OnSkillSelect = SetSelectedSkill;
         _skillSelectComponent.IsVisible = false;
 
+        _usedSkillIndicator = new();
+        _usedSkillIndicator.SetPosition(GlobalOptionsDto.WidthSize / 2 - _usedSkillIndicator.Bounds.Width / 2, 112);
+
         _waveIndicatorComponent = new();
         _waveIndicatorComponent.SetPosition(GlobalOptionsDto.WidthSize - 140, 30);
 
@@ -90,6 +95,7 @@ public class PlayScreen : BaseScreen
             _turnQueueComponent,
             _currentTurnUnitComponent,
             _skillSelectComponent,
+            _usedSkillIndicator,
             _waveIndicatorComponent,
             _pauseBannerComponent,
         };
@@ -104,6 +110,7 @@ public class PlayScreen : BaseScreen
         _battleManager.OnBattleFinish += BattleFinish;
         _battleManager.OnPlaySenderAnimation += AddAnimation;
         _battleManager.OnPlayTargetsAnimation += AddAnimation;
+        _battleManager.OnSkillSelect += HandleSkillSelect;
     }
 
     private List<BaseUnitEntity> GetAllies()
@@ -127,6 +134,7 @@ public class PlayScreen : BaseScreen
 
         _battleManager.Update(gameTime);
 
+        UpdateUsedSkillComponentVisibility(gameTime);
         UpdateSelectionAreaComponent(gameTime);
         UpdateTurnComponents();
         UpdateWaveIndicator();
@@ -267,6 +275,16 @@ public class PlayScreen : BaseScreen
     private void SetSelectedSkill(UnitSkill skill)
     {
         _battleManager.SetPlayerSelectedSkill(skill);
+    }
+
+    private void HandleSkillSelect(UnitSkill skill)
+    {
+        _usedSkillIndicator.SetUsedSkill(skill, _battleManager.IsEnemyUnit(skill.OwnerUnit));
+    }
+
+    private void UpdateUsedSkillComponentVisibility(GameTime gameTime)
+    {
+        _usedSkillIndicator.IsVisible = _battleManager.IsAttacking;
     }
 
     #endregion
