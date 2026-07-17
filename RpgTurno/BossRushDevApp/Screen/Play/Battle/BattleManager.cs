@@ -32,6 +32,8 @@ public class BattleManager
 
     private List<BaseUnitEntity> _deadUnits = new();
 
+    public BaseUnitEntity CurrentTurnUnit { get; private set; }
+
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
     public Action<BaseUnitEntity, bool> OnTurnStart { get; set; }
     public Action<bool> OnBattleFinish { get; set; }
@@ -39,11 +41,13 @@ public class BattleManager
     public Action<BaseUnitEntity, AnimationClip> OnPlaySenderAnimation { get; set; }
     public Action<List<BaseUnitEntity>, AnimationClip> OnPlayTargetsAnimation { get; set; }
 
-    private UnitSkill _selectedSkill;
+    public UnitSkill SelectedSkill { get; private set; }
     private bool HasAttacked;
 
     public BattleState BattleState { get; set; }
-    public bool CanSelectSkill => BattleState == BattleState.WaitingSkillSelect || BattleState == BattleState.WaitingTargetSelect;
+    public bool CanSelectSkill => 
+        (BattleState == BattleState.WaitingSkillSelect || BattleState == BattleState.WaitingTargetSelect)
+        && !IsEnemyUnit(CurrentTurnUnit);
 
     private readonly float _waveTransitionSpeed = 400f;
 
@@ -249,12 +253,12 @@ public class BattleManager
 
     private void UpdateSkillSelect()
     {
-        var currentUnit = _turnManager.GetPeekUnit();
+        CurrentTurnUnit = _turnManager.GetPeekUnit();
 
-        if (IsEnemyUnit(currentUnit))
-            EnemySkillSelect(currentUnit);
+        if (IsEnemyUnit(CurrentTurnUnit))
+            EnemySkillSelect(CurrentTurnUnit);
         else
-            AllySkillSelect(currentUnit);
+            AllySkillSelect(CurrentTurnUnit);
     }
 
     private void EnemySkillSelect(BaseUnitEntity enemy)
@@ -265,14 +269,14 @@ public class BattleManager
         if (skill is null)
             return;
 
-        _selectedSkill = skill;
+        SelectedSkill = skill;
 
         BattleState = BattleState.Fighting;
     }
 
     private void AllySkillSelect(BaseUnitEntity ally)
     {
-        if (_selectedSkill is null)
+        if (SelectedSkill is null)
             return;
 
         BattleState = BattleState.WaitingTargetSelect;
@@ -283,17 +287,17 @@ public class BattleManager
         if (!skill.CanUse())
             return;
 
-        _selectedSkill = skill;
+        SelectedSkill = skill;
     }
 
     private void UpdateTurnAction()
     {
-        var currentUnit = _turnManager.GetPeekUnit();
+        CurrentTurnUnit = _turnManager.GetPeekUnit();
 
-        if (IsEnemyUnit(currentUnit))
-            UpdateEnemyTurn(currentUnit);
+        if (IsEnemyUnit(CurrentTurnUnit))
+            UpdateEnemyTurn(CurrentTurnUnit);
         else
-            UpdateAllyTurn(currentUnit);
+            UpdateAllyTurn(CurrentTurnUnit);
     }
 
     public bool IsEnemyUnit(BaseUnitEntity unit)
@@ -320,7 +324,7 @@ public class BattleManager
     {
         BattleState = BattleState.WaitingTargetSelect;
 
-        if (_selectedSkill is null)
+        if (SelectedSkill is null)
             return;
 
         if (GlobalVariablesDto.PreviousMouseDown)
@@ -347,12 +351,12 @@ public class BattleManager
 
     private void StartAttack(BaseUnitEntity sender, List<BaseUnitEntity> targets)
     {
-        _attackManager.StartAttack(new SkillExecuteData(sender, targets), _selectedSkill, IsEnemyUnit(sender));
+        _attackManager.StartAttack(new SkillExecuteData(sender, targets), SelectedSkill, IsEnemyUnit(sender));
     }
 
     private void ExecuteAttack(UnitSkill skill, SkillResult result)
     {
-        _selectedSkill = null;
+        SelectedSkill = null;
     }
 
     private void VerifyDeadUnits()
@@ -464,9 +468,14 @@ public class BattleManager
 
     #region Avaliable Targets
 
+    public List<BaseUnitEntity> GetAvaliableTargets()
+    {
+        return GetAvaliableTargets(CurrentTurnUnit);
+    }
+
     private List<BaseUnitEntity> GetAvaliableTargets(BaseUnitEntity sender)
     {
-        return _selectedSkill.Definition.TargetType switch
+        return SelectedSkill.Definition.TargetType switch
         {
             TargetSkillType.Self => [sender],
             TargetSkillType.Ally => IsEnemyUnit(sender) ? Enemies : Allies,
@@ -475,9 +484,9 @@ public class BattleManager
         };
     }
 
-    private List<BaseUnitEntity> GetTargetsBySelectedUnit(BaseUnitEntity selectedUnit, List<BaseUnitEntity> avaliable)
+    public List<BaseUnitEntity> GetTargetsBySelectedUnit(BaseUnitEntity selectedUnit, List<BaseUnitEntity> avaliable)
     {
-        return _selectedSkill.Definition.TargetAmount switch
+        return SelectedSkill.Definition.TargetAmount switch
         {
             TargetSkillAmount.Single => [selectedUnit],
             TargetSkillAmount.All => avaliable,

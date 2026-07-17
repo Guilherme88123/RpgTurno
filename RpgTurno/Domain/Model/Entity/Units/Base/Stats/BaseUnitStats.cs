@@ -92,8 +92,33 @@ public abstract class BaseUnitStats
     public void LevelUp()
     {
         CurrentExperience -= MaxExperience;
+
         Level++;
+        GiveLevelUpStatsGainToCurrent();
+
         OnLevelUp?.Invoke();
+    }
+
+    private void GiveLevelUpStatsGainToCurrent()
+    {
+        GiveLevelUpHealthGainToCurrent();
+        GiveLevelUpManaGainToCurrent();
+    }
+
+    private void GiveLevelUpHealthGainToCurrent()
+    {
+        var newMax = MaxHealth;
+        var oldMax = MaxHealthStat.GetFinalValue(Level - 1);
+        var statsGain = newMax - oldMax;
+        CurrentHealth += statsGain;
+    }
+
+    private void GiveLevelUpManaGainToCurrent()
+    {
+        var newMax = MaxMana;
+        var oldMax = MaxManaStat.GetFinalValue(Level - 1);
+        var statsGain = newMax - oldMax;
+        CurrentMana += statsGain;
     }
 
     #endregion
