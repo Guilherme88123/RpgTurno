@@ -83,7 +83,7 @@ public abstract class BaseUnitStats
 
     private void VerifyLevelUp()
     {
-        while (CurrentExperience > MaxExperience)
+        while (CurrentExperience >= MaxExperience)
         {
             LevelUp();
         }
