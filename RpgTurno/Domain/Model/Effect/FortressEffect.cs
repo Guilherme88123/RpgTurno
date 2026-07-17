@@ -9,7 +9,7 @@ public class FortressEffect : BaseEffect
 {
     public override string Name => "Fortress";
     public override string Description => "This unit looks \nlike a fortress, \nreducing damage \ntaken by 30%";
-    public override SpriteData Icon => new ShieldIconSprite();
+    public override SpriteData Icon => new FortressIconSprite();
 
     public FortressEffect() : base(duration: 3)
     {

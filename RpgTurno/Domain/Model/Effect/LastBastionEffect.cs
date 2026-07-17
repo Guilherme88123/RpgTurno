@@ -9,7 +9,7 @@ public class LastBastionEffect : BaseEffect
 {
     public override string Name => "Last Bastion";
     public override string Description => "This unit has \n60% more defense \nand 30% more damage";
-    public override SpriteData Icon => new SwordIconSprite();
+    public override SpriteData Icon => new LastBastionIconSprite();
 
     public LastBastionEffect() : base(duration: 3)
     {

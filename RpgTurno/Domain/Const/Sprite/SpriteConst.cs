@@ -120,6 +120,9 @@ public static class SpriteConst
     public const string ManaIcon = "ManaIcon";
     public const string CriticalIcon = "CriticalIcon";
     public const string CurseIcon = "CurseIcon";
+    public const string PoisonIcon = "PoisonIcon";
+    public const string FortressIcon = "FortressIcon";
+    public const string LastBastionIcon = "LastBastionIcon";
 
     #endregion
 

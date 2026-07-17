@@ -9,7 +9,7 @@ public class PoisonEffect : BaseEffect
 {
     public override string Name => "Poison";
     public override string Description => "This unit is poisoned";
-    public override SpriteData Icon => new CurseIconSprite();
+    public override SpriteData Icon => new PoisonIconSprite();
 
     public PoisonEffect() : base(duration: 3)
     {
