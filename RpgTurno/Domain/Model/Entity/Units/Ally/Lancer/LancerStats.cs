@@ -10,7 +10,7 @@ public class LancerStats : BaseUnitStats
         AttackStat = new(28, 3);
         DefenseStat = new(30, 3);
         SpeedStat = new(12, 0.5f);
-        MaxManaStat = new(1800, 2);
+        MaxManaStat = new(18, 2);
         ManaRegenStat = new(2, 0.15f);
         Accuracy = 90;
         Evasion = 10;

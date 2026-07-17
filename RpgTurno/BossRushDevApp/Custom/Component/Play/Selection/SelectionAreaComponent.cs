@@ -1,7 +1,10 @@
 ﻿using Domain.Dto.Global;
 using Domain.Model.Components.Base;
+using Domain.Model.Entity.Units.Base;
 using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Cursor;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace RpgTurno.Custom.CustomComponents.Play.Selection;
 
@@ -14,12 +17,16 @@ public class SelectionAreaComponent : BaseComponent
         AnimationManager.Add(true, new SelectionAreaSprite());
     }
 
-    public void SetDestinationRectangle(Rectangle destinationRectangle)
+    public void DrawOnFocusedUnits(List<BaseUnitEntity> focusedUnits, SpriteBatch spriteBatch)
     {
-        Bounds = FixRectangleWithFixedSlice(destinationRectangle);
+        foreach (var unit in focusedUnits)
+        {
+            var boundUnitRectangle = GetBounceRectangle(unit.Rectangle);
+            AnimationManager.Draw(boundUnitRectangle, Color, Rotation, SpriteEffects, spriteBatch);
+        }
     }
 
-    private Rectangle FixRectangleWithFixedSlice(Rectangle destinationRectangle)
+    private Rectangle GetBounceRectangle(Rectangle destinationRectangle)
     {
         var bounce = GlobalVariablesDto.GetBounceValue();
 

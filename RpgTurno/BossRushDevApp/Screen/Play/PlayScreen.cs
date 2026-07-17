@@ -19,6 +19,7 @@ using RpgTurno.Custom.CustomComponents.Play.Wave;
 using RpgTurno.Screen.Play.Battle;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RpgTurno.Screen.Play;
 
@@ -35,8 +36,8 @@ public class PlayScreen : BaseScreen
 
     private BattleManager _battleManager;
 
+    private readonly List<BaseUnitEntity> _focusedUnitsList = new();
     private SelectionAreaComponent _selectionAreaComponent;
-    private BaseUnitEntity _focusedEntity;
     private UnitBannerComponent _focusedUnitBannerComponent;
 
     private BattleMapBackgroundComponent _backgroundImageComponent;
@@ -85,7 +86,6 @@ public class PlayScreen : BaseScreen
             GlobalOptionsDto.HeightSize / 2 - _pauseBannerComponent.Bounds.Height / 2);
 
         return new() {
-            _selectionAreaComponent,
             _focusedUnitBannerComponent,
             _turnQueueComponent,
             _currentTurnUnitComponent,
@@ -127,6 +127,7 @@ public class PlayScreen : BaseScreen
 
         _battleManager.Update(gameTime);
 
+        UpdateSelectionAreaComponent(gameTime);
         UpdateTurnComponents();
         UpdateWaveIndicator();
         UpdateSkillAnimations();
@@ -274,19 +275,38 @@ public class PlayScreen : BaseScreen
 
     #region Focused Entity
 
-    private void SetFocusedEntity(BaseUnitEntity entity)
+    private void SetFocusedEntity(BaseUnitEntity unit)
     {
-        _focusedEntity = entity;
-        _selectionAreaComponent.SetDestinationRectangle(entity.Rectangle);
-        _focusedUnitBannerComponent.SetFocusedUnit(entity, _battleManager.IsEnemyUnit(entity));
-        _turnQueueComponent.SetFocusedUnit(entity);
+        _focusedUnitsList.Clear();
+        _focusedUnitsList.Add(unit);
+
+        _focusedUnitBannerComponent.SetFocusedUnit(unit, _battleManager.IsEnemyUnit(unit));
+        _turnQueueComponent.SetFocusedUnit(unit);
+    }
+
+    private void SetFocusedUnit(List<BaseUnitEntity> allUnits, BaseUnitEntity principalUnit)
+    {
+        _focusedUnitsList.Clear();
+        _focusedUnitsList.AddRange(allUnits);
+
+        _focusedUnitBannerComponent.SetFocusedUnit(principalUnit, _battleManager.IsEnemyUnit(principalUnit));
+        _turnQueueComponent.SetFocusedUnit(principalUnit);
     }
 
     private void ClearFocusedEntity()
     {
-        _focusedEntity = null;
+        _focusedUnitsList.Clear();
         _turnQueueComponent.ClearFocusedUnit();
     }
+
+    #region Select Component
+
+    private void UpdateSelectionAreaComponent(GameTime gameTime)
+    {
+        _selectionAreaComponent.Update(gameTime);
+    }
+
+    #endregion
 
     #endregion
 
@@ -333,8 +353,39 @@ public class PlayScreen : BaseScreen
 
     private void OnHoverInUnitAction(BaseUnitEntity unit)
     {
+        if (IsSkillSelected() && IsCurrentUnitTurnAnAlly())
+        {
+            OnHoverUnitWithSkill(unit);
+            return;
+        }
+
         SetFocusedEntity(unit);
         SetHoverCursor();
+    }
+
+    private bool IsSkillSelected()
+    {
+        return _battleManager.SelectedSkill is not null;
+    }
+
+    private bool IsCurrentUnitTurnAnAlly()
+    {
+        return !_battleManager.IsEnemyUnit(_battleManager.CurrentTurnUnit);
+    }
+
+    private void OnHoverUnitWithSkill(BaseUnitEntity unit)
+    {
+        var avaliableTargets = _battleManager.GetAvaliableTargets();
+
+        if (avaliableTargets.Contains(unit))
+        {
+            SetFocusedUnit(_battleManager.GetTargetsBySelectedUnit(unit, avaliableTargets), unit);
+            SetHoverCursor();
+            return;
+        }
+
+        SetFocusedEntity(unit);
+        SetBlockCursor();
     }
 
     private void OnHoverInSkillButtonAction(bool canUse)
@@ -360,7 +411,7 @@ public class PlayScreen : BaseScreen
 
     private bool HasFocusedEntity()
     {
-        return _focusedEntity is not null;
+        return _focusedUnitsList.Any();
     }
 
     #endregion
@@ -405,6 +456,7 @@ public class PlayScreen : BaseScreen
             DrawPausedShade();
 
         base.Draw();
+        DrawSelectionAreaComponent();
 
         DrawBattle();
     }
@@ -412,11 +464,6 @@ public class PlayScreen : BaseScreen
     private void DrawBackground()
     {
         _backgroundImageComponent.Draw(GlobalVariablesDto.SpriteBatchBackground);
-    }
-
-    private void DrawBattle()
-    {
-        _battleManager.GetAllUnits().ForEach(x => x.Draw());
     }
 
     private void DrawSkillAnimations()
@@ -428,6 +475,16 @@ public class PlayScreen : BaseScreen
     {
         var screenRectangle = new Rectangle(0, 0, GlobalOptionsDto.WidthSize, GlobalOptionsDto.HeightSize);
         GlobalVariablesDto.SpriteBatchInterface.Draw(GlobalVariablesDto.Pixel, screenRectangle, Color.Black * 0.4f);
+    }
+
+    private void DrawBattle()
+    {
+        _battleManager.GetAllUnits().ForEach(x => x.Draw());
+    }
+
+    private void DrawSelectionAreaComponent()
+    {
+        _selectionAreaComponent.DrawOnFocusedUnits(_focusedUnitsList, GlobalVariablesDto.SpriteBatchInterface);
     }
 
     #endregion
