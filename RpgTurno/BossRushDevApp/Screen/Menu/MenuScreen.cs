@@ -1,6 +1,8 @@
 ﻿using Domain.Const.Screen;
+using Domain.Const.Version;
 using Domain.Dto.Global;
 using Domain.Model.Components.Base;
+using Domain.Model.Components.Text;
 using RpgTurno.Custom.Component.Menu.Button;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
@@ -19,11 +21,13 @@ public class MenuScreen : BaseScreen
         MenuButtonComponent optionsButton = new();
         MenuButtonComponent creditsButton = new();
         MenuButtonComponent exitButton = new(isDanger: true);
+        TextComponent versionText = new();
 
         startButton.SetText("Start");
         optionsButton.SetText("Options");
         creditsButton.SetText("Credits");
         exitButton.SetText("Exit");
+        versionText.SetText($"Version: {VersionConst.Version}");
 
         var initialPositionY = GlobalOptionsDto.HeightSize / 3;
 
@@ -31,6 +35,7 @@ public class MenuScreen : BaseScreen
         optionsButton.SetPositionWithIndex(initialPositionY, 1);
         creditsButton.SetPositionWithIndex(initialPositionY, 2);
         exitButton.SetPositionWithIndex(initialPositionY, 3);
+        versionText.SetPosition(10, GlobalOptionsDto.HeightSize - versionText.Bounds.Height - 30);
 
         startButton.Click = StartGame;
         optionsButton.Click = GoToOptionsScreen;
@@ -43,6 +48,7 @@ public class MenuScreen : BaseScreen
             optionsButton,
             creditsButton,
             exitButton,
+            versionText,
         };
     }
 
