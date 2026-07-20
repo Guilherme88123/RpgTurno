@@ -31,8 +31,8 @@ public class MenuScreen : BaseScreen
 
         var initialPositionY = GlobalOptionsDto.HeightSize / 3;
 
-        startButton.SetPositionWithIndex(initialPositionY, 0);
-        optionsButton.SetPositionWithIndex(initialPositionY, 1);
+        startButton.SetPositionWithIndex(initialPositionY, 1);
+        optionsButton.SetPositionWithIndex(initialPositionY, 2);
         creditsButton.SetPositionWithIndex(initialPositionY, 2);
         exitButton.SetPositionWithIndex(initialPositionY, 3);
         versionText.SetPosition(10, GlobalOptionsDto.HeightSize - versionText.Bounds.Height - 30);
@@ -46,7 +46,7 @@ public class MenuScreen : BaseScreen
         {
             startButton,
             optionsButton,
-            creditsButton,
+            //creditsButton,
             exitButton,
             versionText,
         };
