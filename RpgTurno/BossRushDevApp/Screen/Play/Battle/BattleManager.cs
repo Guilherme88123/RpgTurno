@@ -38,6 +38,7 @@ public class BattleManager
     public Action<BaseUnitEntity, bool> OnTurnStart { get; set; }
     public Action<bool> OnBattleFinish { get; set; }
     public Action<UnitSkill> OnSkillSelect { get; set; }
+    public Action<BaseUnitEntity> OnSlayEnemy { get; set; }
 
     public Action<BaseUnitEntity, AnimationClip> OnPlaySenderAnimation { get; set; }
     public Action<List<BaseUnitEntity>, AnimationClip> OnPlayTargetsAnimation { get; set; }
@@ -46,7 +47,7 @@ public class BattleManager
     private bool HasAttacked;
 
     public BattleState BattleState { get; set; }
-    public bool CanSelectSkill => 
+    public bool CanSelectSkill =>
         (BattleState == BattleState.WaitingSkillSelect || BattleState == BattleState.WaitingTargetSelect)
         && !IsEnemyUnit(CurrentTurnUnit);
 
@@ -437,6 +438,7 @@ public class BattleManager
             return;
 
         Allies.ForEach(x => x.Stats.AddExperience(unit.Stats));
+        OnSlayEnemy?.Invoke(unit);
     }
 
     private void GoToNextTurn()

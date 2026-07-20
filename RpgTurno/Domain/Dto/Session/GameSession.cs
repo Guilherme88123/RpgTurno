@@ -11,4 +11,6 @@ public class GameSession
     public Action OnStageCleared { get; set; }
 
     public bool IsInBattle { get; set; }
+
+    public PlayStatistics Statistics { get; set; }
 }

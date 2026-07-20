@@ -21,6 +21,7 @@ using RpgTurno.Custom.CustomComponents.Play.Wave;
 using RpgTurno.Screen.Play.Battle;
 using RpgTurnoApp.Screen.Base;
 using SharpDX.XAudio2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -61,6 +62,13 @@ public class PlayScreen : BaseScreen
 
     #region Initialize
 
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        GameSession.Statistics = new();
+    }
+
     protected override List<BaseComponent> InitializeComponents()
     {
         _isFinished = false;
@@ -100,7 +108,7 @@ public class PlayScreen : BaseScreen
             GlobalOptionsDto.HeightSize / 2 - _pauseBannerComponent.Bounds.Height / 2);
 
         _finishBannerComponent = new(
-            onRetryAction: OnRestartAction,
+            onRetryAction: OnRetryAction,
             onMapAction: GoToMapScreen);
         _finishBannerComponent.IsVisible = false;
         _finishBannerComponent.IsEnable = false;
@@ -130,6 +138,7 @@ public class PlayScreen : BaseScreen
         _battleManager.OnPlaySenderAnimation += AddAnimation;
         _battleManager.OnPlayTargetsAnimation += AddAnimation;
         _battleManager.OnSkillSelect += HandleSkillSelect;
+        _battleManager.OnSlayEnemy += OnSlayEnemy;
     }
 
     private List<BaseUnitEntity> GetAllies()
@@ -529,9 +538,14 @@ public class PlayScreen : BaseScreen
 
     private void OnRestartAction()
     {
-        base.Initialize();
-        GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
+        OnRetryAction();
         OnResumeAction();
+    }
+
+    private void OnRetryAction()
+    {
+        Initialize();
+        GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
     }
 
     #endregion
@@ -540,9 +554,13 @@ public class PlayScreen : BaseScreen
 
     private void BattleFinish(bool isGameOver = false)
     {
+        if (_isFinished)
+            return;
+
         _isFinished = true;
 
-        _finishBannerComponent.SetFinishBattleStatus(isGameOver);
+        GameSession.Statistics.EndDate = DateTime.Now;
+        _finishBannerComponent.SetFinishBattleStatus(isGameOver, GameSession.Statistics);
         HandleFinishBattleComponentsVisibility();
 
         if (!isGameOver)
@@ -575,6 +593,16 @@ public class PlayScreen : BaseScreen
         GameSession.IsInBattle = false;
         GlobalVariablesDto.PopScreen();
         GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
+    }
+
+    #endregion
+
+    #region Battle Statistics
+
+    private void OnSlayEnemy(BaseUnitEntity enemy)
+    {
+        GameSession.Statistics.DefeatedEnemies++;
+        GameSession.Statistics.TotalExperience += enemy.Stats.ExperienceReward;
     }
 
     #endregion
