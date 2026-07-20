@@ -48,6 +48,16 @@ public abstract class BaseUnitStats
         CurrentMana = MaxMana;
     }
 
+    #region Reset
+
+    public void Reset()
+    {
+        CurrentHealth = MaxHealth;
+        CurrentMana = MaxMana;
+    }
+
+    #endregion
+
     #region Attack
 
     public int RecieveDamage(int damage)

@@ -544,6 +544,7 @@ public class PlayScreen : BaseScreen
 
     private void OnRetryAction()
     {
+        ResetUnitsStatus();
         Initialize();
         GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
     }
@@ -560,11 +561,18 @@ public class PlayScreen : BaseScreen
         _isFinished = true;
 
         GameSession.Statistics.EndDate = DateTime.Now;
+
         _finishBannerComponent.SetFinishBattleStatus(isGameOver, GameSession.Statistics);
+
         HandleFinishBattleComponentsVisibility();
 
         if (!isGameOver)
             GameSession.OnStageCleared?.Invoke();
+    }
+
+    private void ResetUnitsStatus()
+    {
+        GameSession.Allies.ForEach(x => x.ResetStatus());
     }
 
     private void HandleFinishBattleComponentsVisibility()
@@ -590,6 +598,7 @@ public class PlayScreen : BaseScreen
 
     private void GoToMapScreen()
     {
+        ResetUnitsStatus();
         GameSession.IsInBattle = false;
         GlobalVariablesDto.PopScreen();
         GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);

@@ -28,9 +28,10 @@ public class BattleManager
     private StageData _stage;
 
     public List<BaseUnitEntity> Allies { get; private set; }
-    public List<BaseUnitEntity> Enemies => _stage.GetCurrentWave().Enemies;
+    public List<BaseUnitEntity> AliveAllies => Allies.Where(x => !x.IsDead).ToList();
 
-    private List<BaseUnitEntity> _deadUnits = new();
+    public List<BaseUnitEntity> Enemies => _stage.GetCurrentWave().Enemies;
+    public List<BaseUnitEntity> AliveEnemies => _stage.GetCurrentWave().AliveEnemies;
 
     public BaseUnitEntity CurrentTurnUnit { get; private set; }
 
@@ -82,12 +83,20 @@ public class BattleManager
 
     public List<BaseUnitEntity> GetAllUnits()
     {
-        return [.. Allies, .. Enemies, .. _deadUnits];
+        return 
+        [
+        .. Allies, 
+        .. Enemies
+        ];
     }
 
     public List<BaseUnitEntity> GetLiveUnits()
     {
-        return [.. Allies, .. Enemies];
+        return
+        [
+        .. Allies.Where(x => !x.IsDead),
+        .. Enemies.Where(x => !x.IsDead)
+        ];
     }
 
     public List<BaseUnitEntity> GetUnitsTurnQueue()
@@ -124,25 +133,7 @@ public class BattleManager
 
     private void UpdateUnits()
     {
-        List<BaseUnitEntity> destroyedUnits = new();
-
-        foreach (var unit in GetAllUnits())
-        {
-            unit.Update();
-
-            if (unit.IsDestroyed)
-                destroyedUnits.Add(unit);
-        }
-
-        foreach (var unit in destroyedUnits)
-        {
-            RemoveUnitFromDeadList(unit);
-        }
-    }
-
-    private void RemoveUnitFromDeadList(BaseUnitEntity unit)
-    {
-        _deadUnits.Remove(unit);
+        GetAllUnits().ForEach(x => x.Update());
     }
 
     private void UpdateTurn()
@@ -211,7 +202,7 @@ public class BattleManager
 
     private void MoveParty()
     {
-        Enemies.ForEach(x => x.PositionX -= _waveTransitionSpeed * GlobalVariablesDto.DeltaTime);
+        AliveEnemies.ForEach(x => x.PositionX -= _waveTransitionSpeed * GlobalVariablesDto.DeltaTime);
     }
 
     private void MoveCamera()
@@ -231,13 +222,13 @@ public class BattleManager
 
     private bool ReachedWaveTransitionTarget(int target)
     {
-        return Enemies.All(x => x.PositionX <= target);
+        return AliveEnemies.All(x => x.PositionX <= target);
     }
 
     private void FinishWaveTransition(int target)
     {
-        Allies.ForEach(x => x.CreatureState = CreatureStateType.Idle);
-        Enemies.ForEach(x => x.PositionX = target);
+        AliveAllies.ForEach(x => x.CreatureState = CreatureStateType.Idle);
+        AliveEnemies.ForEach(x => x.PositionX = target);
 
         _turnManager.SetUnitsQueue(GetAllUnits());
 
@@ -371,23 +362,18 @@ public class BattleManager
             .Where(x => x.IsDead)
             .ToList();
 
-        MoveUnitToDeadList(deadUnits);
+        RemoveUnitFromTurnQueue(deadUnits);
     }
 
-    private void MoveUnitToDeadList(List<BaseUnitEntity> units)
+    private void RemoveUnitFromTurnQueue(List<BaseUnitEntity> units)
     {
         foreach (var unit in units)
-            MoveUnitToDeadList(unit);
+            RemoveUnitFromTurnQueue(unit);
     }
 
-    private void MoveUnitToDeadList(BaseUnitEntity unit)
+    private void RemoveUnitFromTurnQueue(BaseUnitEntity unit)
     {
-        Allies.Remove(unit);
-        Enemies.Remove(unit);
-
         _turnManager.RemoveUnit(unit);
-
-        _deadUnits.Add(unit);
     }
 
     private void VerifyPlayFinish()
@@ -415,7 +401,7 @@ public class BattleManager
 
     private bool HasLostBattle()
     {
-        return !Allies.Any();
+        return AliveAllies.Count == 0;
     }
 
     private void BattleFinish(bool isGameOver = false)
@@ -448,7 +434,7 @@ public class BattleManager
 
     private void VerifyWaveFinish()
     {
-        if (Enemies.Any())
+        if (AliveEnemies.Count >= 1)
             return;
 
         AdvanceWave();
@@ -468,8 +454,8 @@ public class BattleManager
     private void StartWaveTransition()
     {
         BattleState = BattleState.WaveTransition;
-        Allies.ForEach(x => x.CreatureState = CreatureStateType.Running);
-        Allies.ForEach(x => x.Direction = DirectionType.Right);
+        AliveAllies.ForEach(x => x.CreatureState = CreatureStateType.Running);
+        AliveAllies.ForEach(x => x.Direction = DirectionType.Right);
     }
 
     #endregion
@@ -486,9 +472,9 @@ public class BattleManager
         return SelectedSkill.Definition.TargetType switch
         {
             TargetSkillType.Self => [sender],
-            TargetSkillType.Ally => IsEnemyUnit(sender) ? Enemies : Allies,
-            TargetSkillType.Enemy => IsEnemyUnit(sender) ? Allies : Enemies,
-            TargetSkillType.Any => GetAllUnits(),
+            TargetSkillType.Ally => IsEnemyUnit(sender) ? AliveEnemies : AliveAllies,
+            TargetSkillType.Enemy => IsEnemyUnit(sender) ? AliveAllies : AliveEnemies,
+            TargetSkillType.Any => GetLiveUnits(),
         };
     }
 
@@ -525,13 +511,13 @@ public class BattleManager
             return false;
 
         var mouse = GlobalVariablesDto.MouseState;
-        return GetAllUnits().Any(x => x.IsHovering(mouse.Position));
+        return GetLiveUnits().Any(x => x.IsHovering(mouse.Position));
     }
 
     public BaseUnitEntity GetCursorHoveringEntity()
     {
         var mouse = GlobalVariablesDto.MouseState;
-        return GetAllUnits().First(x => x.IsHovering(mouse.Position));
+        return GetLiveUnits().First(x => x.IsHovering(mouse.Position));
     }
 
     #endregion

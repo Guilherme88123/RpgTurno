@@ -252,6 +252,9 @@ public class BaseUnitEntity : BaseEntity
 
     protected virtual void DrawDeadAnimation()
     {
+        if (_deadAnimation.IsFinished)
+            return;
+
         _deadAnimation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
     }
 
@@ -503,6 +506,23 @@ public class BaseUnitEntity : BaseEntity
     public void AddSkillText(string text, Color color, bool isCritical = false)
     {
         _skillResultTexts.Add(new((int)Center.X, (int)Center.Y, text, color, isCritical));
+    }
+
+    #endregion
+
+    #region Battle Reset
+
+    public void ResetStatus()
+    {
+        Stats.Reset();
+        Effects.Clear();
+        ReloadSkills();
+
+        IsDead = false;
+        IsDestroyed = false;
+
+        _deadAnimation = new();
+        _deadAnimation.IsLoop = false;
     }
 
     #endregion

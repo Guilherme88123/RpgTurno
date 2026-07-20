@@ -7,6 +7,7 @@ namespace RpgTurno.Screen.Play.Battle.Wave;
 public class WaveData
 {
     public List<BaseUnitEntity> Enemies { get; }
+    public List<BaseUnitEntity> AliveEnemies => Enemies.Where(x => !x.IsDead).ToList();
 
     public WaveData(List<BaseUnitEntity> enemies)
     {
@@ -15,6 +16,6 @@ public class WaveData
 
     public bool IsCompleted()
     {
-        return !Enemies.Any();
+        return AliveEnemies.Count == 0;
     }
 }

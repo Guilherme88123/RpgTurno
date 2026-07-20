@@ -81,10 +81,10 @@ public class MapScreen : BaseScreen
     {
         List<BaseUnitEntity> allies =
         [
-            //new WarriorEntity(),
+            new WarriorEntity(),
             new ArcherEntity(),
-            //new LancerEntity(),
-            //new ClericEntity(),
+            new LancerEntity(),
+            new ClericEntity(),
         ];
 
         GameSession.Allies = allies;
