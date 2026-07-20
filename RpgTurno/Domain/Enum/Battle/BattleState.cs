@@ -6,4 +6,5 @@ public enum BattleState
     WaveTransition,
     WaitingSkillSelect,
     WaitingTargetSelect,
+    Finished,
 }

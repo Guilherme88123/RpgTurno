@@ -30,7 +30,9 @@ public class FrameComponent : BaseComponent
 
     private void UpdateChildren(GameTime gameTime)
     {
-        foreach (var child in _children)
+        var enableChildren = _children.Where(x => x.IsEnable).ToList();
+
+        foreach (var child in enableChildren)
         {
             if (child is null)
                 continue;
@@ -51,7 +53,9 @@ public class FrameComponent : BaseComponent
 
     private void DrawChildren(SpriteBatch spriteBatch)
     {
-        foreach (var child in _children)
+        var visibleChildren = _children.Where(x => x.IsVisible).ToList();
+
+        foreach (var child in visibleChildren)
         {
             if (child is null)
                 continue;

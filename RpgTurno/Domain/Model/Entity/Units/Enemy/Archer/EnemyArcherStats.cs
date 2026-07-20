@@ -7,7 +7,7 @@ public class EnemyArcherStats : BaseUnitStats
     public EnemyArcherStats(int level) : base(level)
     {
         MaxHealthStat = new(150, 16);
-        AttackStat = new(50, 5);
+        AttackStat = new(50000, 5);
         DefenseStat = new(10, 1);
         SpeedStat = new(24, 1.1f);
         MaxManaStat = new(30, 4);

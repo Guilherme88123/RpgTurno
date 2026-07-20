@@ -45,6 +45,9 @@ public class ButtonComponent : BaseComponent
 
     private bool CanClick()
     {
+        if (!IsVisible)
+            return false;
+
         if (State == ButtonInteractionState.Pressed)
             return false;
 

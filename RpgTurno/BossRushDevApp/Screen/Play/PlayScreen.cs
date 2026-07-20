@@ -10,6 +10,7 @@ using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RpgTurno.Custom.Component.Play.Banners.Finish;
 using RpgTurno.Custom.Component.Play.Banners.Pause;
 using RpgTurno.Custom.Component.Play.Skill;
 using RpgTurno.Custom.CustomComponents.Play.Background;
@@ -19,6 +20,7 @@ using RpgTurno.Custom.CustomComponents.Play.TurnQueue;
 using RpgTurno.Custom.CustomComponents.Play.Wave;
 using RpgTurno.Screen.Play.Battle;
 using RpgTurnoApp.Screen.Base;
+using SharpDX.XAudio2;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,6 +31,8 @@ public class PlayScreen : BaseScreen
     public override string ScreenCode => ScreenConst.PlayScreen;
 
     private ICursorManager _cursorManager => GlobalVariablesDto.GetService<ICursorManager>();
+
+    private bool _isFinished;
 
     private KeyboardState _previousKeyboardState;
     private bool _isPaused;
@@ -53,10 +57,14 @@ public class PlayScreen : BaseScreen
 
     private WaveIndicatorComponent _waveIndicatorComponent;
 
+    private BattleFinishBannerComponent _finishBannerComponent;
+
     #region Initialize
 
     protected override List<BaseComponent> InitializeComponents()
     {
+        _isFinished = false;
+
         InitializeBattleManager();
 
         _selectionAreaComponent = new();
@@ -84,11 +92,21 @@ public class PlayScreen : BaseScreen
             onResumeAction: OnResumeAction,
             onOptionsAction: OnOptionsAction,
             onRestartAction: OnRestartAction,
-            onMapAction: OnMapAction);
+            onMapAction: GoToMapScreen);
         _pauseBannerComponent.IsVisible = false;
+        _pauseBannerComponent.IsEnable = false;
         _pauseBannerComponent.SetPosition(
             GlobalOptionsDto.WidthSize / 2 - _pauseBannerComponent.Bounds.Width / 2,
             GlobalOptionsDto.HeightSize / 2 - _pauseBannerComponent.Bounds.Height / 2);
+
+        _finishBannerComponent = new(
+            onRetryAction: OnRestartAction,
+            onMapAction: GoToMapScreen);
+        _finishBannerComponent.IsVisible = false;
+        _finishBannerComponent.IsEnable = false;
+        _finishBannerComponent.SetPosition(
+            GlobalOptionsDto.WidthSize / 2 - _finishBannerComponent.Bounds.Width / 2,
+            GlobalOptionsDto.HeightSize / 2 - _finishBannerComponent.Bounds.Height / 2);
 
         return new() {
             _focusedUnitBannerComponent,
@@ -97,6 +115,7 @@ public class PlayScreen : BaseScreen
             _skillSelectComponent,
             _usedSkillIndicator,
             _waveIndicatorComponent,
+            _finishBannerComponent,
             _pauseBannerComponent,
         };
     }
@@ -127,7 +146,6 @@ public class PlayScreen : BaseScreen
         base.Update(gameTime);
 
         VerifyPause();
-        UpdatePauseFlag();
 
         if (_isPaused)
             return;
@@ -179,6 +197,7 @@ public class PlayScreen : BaseScreen
     private void TogglePauseFlag()
     {
         _isPaused = !_isPaused;
+        UpdatePauseFlag();
     }
 
     private bool IsPauseKeyPressed()
@@ -201,10 +220,12 @@ public class PlayScreen : BaseScreen
     private void SeTurnComponentVisibilityByBattleState()
     {
         var battleState = _battleManager.BattleState;
-        var isFighting = battleState != BattleState.WaveTransition;
+        var isFighting = battleState != BattleState.WaveTransition && battleState != BattleState.Finished;
 
         _turnQueueComponent.IsVisible = isFighting;
+        _turnQueueComponent.IsEnable = isFighting;
         _currentTurnUnitComponent.IsVisible = isFighting;
+        _currentTurnUnitComponent.IsEnable = isFighting;
     }
 
     private void UpdateTurnQueueListComponent()
@@ -360,7 +381,7 @@ public class PlayScreen : BaseScreen
             return;
         }
 
-        if (_turnQueueComponent.HasCursorHoveringEntity())
+        if (_turnQueueComponent.HasCursorHoveringEntity() && _turnQueueComponent.IsVisible)
         {
             OnHoverInUnitAction(_turnQueueComponent.GetCursorHoveringEntity());
             return;
@@ -446,21 +467,6 @@ public class PlayScreen : BaseScreen
 
     #endregion
 
-    #region Return To Map Screen
-
-    private void BattleFinish(bool isGameOver = false)
-    {
-        GameSession.IsInBattle = false;
-
-        if (!isGameOver)
-            GameSession.OnStageCleared?.Invoke();
-
-        GlobalVariablesDto.PopScreen();
-        GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
-    }
-
-    #endregion
-
     #endregion
 
     #region Draw
@@ -528,9 +534,47 @@ public class PlayScreen : BaseScreen
         OnResumeAction();
     }
 
-    private void OnMapAction()
+    #endregion
+
+    #region Battle Finish
+
+    private void BattleFinish(bool isGameOver = false)
     {
-        BattleFinish(isGameOver: true);
+        _isFinished = true;
+
+        _finishBannerComponent.SetFinishBattleStatus(isGameOver);
+        HandleFinishBattleComponentsVisibility();
+
+        if (!isGameOver)
+            GameSession.OnStageCleared?.Invoke();
+    }
+
+    private void HandleFinishBattleComponentsVisibility()
+    {
+        _finishBannerComponent.IsVisible = true;
+        _finishBannerComponent.IsEnable = true;
+
+        _selectionAreaComponent.IsEnable = false;
+        _selectionAreaComponent.IsVisible = false;
+
+        _focusedUnitBannerComponent.IsEnable = false;
+        _focusedUnitBannerComponent.IsVisible = false;
+
+        _turnQueueComponent.IsEnable = false;
+        _turnQueueComponent.IsVisible = false;
+
+        _currentTurnUnitComponent.IsEnable = false;
+        _currentTurnUnitComponent.IsVisible = false;
+
+        _skillSelectComponent.IsEnable = false;
+        _skillSelectComponent.IsVisible = false;
+    }
+
+    private void GoToMapScreen()
+    {
+        GameSession.IsInBattle = false;
+        GlobalVariablesDto.PopScreen();
+        GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
     }
 
     #endregion

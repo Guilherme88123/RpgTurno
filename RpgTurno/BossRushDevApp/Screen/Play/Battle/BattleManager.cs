@@ -419,6 +419,7 @@ public class BattleManager
 
     private void BattleFinish(bool isGameOver = false)
     {
+        BattleState = BattleState.Finished;
         OnBattleFinish?.Invoke(isGameOver);
     }
 
@@ -518,6 +519,9 @@ public class BattleManager
 
     public bool HasCursorHoveringEntity()
     {
+        if (BattleState == BattleState.Finished)
+            return false;
+
         var mouse = GlobalVariablesDto.MouseState;
         return GetAllUnits().Any(x => x.IsHovering(mouse.Position));
     }
