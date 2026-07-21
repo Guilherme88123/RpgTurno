@@ -12,7 +12,7 @@ public class UsedSkillIndicatorComponent : ImageComponent
 {
     private readonly TextComponent _skillNameText = new(positionXByCenter: true, positionYByCenter: true);
 
-    public UsedSkillIndicatorComponent() : base(new BlueSwordRibbonSprite(), 512, 128)
+    public UsedSkillIndicatorComponent() : base(new BlueSwordRibbonSprite(), 384, 112)
     {
     }
 
