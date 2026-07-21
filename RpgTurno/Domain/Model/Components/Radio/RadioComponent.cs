@@ -1,5 +1,7 @@
 ﻿using Domain.Dto.Global;
+using Domain.Enum.Component.Button;
 using Domain.Model.Components.Base;
+using Domain.Model.Components.Text;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,27 +9,29 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Application.Model.MenuElements.Radio;
 
-//TODO: Refatorar Radio quando tiver uma oportunidade de testar
 public class RadioComponent : BaseComponent
 {
-    public string Text { get; set; }
-
     public int Max { get; set; } = 100;
     public int Min { get; set; } = 0;
 
     public int Value { get; set; } = 50;
     public Action<int> ValueUpdate { get; set; }
 
-    public AnimationClip DotAnimation { get; set; }
+    public SpriteData DotSprite { get; set; }
     public Rectangle DotRectangle { get; set; }
     public bool IsDotPressed { get; set; }
 
-    public AnimationClip LineAnimation { get; set; }
+    public SpriteData LineAnimation { get; set; }
     public Rectangle LineRectangle { get; set; }
+
+    public readonly TextComponent Text = new(positionXByCenter: true, positionYByCenter: true);
+    private string _baseText;
 
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+
+        Text.Update(gameTime);
 
         UpdateLineRectangle();
         UpdateDotRectangle();
@@ -37,6 +41,9 @@ public class RadioComponent : BaseComponent
 
         var isDotHover = DotRectangle.Contains(mousePos);
         var isLineHover = LineRectangle.Contains(mousePos);
+
+        if (isDotHover || isLineHover)
+            CursorManager.RequestHover();
 
         var oldValue = Value;
 
@@ -65,12 +72,15 @@ public class RadioComponent : BaseComponent
         {
             IsDotPressed = false;
         }
+
+        Text.SetText(GetText());
+        ReloadPositionText();
     }
 
     private void UpdateLineRectangle()
     {
         var border = Bounds.Width / 8;
-        var lineHeight = Bounds.Height / 8;
+        var lineHeight = Bounds.Height / 6;
         var lineY = Bounds.Y + Bounds.Height - lineHeight * 3;
         LineRectangle = new Rectangle(Bounds.X + border, lineY, Bounds.Width - border * 2, lineHeight);
     }
@@ -94,33 +104,8 @@ public class RadioComponent : BaseComponent
         base.Draw(spriteBatch);
 
         DrawLine(spriteBatch);
-
-        if (DotAnimation is not null)
-        {
-            DrawDot(spriteBatch);
-        }
-    }
-
-    protected void DrawDot(SpriteBatch spriteBatch)
-    {
-        if (DotAnimation is not null)
-        {
-            DrawDotAnimation(spriteBatch);
-        }
-        else
-        {
-            DrawDotRectangle(spriteBatch);
-        }
-    }
-
-    protected void DrawDotAnimation(SpriteBatch spriteBatch)
-    {
-        DotAnimation.Draw(DotRectangle, Color, Rotation, SpriteEffects, spriteBatch);
-    }
-
-    protected void DrawDotRectangle(SpriteBatch spriteBatch)
-    {
-        spriteBatch.Draw(GlobalVariablesDto.Pixel, DotRectangle, Color);
+        DrawDot(spriteBatch);
+        Text.Draw(spriteBatch);
     }
 
     protected void DrawLine(SpriteBatch spriteBatch)
@@ -145,5 +130,52 @@ public class RadioComponent : BaseComponent
         spriteBatch.Draw(GlobalVariablesDto.Pixel, LineRectangle, Color.DarkGray);
     }
 
-    protected string GetText() => $"{Text}: {Value}";
+    protected void DrawDot(SpriteBatch spriteBatch)
+    {
+        if (DotSprite is not null)
+        {
+            DrawDotAnimation(spriteBatch);
+        }
+        else
+        {
+            DrawDotRectangle(spriteBatch);
+        }
+    }
+
+    protected void DrawDotAnimation(SpriteBatch spriteBatch)
+    {
+        DotSprite.Draw(DotRectangle, Color, Rotation, SpriteEffects, spriteBatch);
+    }
+
+    protected void DrawDotRectangle(SpriteBatch spriteBatch)
+    {
+        spriteBatch.Draw(GlobalVariablesDto.Pixel, DotRectangle, Color);
+    }
+
+    protected string GetText() => $"{_baseText}: {Value}";
+
+    public void SetText(string text)
+    {
+        _baseText = text;
+    }
+
+    #region Position
+
+    public override void SetPosition(int positionX, int positionY)
+    {
+        base.SetPosition(positionX, positionY);
+        SetPositionText(positionX, positionY);
+    }
+
+    private void ReloadPositionText()
+    {
+        SetPositionText(Bounds.X, Bounds.Y);
+    }
+
+    private void SetPositionText(int positionX, int positionY)
+    {
+        Text.SetPosition(positionX + Bounds.Width / 2, positionY + Bounds.Height / 3);
+    }
+
+    #endregion
 }

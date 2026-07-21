@@ -23,6 +23,11 @@ public class BaseComponent
     protected float Rotation { get; set; }
     protected SpriteEffects SpriteEffects { get; set; }
 
+    public BaseComponent()
+    {
+        Bounds = new(0, 0, 256, 128);
+    }
+
     public virtual void Update(GameTime gameTime)
     {
         if (!IsEnable)

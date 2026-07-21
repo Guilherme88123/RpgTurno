@@ -4,10 +4,8 @@ using Domain.Enum.Transition;
 using Domain.Interface.Cursor;
 using Domain.Interface.Screen;
 using Domain.Interface.Transition;
-using Domain.Model.Components.Cursor;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Service.Cursor;
 using System;
 
 namespace RpgTurnoApp;
@@ -132,7 +130,9 @@ public class RpgTurno : Game
         ScreenManager.ActualScreen.Draw();
         TransitionManager.Draw(GlobalVariablesDto.SpriteBatchInterface);
         CursorManager.Draw(GlobalVariablesDto.SpriteBatchInterface);
-        DrawFps();
+
+        if (GlobalOptionsDto.ShowFps)
+            DrawFps();
 
         GlobalVariablesDto.SpriteBatchBackground.End();
         GlobalVariablesDto.SpriteBatchEntities.End();

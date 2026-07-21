@@ -9,13 +9,13 @@ public class ExitOptionsBannerComponent : ButtonComponent
 {
     public ExitOptionsBannerComponent()
     {
-        AnimationManager.Add(ButtonInteractionState.Regular, new SmallRedRoundButtonRegularSprite());
-        AnimationManager.Add(ButtonInteractionState.Pressed, new SmallRedRoundButtonPressedSprite());
+        AnimationManager.Add(ButtonInteractionState.Regular, new RedButtonRegularSprite());
+        AnimationManager.Add(ButtonInteractionState.Pressed, new RedButtonPressedSprite());
 
-        Bounds = new(0, 0, 128, 128);
+        Bounds = new(0, 0, 256, 128);
 
         Click = () => GlobalVariablesDto.PopScreen();
 
-        Text.SetText("X");
+        Text.SetText("Exit");
     }
 }
