@@ -14,7 +14,7 @@ public static class CastleStageFactory
         [
             waveGenerator.Generate(1, 5),
             waveGenerator.Generate(2, 8),
-            new WaveData([new EnemyWarriorEntity(), new EnemySuperWarriorEntity(), new EnemyWarriorEntity()])
+            new WaveData([new EnemyWarriorEntity(), new EnemySuperWarriorEntity(), new EnemyWarriorEntity()]),
         ]);
     }
 }

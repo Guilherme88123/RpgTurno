@@ -24,12 +24,14 @@ public class MenuScreen : BaseScreen
         MenuButtonComponent creditsButton = new();
         MenuButtonComponent exitButton = new(isDanger: true);
         TextComponent versionText = new();
+        TextComponent creatorText = new();
 
         startButton.SetText("Start");
         optionsButton.SetText("Options");
         creditsButton.SetText("Credits");
         exitButton.SetText("Exit");
         versionText.SetText($"Version: {VersionConst.Version}");
+        creatorText.SetText($"Por: Guilherme Doerner de Oliveira");
 
         var initialPositionY = GlobalOptionsDto.HeightSize / 3;
 
@@ -38,7 +40,8 @@ public class MenuScreen : BaseScreen
         optionsButton.SetPositionWithIndex(initialPositionY, 2);
         creditsButton.SetPositionWithIndex(initialPositionY, 2);
         exitButton.SetPositionWithIndex(initialPositionY, 3);
-        versionText.SetPosition(10, GlobalOptionsDto.HeightSize - versionText.Bounds.Height - 30);
+        versionText.SetPosition(30, GlobalOptionsDto.HeightSize - versionText.Bounds.Height - 30);
+        creatorText.SetPosition(GlobalOptionsDto.WidthSize - creatorText.Bounds.Width - 30, GlobalOptionsDto.HeightSize - creatorText.Bounds.Height - 30);
 
         startButton.Click = StartGame;
         optionsButton.Click = GoToOptionsScreen;
@@ -53,6 +56,7 @@ public class MenuScreen : BaseScreen
             //creditsButton,
             exitButton,
             versionText,
+            creatorText,
         };
     }
 

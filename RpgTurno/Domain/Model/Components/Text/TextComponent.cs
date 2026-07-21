@@ -13,6 +13,8 @@ public class TextComponent : BaseComponent
     public bool IsPositionYByCenter { get; private set; }
     public SpriteFont Font { get; private set; }
 
+    public Rectangle Bounds => new(base.Bounds.X, base.Bounds.Y, (int)Font.MeasureString(Text).X, (int)Font.MeasureString(Text).Y);
+
     public Color Color { get; set; } = Color.Black;
 
     public TextComponent(bool positionXByCenter = false, bool positionYByCenter = false)
