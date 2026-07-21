@@ -40,12 +40,12 @@ public class MenuScreen : BaseScreen
         optionsButton.SetPositionWithIndex(initialPositionY, 2);
         creditsButton.SetPositionWithIndex(initialPositionY, 2);
         exitButton.SetPositionWithIndex(initialPositionY, 3);
-        versionText.SetPosition(30, GlobalOptionsDto.HeightSize - versionText.Bounds.Height - 30);
-        creatorText.SetPosition(GlobalOptionsDto.WidthSize - creatorText.Bounds.Width - 30, GlobalOptionsDto.HeightSize - creatorText.Bounds.Height - 30);
+        versionText.SetPosition(30, GlobalOptionsDto.HeightSize - versionText.Bounds.Height - 20);
+        creatorText.SetPosition(GlobalOptionsDto.WidthSize - creatorText.Bounds.Width - 30, GlobalOptionsDto.HeightSize - creatorText.Bounds.Height - 20);
 
         startButton.Click = StartGame;
         optionsButton.Click = GoToOptionsScreen;
-        //creditsButton.Click = GoToCreditsScreen;
+        //creditsButton.ValueUpdate = GoToCreditsScreen;
         exitButton.Click = ExitGame;
 
         return new()

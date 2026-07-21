@@ -1,9 +1,11 @@
-﻿using Domain.Model.Components.Base;
+﻿using Domain.Dto.Global;
+using Domain.Model.Components.Base;
 using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
 using Domain.Model.Texture.Sprite.Custom.Ui.Ribbons.Small;
+using Microsoft.Xna.Framework.Media;
 using System.Drawing.Printing;
 
 namespace RpgTurno.Custom.Component.Option.Banner;
@@ -19,10 +21,10 @@ public class OptionsBannerComponent : FrameComponent
     private ImageComponent _titleBackground = new(new BlueSmallRibbonSprite(), ButtonWidth, 64);
 
     private readonly ExitOptionsBannerComponent _exitButton = new();
-    private readonly RadioOptionsBannerComponent _musicRadio = new(ButtonWidth, "Music Volume");
-    private readonly RadioOptionsBannerComponent _sfxRadio = new(ButtonWidth, "Effects Volume");
-    private readonly SwitchOptionsBannerComponent _fullscreenSwitch = new(ButtonWidth, "Fullscreen");
-    private readonly SwitchOptionsBannerComponent _fpsSwitch = new(ButtonWidth, "Show FPS");
+    private readonly RadioOptionsBannerComponent _musicRadio = new(ButtonWidth, "Music Volume", UpdateMusicVolume);
+    private readonly RadioOptionsBannerComponent _sfxRadio = new(ButtonWidth, "Effects Volume", UpdateSfxVolume);
+    private readonly SwitchOptionsBannerComponent _fullscreenSwitch = new(ButtonWidth, "Fullscreen", ToggleFullscreen);
+    private readonly SwitchOptionsBannerComponent _fpsSwitch = new(ButtonWidth, "Show FPS", ToggleShowFps);
 
     public OptionsBannerComponent()
     {
@@ -39,6 +41,19 @@ public class OptionsBannerComponent : FrameComponent
         AddChild(_fpsSwitch);
 
         Bounds = new(0, 0, Width, Height);
+
+        InitializeValues();
+    }
+
+    private void InitializeValues()
+    {
+        _musicRadio.Value = GlobalOptionsDto.MusicVolume;
+        _sfxRadio.Value = GlobalOptionsDto.SfxVolume;
+        _fullscreenSwitch.Value = GlobalOptionsDto.Fullscreen;
+        _fpsSwitch.Value = GlobalOptionsDto.ShowFps;
+
+        _fullscreenSwitch.ReloadText();
+        _fpsSwitch.ReloadText();
     }
 
     public override void SetPosition(int positionX, int positionY)
@@ -70,4 +85,31 @@ public class OptionsBannerComponent : FrameComponent
     {
         return Bounds.Y + Margin + index * componentHeight;
     }
+
+    #region Button Actions
+
+    public static void ToggleShowFps(bool showFps)
+    {
+        GlobalOptionsDto.ShowFps = showFps;
+    }
+
+    public static void ToggleFullscreen(bool isFullscreen)
+    {
+        GlobalVariablesDto.Graphics.IsFullScreen = isFullscreen;
+        GlobalVariablesDto.Graphics.ApplyChanges();
+        GlobalOptionsDto.Fullscreen = isFullscreen;
+    }
+
+    public static void UpdateMusicVolume(int volume)
+    {
+        GlobalOptionsDto.MusicVolume = volume;
+        MediaPlayer.Volume = GlobalOptionsDto.MusicVolumeFloat;
+    }
+
+    public static void UpdateSfxVolume(int volume)
+    {
+        GlobalOptionsDto.SfxVolume = volume;
+    }
+
+    #endregion
 }

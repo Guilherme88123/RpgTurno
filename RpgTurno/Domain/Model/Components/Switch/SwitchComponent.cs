@@ -10,13 +10,10 @@ namespace Application.Model.MenuElements.Switch;
 
 public class SwitchComponent : BaseComponent
 {
-
     public ButtonInteractionState State { get; set; }
 
-    public bool Value { get; private set; }
-    public Action<bool> Click { get; set; }
-
-    public bool AffectCursor { get; set; } = true;
+    public bool Value { get; set; }
+    public Action<bool> ValueUpdate { get; set; }
 
     private const float DelayPressed = 0.2f;
     private float _currentDelay = DelayPressed;
@@ -83,7 +80,7 @@ public class SwitchComponent : BaseComponent
         {
             Value = !Value;
             ReloadText();
-            Click?.Invoke(Value);
+            ValueUpdate?.Invoke(Value);
 
             State = ButtonInteractionState.Regular;
             AnimationManager.Update(State);
@@ -122,7 +119,7 @@ public class SwitchComponent : BaseComponent
         ReloadText();
     }
 
-    private void ReloadText()
+    public void ReloadText()
     {
         Text.SetText(GetText());
     }
