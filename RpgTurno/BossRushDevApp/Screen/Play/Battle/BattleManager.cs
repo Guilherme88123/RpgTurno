@@ -77,7 +77,7 @@ public class BattleManager
 
     private void InitializeUnits()
     {
-        _turnManager.SetUnitsQueue(GetAllUnits());
+        _turnManager.SetUnitsQueue(GetLiveUnits());
         InitializeUnitsPosition();
     }
 
@@ -230,7 +230,7 @@ public class BattleManager
         AliveAllies.ForEach(x => x.CreatureState = CreatureStateType.Idle);
         AliveEnemies.ForEach(x => x.PositionX = target);
 
-        _turnManager.SetUnitsQueue(GetAllUnits());
+        _turnManager.SetUnitsQueue(GetLiveUnits());
 
         StartTurn();
     }
@@ -358,7 +358,7 @@ public class BattleManager
 
     private void VerifyDeadUnits()
     {
-        var deadUnits = GetLiveUnits()
+        var deadUnits = GetAllUnits()
             .Where(x => x.IsDead)
             .ToList();
 
