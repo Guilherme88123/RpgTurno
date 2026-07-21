@@ -4,6 +4,7 @@ using Domain.Dto.Global;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Text;
 using RpgTurno.Custom.Component.Menu.Button;
+using RpgTurno.Custom.Component.Menu.Logo;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
 
@@ -17,6 +18,7 @@ public class MenuScreen : BaseScreen
 
     protected override List<BaseComponent> InitializeComponents()
     {
+        MenuLogoComponent logo = new();
         MenuButtonComponent startButton = new();
         MenuButtonComponent optionsButton = new();
         MenuButtonComponent creditsButton = new();
@@ -31,6 +33,7 @@ public class MenuScreen : BaseScreen
 
         var initialPositionY = GlobalOptionsDto.HeightSize / 3;
 
+        logo.SetPosition(GlobalOptionsDto.WidthSize / 2 - logo.Bounds.Width / 2, 128);
         startButton.SetPositionWithIndex(initialPositionY, 1);
         optionsButton.SetPositionWithIndex(initialPositionY, 2);
         creditsButton.SetPositionWithIndex(initialPositionY, 2);
@@ -44,6 +47,7 @@ public class MenuScreen : BaseScreen
 
         return new()
         {
+            logo,
             startButton,
             optionsButton,
             //creditsButton,

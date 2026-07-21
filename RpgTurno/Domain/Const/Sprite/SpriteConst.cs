@@ -154,6 +154,12 @@ public static class SpriteConst
 
     #endregion
 
+    #region Logo
+
+    public const string MenuLogo = "Logo";
+
+    #endregion
+
     #endregion
 
     #region Maps
