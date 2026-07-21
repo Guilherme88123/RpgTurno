@@ -40,12 +40,5 @@ public static class EnemyPool
             MaxCopies = 1,
             CanSpawn = ctx => ctx.WaveIndex >= 2,
         },
-        new EnemyDefinition()
-        {
-            Create = () => new EnemySuperWarriorEntity(),
-            WaveCost = 2,
-            SpawnWeight = 100,
-            MaxCopies = 1,
-        },
     ];
 }

@@ -1,4 +1,8 @@
-﻿namespace RpgTurno.Screen.Play.Battle.Stage.Factory.Stages;
+﻿using Domain.Model.Entity.Units.Enemy.SuperWarrior;
+using Domain.Model.Entity.Units.Enemy.Warrior;
+using RpgTurno.Screen.Play.Battle.Wave;
+
+namespace RpgTurno.Screen.Play.Battle.Stage.Factory.Stages;
 
 public static class CastleStageFactory
 {
@@ -10,7 +14,7 @@ public static class CastleStageFactory
         [
             waveGenerator.Generate(1, 5),
             waveGenerator.Generate(2, 8),
-            waveGenerator.Generate(3, 13),
+            new WaveData([new EnemyWarriorEntity(), new EnemySuperWarriorEntity(), new EnemyWarriorEntity()])
         ]);
     }
 }
