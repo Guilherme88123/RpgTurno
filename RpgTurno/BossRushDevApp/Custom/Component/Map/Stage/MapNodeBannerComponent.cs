@@ -2,8 +2,8 @@
 using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Banners;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Icons;
+using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
+using Domain.Model.Texture.Sprite.Custom.Ui.Icons;
 using Microsoft.Xna.Framework;
 using RpgTurno.Screen.Map.World.Stage.Node;
 using System;

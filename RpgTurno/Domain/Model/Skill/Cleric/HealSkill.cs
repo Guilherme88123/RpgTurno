@@ -4,7 +4,7 @@ using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
-using Domain.Model.Texture.Sprite.CustomSprites;
+using Domain.Model.Texture.Sprite.Custom.ParticleFx;
 
 namespace Domain.Model.Skill.Cleric;
 
@@ -23,7 +23,7 @@ public class HealSkill : BaseSkill
     public override int Cooldown => 1;
     public override int ManaCost => 8;
 
-    public override SkillAnimation Animation => new SkillAnimation(new HealAnimation(), null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(new HealSprite(), null, true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

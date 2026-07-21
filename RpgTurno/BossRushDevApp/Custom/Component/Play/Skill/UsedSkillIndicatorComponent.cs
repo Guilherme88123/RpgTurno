@@ -2,7 +2,7 @@
 using Domain.Model.Components.Text;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Ribbons.Sword;
+using Domain.Model.Texture.Sprite.Custom.Ui.Ribbons.Sword;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

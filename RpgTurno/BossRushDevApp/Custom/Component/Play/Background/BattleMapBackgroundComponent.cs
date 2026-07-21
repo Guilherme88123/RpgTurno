@@ -1,6 +1,6 @@
 ﻿using Domain.Dto.Global;
 using Domain.Model.Components.Image;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Maps;
+using Domain.Model.Texture.Sprite.Custom.Ui.Maps;
 
 namespace RpgTurno.Custom.CustomComponents.Play.Background;
 

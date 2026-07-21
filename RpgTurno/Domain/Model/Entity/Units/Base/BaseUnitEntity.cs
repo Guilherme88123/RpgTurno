@@ -8,8 +8,8 @@ using Domain.Model.Entity.Units.Base.Stats;
 using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Banners;
-using Domain.Model.Texture.Sprite.CustomSprites;
+using Domain.Model.Texture.Sprite.Custom.ParticleFx;
+using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.Custom.Component.Play.Banners;
@@ -43,12 +43,12 @@ public class BaseUnitEntity : BaseEntity
     private float _currentDelayHealTakenFlash;
     private bool HasTakeHeal => _currentDelayHealTakenFlash > 0;
 
-    private LargeDustAnimation _deadAnimation;
+    private LargeDustSprite _deadAnimation;
 
     private const float DelayLevelUpAnimation = 1.1f;
     private float _currentDelayLevelUpAnimation;
     private bool HasLevelUpAnimation => _currentDelayLevelUpAnimation > 0;
-    private LevelUpAnimation _levelUpAnimation = new();
+    private LevelUpSprite _levelUpAnimation = new();
 
     private List<SkillResultTextComponent> _skillResultTexts = new();
 

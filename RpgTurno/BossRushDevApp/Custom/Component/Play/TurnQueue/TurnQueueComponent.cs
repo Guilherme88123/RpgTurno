@@ -2,9 +2,8 @@
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Image;
 using Domain.Model.Entity.Units.Base;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Ribbons;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Ribbons.Small;
-using Domain.Model.Texture.Sprite.CustomSprites;
+using Domain.Model.Texture.Sprite.Custom.ParticleFx;
+using Domain.Model.Texture.Sprite.Custom.Ui.Ribbons.Small;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ public class TurnQueueComponent : BaseComponent
 
     private ImageComponent _queueBackground = new(new BlueSmallRibbonSprite(), GlobalOptionsDto.WidthSize / 3, IconSize);
 
-    private SmallDustAnimation _dustEffect = new();
+    private SmallDustSprite _dustEffect = new();
 
     private bool _isInTransition = false;
     private float _transitionOffset;

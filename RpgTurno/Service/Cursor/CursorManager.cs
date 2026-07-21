@@ -2,7 +2,7 @@
 using Domain.Enum.Component.Cursor;
 using Domain.Interface.Cursor;
 using Domain.Model.Components.Cursor;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Cursor;
+using Domain.Model.Texture.Sprite.Custom.Ui.Cursor;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

@@ -5,7 +5,6 @@ using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
-using Domain.Model.Texture.Sprite.CustomSprites;
 
 namespace Domain.Model.Skill.Warrior;
 

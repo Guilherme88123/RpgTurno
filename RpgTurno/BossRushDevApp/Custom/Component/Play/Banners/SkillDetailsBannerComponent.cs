@@ -2,7 +2,7 @@
 using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Skill.Base.Unit;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Banners;
+using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
 
 namespace RpgTurno.Custom.Component.Play.Banners;
 

@@ -51,6 +51,12 @@ public static class SpriteConst
     public const string EnemyClericRun = "Enemy_Cleric_Run";
     public const string EnemyClericAttack = "Enemy_Cleric_Heal";
 
+    public const string EnemySuperWarriorIdle = "Enemy_SuperWarrior_Idle";
+    public const string EnemySuperWarriorRun = "Enemy_SuperWarrior_Run";
+    public const string EnemySuperWarriorDefence = "Enemy_SuperWarrior_Guard";
+    public const string EnemySuperWarriorAttack = "Enemy_SuperWarrior_Attack1";
+    public const string EnemySuperWarriorAttack2 = "Enemy_SuperWarrior_Attack2";
+
     #endregion
 
     #endregion
@@ -136,6 +142,7 @@ public static class SpriteConst
     public const string EnemyArcherAvatar = "EnemyArcherAvatar";
     public const string EnemyLancerAvatar = "EnemyLancerAvatar";
     public const string EnemyClericAvatar = "EnemyClericAvatar";
+    public const string EnemySuperWarriorAvatar = "EnemySuperWarriorAvatar";
 
     #endregion
 

@@ -1,6 +1,7 @@
 ﻿using Domain.Model.Entity.Units.Enemy.Archer;
 using Domain.Model.Entity.Units.Enemy.Cleric;
 using Domain.Model.Entity.Units.Enemy.Lancer;
+using Domain.Model.Entity.Units.Enemy.SuperWarrior;
 using Domain.Model.Entity.Units.Enemy.Warrior;
 using System.Collections.Generic;
 
@@ -38,6 +39,13 @@ public static class EnemyPool
             SpawnWeight = 10,
             MaxCopies = 1,
             CanSpawn = ctx => ctx.WaveIndex >= 2,
+        },
+        new EnemyDefinition()
+        {
+            Create = () => new EnemySuperWarriorEntity(),
+            WaveCost = 2,
+            SpawnWeight = 100,
+            MaxCopies = 1,
         },
     ];
 }

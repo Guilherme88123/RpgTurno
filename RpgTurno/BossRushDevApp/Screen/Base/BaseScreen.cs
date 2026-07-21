@@ -3,10 +3,8 @@ using Domain.Dto.Session;
 using Domain.Interface.Screen;
 using Domain.Interface.UiManager;
 using Domain.Model.Components.Base;
-using Domain.Model.Components.Cursor;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using RpgTurno.Custom.CustomComponents.Play.Cursor;
 using System.Collections.Generic;
 
 namespace RpgTurnoApp.Screen.Base;

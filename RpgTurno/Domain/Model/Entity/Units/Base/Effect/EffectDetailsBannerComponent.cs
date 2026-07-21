@@ -3,8 +3,8 @@ using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.Effect.Base;
 using Domain.Model.MenuComponents.Frame;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Banners;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Icons;
+using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
+using Domain.Model.Texture.Sprite.Custom.Ui.Icons;
 using Microsoft.Xna.Framework;
 
 namespace RpgTurno.Custom.Component.Play.Banners;

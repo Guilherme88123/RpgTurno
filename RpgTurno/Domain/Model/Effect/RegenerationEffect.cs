@@ -1,7 +1,7 @@
 ﻿using Domain.Model.Effect.Base;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Icons;
+using Domain.Model.Texture.Sprite.Custom.Ui.Icons;
 
 namespace Domain.Model.Effect;
 

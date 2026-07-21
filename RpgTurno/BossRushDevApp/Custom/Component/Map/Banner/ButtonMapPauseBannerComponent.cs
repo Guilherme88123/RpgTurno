@@ -1,7 +1,7 @@
 ﻿using Application.Model.MenuElements.Button;
 using Domain.Enum.Component.Button;
 using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Buttons;
+using Domain.Model.Texture.Sprite.Custom.Ui.Buttons;
 using System;
 
 namespace RpgTurno.Custom.Component.Map.Banner;

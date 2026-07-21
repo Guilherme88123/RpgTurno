@@ -1,5 +1,5 @@
 ﻿using Domain.Model.Components.ProgressBar;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Bars;
+using Domain.Model.Texture.Sprite.Custom.Ui.Bars;
 using Microsoft.Xna.Framework;
 
 namespace Domain.Model.Entity.Units.Base.Bar;

@@ -2,8 +2,8 @@
 using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Banners;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Ribbons.Small;
+using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
+using Domain.Model.Texture.Sprite.Custom.Ui.Ribbons.Small;
 using System;
 
 namespace RpgTurno.Custom.Component.Play.Banners.Finish;

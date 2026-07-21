@@ -1,7 +1,7 @@
 ﻿using Domain.Dto.Global;
 using Domain.Model.Components.Base;
 using Domain.Model.Entity.Units.Base;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Cursor;
+using Domain.Model.Texture.Sprite.Custom.Ui.Cursor;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;

@@ -1,8 +1,7 @@
 ﻿using Domain.Dto.Global;
-using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Sprite.Ui.Icons;
+using Domain.Model.Texture.Sprite.Custom.Ui.Icons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
