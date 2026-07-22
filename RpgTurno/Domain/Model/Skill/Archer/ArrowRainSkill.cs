@@ -23,7 +23,7 @@ public class ArrowRainSkill : BaseSkill
     public override int Cooldown => 4;
     public override int ManaCost => 18;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, null, true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

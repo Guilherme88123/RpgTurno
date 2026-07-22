@@ -22,7 +22,7 @@ public class SnipeSkill : BaseSkill
     public override int Cooldown => 5;
     public override int ManaCost => 22;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, null, true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

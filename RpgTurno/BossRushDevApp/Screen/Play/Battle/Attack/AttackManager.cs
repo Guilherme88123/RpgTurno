@@ -1,4 +1,5 @@
-﻿using Domain.Dto.Global;
+﻿using Domain.Const.Sound.Effect;
+using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Enum.Attack;
 using Domain.Model.Entity.Units.Base;
@@ -7,6 +8,7 @@ using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using RpgTurno.Screen.Play.Battle.Delay;
 using System;
 using System.Collections.Generic;
@@ -62,6 +64,7 @@ public class AttackManager
         var result = _skill.ExecuteSkill(_executeData);
 
         PlaySkillAnimations();
+        PlaySkillSoundEffect();
         VerifyDeadUnits();
 
         CurrentPhase = AttackPhase.MovingBack;
@@ -77,6 +80,12 @@ public class AttackManager
 
         if (_skill.Definition.Animation.TargetAnimation is not null)
             OnPlayTargetsAnimation?.Invoke(_executeData.Targets, _skill.Definition.Animation.TargetAnimation);
+    }
+
+    private void PlaySkillSoundEffect()
+    {
+        if (_skill.Definition.Animation.SoundEffect is not null)
+            _skill.Definition.Animation.SoundEffect.Play(GlobalOptionsDto.SfxVolumeFloat, 0f, 0f);
     }
 
     private void VerifyDeadUnits()

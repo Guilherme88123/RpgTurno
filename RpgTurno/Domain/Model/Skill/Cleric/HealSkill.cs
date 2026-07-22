@@ -23,7 +23,7 @@ public class HealSkill : BaseSkill
     public override int Cooldown => 1;
     public override int ManaCost => 8;
 
-    public override SkillAnimation Animation => new SkillAnimation(new HealSprite(), null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(new HealSprite(), null, null, true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

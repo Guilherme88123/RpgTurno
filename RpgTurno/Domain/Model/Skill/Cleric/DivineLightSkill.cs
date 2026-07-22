@@ -24,7 +24,7 @@ public class DivineLightSkill : BaseSkill
     public override int Cooldown => 5;
     public override int ManaCost => 24;
 
-    public override SkillAnimation Animation => new SkillAnimation(new HealSprite(), null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(new HealSprite(), null, null, true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

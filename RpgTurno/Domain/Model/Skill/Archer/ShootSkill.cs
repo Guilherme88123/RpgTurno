@@ -1,9 +1,12 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Sound.Effect;
+using Domain.Dto.Global;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Domain.Model.Skill.Archer;
 
@@ -22,7 +25,7 @@ public class ShootSkill : BaseSkill
     public override int Cooldown => 0;
     public override int ManaCost => 0;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, GlobalVariablesDto.Content.Load<SoundEffect>(SoundEffectConst.TestSoundEffect), true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

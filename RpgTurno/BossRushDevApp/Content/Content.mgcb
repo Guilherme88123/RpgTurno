@@ -1108,6 +1108,12 @@
 /processorParam:TextureFormat=Color
 /build:SwordRibbons.png
 
+#begin TestSoundEffect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:TestSoundEffect.wav
+
 #begin ThickPixels.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
