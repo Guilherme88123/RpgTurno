@@ -35,7 +35,7 @@ public class MapPauseBannerComponent : FrameComponent
         AddChild(_menuButton);
         AddChild(_exitButton);
 
-        Bounds = new(0, 0, 320, 640);
+        Bounds = new(0, 0, 534, 640);
     }
 
     public override void SetPosition(int positionX, int positionY)

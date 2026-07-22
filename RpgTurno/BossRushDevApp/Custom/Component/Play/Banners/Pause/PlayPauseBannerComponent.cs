@@ -34,7 +34,7 @@ public class PlayPauseBannerComponent : FrameComponent
         AddChild(_restartButton);
         AddChild(_mapButton);
 
-        Bounds = new(0, 0, 320, 640);
+        Bounds = new(0, 0, 534, 640);
     }
 
     public override void SetPosition(int positionX, int positionY)
