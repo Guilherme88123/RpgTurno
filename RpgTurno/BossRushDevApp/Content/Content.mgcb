@@ -92,6 +92,12 @@
 /processorParam:TextureFormat=Color
 /build:BasicGrassMap.png
 
+#begin BattleMusic.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:BattleMusic.ogg
+
 #begin BigRibbons.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -783,6 +789,12 @@
 /processorParam:TextureFormat=Color
 /build:ManaIcon.png
 
+#begin MapMusic.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:MapMusic.ogg
+
 #begin MeatIcon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -794,6 +806,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:MeatIcon.png
+
+#begin MenuMusic.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:MenuMusic.ogg
 
 #begin NormalCursor.png
 /importer:TextureImporter

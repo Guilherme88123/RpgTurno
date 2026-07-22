@@ -37,6 +37,14 @@ public abstract class BaseScreen : IScreen
 
     #endregion
 
+    #region Navigation
+
+    public virtual void OnGoTo(string originScreenCode)
+    {
+    }
+
+    #endregion
+
     #region Updating
 
     public virtual void Update(GameTime gameTime)

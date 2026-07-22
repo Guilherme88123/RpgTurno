@@ -1,8 +1,10 @@
 ﻿using Domain.Const.Screen;
+using Domain.Const.Sound.Music;
 using Domain.Const.Version;
 using Domain.Dto.Global;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Text;
+using Microsoft.Xna.Framework.Media;
 using RpgTurno.Custom.Component.Menu.Button;
 using RpgTurno.Custom.Component.Menu.Logo;
 using RpgTurnoApp.Screen.Base;
@@ -78,6 +80,18 @@ public class MenuScreen : BaseScreen
     }
 
     #endregion
+
+    #endregion
+
+    #region Navigation
+
+    public override void OnGoTo(string originScreenCode)
+    {
+        if (originScreenCode == ScreenConst.OptionScreen)
+            return;
+
+        MediaPlayer.Play(GlobalVariablesDto.Content.Load<Song>(MusicConst.MenuMusic));
+    }
 
     #endregion
 }

@@ -6,6 +6,7 @@ using Domain.Interface.Screen;
 using Domain.Interface.Transition;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using System;
 
 namespace RpgTurnoApp;
@@ -73,6 +74,8 @@ public class RpgTurno : Game
         GlobalVariablesDto.SpriteBatchEntities = spriteBatchEntities;
         GlobalVariablesDto.SpriteBatchInterface = spriteBatchInterface;
         GlobalVariablesDto.Pixel = pixel;
+
+        MediaPlayer.Volume = GlobalOptionsDto.MusicVolumeFloat;
 
         RunInitialScreen();
     }

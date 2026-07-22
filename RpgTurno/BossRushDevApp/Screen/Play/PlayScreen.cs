@@ -1,4 +1,5 @@
 ﻿using Domain.Const.Screen;
+using Domain.Const.Sound.Music;
 using Domain.Dto.Global;
 using Domain.Enum.Battle;
 using Domain.Enum.Component.Cursor;
@@ -10,6 +11,7 @@ using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using RpgTurno.Custom.Component.Play.Banners.Finish;
 using RpgTurno.Custom.Component.Play.Banners.Pause;
 using RpgTurno.Custom.Component.Play.Skill;
@@ -144,6 +146,18 @@ public class PlayScreen : BaseScreen
     private List<BaseUnitEntity> GetAllies()
     {
         return GameSession.Allies;
+    }
+
+    #endregion
+
+    #region Navigation
+
+    public override void OnGoTo(string originScreenCode)
+    {
+        if (originScreenCode == ScreenConst.OptionScreen)
+            return;
+
+        MediaPlayer.Play(GlobalVariablesDto.Content.Load<Song>(MusicConst.BattleMusic));
     }
 
     #endregion

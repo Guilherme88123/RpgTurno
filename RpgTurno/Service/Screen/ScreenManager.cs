@@ -25,7 +25,8 @@ public class ScreenManager : IScreenManager
     {
         if (_screenStack.Count >= 2)
         {
-            _screenStack.Pop();
+            var originScreen = _screenStack.Pop();
+            _screenStack.Peek().OnGoTo(originScreen.ScreenCode);
         }
     }
 
@@ -38,6 +39,7 @@ public class ScreenManager : IScreenManager
             var screen = (IScreen)GlobalVariablesDto.GetService(screenType);
 
             screen.Initialize();
+            screen.OnGoTo(string.Empty);
 
             _screenStack.Push(screen);
         }

@@ -7,6 +7,7 @@ public interface IScreen
     public string ScreenCode { get; }
 
     void Initialize();
+    void OnGoTo(string originScreenCode);
     void Update(GameTime gameTime);
     void Draw();
     void Exit();

@@ -1,4 +1,5 @@
 ﻿using Domain.Const.Screen;
+using Domain.Const.Sound.Music;
 using Domain.Dto.Global;
 using Domain.Enum.Stage;
 using Domain.Model.Components.Base;
@@ -9,6 +10,7 @@ using Domain.Model.Entity.Units.Ally.Warrior;
 using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using RpgTurno.Custom.Component.Map.Banner;
 using RpgTurno.Custom.CustomComponents.Map.AlliesParty;
 using RpgTurno.Custom.CustomComponents.Map.Background;
@@ -88,6 +90,18 @@ public class MapScreen : BaseScreen
         ];
 
         GameSession.Allies = allies;
+    }
+
+    #endregion
+
+    #region Navigation
+
+    public override void OnGoTo(string originScreenCode)
+    {
+        if (originScreenCode == ScreenConst.OptionScreen)
+            return;
+
+        MediaPlayer.Play(GlobalVariablesDto.Content.Load<Song>(MusicConst.MapMusic));
     }
 
     #endregion
