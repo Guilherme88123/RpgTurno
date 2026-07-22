@@ -205,6 +205,9 @@ public class PlayScreen : BaseScreen
 
         _skillSelectComponent.IsEnable = !_isPaused;
         _skillSelectComponent.IsVisible = !_isPaused;
+
+        _usedSkillIndicator.IsEnable = !_isPaused;
+        _usedSkillIndicator.IsVisible = !_isPaused;
     }
 
     private void VerifyPause()
