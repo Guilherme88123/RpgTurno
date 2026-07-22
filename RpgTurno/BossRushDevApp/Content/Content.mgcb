@@ -158,6 +158,12 @@
 /processorParam:TextureFormat=Color
 /build:BootIcon.png
 
+#begin CleaveSwordAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CleaveSwordAttack.wav
+
 #begin Cleric_Heal.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -566,6 +572,12 @@
 /processorParam:TextureFormat=Color
 /build:EnemyWarriorAvatar.png
 
+#begin ExecutionSwordAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ExecutionSwordAttack.wav
+
 #begin FortressIcon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -589,6 +601,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GoldIcon.png
+
+#begin GuardStance.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GuardStance.wav
 
 #begin HammerIcon.png
 /importer:TextureImporter
@@ -625,6 +643,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:HeartIcon.png
+
+#begin HeavySwordAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:HeavySwordAttack.wav
 
 #begin HoverCursor.png
 /importer:TextureImporter
@@ -1084,6 +1108,12 @@
 /processorParam:TextureFormat=Color
 /build:StarIcon.png
 
+#begin SwordAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SwordAttack.wav
+
 #begin SwordIcon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1107,12 +1137,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SwordRibbons.png
-
-#begin TestSoundEffect.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:TestSoundEffect.wav
 
 #begin ThickPixels.spritefont
 /importer:FontDescriptionImporter
