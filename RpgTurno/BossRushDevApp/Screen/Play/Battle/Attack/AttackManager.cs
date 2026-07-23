@@ -85,7 +85,7 @@ public class AttackManager
     private void PlaySkillSoundEffect()
     {
         if (_skill.Definition.Animation.SoundEffect is not null)
-            _skill.Definition.Animation.SoundEffect.Play(GlobalOptionsDto.SfxVolumeFloat, 0f, 0f);
+            _skill.Definition.Animation.SoundEffect.Play();
     }
 
     private void VerifyDeadUnits()
