@@ -6,6 +6,7 @@ using Domain.Model.Entity.Units.Base;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
+using Domain.Model.Sound.Unit.Footsteps.Run;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -38,7 +39,9 @@ public class AttackManager
     public Action<BaseUnitEntity> OnUnitSlay { get; set; }
 
     public Action<BaseUnitEntity, AnimationClip> OnPlaySenderAnimation { get; set; } 
-    public Action<List<BaseUnitEntity>, AnimationClip> OnPlayTargetsAnimation { get; set; } 
+    public Action<List<BaseUnitEntity>, AnimationClip> OnPlayTargetsAnimation { get; set; }
+
+    private DirtRunSoundMix _dirtRunSoundMix = new();
 
     public bool IsExecuting()
     {
@@ -127,11 +130,15 @@ public class AttackManager
 
     private void UpdateMovingToTarget()
     {
+        _dirtRunSoundMix.Update();
+
         var senderPos = new Vector2(_sender.Center.X, _sender.Center.Y);
         var direction = _targetPosition - senderPos;
 
         if (direction.Length() < 10f)
         {
+            _dirtRunSoundMix.Reset();
+
             CurrentPhase = AttackPhase.Attacking;
             _sender.CreatureState = CreatureStateType.Attacking;
             ResetDelayAttack(_skill.Definition.Animation.ExecutionTime);
@@ -155,12 +162,16 @@ public class AttackManager
 
     private void UpdateMovingBack()
     {
+        _dirtRunSoundMix.Update();
+
         var originPos = _senderOriginPosition;
         var senderPos = new Vector2(_sender.PositionX, _sender.PositionY);
         var direction = originPos - senderPos;
 
         if (direction.Length() < 10f)
         {
+            _dirtRunSoundMix.Reset();
+
             _sender.PositionX = originPos.X;
             _sender.PositionY = originPos.Y;
             CurrentPhase = AttackPhase.WaitingTurn;

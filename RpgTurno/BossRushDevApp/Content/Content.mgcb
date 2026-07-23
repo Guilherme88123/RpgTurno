@@ -302,6 +302,66 @@
 /processorParam:TextureFormat=Color
 /build:CurseIcon.png
 
+#begin DirtRun_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DirtRun_1.wav
+
+#begin DirtRun_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DirtRun_2.wav
+
+#begin DirtRun_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DirtRun_3.wav
+
+#begin DirtRun_4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DirtRun_4.wav
+
+#begin DirtRun_5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DirtRun_5.wav
+
+#begin DirtWalk_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DirtWalk_1.wav
+
+#begin DirtWalk_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DirtWalk_2.wav
+
+#begin DirtWalk_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DirtWalk_3.wav
+
+#begin DirtWalk_4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DirtWalk_4.wav
+
+#begin DirtWalk_5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DirtWalk_5.wav
+
 #begin DivineLightAttack.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -631,6 +691,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:FortressIcon.png
+
+#begin GameOver.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GameOver.wav
+
+#begin GameWin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GameWin.wav
 
 #begin GoldIcon.png
 /importer:TextureImporter
@@ -1246,6 +1318,12 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:ThickPixels.spritefont
+
+#begin UnitDeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:UnitDeath.wav
 
 #begin Warrior_Attack1.png
 /importer:TextureImporter

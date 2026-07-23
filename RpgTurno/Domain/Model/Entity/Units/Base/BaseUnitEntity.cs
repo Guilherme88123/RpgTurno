@@ -7,6 +7,7 @@ using Domain.Model.Entity.Units.Base.Skill.Text;
 using Domain.Model.Entity.Units.Base.Stats;
 using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
+using Domain.Model.Sound.Unit.Death;
 using Domain.Model.Texture.Sprite;
 using Domain.Model.Texture.Sprite.Custom.ParticleFx;
 using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
@@ -44,6 +45,7 @@ public class BaseUnitEntity : BaseEntity
     private bool HasTakeHeal => _currentDelayHealTakenFlash > 0;
 
     private LargeDustSprite _deadAnimation;
+    private UnitDeathSoundEffect _deadSound;
 
     private const float DelayLevelUpAnimation = 1.1f;
     private float _currentDelayLevelUpAnimation;
@@ -66,6 +68,8 @@ public class BaseUnitEntity : BaseEntity
 
         _deadAnimation = new();
         _deadAnimation.IsLoop = false;
+
+        _deadSound = new();
     }
 
     #region Update
@@ -389,6 +393,7 @@ public class BaseUnitEntity : BaseEntity
 
         IsDead = true;
 
+        _deadSound.Play();
         _deadAnimation.Reset();
     }
 

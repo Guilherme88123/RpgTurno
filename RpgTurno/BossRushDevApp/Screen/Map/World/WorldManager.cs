@@ -3,6 +3,7 @@ using Domain.Dto.Global;
 using Domain.Dto.Session;
 using Domain.Enum;
 using Domain.Enum.Stage;
+using Domain.Model.Sound.Unit.Footsteps.Walk;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.Screen.Map.World.Player;
 using RpgTurno.Screen.Map.World.Stage;
@@ -26,6 +27,8 @@ public class WorldManager
     private Keys _nextKey2 = Keys.Right;
     private Keys _previousKey1 = Keys.A;
     private Keys _previousKey2 = Keys.Left;
+
+    private DirtWalkSoundMix _dirtWalkMix = new();
 
     #region Initialize
 
@@ -127,6 +130,8 @@ public class WorldManager
 
     private void UpdateWalkingToTargetStage()
     {
+        _dirtWalkMix.Update();
+
         var direction = Player.TargetStage.Position - Player.Position;
 
         Player.Direction =
@@ -150,6 +155,7 @@ public class WorldManager
 
     private void FinishWalking()
     {
+        _dirtWalkMix.Reset();
         Player.SetCurrentStage(Player.TargetStage);
         Player.StopWalking();
     }

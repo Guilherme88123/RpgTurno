@@ -31,6 +31,42 @@ public static class SoundEffectConst
 
     public const string ButtonClick = "ButtonClick";
     public const string ButtonHover = "ButtonHover";
+    public const string GameOver = "GameOver";
+    public const string GameWin = "GameWin";
+
+    #endregion
+
+    #region Unit
+
+    #region Footsteps
+
+    #region Run
+
+    public const string DirtRun1 = "DirtRun_1";
+    public const string DirtRun2 = "DirtRun_2";
+    public const string DirtRun3 = "DirtRun_3";
+    public const string DirtRun4 = "DirtRun_4";
+    public const string DirtRun5 = "DirtRun_5";
+
+    #endregion
+
+    #region Walk
+
+    public const string DirtWalk1 = "DirtWalk_1";
+    public const string DirtWalk2 = "DirtWalk_2";
+    public const string DirtWalk3 = "DirtWalk_3";
+    public const string DirtWalk4 = "DirtWalk_4";
+    public const string DirtWalk5 = "DirtWalk_5";
+
+    #endregion
+
+    #endregion
+
+    #region Death
+
+    public const string UnitDeath = "UnitDeath";
+
+    #endregion
 
     #endregion
 }

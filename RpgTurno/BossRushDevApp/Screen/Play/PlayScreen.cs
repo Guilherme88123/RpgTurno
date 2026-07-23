@@ -7,6 +7,7 @@ using Domain.Interface.Cursor;
 using Domain.Model.Components.Base;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Skill.Base.Unit;
+using Domain.Model.Sound.Ui;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -580,6 +581,8 @@ public class PlayScreen : BaseScreen
 
         _isFinished = true;
 
+        PlayBattleFinishSounfEffect(isGameOver);
+
         GameSession.Statistics.EndDate = DateTime.Now;
 
         _finishBannerComponent.SetFinishBattleStatus(isGameOver, GameSession.Statistics);
@@ -588,6 +591,14 @@ public class PlayScreen : BaseScreen
 
         if (!isGameOver)
             GameSession.OnStageCleared?.Invoke();
+    }
+
+    private void PlayBattleFinishSounfEffect(bool isGameOver)
+    {
+        if (isGameOver)
+            new GameOverSoundEffect().Play();
+        else
+            new GameWinSoundEffect().Play();
     }
 
     private void ResetUnitsStatus()

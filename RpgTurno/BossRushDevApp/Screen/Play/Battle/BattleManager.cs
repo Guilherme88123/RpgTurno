@@ -7,6 +7,7 @@ using Domain.Model.Entity.Units.Base;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
+using Domain.Model.Sound.Unit.Footsteps.Run;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -55,6 +56,7 @@ public class BattleManager
     public bool IsAttacking => BattleState == BattleState.Fighting;
 
     private readonly float _waveTransitionSpeed = 400f;
+    private DirtRunSoundMix _walkSoundMix = new();
 
     #region Initialize
 
@@ -184,6 +186,8 @@ public class BattleManager
 
     private void UpdateWaveTransition()
     {
+        _walkSoundMix.Update();
+
         var target = GetWaveTransitionTarget();
 
         MoveParty();
