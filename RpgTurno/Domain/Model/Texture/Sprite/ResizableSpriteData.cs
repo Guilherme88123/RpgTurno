@@ -1,5 +1,6 @@
 ﻿using Domain.Enum.Sprite;
 using Domain.Model.Sprite.Border;
+using Domain.Model.Texture.Sprite.Custom.Ui.Ribbons.Big;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -67,8 +68,29 @@ public class ResizableSpriteData : SpriteData
         var destRight = new Rectangle(destinationRectangle.X + destinationRectangle.Width - _fixedHorizontalSlice, destinationRectangle.Y, _fixedHorizontalSlice, destinationRectangle.Height);
 
         DrawBySource(sourceLeft, destLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySource(sourceMid, destMid, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceHorizontalTiled(sourceMid, destMid, color, rotation, drawEffect, spriteBatch, scale, offset);
         DrawBySource(sourceRight, destRight, color, rotation, drawEffect, spriteBatch, scale, offset);
+    }
+
+    private void DrawBySourceHorizontalTiled(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
+    {
+        if (this is BlueBigRibbonSprite)
+        {
+            var a = 0;
+        }
+
+        var sourceWidth = sourceRectangle.Width;
+        var sourceHeight = sourceRectangle.Height;
+
+        for (int x = destinationRectangle.X; x < destinationRectangle.Right; x += sourceWidth)
+        {
+            int drawWidth = Math.Min(sourceWidth, destinationRectangle.Right - x);
+
+            var sourcePart = new Rectangle(sourceRectangle.X, sourceRectangle.Y, drawWidth, sourceHeight);
+            var destinationPart = new Rectangle(x, destinationRectangle.Y, drawWidth, destinationRectangle.Height);
+
+            DrawBySource(sourcePart, destinationPart, color, rotation, drawEffect, spriteBatch, scale, offset);
+        }
     }
 
     private void DrawVerticalResizable(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
@@ -234,18 +256,23 @@ public class ResizableSpriteData : SpriteData
                 fv);
 
         DrawBySource(sourceTopLeft, destTopLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySourceTiled(sourceTopCenter, destTopCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFullTiled(sourceTopCenter, destTopCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
         DrawBySource(sourceTopRight, destTopRight, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySourceTiled(sourceMidLeft, destMidLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySourceTiled(sourceMidCenter, destMidCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySourceTiled(sourceMidRight, destMidRight, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFullTiled(sourceMidLeft, destMidLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFullTiled(sourceMidCenter, destMidCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFullTiled(sourceMidRight, destMidRight, color, rotation, drawEffect, spriteBatch, scale, offset);
         DrawBySource(sourceDownLeft, destDownLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySourceTiled(sourceDownCenter, destDownCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFullTiled(sourceDownCenter, destDownCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
         DrawBySource(sourceDownRight, destDownRight, color, rotation, drawEffect, spriteBatch, scale, offset);
     }
 
-    private void DrawBySourceTiled(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
+    private void DrawBySourceFullTiled(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
     {
+        if (this is BlueBigRibbonSprite)
+        {
+            var a = 0;
+        }
+
         var sourceWidth = sourceRectangle.Width;
         var sourceHeight = sourceRectangle.Height;
 

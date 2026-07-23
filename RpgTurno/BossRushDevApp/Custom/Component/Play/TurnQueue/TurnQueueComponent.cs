@@ -3,7 +3,7 @@ using Domain.Model.Components.Base;
 using Domain.Model.Components.Image;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Texture.Sprite.Custom.ParticleFx;
-using Domain.Model.Texture.Sprite.Custom.Ui.Ribbons.Small;
+using Domain.Model.Texture.Sprite.Custom.Ui.Ribbons.Big;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ public class TurnQueueComponent : BaseComponent
     private const int MaxIconsCount = 7;
     private const int IconSize = 80;
 
-    private int InitialPositionX => _queueBackground.Bounds.X + _queueBackground.Bounds.Width - IconSize / 2;
+    private int InitialPositionX => _queueBackground.Bounds.Right - 56 - IconSize / 2;
 
     private Dictionary<BaseUnitEntity, UnitIconComponent> _icons = new();
     private List<UnitIconComponent> _unitsIconList = new();
@@ -24,7 +24,7 @@ public class TurnQueueComponent : BaseComponent
 
     private List<BaseUnitEntity> _pendingUnitsList;
 
-    private ImageComponent _queueBackground = new(new BlueSmallRibbonSprite(), GlobalOptionsDto.WidthSize / 3, IconSize);
+    private ImageComponent _queueBackground = new(new BlueBigRibbonSprite(), GlobalOptionsDto.WidthSize / 3 + 96, IconSize + 16);
 
     private SmallDustSprite _dustEffect = new();
 
@@ -34,7 +34,7 @@ public class TurnQueueComponent : BaseComponent
     public TurnQueueComponent()
     {
         Bounds = new Rectangle(GlobalOptionsDto.WidthSize / 2, 16, 0, 0);
-        _queueBackground.SetPosition(GlobalOptionsDto.WidthSize / 3, 16);
+        _queueBackground.SetPosition(GlobalOptionsDto.WidthSize / 2 - _queueBackground.Bounds.Width / 2, 16);
     }
 
     public void StartTransition()

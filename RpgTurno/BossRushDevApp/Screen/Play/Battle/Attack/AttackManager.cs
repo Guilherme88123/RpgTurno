@@ -72,7 +72,6 @@ public class AttackManager
 
         CurrentPhase = AttackPhase.MovingBack;
         _sender.CreatureState = CreatureStateType.Running;
-        _sender.Direction = _sender.Direction == DirectionType.Right ? DirectionType.Left : DirectionType.Right;
 
         OnExecuteSkill?.Invoke(_skill, result);
     }
@@ -177,7 +176,6 @@ public class AttackManager
             _sender.PositionY = originPos.Y;
             CurrentPhase = AttackPhase.WaitingTurn;
             _sender.CreatureState = CreatureStateType.Idle;
-            _sender.Direction = _sender.Direction == DirectionType.Right ? DirectionType.Left : DirectionType.Right;
             ResetDelayTurn();
             return;
         }

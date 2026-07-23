@@ -5,7 +5,7 @@ public static class GlobalOptionsDto
     public static int MusicVolume { get; set; } = 80;
     public static int SfxVolume { get; set; } = 80;
 
-    public static bool Fullscreen { get; set; } = true;
+    public static bool Fullscreen { get; set; } = false;
     public static bool ShowFps { get; set; } = false;
 
     public static int WidthSize { get; set; } = 1920;
