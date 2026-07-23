@@ -534,6 +534,9 @@ public class PlayScreen : BaseScreen
 
     private void DrawSelectionAreaComponent()
     {
+        if (!_selectionAreaComponent.IsVisible)
+            return;
+
         _selectionAreaComponent.DrawOnFocusedUnits(_focusedUnitsList, GlobalVariablesDto.SpriteBatchInterface);
     }
 
