@@ -26,4 +26,11 @@ public static class SoundEffectConst
     public const string DivineLightAttack = "DivineLightAttack";
 
     #endregion
+
+    #region Ui
+
+    public const string ButtonClick = "ButtonClick";
+    public const string ButtonHover = "ButtonHover";
+
+    #endregion
 }

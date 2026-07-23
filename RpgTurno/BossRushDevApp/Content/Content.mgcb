@@ -170,6 +170,18 @@
 /processorParam:TextureFormat=Color
 /build:BootIcon.png
 
+#begin ButtonClick.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ButtonClick.wav
+
+#begin ButtonHover.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ButtonHover.wav
+
 #begin CleaveSwordAttack.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

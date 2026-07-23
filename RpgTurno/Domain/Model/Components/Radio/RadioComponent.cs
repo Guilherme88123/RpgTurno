@@ -2,6 +2,8 @@
 using Domain.Enum.Component.Button;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Text;
+using Domain.Model.Sound.Base;
+using Domain.Model.Sound.Ui;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,6 +29,12 @@ public class RadioComponent : BaseComponent
     public readonly TextComponent Text = new(positionXByCenter: true, positionYByCenter: true);
     private string _baseText;
 
+    private bool _wasHover;
+    private bool _wasClick;
+
+    private readonly SoundEffectData ClickSoundEffect = new ButtonClickSoundEffect();
+    private readonly SoundEffectData HoverSoundEffect = new ButtonHoverSoundEffect();
+
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
@@ -43,7 +51,12 @@ public class RadioComponent : BaseComponent
         var isLineHover = LineRectangle.Contains(mousePos);
 
         if (isDotHover || isLineHover)
+        {
             CursorManager.RequestHover();
+
+            if (!_wasHover)
+                HoverSoundEffect?.Play();
+        }
 
         var oldValue = Value;
 
@@ -66,12 +79,20 @@ public class RadioComponent : BaseComponent
 
         if (mouse.LeftButton == ButtonState.Pressed && (isDotHover || isLineHover))
         {
+            if (!_wasClick)
+                ClickSoundEffect?.Play();
+
             IsDotPressed = true;
+
+            _wasClick = true;
         }
         else if (mouse.LeftButton == ButtonState.Released)
         {
             IsDotPressed = false;
+            _wasClick = false;
         }
+
+        _wasHover = (isDotHover || isLineHover);
 
         Text.SetText(GetText());
         ReloadPositionText();

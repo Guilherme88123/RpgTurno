@@ -2,6 +2,8 @@
 using Domain.Enum.Component.Button;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Text;
+using Domain.Model.Sound.Base;
+using Domain.Model.Sound.Ui;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,6 +22,14 @@ public class SwitchComponent : BaseComponent
 
     public readonly TextComponent Text = new(positionXByCenter: true, positionYByCenter: true);
     private string _baseText;
+
+    private readonly SoundEffectData ClickSoundEffect = new ButtonClickSoundEffect();
+    private readonly SoundEffectData HoverSoundEffect = new ButtonHoverSoundEffect();
+
+    public SwitchComponent()
+    {
+        HoverState.OnHoverIn += HoverSoundEffect.Play;
+    }
 
     public override void Update(GameTime gameTime)
     {
@@ -68,7 +78,10 @@ public class SwitchComponent : BaseComponent
     private void ExecuteClick()
     {
         State = ButtonInteractionState.Pressed;
+        ClickSoundEffect?.Play();
+
         _currentDelay = DelayPressed;
+
         SetPositionText();
     }
 
