@@ -9,11 +9,11 @@ namespace Domain.Model.Texture.Sprite.Custom.Ui.Buttons;
 public class BlueButtonPressedSprite : ResizableSpriteData
 {
     public BlueButtonPressedSprite() : base(
-        GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.BlueButtonPressed), 
-        ResizableSpriteType.Full, 
-        fixedHorizontal: 48, 
-        fixedVertical: 48, 
-        border: new BorderDefinition(16, 16, 16, 16), 
+        GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.BlueButtonPressed),
+        ResizableSpriteType.Full,
+        fixedHorizontal: 50,
+        fixedVertical: 49,
+        border: new BorderDefinition(15, 15, 14, 14),
         piecesGap: 64)
     {
     }

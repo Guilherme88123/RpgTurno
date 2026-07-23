@@ -27,7 +27,7 @@ public class HoverAnimation
     public float HoverOffsetX { get; set; } = -5;
     public float HoverOffsetY { get; set; } = -5;
     public Color HoverColor { get; set; } = Color.Yellow;
-    public Color HoverTextColor { get; set; } = Color.Yellow;
+    public Color HoverTextColor { get; set; } = Color.Gold;
 
     public float AnimationSpeed { get; set; } = 12f;
 
