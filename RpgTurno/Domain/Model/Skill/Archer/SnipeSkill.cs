@@ -4,6 +4,7 @@ using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
+using Domain.Model.Sound.Attack.Archer;
 
 namespace Domain.Model.Skill;
 
@@ -22,7 +23,7 @@ public class SnipeSkill : BaseSkill
     public override int Cooldown => 5;
     public override int ManaCost => 22;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new SnipeAttackSoundEffect(), true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

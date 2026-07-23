@@ -4,6 +4,7 @@ using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
+using Domain.Model.Sound.Attack.Cleric;
 
 namespace Domain.Model.Skill.Cleric;
 
@@ -22,7 +23,7 @@ public class SmiteSkill : BaseSkill
     public override int Cooldown => 0;
     public override int ManaCost => 0;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new SmiteAttackSoundEffect(), true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

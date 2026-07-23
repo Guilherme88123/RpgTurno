@@ -5,6 +5,7 @@ using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
+using Domain.Model.Sound.Attack.Cleric;
 using Domain.Model.Texture.Sprite.Custom.ParticleFx;
 
 namespace Domain.Model.Skill.Cleric;
@@ -24,7 +25,7 @@ public class CurseSkill : BaseSkill
     public override int Cooldown => 4;
     public override int ManaCost => 20;
 
-    public override SkillAnimation Animation => new SkillAnimation(new CurseSprite(), null, null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(new CurseSprite(), null, new CurseAttackSoundEffect(), true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

@@ -1,13 +1,10 @@
-﻿using Domain.Const.Sound.Effect;
-using Domain.Dto.Global;
-using Domain.Enum.Skill.Target;
+﻿using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
-using Domain.Model.Sound;
-using Microsoft.Xna.Framework.Audio;
+using Domain.Model.Sound.Attack.Warrior;
 
 namespace Domain.Model.Skill.Warrior;
 

@@ -4,7 +4,7 @@ using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
-using System.Reflection;
+using Domain.Model.Sound.Attack.Archer;
 
 namespace Domain.Model.Skill.Archer;
 
@@ -23,7 +23,7 @@ public class ArrowRainSkill : BaseSkill
     public override int Cooldown => 4;
     public override int ManaCost => 18;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new ArrowRainAttackSoundEffect(), true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

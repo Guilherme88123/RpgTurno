@@ -80,6 +80,12 @@
 /processorParam:TextureFormat=Compressed
 /build:Arial.spritefont
 
+#begin ArrowRainAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ArrowRainAttack.wav
+
 #begin BasicGrassMap.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -109,6 +115,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:BigRibbons.png
+
+#begin BlessAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BlessAttack.wav
 
 #begin BlockCursor.png
 /importer:TextureImporter
@@ -248,6 +260,12 @@
 /processorParam:TextureFormat=Color
 /build:CriticalIcon.png
 
+#begin CurseAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CurseAttack.wav
+
 #begin CurseEffect.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -271,6 +289,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:CurseIcon.png
+
+#begin DivineLightAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DivineLightAttack.wav
 
 #begin Enemy_Archer_Idle.png
 /importer:TextureImporter
@@ -578,6 +602,12 @@
 /processorParam:Quality=Best
 /build:ExecutionSwordAttack.wav
 
+#begin FortressAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:FortressAttack.wav
+
 #begin FortressIcon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -619,6 +649,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:HammerIcon.png
+
+#begin HealAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:HealAttack.wav
 
 #begin HealEffect.png
 /importer:TextureImporter
@@ -758,6 +794,12 @@
 /processorParam:TextureFormat=Color
 /build:LargeDustEffect.png
 
+#begin LastBastionAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LastBastionAttack.wav
+
 #begin LastBastionIcon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -788,6 +830,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:LevelUpEffect.png
+
+#begin LightShootAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LightShootAttack.wav
 
 #begin Logo.png
 /importer:TextureImporter
@@ -861,6 +909,18 @@
 /processorParam:TextureFormat=Color
 /build:PaperBanner.png
 
+#begin PiercingStrikeAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:PiercingStrikeAttack.wav
+
+#begin PikeAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:PikeAttack.wav
+
 #begin PlayIcon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -884,6 +944,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:PoisonIcon.png
+
+#begin PowerShootAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:PowerShootAttack.wav
 
 #begin RedButtonPressed.png
 /importer:TextureImporter
@@ -969,6 +1035,12 @@
 /processorParam:TextureFormat=Color
 /build:ShieldIcon.png
 
+#begin ShootAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ShootAttack.wav
+
 #begin SmallBar_Base.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1053,6 +1125,18 @@
 /processorParam:TextureFormat=Color
 /build:SmallRibbons.png
 
+#begin SmiteAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SmiteAttack.wav
+
+#begin SnipeAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SnipeAttack.wav
+
 #begin SongIcon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1107,6 +1191,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:StarIcon.png
+
+#begin SwearSweepAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SwearSweepAttack.wav
 
 #begin SwordAttack.wav
 /importer:WavImporter

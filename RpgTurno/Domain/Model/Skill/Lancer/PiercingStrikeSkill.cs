@@ -4,6 +4,7 @@ using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
+using Domain.Model.Sound.Attack.Lancer;
 
 namespace Domain.Model.Skill.Lancer;
 
@@ -22,7 +23,7 @@ public class PiercingStrikeSkill : BaseSkill
     public override int Cooldown => 2;
     public override int ManaCost => 6;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, null, false, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new PiercingStrikeAttackSoundEffect(), false, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

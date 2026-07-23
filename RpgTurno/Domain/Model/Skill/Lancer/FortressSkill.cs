@@ -5,6 +5,7 @@ using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
 using Domain.Model.Skill.Base.Result;
+using Domain.Model.Sound.Attack.Lancer;
 
 namespace Domain.Model.Skill.Lancer;
 
@@ -20,7 +21,7 @@ public class FortressSkill : BaseSkill
     public override int Cooldown => 4;
     public override int ManaCost => 12;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, null, true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new FortressAttackSoundEffect(), true, 0.5f);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
