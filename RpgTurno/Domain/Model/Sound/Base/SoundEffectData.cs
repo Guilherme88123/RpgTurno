@@ -19,6 +19,11 @@ public abstract class SoundEffectData
 
     public void Play()
     {
-        _sound.Play(GlobalOptionsDto.SfxVolumeFloat, 0f, 0f);
+        _sound.Play(GlobalOptionsDto.SfxVolumeFloat, GetRandomPitch(), 0f);
+    }
+
+    private float GetRandomPitch()
+    {
+        return Random.Shared.NextSingle() * -0.5f + 0.25f;
     }
 }
