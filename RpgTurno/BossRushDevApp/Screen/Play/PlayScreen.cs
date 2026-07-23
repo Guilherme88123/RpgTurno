@@ -658,6 +658,6 @@ public class PositionableAnimation
     public void Draw()
     {
         foreach (var unit in Units)
-            Animation.Draw(unit.Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchInterface);
+            Animation.Draw(unit.Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchInterface, Vector2.One, Vector2.Zero);
     }
 }

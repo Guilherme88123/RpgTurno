@@ -40,26 +40,28 @@ public class SpriteData
         return new Rectangle(positionX, positionY, width, height);
     }
 
-    public virtual void Draw(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, float scale = 1.0f)
+    public virtual void Draw(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
     {
-        DrawBySource(SourceRectangle, destinationRectangle, color, rotation, drawEffect, spriteBatch, scale);
+        DrawBySource(SourceRectangle, destinationRectangle, color, rotation, drawEffect, spriteBatch, scale, offset);
     }
 
-    protected virtual void DrawBySource(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, float scale = 1.0f)
+    protected virtual void DrawBySource(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
     {
         if (destinationRectangle.Width < 0 || destinationRectangle.Height < 0)
             return;
 
-        var scaleX = (float)destinationRectangle.Width / sourceRectangle.Width * scale;
-        var scaleY = (float)destinationRectangle.Height / sourceRectangle.Height * scale;
+        var scaleX = (float)destinationRectangle.Width / sourceRectangle.Width * scale.X;
+        var scaleY = (float)destinationRectangle.Height / sourceRectangle.Height * scale.Y;
 
         Vector2? cameraOffset = GlobalVariablesDto.GetTransform(spriteBatch);
 
-        Vector2 position = new Vector2(destinationRectangle.X, destinationRectangle.Y);
+        Vector2 position = new Vector2(
+            destinationRectangle.X + offset.X, 
+            destinationRectangle.Y + offset.Y);
 
         Vector2 origin = new Vector2(
-            sourceRectangle.Width * (scale - 1) / (scale * 2), 
-            sourceRectangle.Height * (scale - 1) / (scale * 2));
+            sourceRectangle.Width * (scale.X - 1) / (scale.X * 2), 
+            sourceRectangle.Height * (scale.Y - 1) / (scale.Y * 2));
 
         spriteBatch.Draw(
             Texture,

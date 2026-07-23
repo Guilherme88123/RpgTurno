@@ -28,7 +28,7 @@ public class SwitchComponent : BaseComponent
 
     public SwitchComponent()
     {
-        HoverState.OnHoverIn += HoverSoundEffect.Play;
+        HoverState.OnHoverIn += OnHoverIn;
     }
 
     public override void Update(GameTime gameTime)
@@ -52,6 +52,15 @@ public class SwitchComponent : BaseComponent
         if (IsTryingClick())
             ExecuteClick();
     }
+
+    #region Hover
+
+    private void OnHoverIn()
+    {
+        HoverSoundEffect.Play();
+    }
+
+    #endregion
 
     private bool CanClick()
     {

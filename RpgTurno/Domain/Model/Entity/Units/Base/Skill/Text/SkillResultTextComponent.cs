@@ -68,6 +68,6 @@ public class SkillResultTextComponent : TextComponent
 
         var criticalSimbolRectangle = new Rectangle(Bounds.X + textWidth, Bounds.Y, _criticalSimbolSize, _criticalSimbolSize);
 
-        _criticalSimbol.Draw(criticalSimbolRectangle, Color.White, Rotation, SpriteEffects, spriteBatch);
+        _criticalSimbol.Draw(criticalSimbolRectangle, Color.White, Rotation, SpriteEffects, spriteBatch, Vector2.One, Vector2.Zero);
     }
 }

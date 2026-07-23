@@ -22,7 +22,7 @@ public class SelectionAreaComponent : BaseComponent
         foreach (var unit in focusedUnits)
         {
             var boundUnitRectangle = GetBounceRectangle(unit.Rectangle);
-            AnimationManager.Draw(boundUnitRectangle, Color, Rotation, SpriteEffects, spriteBatch);
+            AnimationManager.Draw(boundUnitRectangle, Color, Rotation, SpriteEffects, spriteBatch, Vector2.One, Vector2.Zero);
         }
     }
 

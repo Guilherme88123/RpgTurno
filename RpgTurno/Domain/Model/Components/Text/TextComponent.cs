@@ -65,6 +65,8 @@ public class TextComponent : BaseComponent
         if (string.IsNullOrEmpty(Text))
             return;
 
-        spriteBatch.DrawString(Font, Text, new Vector2(Bounds.X, Bounds.Y), Color);    
+        var position = new Vector2(Bounds.X, Bounds.Y) + Offset;
+
+        spriteBatch.DrawString(Font, Text, position, Color);    
     }
 }

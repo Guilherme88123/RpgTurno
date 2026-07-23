@@ -176,7 +176,7 @@ public class TurnQueueComponent : BaseComponent
                 IconSize,
                 IconSize);
 
-        _dustEffect.Draw(dustRectangle, Color, Rotation, SpriteEffects, spriteBatch);
+        _dustEffect.Draw(dustRectangle, Color, Rotation, SpriteEffects, spriteBatch, Vector2.One, Vector2.Zero);
     }
 
     #endregion
@@ -242,6 +242,8 @@ public class UnitIconComponent
             Color.White,
             0,
             SpriteEffects.None,
-            spriteBatch);
+            spriteBatch, 
+            Vector2.One, 
+            Vector2.Zero);
     }
 }

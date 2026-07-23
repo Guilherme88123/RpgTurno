@@ -221,7 +221,9 @@ public class BaseUnitEntity : BaseEntity
             Color,
             ActualAngle,
             DrawEffect,
-            GlobalVariablesDto.SpriteBatchEntities);
+            GlobalVariablesDto.SpriteBatchEntities, 
+            Vector2.One, 
+            Vector2.Zero);
     }
 
     protected virtual void DrawHealthBar()
@@ -245,8 +247,8 @@ public class BaseUnitEntity : BaseEntity
                 unitEffect.Rectangle.Y + unitEffect.Rectangle.Height / 2 - iconSize / 2 - 2,
                 iconSize, iconSize);
 
-            new SquareBannerSprite().Draw(unitEffect.Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
-            unitEffect.Effect.Icon.Draw(iconRectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities);
+            new SquareBannerSprite().Draw(unitEffect.Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities, Vector2.One, Vector2.Zero);
+            unitEffect.Effect.Icon.Draw(iconRectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities, Vector2.One, Vector2.Zero);
         }
     }
 
@@ -255,12 +257,12 @@ public class BaseUnitEntity : BaseEntity
         if (_deadAnimation.IsFinished)
             return;
 
-        _deadAnimation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
+        _deadAnimation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities, Vector2.One, Vector2.Zero);
     }
 
     protected virtual void DrawLevelUpAnimation()
     {
-        _levelUpAnimation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
+        _levelUpAnimation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities, Vector2.One, Vector2.Zero);
     }
 
     private void DrawSkillTexts()

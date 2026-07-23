@@ -33,7 +33,7 @@ public class ProgressBarComponent : BaseComponent
     {
         var fillRectangle = GetFillRectangle();
 
-        _fillSprite.Draw(fillRectangle, Color, Rotation, SpriteEffects, spriteBatch);
+        _fillSprite.Draw(fillRectangle, Color, Rotation, SpriteEffects, spriteBatch, Scale, Offset);
     }
 
     private Rectangle GetFillRectangle()

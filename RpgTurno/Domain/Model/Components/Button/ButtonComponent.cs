@@ -26,13 +26,14 @@ public class ButtonComponent : BaseComponent
     private readonly SoundEffectData ClickSoundEffect = new ButtonClickSoundEffect();
     private readonly SoundEffectData HoverSoundEffect = new ButtonHoverSoundEffect();
 
-    private const float HoverSizeScale = 1.2f;
-    private float _targetScale = 1.0f;
-
     public ButtonComponent()
     {
         HoverState.OnHoverIn += OnHoverIn;
-        HoverState.OnHoverOut += OnHoverOut;
+
+        HoverAnimation.AffectScaleX = true;
+        HoverAnimation.AffectScaleY = true;
+        HoverAnimation.AffectOffsetY = true;
+        HoverAnimation.AffectTextColor = true;
     }
 
     #region Update
@@ -40,9 +41,11 @@ public class ButtonComponent : BaseComponent
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        Text.Update(gameTime);
 
-        UpdateHoverAnimation();
+        Text.Update(gameTime);
+        Text.Color = TextColor;
+        Text.OffsetY = OffsetY;
+
         AnimationManager.Update(State);
 
         if (State == ButtonInteractionState.Pressed)
@@ -78,21 +81,9 @@ public class ButtonComponent : BaseComponent
 
     #region Hover
 
-    private void UpdateHoverAnimation()
-    {
-        Scale = MathHelper.Lerp(Scale, _targetScale, 12f * GlobalVariablesDto.DeltaTime);
-    }
-
     private void OnHoverIn()
     {
         HoverSoundEffect.Play();
-
-        _targetScale = HoverSizeScale;
-    }
-
-    private void OnHoverOut()
-    {
-        _targetScale = 1f;
     }
 
     #endregion

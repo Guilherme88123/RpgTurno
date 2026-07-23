@@ -62,7 +62,7 @@ public class BaseEntity
             return;
         }
 
-        Animation.Draw(AnimationRectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities);
+        Animation.Draw(AnimationRectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities, Vector2.One, Vector2.Zero);
     }
 
     public virtual void Destroy()

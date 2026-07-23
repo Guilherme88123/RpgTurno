@@ -1,5 +1,6 @@
 ﻿using Domain.Dto.Global;
 using Domain.Interface.Cursor;
+using Domain.Model.Components.Base.Hover;
 using Domain.Model.Texture.Manager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,17 +13,26 @@ public class BaseComponent
 
     protected ICursorManager CursorManager => GlobalVariablesDto.GetService<ICursorManager>();
 
-    protected HoverState HoverState { get; } = new();
+    public HoverState HoverState { get; } = new();
+    public HoverAnimation HoverAnimation { get; } = new();
 
     public bool IsVisible { get; set; } = true;
     public bool IsEnable { get; set; } = true;
 
     protected AnimationManager AnimationManager { get; } = new();
 
-    protected Color Color { get; set; } = Color.White;
-    protected float Rotation { get; set; }
-    protected SpriteEffects SpriteEffects { get; set; }
-    protected float Scale { get; set; } = 1f;
+    public Color Color { get; set; } = Color.White;
+    public Color TextColor { get; set; } = Color.Black;
+    public float Rotation { get; set; }
+    public float ScaleX { get; set; } = 1f;
+    public float ScaleY { get; set; } = 1f;
+    public float OffsetX { get; set; }
+    public float OffsetY { get; set; }
+
+    public Vector2 Scale => new(ScaleX, ScaleY);
+    public Vector2 Offset => new(OffsetX, OffsetY);
+
+    public SpriteEffects SpriteEffects { get; set; }
 
     public BaseComponent()
     {
@@ -35,6 +45,7 @@ public class BaseComponent
             return;
 
         HoverState.Update(Bounds);
+        HoverAnimation.Update(this, gameTime);
     }
 
     public virtual void SetPosition(int positionX, int positionY)
@@ -48,6 +59,6 @@ public class BaseComponent
         if (!IsVisible)
             return;
 
-        AnimationManager.Draw(Bounds, Color, Rotation, SpriteEffects, spriteBatch, Scale);
+        AnimationManager.Draw(Bounds, Color, Rotation, SpriteEffects, spriteBatch, Scale, Offset);
     }
 }

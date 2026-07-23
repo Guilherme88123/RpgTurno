@@ -143,7 +143,7 @@ public class RadioComponent : BaseComponent
 
     protected void DrawLineAnimation(SpriteBatch spriteBatch)
     {
-        LineAnimation.Draw(LineRectangle, Color, Rotation, SpriteEffects, spriteBatch);
+        LineAnimation.Draw(LineRectangle, Color, Rotation, SpriteEffects, spriteBatch, Scale, Offset);
     }
 
     protected void DrawLineRectangle(SpriteBatch spriteBatch)
@@ -165,7 +165,7 @@ public class RadioComponent : BaseComponent
 
     protected void DrawDotAnimation(SpriteBatch spriteBatch)
     {
-        DotSprite.Draw(DotRectangle, Color, Rotation, SpriteEffects, spriteBatch);
+        DotSprite.Draw(DotRectangle, Color, Rotation, SpriteEffects, spriteBatch, Scale, Offset);
     }
 
     protected void DrawDotRectangle(SpriteBatch spriteBatch)

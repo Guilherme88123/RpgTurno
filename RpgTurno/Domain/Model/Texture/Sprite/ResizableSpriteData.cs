@@ -33,30 +33,30 @@ public class ResizableSpriteData : SpriteData
         _piecesGap = piecesGap;
     }
 
-    public override void Draw(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, float scale = 1f)
+    public override void Draw(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
     {
         if (ResizableType == ResizableSpriteType.Full)
         {
-            DrawFullResizable(destinationRectangle, color, rotation, drawEffect, spriteBatch, scale);
+            DrawFullResizable(destinationRectangle, color, rotation, drawEffect, spriteBatch, scale, offset);
             return;
         }
 
         if (ResizableType == ResizableSpriteType.Horizontal)
         {
-            DrawHorizontalResizable(destinationRectangle, color, rotation, drawEffect, spriteBatch);
+            DrawHorizontalResizable(destinationRectangle, color, rotation, drawEffect, spriteBatch, scale, offset);
             return;
         }
 
         if (ResizableType == ResizableSpriteType.Vertical)
         {
-            DrawVerticalResizable(destinationRectangle, color, rotation, drawEffect, spriteBatch);
+            DrawVerticalResizable(destinationRectangle, color, rotation, drawEffect, spriteBatch, scale, offset);
             return;
         }
 
-        base.Draw(destinationRectangle, color, rotation, drawEffect, spriteBatch);
+        base.Draw(destinationRectangle, color, rotation, drawEffect, spriteBatch, scale, offset);
     }
 
-    private void DrawHorizontalResizable(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, float scale = 1f)
+    private void DrawHorizontalResizable(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
     {
         var sourceLeft = new Rectangle(SourceRectangle.X, SourceRectangle.Y, _fixedHorizontalSlice, SourceRectangle.Height);
         var sourceMid = new Rectangle(SourceRectangle.X + _fixedHorizontalSlice + _piecesGap, SourceRectangle.Y, SourceRectangle.Width - _fixedHorizontalSlice * 2 - _piecesGap * 2, SourceRectangle.Height);
@@ -66,12 +66,12 @@ public class ResizableSpriteData : SpriteData
         var destMid = new Rectangle(destinationRectangle.X + _fixedHorizontalSlice, destinationRectangle.Y, destinationRectangle.Width - _fixedHorizontalSlice * 2, destinationRectangle.Height);
         var destRight = new Rectangle(destinationRectangle.X + destinationRectangle.Width - _fixedHorizontalSlice, destinationRectangle.Y, _fixedHorizontalSlice, destinationRectangle.Height);
 
-        DrawBySource(sourceLeft, destLeft, color, rotation, drawEffect, spriteBatch, scale);
-        DrawBySource(sourceMid, destMid, color, rotation, drawEffect, spriteBatch, scale);
-        DrawBySource(sourceRight, destRight, color, rotation, drawEffect, spriteBatch, scale);
+        DrawBySource(sourceLeft, destLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySource(sourceMid, destMid, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySource(sourceRight, destRight, color, rotation, drawEffect, spriteBatch, scale, offset);
     }
 
-    private void DrawVerticalResizable(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, float scale = 1f)
+    private void DrawVerticalResizable(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
     {
         //TODO: Implementar Sprite resizable vertical
     }
@@ -82,7 +82,8 @@ public class ResizableSpriteData : SpriteData
         float rotation,
         SpriteEffects drawEffect,
         SpriteBatch spriteBatch, 
-        float scale = 1f)
+        Vector2 scale,
+        Vector2 offset)
     {
         int sx = SourceRectangle.X;
         int sy = SourceRectangle.Y;
@@ -232,20 +233,18 @@ public class ResizableSpriteData : SpriteData
                 fh,
                 fv);
 
-        DrawBySource(sourceTopLeft, destTopLeft, color, rotation, drawEffect, spriteBatch, scale);
-        DrawBySourceTiled(sourceTopCenter, destTopCenter, color, rotation, drawEffect, spriteBatch, scale);
-        DrawBySource(sourceTopRight, destTopRight, color, rotation, drawEffect, spriteBatch, scale);
-
-        DrawBySourceTiled(sourceMidLeft, destMidLeft, color, rotation, drawEffect, spriteBatch, scale);
-        DrawBySourceTiled(sourceMidCenter, destMidCenter, color, rotation, drawEffect, spriteBatch, scale);
-        DrawBySourceTiled(sourceMidRight, destMidRight, color, rotation, drawEffect, spriteBatch, scale);
-
-        DrawBySource(sourceDownLeft, destDownLeft, color, rotation, drawEffect, spriteBatch, scale);
-        DrawBySourceTiled(sourceDownCenter, destDownCenter, color, rotation, drawEffect, spriteBatch, scale);
-        DrawBySource(sourceDownRight, destDownRight, color, rotation, drawEffect, spriteBatch, scale);
+        DrawBySource(sourceTopLeft, destTopLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceTiled(sourceTopCenter, destTopCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySource(sourceTopRight, destTopRight, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceTiled(sourceMidLeft, destMidLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceTiled(sourceMidCenter, destMidCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceTiled(sourceMidRight, destMidRight, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySource(sourceDownLeft, destDownLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceTiled(sourceDownCenter, destDownCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySource(sourceDownRight, destDownRight, color, rotation, drawEffect, spriteBatch, scale, offset);
     }
 
-    private void DrawBySourceTiled(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, float scale = 1f)
+    private void DrawBySourceTiled(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
     {
         var sourceWidth = sourceRectangle.Width;
         var sourceHeight = sourceRectangle.Height;
@@ -260,7 +259,7 @@ public class ResizableSpriteData : SpriteData
                 var sourcePart = new Rectangle(sourceRectangle.X, sourceRectangle.Y, drawWidth, drawHeight);
                 var destinationPart = new Rectangle(x, y, drawWidth, drawHeight);
 
-                DrawBySource(sourcePart, destinationPart, color, rotation, drawEffect, spriteBatch, scale);
+                DrawBySource(sourcePart, destinationPart, color, rotation, drawEffect, spriteBatch, scale, offset);
             }
         }
     }

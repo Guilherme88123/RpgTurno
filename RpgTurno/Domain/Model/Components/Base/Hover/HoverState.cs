@@ -3,7 +3,7 @@ using Domain.Model.Sound.Base;
 using Domain.Model.Sound.Ui;
 using Microsoft.Xna.Framework;
 
-namespace Domain.Model.Components.Base;
+namespace Domain.Model.Components.Base.Hover;
 
 public class HoverState
 {
