@@ -29,17 +29,28 @@ public class RadioComponent : BaseComponent
     public readonly TextComponent Text = new(positionXByCenter: true, positionYByCenter: true);
     private string _baseText;
 
-    private bool _wasHover;
     private bool _wasClick;
 
     private readonly SoundEffectData ClickSoundEffect = new ButtonClickSoundEffect();
     private readonly SoundEffectData HoverSoundEffect = new ButtonHoverSoundEffect();
 
+    public RadioComponent()
+    {
+        HoverState.OnHoverIn += OnHoverIn;
+
+        HoverAnimation.AffectScaleX = true;
+        HoverAnimation.AffectScaleY = true;
+        HoverAnimation.AffectOffsetY = true;
+        HoverAnimation.AffectTextColor = true;
+    }
+
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-
+        
         Text.Update(gameTime);
+        Text.Color = TextColor;
+        Text.OffsetY = OffsetY;
 
         UpdateLineRectangle();
         UpdateDotRectangle();
@@ -51,12 +62,7 @@ public class RadioComponent : BaseComponent
         var isLineHover = LineRectangle.Contains(mousePos);
 
         if (isDotHover || isLineHover)
-        {
             CursorManager.RequestHover();
-
-            if (!_wasHover)
-                HoverSoundEffect?.Play();
-        }
 
         var oldValue = Value;
 
@@ -92,11 +98,18 @@ public class RadioComponent : BaseComponent
             _wasClick = false;
         }
 
-        _wasHover = (isDotHover || isLineHover);
-
         Text.SetText(GetText());
         ReloadPositionText();
     }
+
+    #region Hover
+
+    private void OnHoverIn()
+    {
+        HoverSoundEffect.Play();
+    }
+
+    #endregion
 
     private void UpdateLineRectangle()
     {

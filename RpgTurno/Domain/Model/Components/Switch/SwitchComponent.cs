@@ -29,12 +29,20 @@ public class SwitchComponent : BaseComponent
     public SwitchComponent()
     {
         HoverState.OnHoverIn += OnHoverIn;
+
+        HoverAnimation.AffectScaleX = true;
+        HoverAnimation.AffectScaleY = true;
+        HoverAnimation.AffectOffsetY = true;
+        HoverAnimation.AffectTextColor = true;
     }
 
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+
         Text.Update(gameTime);
+        Text.Color = TextColor;
+        Text.OffsetY = OffsetY;
 
         AnimationManager.Update(State);
 
