@@ -76,6 +76,7 @@ public class RpgTurno : Game
         GlobalVariablesDto.Pixel = pixel;
 
         MediaPlayer.Volume = GlobalOptionsDto.MusicVolumeFloat;
+        MediaPlayer.IsRepeating = true;
 
         RunInitialScreen();
     }
