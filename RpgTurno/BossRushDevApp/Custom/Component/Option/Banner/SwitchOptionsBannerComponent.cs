@@ -12,7 +12,7 @@ public class SwitchOptionsBannerComponent : SwitchComponent
         AnimationManager.Add(ButtonInteractionState.Regular, new BlueButtonRegularSprite());
         AnimationManager.Add(ButtonInteractionState.Pressed, new BlueButtonPressedSprite());
 
-        Bounds = new(0, 0, width, 128);
+        Bounds = new(0, 0, width, 96);
 
         SetText(text);
 

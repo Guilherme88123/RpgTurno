@@ -23,11 +23,11 @@ public class SkillSelectBannerComponent : FrameComponent
 
     private SkillDetailsBannerComponent _detailsBanner = new();
 
-    private ImageComponent _selectedSkillMark = new(new ConfirmIconSprite(), 64, 64);
+    private ImageComponent _selectedSkillMark = new(new ConfirmIconSprite(), 48, 48);
 
     private const int MarginX = 64;
     private const int MarginY = 64;
-    private const int Spacing = 0;
+    private const int Spacing = 32;
     private const int Columns = 2;
 
     public SkillSelectBannerComponent()
@@ -115,8 +115,8 @@ public class SkillSelectBannerComponent : FrameComponent
         int column = index % Columns;
         int row = index / Columns;
 
-        var positionX = Bounds.X + MarginX + column * (button.Bounds.Width + Spacing);
-        var positionY = Bounds.Y + MarginY + row * (button.Bounds.Height + Spacing);
+        var positionX = Bounds.X + MarginX + column * (button.Bounds.Width + Spacing) + Spacing / 2;
+        var positionY = Bounds.Y + MarginY + row * (button.Bounds.Height + Spacing) + Spacing / 2;
 
         return (positionX, positionY);
     }
@@ -127,7 +127,7 @@ public class SkillSelectBannerComponent : FrameComponent
             return;
 
         _selectedButton = button;
-        _selectedSkillMark.SetPosition(button.Bounds.X, button.Bounds.Y);
+        _selectedSkillMark.SetPosition(button.Bounds.X - Spacing / 2, button.Bounds.Y - Spacing / 2);
 
         OnSkillSelect?.Invoke(skill);
     }

@@ -8,7 +8,7 @@ namespace RpgTurno.Custom.Component.Menu.Button;
 
 public class MenuButtonComponent : ButtonComponent
 {
-    private const int Spacing = 0;
+    private const int Spacing = 32;
 
     public MenuButtonComponent(bool isDanger = false)
     {
@@ -18,7 +18,7 @@ public class MenuButtonComponent : ButtonComponent
         AnimationManager.Add(ButtonInteractionState.Regular, regularSprite);
         AnimationManager.Add(ButtonInteractionState.Pressed, pressedSprite);
 
-        Bounds = new(0, 0, 320, 128);
+        Bounds = new(0, 0, 288, 96);
     }
 
     public void SetPositionWithIndex(int initialPositionY, int index)

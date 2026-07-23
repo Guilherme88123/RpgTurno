@@ -8,7 +8,7 @@ namespace RpgTurno.Custom.Component.Map.Banner;
 
 public class MapPauseBannerComponent : FrameComponent
 {
-    private const int Spacing = -16;
+    private const int Spacing = 16;
     private const int MarginTop = 80;
     private const int MarginBottom = 160;
 

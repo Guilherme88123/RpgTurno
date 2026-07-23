@@ -26,7 +26,7 @@ public class SkillSelectButtonComponent : ButtonComponent
         AnimationManager.Add(ButtonInteractionState.Regular, new BlueButtonRegularSprite());
         AnimationManager.Add(ButtonInteractionState.Pressed, new BlueButtonPressedSprite());
 
-        Bounds = new Rectangle(0, 0, 192, 128);
+        Bounds = new Rectangle(0, 0, 160, 96);
 
         Click = OnSkillButtonSelect;
     }

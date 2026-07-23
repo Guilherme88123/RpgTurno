@@ -15,7 +15,8 @@ public class OptionsBannerComponent : FrameComponent
     private const int Width = 832;
     private const int Height = 960;
     private const int Margin = 64;
-    private static int ButtonWidth => Width - Margin * 6;
+    private const int Spacing = 32;
+    private static int ButtonWidth => Width - Margin * 6 - 32;
 
     private readonly TextComponent _titleText = new(positionXByCenter: true, positionYByCenter: true);
     private ImageComponent _titleBackground = new(new BlueSmallRibbonSprite(), ButtonWidth, 64);
@@ -68,7 +69,7 @@ public class OptionsBannerComponent : FrameComponent
         SetChildComponentPosition(_fullscreenSwitch, 3);
         SetChildComponentPosition(_fpsSwitch, 4);
 
-        _exitButton.SetPosition(GetXMiddlePosition(_exitButton.Bounds.Width), Bounds.Bottom - Margin - _exitButton.Bounds.Height);
+        _exitButton.SetPosition(GetXMiddlePosition(_exitButton.Bounds.Width), Bounds.Bottom - Margin - _exitButton.Bounds.Height - Spacing);
     }
 
     private void SetChildComponentPosition(BaseComponent component, int index)
@@ -83,7 +84,7 @@ public class OptionsBannerComponent : FrameComponent
 
     private int GetYPositionByIndex(int componentHeight, int index)
     {
-        return Bounds.Y + Margin + index * componentHeight;
+        return Bounds.Y + Margin + index * componentHeight + Spacing * index - 1;
     }
 
     #region Button Actions

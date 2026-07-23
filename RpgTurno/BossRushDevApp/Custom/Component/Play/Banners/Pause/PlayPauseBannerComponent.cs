@@ -7,7 +7,7 @@ namespace RpgTurno.Custom.Component.Play.Banners.Pause;
 
 public class PlayPauseBannerComponent : FrameComponent
 {
-    private const int Spacing = -16;
+    private const int Spacing = 16;
     private const int MarginTop = 80;
     private const int MarginBottom = 160;
 

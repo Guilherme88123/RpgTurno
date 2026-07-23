@@ -12,7 +12,7 @@ public class ExitOptionsBannerComponent : ButtonComponent
         AnimationManager.Add(ButtonInteractionState.Regular, new RedButtonRegularSprite());
         AnimationManager.Add(ButtonInteractionState.Pressed, new RedButtonPressedSprite());
 
-        Bounds = new(0, 0, 256, 128);
+        Bounds = new(0, 0, 224, 96);
 
         Click = () => GlobalVariablesDto.PopScreen();
 

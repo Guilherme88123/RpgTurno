@@ -20,6 +20,6 @@ public class ButtonPlayPauseBannerComponent : ButtonComponent
 
         Click = action;
 
-        Bounds = new(0, 0, 256, 128);
+        Bounds = new(0, 0, 224, 96);
     }
 }
