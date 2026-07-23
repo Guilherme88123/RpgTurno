@@ -37,11 +37,11 @@ public class AnimationManager
         }
     }
 
-    public void Draw(Rectangle rect, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
+    public void Draw(Rectangle rect, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, float scale = 1.0f)
     {
         if (_currentKey is null)
             return;
 
-        _animations[_currentKey].Draw(rect, color, rotation, drawEffect, spriteBatch);
+        _animations[_currentKey].Draw(rect, color, rotation, drawEffect, spriteBatch, scale);
     }
 }

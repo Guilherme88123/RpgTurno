@@ -80,8 +80,8 @@ public class AnimationClip
 
     }
 
-    public void Draw(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
+    public void Draw(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, float scale = 1.0f)
     {
-        _frames[_currentFrameIndex].Draw(destinationRectangle, color, rotation, drawEffect, spriteBatch);
+        _frames[_currentFrameIndex].Draw(destinationRectangle, color, rotation, drawEffect, spriteBatch, scale);
     }
 }

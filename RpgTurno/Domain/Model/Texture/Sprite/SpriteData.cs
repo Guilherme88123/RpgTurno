@@ -40,22 +40,26 @@ public class SpriteData
         return new Rectangle(positionX, positionY, width, height);
     }
 
-    public virtual void Draw(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
+    public virtual void Draw(Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, float scale = 1.0f)
     {
-        DrawBySource(SourceRectangle, destinationRectangle, color, rotation, drawEffect, spriteBatch);
+        DrawBySource(SourceRectangle, destinationRectangle, color, rotation, drawEffect, spriteBatch, scale);
     }
 
-    protected virtual void DrawBySource(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch)
+    protected virtual void DrawBySource(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, float scale = 1.0f)
     {
         if (destinationRectangle.Width < 0 || destinationRectangle.Height < 0)
             return;
 
-        var scaleX = (float)destinationRectangle.Width / sourceRectangle.Width;
-        var scaleY = (float)destinationRectangle.Height / sourceRectangle.Height;
+        var scaleX = (float)destinationRectangle.Width / sourceRectangle.Width * scale;
+        var scaleY = (float)destinationRectangle.Height / sourceRectangle.Height * scale;
 
         Vector2? cameraOffset = GlobalVariablesDto.GetTransform(spriteBatch);
 
         Vector2 position = new Vector2(destinationRectangle.X, destinationRectangle.Y);
+
+        Vector2 origin = new Vector2(
+            sourceRectangle.Width * (scale - 1) / (scale * 2), 
+            sourceRectangle.Height * (scale - 1) / (scale * 2));
 
         spriteBatch.Draw(
             Texture,
@@ -63,7 +67,7 @@ public class SpriteData
             sourceRectangle,
             color,
             rotation,
-            Vector2.Zero,
+            origin,
             new Vector2(scaleX, scaleY),
             drawEffect,
             0f);

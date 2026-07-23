@@ -26,16 +26,23 @@ public class ButtonComponent : BaseComponent
     private readonly SoundEffectData ClickSoundEffect = new ButtonClickSoundEffect();
     private readonly SoundEffectData HoverSoundEffect = new ButtonHoverSoundEffect();
 
+    private const float HoverSizeScale = 1.2f;
+    private float _targetScale = 1.0f;
+
     public ButtonComponent()
     {
-        HoverState.OnHoverIn += HoverSoundEffect.Play;
+        HoverState.OnHoverIn += OnHoverIn;
+        HoverState.OnHoverOut += OnHoverOut;
     }
+
+    #region Update
 
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
         Text.Update(gameTime);
 
+        UpdateHoverAnimation();
         AnimationManager.Update(State);
 
         if (State == ButtonInteractionState.Pressed)
@@ -52,6 +59,45 @@ public class ButtonComponent : BaseComponent
         if (IsTryingClick())
             ExecuteClick();
     }
+
+    private void UpdatePressedDelay()
+    {
+        _currentDelay -= GlobalVariablesDto.DeltaTime;
+
+        if (_currentDelay < 0)
+        {
+            Click?.Invoke();
+
+            State = ButtonInteractionState.Regular;
+            AnimationManager.Update(State);
+            SetPositionText();
+        }
+    }
+
+    #endregion
+
+    #region Hover
+
+    private void UpdateHoverAnimation()
+    {
+        Scale = MathHelper.Lerp(Scale, _targetScale, 12f * GlobalVariablesDto.DeltaTime);
+    }
+
+    private void OnHoverIn()
+    {
+        HoverSoundEffect.Play();
+
+        _targetScale = HoverSizeScale;
+    }
+
+    private void OnHoverOut()
+    {
+        _targetScale = 1f;
+    }
+
+    #endregion
+
+    #region Click
 
     private bool CanClick()
     {
@@ -85,19 +131,9 @@ public class ButtonComponent : BaseComponent
         SetPositionText();
     }
 
-    private void UpdatePressedDelay()
-    {
-        _currentDelay -= GlobalVariablesDto.DeltaTime;
+    #endregion
 
-        if (_currentDelay < 0)
-        {
-            Click?.Invoke();
-
-            State = ButtonInteractionState.Regular;
-            AnimationManager.Update(State);
-            SetPositionText();
-        }
-    }
+    #region Position
 
     public override void SetPosition(int positionX, int positionY)
     {
@@ -118,14 +154,20 @@ public class ButtonComponent : BaseComponent
         Text.SetPosition(positionX + Bounds.Width / 2, positionY + Bounds.Height / 2);
     }
 
+    public void SetText(string text)
+    {
+        Text.SetText(text);
+    }
+
+    #endregion
+
+    #region Draw
+
     public override void Draw(SpriteBatch spriteBatch)
     {
         base.Draw(spriteBatch);
         Text.Draw(spriteBatch);
     }
 
-    public void SetText(string text)
-    {
-        Text.SetText(text);
-    }
+    #endregion
 }

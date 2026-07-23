@@ -22,6 +22,7 @@ public class BaseComponent
     protected Color Color { get; set; } = Color.White;
     protected float Rotation { get; set; }
     protected SpriteEffects SpriteEffects { get; set; }
+    protected float Scale { get; set; } = 1f;
 
     public BaseComponent()
     {
@@ -47,6 +48,6 @@ public class BaseComponent
         if (!IsVisible)
             return;
 
-        AnimationManager.Draw(Bounds, Color, Rotation, SpriteEffects, spriteBatch);
+        AnimationManager.Draw(Bounds, Color, Rotation, SpriteEffects, spriteBatch, Scale);
     }
 }
