@@ -65,7 +65,7 @@ public class EffectDetailsBannerComponent : FrameComponent
 
     private int ApplyBounce(int baseValue)
     {
-        var bounce = GlobalVariablesDto.GetBounceValue();
+        var bounce = (int)GlobalVariablesDto.GetBounceValue();
         return baseValue - bounce;
     }
 

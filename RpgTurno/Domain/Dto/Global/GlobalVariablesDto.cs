@@ -66,9 +66,8 @@ public static class GlobalVariablesDto
         return null;
     }
 
-    public static int GetBounceValue(float bounceAmplitude = 8f, float bounceSpeed = 6f)
+    public static float GetBounceValue(float bounceAmplitude = 8f, float bounceSpeed = 6f)
     {
-        var bounceFloat = bounceAmplitude * (Math.Cos(AcumulatedDeltaTime * bounceSpeed));
-        return (int)bounceFloat;
+        return bounceAmplitude * (float)(Math.Cos(AcumulatedDeltaTime * bounceSpeed));
     }
 }

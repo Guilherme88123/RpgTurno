@@ -218,7 +218,7 @@ public class TurnQueueComponent : BaseComponent
 
     private int GetBounceValue()
     {
-        return GlobalVariablesDto.GetBounceValue();
+        return (int)GlobalVariablesDto.GetBounceValue();
     }
 
     #endregion

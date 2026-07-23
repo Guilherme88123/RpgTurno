@@ -28,7 +28,7 @@ public class SelectionAreaComponent : BaseComponent
 
     private Rectangle GetBounceRectangle(Rectangle destinationRectangle)
     {
-        var bounce = GlobalVariablesDto.GetBounceValue();
+        var bounce = (int)GlobalVariablesDto.GetBounceValue();
 
         return new Rectangle(
             destinationRectangle.X - _marginX / 2 - bounce, 

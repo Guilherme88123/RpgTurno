@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using RpgTurno.Custom.Component.Map.Banner;
+using RpgTurno.Custom.Component.Map.Start;
 using RpgTurno.Custom.CustomComponents.Map.AlliesParty;
 using RpgTurno.Custom.CustomComponents.Map.Background;
 using RpgTurno.Custom.CustomComponents.Map.Stage;
@@ -36,6 +37,7 @@ public class MapScreen : BaseScreen
     private AlliesPartyComponent _alliesPartyComponent;
     private MapNodeBannerComponent _nodeBannerComponent;
     private MapPauseBannerComponent _pauseBannerComponent;
+    private StartBattleButtonComponent _startButtonComponent;
 
     #region Initialize
 
@@ -64,11 +66,17 @@ public class MapScreen : BaseScreen
             GlobalOptionsDto.WidthSize / 2 - _pauseBannerComponent.Bounds.Width / 2,
             GlobalOptionsDto.HeightSize / 2 - _pauseBannerComponent.Bounds.Height / 2);
 
+        _startButtonComponent = new(_worldManager.TryEnterMapNode);
+        _startButtonComponent.SetPosition(
+            GlobalOptionsDto.WidthSize / 2 - _startButtonComponent.Bounds.Width / 2,
+            GlobalOptionsDto.HeightSize - _startButtonComponent.Bounds.Height - 32);
+
         return new()
         {
             _nodeBannerComponent,
             _alliesPartyComponent,
             _pauseBannerComponent,
+            _startButtonComponent,
         };
     }
 
@@ -122,6 +130,7 @@ public class MapScreen : BaseScreen
 
         UpdateNodeBanner();
         UpdateAlliesParty();
+        UpdateStartButton();
     }
 
     private void UpdateNodeBanner()
@@ -142,6 +151,14 @@ public class MapScreen : BaseScreen
         _alliesPartyComponent.SetPositionByPlayer(_worldManager.Player, GameSession.IsInBattle);
     }
 
+    private void UpdateStartButton()
+    {
+        bool canEnterStage = _worldManager.CanPlayerEnterAtStage();
+
+        _startButtonComponent.IsVisible = canEnterStage;
+        _startButtonComponent.IsEnable = canEnterStage;
+    }
+
     private void UpdatePauseFlag()
     {
         _pauseBannerComponent.IsVisible = _isPaused;
@@ -151,6 +168,9 @@ public class MapScreen : BaseScreen
 
         _nodeBannerComponent.IsVisible = !_isPaused;
         _nodeBannerComponent.IsEnable = !_isPaused;
+
+        _startButtonComponent.IsVisible = !_isPaused;
+        _startButtonComponent.IsEnable = !_isPaused;
     }
 
     private void VerifyPause()

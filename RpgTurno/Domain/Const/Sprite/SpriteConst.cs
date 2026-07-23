@@ -100,6 +100,8 @@ public static class SpriteConst
     public const string RedButtonPressed = "RedButtonPressed";
     public const string SmallRedRoundButtonRegular = "SmallRedRoundButton_Regular";
     public const string SmallRedRoundButtonPressed = "SmallRedRoundButton_Pressed";
+    public const string SmallBlueRoundButtonRegular = "SmallBlueRoundButton_Regular";
+    public const string SmallBlueRoundButtonPressed = "SmallBlueRoundButton_Pressed";
 
     #endregion
 

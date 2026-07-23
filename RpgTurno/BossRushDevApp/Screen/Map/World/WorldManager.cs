@@ -76,7 +76,7 @@ public class WorldManager
             TryEnterMapNode();
     }
 
-    private void TryEnterMapNode()
+    public void TryEnterMapNode()
     {
         switch (Player.CurrentNode)
         {
@@ -86,6 +86,11 @@ public class WorldManager
             case StartMapNode:
                 break;
         };
+    }
+
+    public bool CanPlayerEnterAtStage()
+    {
+        return Player.CurrentNode is StageMapNode;
     }
 
     private void GoToPlayStage(StageMapNode stageNode)

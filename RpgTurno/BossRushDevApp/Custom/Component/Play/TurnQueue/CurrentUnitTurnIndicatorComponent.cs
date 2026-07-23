@@ -29,7 +29,7 @@ public class CurrentUnitTurnIndicatorComponent : ImageComponent
 
     private int ApplyBounce(int baseValue)
     {
-        var bounce = GlobalVariablesDto.GetBounceValue();
+        var bounce = (int)GlobalVariablesDto.GetBounceValue();
         return baseValue - bounce;
     }
 }
