@@ -68,5 +68,11 @@ public static class SoundEffectConst
 
     #endregion
 
+    #region LevelUp
+
+    public const string UnitLevelUp = "UnitLevelUp";
+
+    #endregion
+
     #endregion
 }

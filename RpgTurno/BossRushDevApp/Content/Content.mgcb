@@ -1325,6 +1325,12 @@
 /processorParam:Quality=Best
 /build:UnitDeath.wav
 
+#begin UnitLevelUp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:UnitLevelUp.wav
+
 #begin Warrior_Attack1.png
 /importer:TextureImporter
 /processor:TextureProcessor

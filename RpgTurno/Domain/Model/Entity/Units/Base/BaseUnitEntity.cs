@@ -8,6 +8,7 @@ using Domain.Model.Entity.Units.Base.Stats;
 using Domain.Model.Skill.Base.Result;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Sound.Unit.Death;
+using Domain.Model.Sound.Unit.LevelUp;
 using Domain.Model.Texture.Sprite;
 using Domain.Model.Texture.Sprite.Custom.ParticleFx;
 using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
@@ -50,7 +51,8 @@ public class BaseUnitEntity : BaseEntity
     private const float DelayLevelUpAnimation = 1.1f;
     private float _currentDelayLevelUpAnimation;
     private bool HasLevelUpAnimation => _currentDelayLevelUpAnimation > 0;
-    private LevelUpSprite _levelUpAnimation = new();
+    private LevelUpSprite _levelUpAnimation;
+    private UnitLevelUpSoundEffect _levelUpSound;
 
     private List<SkillResultTextComponent> _skillResultTexts = new();
 
@@ -68,8 +70,10 @@ public class BaseUnitEntity : BaseEntity
 
         _deadAnimation = new();
         _deadAnimation.IsLoop = false;
-
         _deadSound = new();
+
+        _levelUpAnimation = new();
+        _levelUpSound = new();
     }
 
     #region Update
@@ -411,6 +415,7 @@ public class BaseUnitEntity : BaseEntity
     {
         _currentDelayLevelUpAnimation = DelayLevelUpAnimation;
         _levelUpAnimation.Reset();
+        _levelUpSound.Play();
     }
 
     private void ReloadSkills()
