@@ -11,7 +11,8 @@ using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using RpgTurno.Custom.Component.Map.Banner;
+using RpgTurno.Custom.Component.Map.Banner.Finish;
+using RpgTurno.Custom.Component.Map.Banner.Pause;
 using RpgTurno.Custom.Component.Map.Start;
 using RpgTurno.Custom.CustomComponents.Map.AlliesParty;
 using RpgTurno.Custom.CustomComponents.Map.Background;
@@ -38,6 +39,9 @@ public class MapScreen : BaseScreen
     private MapNodeBannerComponent _nodeBannerComponent;
     private MapPauseBannerComponent _pauseBannerComponent;
     private StartBattleButtonComponent _startButtonComponent;
+
+    private bool _isFinished;
+    private GameFinishBannerComponent _finishBannerComponent;
 
     #region Initialize
 
@@ -69,14 +73,21 @@ public class MapScreen : BaseScreen
         _startButtonComponent = new(_worldManager.TryEnterMapNode);
         _startButtonComponent.SetPosition(
             GlobalOptionsDto.WidthSize / 2 - _startButtonComponent.Bounds.Width / 2,
-            GlobalOptionsDto.HeightSize - _startButtonComponent.Bounds.Height - 32);
+            GlobalOptionsDto.HeightSize - _startButtonComponent.Bounds.Height - 48);
+
+        _finishBannerComponent = new(onMenuAction: OnMenuAction);
+        _finishBannerComponent.IsVisible = false;
+        _finishBannerComponent.SetPosition(
+            GlobalOptionsDto.WidthSize / 2 - _pauseBannerComponent.Bounds.Width / 2,
+            GlobalOptionsDto.HeightSize / 2 - _pauseBannerComponent.Bounds.Height / 2);
 
         return new()
         {
             _nodeBannerComponent,
             _alliesPartyComponent,
-            _pauseBannerComponent,
             _startButtonComponent,
+            _finishBannerComponent,
+            _pauseBannerComponent,
         };
     }
 
@@ -109,7 +120,27 @@ public class MapScreen : BaseScreen
         if (originScreenCode == ScreenConst.OptionScreen)
             return;
 
+        PlayMusic();
+
+        if (originScreenCode == ScreenConst.MenuScreen)
+            return;
+
+        VerifyGameFinish();
+    }
+
+    private void PlayMusic()
+    {
         MediaPlayer.Play(GlobalVariablesDto.Content.Load<Song>(MusicConst.MapMusic));
+    }
+
+    private void VerifyGameFinish()
+    {
+        if (!_worldManager.Map.Cleared)
+            return;
+
+        _isFinished = true;
+
+        UpdateComponentsVisibility();
     }
 
     #endregion
@@ -117,13 +148,12 @@ public class MapScreen : BaseScreen
     #region Update
 
     public override void Update(GameTime gameTime)
-    { 
+    {
         base.Update(gameTime);
 
         VerifyPause();
-        UpdatePauseFlag();
 
-        if (_isPaused)
+        if (_isPaused || _isFinished)
             return;
 
         _worldManager.Update();
@@ -159,18 +189,21 @@ public class MapScreen : BaseScreen
         _startButtonComponent.IsEnable = canEnterStage;
     }
 
-    private void UpdatePauseFlag()
+    private void UpdateComponentsVisibility()
     {
         _pauseBannerComponent.IsVisible = _isPaused;
         _pauseBannerComponent.IsEnable = _isPaused;
 
+        _finishBannerComponent.IsVisible = _isFinished;
+        _finishBannerComponent.IsEnable = _isFinished;
+
         _alliesPartyComponent.IsEnable = !_isPaused;
 
-        _nodeBannerComponent.IsVisible = !_isPaused;
-        _nodeBannerComponent.IsEnable = !_isPaused;
+        _nodeBannerComponent.IsVisible = !_isPaused && !_isFinished;
+        _nodeBannerComponent.IsEnable = !_isPaused && !_isFinished;
 
-        _startButtonComponent.IsVisible = !_isPaused;
-        _startButtonComponent.IsEnable = !_isPaused;
+        _startButtonComponent.IsVisible = !_isPaused && !_isFinished;
+        _startButtonComponent.IsEnable = !_isPaused && !_isFinished;
     }
 
     private void VerifyPause()
@@ -186,6 +219,7 @@ public class MapScreen : BaseScreen
     private void TogglePauseFlag()
     {
         _isPaused = !_isPaused;
+        UpdateComponentsVisibility();
     }
 
     private bool IsPauseKeyPressed()
@@ -202,7 +236,7 @@ public class MapScreen : BaseScreen
         DrawBackground();
 
         if (_isPaused)
-           DrawPausedShade();
+            DrawPausedShade();
 
         base.Draw();
     }

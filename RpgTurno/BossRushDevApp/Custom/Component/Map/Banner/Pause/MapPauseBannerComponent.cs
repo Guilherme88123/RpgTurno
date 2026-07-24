@@ -4,7 +4,7 @@ using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
 using RpgTurno.Custom.Component.Play.Banners.Pause;
 using System;
 
-namespace RpgTurno.Custom.Component.Map.Banner;
+namespace RpgTurno.Custom.Component.Map.Banner.Pause;
 
 public class MapPauseBannerComponent : FrameComponent
 {
