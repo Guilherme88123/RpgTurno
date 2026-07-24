@@ -66,6 +66,7 @@ public class MapScreen : BaseScreen
             onMenuAction: OnMenuAction,
             onExitAction: OnExitAction);
         _pauseBannerComponent.IsVisible = false;
+        _pauseBannerComponent.IsEnable = false;
         _pauseBannerComponent.SetPosition(
             GlobalOptionsDto.WidthSize / 2 - _pauseBannerComponent.Bounds.Width / 2,
             GlobalOptionsDto.HeightSize / 2 - _pauseBannerComponent.Bounds.Height / 2);
@@ -77,6 +78,7 @@ public class MapScreen : BaseScreen
 
         _finishBannerComponent = new(onMenuAction: OnMenuAction);
         _finishBannerComponent.IsVisible = false;
+        _finishBannerComponent.IsEnable = false;
         _finishBannerComponent.SetPosition(
             GlobalOptionsDto.WidthSize / 2 - _pauseBannerComponent.Bounds.Width / 2,
             GlobalOptionsDto.HeightSize / 2 - _pauseBannerComponent.Bounds.Height / 2);

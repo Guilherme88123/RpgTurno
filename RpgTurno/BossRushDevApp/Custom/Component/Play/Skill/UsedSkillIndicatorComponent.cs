@@ -1,4 +1,5 @@
-﻿using Domain.Model.Components.Image;
+﻿using Domain.Dto.Global;
+using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.Skill.Base.Unit;
 using Domain.Model.Texture.Sprite;
@@ -44,6 +45,18 @@ public class UsedSkillIndicatorComponent : ImageComponent
     {
         base.Update(gameTime);
         _skillNameText.Update(gameTime);
+
+        UpdateBounceEffect();
+    }
+
+    private void UpdateBounceEffect()
+    {
+        var bounce = GlobalVariablesDto.GetBounceValue(bounceAmplitude: 0.0011f, bounceSpeed: 4f);
+
+        OffsetX += bounce * 100;
+        ScaleY += bounce;
+
+        _skillNameText.OffsetX = OffsetX;
     }
 
     public override void Draw(SpriteBatch spriteBatch)
