@@ -90,7 +90,7 @@ public class WorldManager
 
     public bool CanPlayerEnterAtStage()
     {
-        return Player.CurrentNode is StageMapNode;
+        return Player.CurrentNode is StageMapNode && !Player.IsMoving;
     }
 
     private void GoToPlayStage(StageMapNode stageNode)
