@@ -180,4 +180,21 @@ public static class SpriteConst
     public const string CurseEffect = "CurseEffect";
 
     #endregion
+
+    #region Terrain
+
+    #region Clouds
+
+    public const string Cloud1 = "Clouds_01";
+    public const string Cloud2 = "Clouds_02";
+    public const string Cloud3 = "Clouds_03";
+    public const string Cloud4 = "Clouds_04";
+    public const string Cloud5 = "Clouds_05";
+    public const string Cloud6 = "Clouds_06";
+    public const string Cloud7 = "Clouds_07";
+    public const string Cloud8 = "Clouds_08";
+
+    #endregion
+
+    #endregion
 }

@@ -5,6 +5,7 @@ using Domain.Dto.Global;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Text;
 using Microsoft.Xna.Framework.Media;
+using RpgTurno.Custom.Component.Menu.Background;
 using RpgTurno.Custom.Component.Menu.Button;
 using RpgTurno.Custom.Component.Menu.Logo;
 using RpgTurnoApp.Screen.Base;
@@ -20,6 +21,7 @@ public class MenuScreen : BaseScreen
 
     protected override List<BaseComponent> InitializeComponents()
     {
+        MenuBackgroundComponent background = new();
         MenuLogoComponent logo = new();
         MenuButtonComponent startButton = new();
         MenuButtonComponent optionsButton = new();
@@ -52,6 +54,7 @@ public class MenuScreen : BaseScreen
 
         return new()
         {
+            background,
             logo,
             startButton,
             optionsButton,

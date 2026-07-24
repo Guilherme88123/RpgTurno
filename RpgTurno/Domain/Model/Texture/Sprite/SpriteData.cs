@@ -13,6 +13,14 @@ public class SpriteData
     public int Width => SourceRectangle.Width;
     public int Height => SourceRectangle.Height;
 
+    public SpriteData(string textureFile, BorderDefinition border = null)
+    {
+        Texture = GlobalVariablesDto.Content.Load<Texture2D>(textureFile);
+
+        var fullTextureRectangle = new Rectangle(0, 0, Texture.Width, Texture.Height);
+        SourceRectangle = CreateRectangleByTextureAndBorder(fullTextureRectangle, border);
+    }
+
     public SpriteData(Texture2D texture, BorderDefinition border = null)
     {
         Texture = texture;
