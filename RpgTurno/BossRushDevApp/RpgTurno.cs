@@ -1,5 +1,6 @@
 ﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
+using Domain.Dto.Session;
 using Domain.Enum.Transition;
 using Domain.Interface.Cursor;
 using Domain.Interface.Screen;
@@ -7,6 +8,7 @@ using Domain.Interface.Transition;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using RpgTurno.Screen.Map.World.Stage;
 using System;
 
 namespace RpgTurnoApp;
@@ -78,7 +80,14 @@ public class RpgTurno : Game
         MediaPlayer.Volume = GlobalOptionsDto.MusicVolumeFloat;
         MediaPlayer.IsRepeating = true;
 
+        InitializeGameSession();
         RunInitialScreen();
+    }
+
+    private void InitializeGameSession()
+    {
+        var gameSession = GlobalVariablesDto.GetService<GameSession>();
+        gameSession.Initialze(MapFactory.Create());
     }
 
     private void RunInitialScreen()

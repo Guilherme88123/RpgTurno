@@ -1,10 +1,10 @@
 ﻿using Domain.Const.Sprite;
 using Domain.Dto.Global;
+using Domain.Dto.Map.Node;
 using Domain.Enum;
 using Domain.Model.Sprite.Border;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RpgTurno.Screen.Map.World.Stage.Node;
 
 namespace RpgTurno.Screen.Map.World.Player;
 

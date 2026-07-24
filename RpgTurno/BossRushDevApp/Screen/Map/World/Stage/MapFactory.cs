@@ -1,6 +1,7 @@
-﻿using Domain.Enum.Stage;
+﻿using Domain.Dto.Map;
+using Domain.Dto.Map.Node;
+using Domain.Enum.Stage;
 using Microsoft.Xna.Framework;
-using RpgTurno.Screen.Map.World.Stage.Node;
 
 namespace RpgTurno.Screen.Map.World.Stage;
 

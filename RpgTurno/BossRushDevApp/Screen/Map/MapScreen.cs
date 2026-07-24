@@ -1,6 +1,7 @@
 ﻿using Domain.Const.Screen;
 using Domain.Const.Sound.Music;
 using Domain.Dto.Global;
+using Domain.Dto.Map.Node;
 using Domain.Enum.Stage;
 using Domain.Model.Components.Base;
 using Domain.Model.Entity.Units.Ally.Archer;
@@ -18,7 +19,6 @@ using RpgTurno.Custom.CustomComponents.Map.AlliesParty;
 using RpgTurno.Custom.CustomComponents.Map.Background;
 using RpgTurno.Custom.CustomComponents.Map.Stage;
 using RpgTurno.Screen.Map.World;
-using RpgTurno.Screen.Map.World.Stage.Node;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
 
@@ -49,7 +49,7 @@ public class MapScreen : BaseScreen
     {
         _worldManager = new();
         _worldManager.OnPlayScreenEntry += OnPlayScreenEntry;
-        _worldManager.Initialize();
+        _worldManager.Initialize(GameSession.Map);
         GameSession.OnStageCleared += _worldManager.OnStageCleared;
 
         _nodeBannerComponent = new();
@@ -91,26 +91,6 @@ public class MapScreen : BaseScreen
             _finishBannerComponent,
             _pauseBannerComponent,
         };
-    }
-
-    public override void Initialize()
-    {
-        InitializeAllies();
-
-        base.Initialize();
-    }
-
-    private void InitializeAllies()
-    {
-        List<BaseUnitEntity> allies =
-        [
-            new WarriorEntity(),
-            new ArcherEntity(),
-            new LancerEntity(),
-            new ClericEntity(),
-        ];
-
-        GameSession.Allies = allies;
     }
 
     #endregion

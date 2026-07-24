@@ -1,13 +1,13 @@
 ﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
+using Domain.Dto.Map;
+using Domain.Dto.Map.Node;
 using Domain.Dto.Session;
 using Domain.Enum;
 using Domain.Enum.Stage;
 using Domain.Model.Sound.Unit.Footsteps.Walk;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.Screen.Map.World.Player;
-using RpgTurno.Screen.Map.World.Stage;
-using RpgTurno.Screen.Map.World.Stage.Node;
 using System;
 
 namespace RpgTurno.Screen.Map.World;
@@ -32,9 +32,9 @@ public class WorldManager
 
     #region Initialize
 
-    public void Initialize()
+    public void Initialize(MapData map)
     {
-        Map = MapFactory.Create();
+        Map = map;
 
         Player = new();
         Player.SetCurrentStage(Map.StartStage);

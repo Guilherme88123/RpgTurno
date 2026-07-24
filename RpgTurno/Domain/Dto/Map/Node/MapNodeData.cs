@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace RpgTurno.Screen.Map.World.Stage.Node;
+namespace Domain.Dto.Map.Node;
 
 public class MapNodeData
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace RpgTurno.Screen.Map.World.Stage.Node;
+namespace Domain.Dto.Map.Node;
 
 public class StartMapNode : MapNodeData
 {

@@ -1,9 +1,9 @@
-﻿using RpgTurno.Screen.Map.World.Stage.Node;
+﻿using Domain.Dto.Map.Node;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Linq;
 
-namespace RpgTurno.Screen.Map.World.Stage;
+namespace Domain.Dto.Map;
 
 public class MapData
 {

@@ -1,11 +1,11 @@
 ﻿using Domain.Dto.Global;
+using Domain.Dto.Map.Node;
 using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
 using Domain.Model.Texture.Sprite.Custom.Ui.Icons;
 using Microsoft.Xna.Framework;
-using RpgTurno.Screen.Map.World.Stage.Node;
 using System;
 
 namespace RpgTurno.Custom.CustomComponents.Map.Stage;
