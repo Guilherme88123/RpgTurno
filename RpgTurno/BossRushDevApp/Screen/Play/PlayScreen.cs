@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using RpgTurno.Custom.Component.Play.Banners.Finish;
 using RpgTurno.Custom.Component.Play.Banners.Pause;
+using RpgTurno.Custom.Component.Play.Bar;
 using RpgTurno.Custom.Component.Play.Skill;
 using RpgTurno.Custom.Component.Play.Wave;
 using RpgTurno.Custom.CustomComponents.Play.Background;
@@ -63,6 +64,8 @@ public class PlayScreen : BaseScreen
     private WaveIndicatorComponent _waveIndicatorComponent;
     private WaveTransitionIndicatorComponent _waveTransitionComponent;
 
+    private BossHealthBarComponent _bossHealthBarComponent;
+
     private BattleFinishBannerComponent _finishBannerComponent;
 
     #region Initialize
@@ -96,13 +99,22 @@ public class PlayScreen : BaseScreen
         _skillSelectComponent.IsVisible = false;
 
         _usedSkillIndicator = new();
-        _usedSkillIndicator.SetPosition(GlobalOptionsDto.WidthSize / 2 - _usedSkillIndicator.Bounds.Width / 2, 112);
+        _usedSkillIndicator.SetPosition(
+            GlobalOptionsDto.WidthSize / 2 - _usedSkillIndicator.Bounds.Width / 2, 
+            GlobalOptionsDto.HeightSize - _usedSkillIndicator.Bounds.Height - 128);
 
         _waveIndicatorComponent = new();
         _waveIndicatorComponent.SetPosition(GlobalOptionsDto.WidthSize - 140, 30);
 
         _waveTransitionComponent = new();
-        _waveTransitionComponent.SetPosition(GlobalOptionsDto.WidthSize / 2 - _waveTransitionComponent.Bounds.Width / 2, GlobalOptionsDto.HeightSize / 2 + 64);
+        _waveTransitionComponent.SetPosition(
+            GlobalOptionsDto.WidthSize / 2 - _waveTransitionComponent.Bounds.Width / 2, 
+            GlobalOptionsDto.HeightSize / 2 + 64);
+
+        _bossHealthBarComponent = new();
+        _bossHealthBarComponent.IsEnable = false;
+        _bossHealthBarComponent.IsVisible = false;
+        _bossHealthBarComponent.SetPosition(GlobalOptionsDto.WidthSize / 2 - _bossHealthBarComponent.Bounds.Width / 2, 128);
 
         _pauseBannerComponent = new(
             onResumeAction: OnResumeAction,
@@ -132,6 +144,7 @@ public class PlayScreen : BaseScreen
             _usedSkillIndicator,
             _waveIndicatorComponent,
             _waveTransitionComponent,
+            _bossHealthBarComponent,
             _finishBannerComponent,
             _pauseBannerComponent,
         };
@@ -187,6 +200,7 @@ public class PlayScreen : BaseScreen
         UpdateTurnComponents();
         UpdateWaveComponents();
         UpdateSkillAnimations();
+        UpdateBossHealthBar();
 
         VerifyCursorHoveringEntities();
     }
@@ -218,6 +232,9 @@ public class PlayScreen : BaseScreen
 
         _waveTransitionComponent.IsVisible = !_isPaused;
         _waveTransitionComponent.IsEnable = !_isPaused;
+
+        _bossHealthBarComponent.IsVisible = !_isPaused;
+        _bossHealthBarComponent.IsEnable = !_isPaused;
     }
 
     private void VerifyPause()
@@ -522,6 +539,27 @@ public class PlayScreen : BaseScreen
         string previousWave = currentWave == 1 ? string.Empty : (currentWave - 1).ToString();
 
         _waveTransitionComponent.SetWaveText(previousWave, currentWave.ToString());
+    }
+
+    #endregion
+
+    #region Boss Health Bar
+
+    private void UpdateBossHealthBar()
+    {
+        var isBossWave = _battleManager.IsBossWave();
+        var boss = _battleManager.GetWaveBoss();
+        var isInWaveTransition = _battleManager.BattleState == BattleState.WaveTransition;
+
+        var showLiveBoss = isBossWave && boss is not null && !isInWaveTransition;
+
+        _bossHealthBarComponent.IsVisible = showLiveBoss;
+        _bossHealthBarComponent.IsEnable = showLiveBoss;
+
+        if (!showLiveBoss)
+            return;
+
+        _bossHealthBarComponent.SetBossUnit(boss);
     }
 
     #endregion

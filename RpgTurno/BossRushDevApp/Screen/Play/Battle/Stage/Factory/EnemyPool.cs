@@ -1,7 +1,6 @@
 ﻿using Domain.Model.Entity.Units.Enemy.Archer;
 using Domain.Model.Entity.Units.Enemy.Cleric;
 using Domain.Model.Entity.Units.Enemy.Lancer;
-using Domain.Model.Entity.Units.Enemy.SuperWarrior;
 using Domain.Model.Entity.Units.Enemy.Warrior;
 using System.Collections.Generic;
 

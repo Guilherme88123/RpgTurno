@@ -10,11 +10,13 @@ public static class CastleStageFactory
     {
         var waveGenerator = new WaveGenerator();
 
+        var boss = new EnemySuperWarriorEntity();
+
         return new StageData(
         [
             waveGenerator.Generate(1, 5),
             waveGenerator.Generate(2, 8),
-            new WaveData([new EnemyWarriorEntity(), new EnemySuperWarriorEntity(), new EnemyWarriorEntity()]),
+            new WaveData([new EnemyWarriorEntity(), boss, new EnemyWarriorEntity()], boss),
         ]);
     }
 }

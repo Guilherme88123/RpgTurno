@@ -583,4 +583,18 @@ public class BattleManager
     }
 
     #endregion
+
+    #region Boss Wave
+
+    public bool IsBossWave()
+    {
+        return _stage.GetCurrentWave().IsBossWave;
+    }
+
+    public BaseUnitEntity GetWaveBoss()
+    {
+        return _stage.GetCurrentWave().Boss;
+    }
+
+    #endregion
 }
