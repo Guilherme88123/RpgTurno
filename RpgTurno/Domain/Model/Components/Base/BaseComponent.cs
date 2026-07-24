@@ -23,6 +23,7 @@ public class BaseComponent
 
     public Color Color { get; set; } = Color.White;
     public Color TextColor { get; set; } = Color.Black;
+
     public float Rotation { get; set; }
     public float ScaleX { get; set; } = 1f;
     public float ScaleY { get; set; } = 1f;

@@ -15,9 +15,6 @@ public static class MapFactory
         var stage2 = new StageMapNode(new Vector2(1100, 950), StageCode.Barrack, "Barracks of Valor", 2);
         var stage3 = new StageMapNode(new Vector2(1450, 450), StageCode.Castle, "The Castle", 3);
 
-        stage2.Cleared = true;
-        stage3.Cleared = true;
-
         start.NextNodes.Add(stage1);
         stage1.NextNodes.Add(stage2);
         stage2.NextNodes.Add(stage3);

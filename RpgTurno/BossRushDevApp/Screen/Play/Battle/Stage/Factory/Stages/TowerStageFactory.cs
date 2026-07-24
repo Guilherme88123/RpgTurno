@@ -9,7 +9,7 @@ public static class TowerStageFactory
         return new StageData(
         [
             waveGenerator.Generate(1, 2),
-            //waveGenerator.Generate(2, 6),
+            waveGenerator.Generate(2, 6),
         ]);
     }
 }

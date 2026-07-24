@@ -1,4 +1,5 @@
 ﻿using Domain.Dto.Global;
+using Infrastructure.ColorInfra;
 using Microsoft.Xna.Framework;
 
 namespace Domain.Model.Components.Base.Hover;
@@ -98,19 +99,11 @@ public class HoverAnimation
 
     private void ApplyColor(BaseComponent component)
     {
-        component.Color = new Color(
-            (int)MathHelper.Lerp(DefaultColor.R, HoverColor.R, _progress),
-            (int)MathHelper.Lerp(DefaultColor.G, HoverColor.G, _progress),
-            (int)MathHelper.Lerp(DefaultColor.B, HoverColor.B, _progress),
-            (int)MathHelper.Lerp(DefaultColor.A, HoverColor.A, _progress));
+        component.Color = ColorHelper.GetFadeColor(DefaultColor, HoverColor, _progress);
     }
 
     private void ApplyTextColor(BaseComponent component)
     {
-        component.TextColor = new Color(
-            (int)MathHelper.Lerp(DefaultTextColor.R, HoverTextColor.R, _progress),
-            (int)MathHelper.Lerp(DefaultTextColor.G, HoverTextColor.G, _progress),
-            (int)MathHelper.Lerp(DefaultTextColor.B, HoverTextColor.B, _progress),
-            (int)MathHelper.Lerp(DefaultTextColor.A, HoverTextColor.A, _progress));
+        component.TextColor = ColorHelper.GetFadeColor(DefaultTextColor, HoverTextColor, _progress);
     }
 }

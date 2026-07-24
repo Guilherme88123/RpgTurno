@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework.Media;
 using RpgTurno.Custom.Component.Play.Banners.Finish;
 using RpgTurno.Custom.Component.Play.Banners.Pause;
 using RpgTurno.Custom.Component.Play.Skill;
+using RpgTurno.Custom.Component.Play.Wave;
 using RpgTurno.Custom.CustomComponents.Play.Background;
 using RpgTurno.Custom.CustomComponents.Play.Banners;
 using RpgTurno.Custom.CustomComponents.Play.Selection;
@@ -60,6 +61,7 @@ public class PlayScreen : BaseScreen
     private UsedSkillIndicatorComponent _usedSkillIndicator;
 
     private WaveIndicatorComponent _waveIndicatorComponent;
+    private WaveTransitionIndicatorComponent _waveTransitionComponent;
 
     private BattleFinishBannerComponent _finishBannerComponent;
 
@@ -99,6 +101,9 @@ public class PlayScreen : BaseScreen
         _waveIndicatorComponent = new();
         _waveIndicatorComponent.SetPosition(GlobalOptionsDto.WidthSize - 140, 30);
 
+        _waveTransitionComponent = new();
+        _waveTransitionComponent.SetPosition(GlobalOptionsDto.WidthSize / 2 - _waveTransitionComponent.Bounds.Width / 2, GlobalOptionsDto.HeightSize / 2 + 64);
+
         _pauseBannerComponent = new(
             onResumeAction: OnResumeAction,
             onOptionsAction: OnOptionsAction,
@@ -126,6 +131,7 @@ public class PlayScreen : BaseScreen
             _skillSelectComponent,
             _usedSkillIndicator,
             _waveIndicatorComponent,
+            _waveTransitionComponent,
             _finishBannerComponent,
             _pauseBannerComponent,
         };
@@ -179,7 +185,7 @@ public class PlayScreen : BaseScreen
         UpdateUsedSkillComponentVisibility(gameTime);
         UpdateSelectionAreaComponent(gameTime);
         UpdateTurnComponents();
-        UpdateWaveIndicator();
+        UpdateWaveComponents();
         UpdateSkillAnimations();
 
         VerifyCursorHoveringEntities();
@@ -209,6 +215,9 @@ public class PlayScreen : BaseScreen
 
         _usedSkillIndicator.IsEnable = !_isPaused;
         _usedSkillIndicator.IsVisible = !_isPaused;
+
+        _waveTransitionComponent.IsVisible = !_isPaused;
+        _waveTransitionComponent.IsEnable = !_isPaused;
     }
 
     private void VerifyPause()
@@ -484,12 +493,35 @@ public class PlayScreen : BaseScreen
 
     #region Wave Indicator
 
-    private void UpdateWaveIndicator()
+    private void UpdateWaveComponents()
+    {
+        UpdateCurrentWaveIndicator();
+        UpdateWaveTransitionIndicator();
+    }
+
+    private void UpdateCurrentWaveIndicator()
     {
         var currentWave = _battleManager.GetCurrentWaveIndex();
         var totalWaves = _battleManager.GetTotalCountWaves();
 
         _waveIndicatorComponent.SetWavesNumber(currentWave, totalWaves);
+    }
+
+    private void UpdateWaveTransitionIndicator()
+    {
+        var isInWaveTransition = _battleManager.BattleState == BattleState.WaveTransition;
+
+        _waveTransitionComponent.IsEnable = isInWaveTransition;
+        _waveTransitionComponent.IsVisible = isInWaveTransition;
+
+        if (!isInWaveTransition)
+            return;
+
+        var currentWave = _battleManager.GetCurrentWaveIndex();
+
+        string previousWave = currentWave == 1 ? string.Empty : (currentWave - 1).ToString();
+
+        _waveTransitionComponent.SetWaveText(previousWave, currentWave.ToString());
     }
 
     #endregion
