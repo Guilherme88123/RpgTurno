@@ -39,6 +39,7 @@ public class BattleManager
     public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
     public Action<BaseUnitEntity, bool> OnTurnStart { get; set; }
     public Action<bool> OnBattleFinish { get; set; }
+    public Action OnWaveTransitionFinish { get; set; }
     public Action<UnitSkill> OnSkillSelect { get; set; }
     public Action<BaseUnitEntity> OnSlayEnemy { get; set; }
 
@@ -235,6 +236,8 @@ public class BattleManager
         AliveEnemies.ForEach(x => x.PositionX = target);
 
         _turnManager.SetUnitsQueue(GetLiveUnits());
+
+        OnWaveTransitionFinish?.Invoke();
 
         StartTurn();
     }

@@ -194,6 +194,12 @@
 /processorParam:TextureFormat=Color
 /build:BootIcon.png
 
+#begin BossBattleMusic.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:BossBattleMusic.ogg
+
 #begin ButtonClick.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

@@ -161,6 +161,7 @@ public class PlayScreen : BaseScreen
         _battleManager.OnPlayTargetsAnimation += AddAnimation;
         _battleManager.OnSkillSelect += HandleSkillSelect;
         _battleManager.OnSlayEnemy += OnSlayEnemy;
+        _battleManager.OnWaveTransitionFinish += OnWaveTransitionFinish;
     }
 
     private List<BaseUnitEntity> GetAllies()
@@ -638,6 +639,9 @@ public class PlayScreen : BaseScreen
         ResetUnitsStatus();
         Initialize();
         GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
+
+        if (_battleManager.IsBossWave())
+            MediaPlayer.Play(GlobalVariablesDto.Content.Load<Song>(MusicConst.BattleMusic));
     }
 
     #endregion
@@ -713,6 +717,18 @@ public class PlayScreen : BaseScreen
     {
         GameSession.Statistics.DefeatedEnemies++;
         GameSession.Statistics.TotalExperience += enemy.Stats.ExperienceReward;
+    }
+
+    #endregion
+
+    #region Finish Wave Transition
+
+    private void OnWaveTransitionFinish()
+    {
+        if (!_battleManager.IsBossWave())
+            return;
+
+        MediaPlayer.Play(GlobalVariablesDto.Content.Load<Song>(MusicConst.BossBattleMusic));
     }
 
     #endregion
