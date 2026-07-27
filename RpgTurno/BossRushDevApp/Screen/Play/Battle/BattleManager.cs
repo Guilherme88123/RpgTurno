@@ -47,12 +47,11 @@ public class BattleManager
     public Action<List<BaseUnitEntity>, AnimationClip> OnPlayTargetsAnimation { get; set; }
 
     public UnitSkill SelectedSkill { get; private set; }
-    private bool HasAttacked;
 
     public BattleState BattleState { get; set; }
     public bool CanSelectSkill =>
         (BattleState == BattleState.WaitingSkillSelect || BattleState == BattleState.WaitingTargetSelect)
-        && !IsEnemyUnit(CurrentTurnUnit);
+        && !IsEnemyUnit(CurrentTurnUnit) && AliveEnemies.Count >= 1;
 
     public bool IsAttacking => BattleState == BattleState.Fighting;
 
@@ -436,7 +435,7 @@ public class BattleManager
 
     private void VerifyWaveFinish()
     {
-        if (AliveEnemies.Count >= 1)
+        if (Enemies.Where(x => !x.IsDestroyed).Count() >= 1)
             return;
 
         AdvanceWave();
