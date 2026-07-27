@@ -13,8 +13,20 @@ public class ImageComponent : BaseComponent
         Bounds = new Rectangle(0, 0, width, height);
     }
 
+    public ImageComponent(AnimationClip sprite, int width, int height)
+    {
+        AnimationManager.Add(true, sprite);
+
+        Bounds = new Rectangle(0, 0, width, height);
+    }
+
     public void SetImage(SpriteData sprite)
     {
         AnimationManager.Add(true, new AnimationClip([sprite]));
+    }
+
+    public void SetImage(AnimationClip sprite)
+    {
+        AnimationManager.Add(true, sprite);
     }
 }

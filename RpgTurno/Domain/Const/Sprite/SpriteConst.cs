@@ -199,5 +199,37 @@ public static class SpriteConst
 
     #endregion
 
+    #region Trees
+
+    public const string Tree1 = "Tree_1";
+    public const string Tree2 = "Tree_2";
+    public const string Tree3 = "Tree_3";
+    public const string Tree4 = "Tree_4";
+
+    public const string Stumpy1 = "Stumpy_1";
+    public const string Stumpy2 = "Stumpy_2";
+    public const string Stumpy3 = "Stumpy_3";
+    public const string Stumpy4 = "Stumpy_4";
+
+    #endregion
+
+    #region Bushes
+
+    public const string Bushe1 = "Bushe_1";
+    public const string Bushe2 = "Bushe_2";
+    public const string Bushe3 = "Bushe_3";
+    public const string Bushe4 = "Bushe_4";
+
+    #endregion
+
+    #region Rocks
+
+    public const string Rock1 = "Rock_1";
+    public const string Rock2 = "Rock_2";
+    public const string Rock3 = "Rock_3";
+    public const string Rock4 = "Rock_4";
+
+    #endregion
+
     #endregion
 }

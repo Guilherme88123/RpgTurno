@@ -2,6 +2,8 @@
 using Domain.Model.Sprite.Border;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Domain.Model.Texture.Sprite;
 
@@ -18,6 +20,9 @@ public class AnimationClip
 
     public bool IsFinished => !IsLoop && _currentFrameIndex == _frames.Count - 1;
 
+    public int Width => _frames.First().Width;
+    public int Height => _frames.First().Height;
+
     public AnimationClip(List<SpriteData> frames, float frameTime = 0f, bool isLoop = true)
     {
         _frames = frames;
@@ -33,6 +38,23 @@ public class AnimationClip
         _currentFrameTimeLeft = frameTime;
         IsLoop = isLoop;
 
+        LoadFramesByTexture(texture, framesX, framesY, row, border);
+    }
+
+    public AnimationClip(string textureFilename, int framesX = 1, int framesY = 1, float frameTime = 0f, int row = 1, BorderDefinition border = null, bool isLoop = true)
+    {
+        _frames = new List<SpriteData>();
+        _frameTime = frameTime;
+        _currentFrameTimeLeft = frameTime;
+        IsLoop = isLoop;
+
+        var texture = GlobalVariablesDto.Content.Load<Texture2D>(textureFilename);
+
+        LoadFramesByTexture(texture, framesX, framesY, row, border);
+    }
+
+    private void LoadFramesByTexture(Texture2D texture, int framesX = 1, int framesY = 1, int row = 1, BorderDefinition border = null)
+    {
         var frameWidth = texture.Width / framesX;
         var frameHeight = texture.Height / framesY;
 

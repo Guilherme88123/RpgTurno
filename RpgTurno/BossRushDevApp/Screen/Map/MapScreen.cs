@@ -4,11 +4,6 @@ using Domain.Dto.Global;
 using Domain.Dto.Map.Node;
 using Domain.Enum.Stage;
 using Domain.Model.Components.Base;
-using Domain.Model.Entity.Units.Ally.Archer;
-using Domain.Model.Entity.Units.Ally.Cleric;
-using Domain.Model.Entity.Units.Ally.Lancer;
-using Domain.Model.Entity.Units.Ally.Warrior;
-using Domain.Model.Entity.Units.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -143,6 +138,7 @@ public class MapScreen : BaseScreen
         UpdateNodeBanner();
         UpdateAlliesParty();
         UpdateStartButton();
+        UpdateBackground();
     }
 
     private void UpdateNodeBanner()
@@ -169,6 +165,11 @@ public class MapScreen : BaseScreen
 
         _startButtonComponent.IsVisible = canEnterStage;
         _startButtonComponent.IsEnable = canEnterStage;
+    }
+
+    private void UpdateBackground()
+    {
+        _backgroundImageComponent.Update(GlobalVariablesDto.GameTime);
     }
 
     private void UpdateComponentsVisibility()

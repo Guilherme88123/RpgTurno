@@ -47,6 +47,8 @@ public class BaseComponent
 
         HoverState.Update(Bounds);
         HoverAnimation.Update(this, gameTime);
+
+        AnimationManager.Update(true);
     }
 
     public virtual void SetPosition(int positionX, int positionY)
