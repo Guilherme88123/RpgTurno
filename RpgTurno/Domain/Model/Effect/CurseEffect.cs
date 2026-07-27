@@ -17,6 +17,6 @@ public class CurseEffect : BaseEffect
 
     public override void OnTurnStart(BaseUnitEntity unit)
     {
-        unit.RecieveAttack(12);
+        unit.RecieveAttack(12000);
     }
 }

@@ -35,7 +35,8 @@ public class AttackManager
     private readonly DelayManager _delayManager = new();
 
     public Action<UnitSkill, SkillResult> OnExecuteSkill { get; set; }
-    public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
+    public Action OnTurnInit { get; set; }
+    public Action OnTurnFinish { get; set; }
     public Action<BaseUnitEntity> OnUnitSlay { get; set; }
 
     public Action<BaseUnitEntity, AnimationClip> OnPlaySenderAnimation { get; set; } 
@@ -43,10 +44,7 @@ public class AttackManager
 
     private DirtRunSoundMix _dirtRunSoundMix = new();
 
-    public bool IsExecuting()
-    {
-        return CurrentPhase != AttackPhase.Idle;
-    }
+    public bool IsExecuting() => CurrentPhase != AttackPhase.Idle;
 
     public void StartAttack(SkillExecuteData data, UnitSkill skill, bool isEnemy)
     {
@@ -190,9 +188,10 @@ public class AttackManager
         if (!HasTurnDelayFinished())
             return;
 
-        OnTurnFinish?.Invoke(_sender, _principalTarget);
+        OnTurnFinish?.Invoke();
 
         GoToIdlePhase();
+        OnTurnInit?.Invoke();
     }
 
     #endregion

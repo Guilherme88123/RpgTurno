@@ -1,5 +1,6 @@
 ﻿using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
+using Domain.Model.Effect;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
@@ -27,6 +28,11 @@ public class ShootSkill : BaseSkill
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
-        return ExecuteDefaultSingleTargetAttack(skillData);
+        var result = ExecuteDefaultSingleTargetAttack(skillData);
+
+        if (!result.Contexts.First().HasMissed)
+            skillData.Target.AddEffect(new CurseEffect());
+
+        return result;
     }
 }

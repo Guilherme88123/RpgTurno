@@ -36,7 +36,7 @@ public class BattleManager
 
     public BaseUnitEntity CurrentTurnUnit { get; private set; }
 
-    public Action<BaseUnitEntity, BaseUnitEntity> OnTurnFinish { get; set; }
+    public Action OnTurnFinish { get; set; }
     public Action<BaseUnitEntity, bool> OnTurnStart { get; set; }
     public Action<bool> OnBattleFinish { get; set; }
     public Action OnWaveTransitionFinish { get; set; }
@@ -47,12 +47,11 @@ public class BattleManager
     public Action<List<BaseUnitEntity>, AnimationClip> OnPlayTargetsAnimation { get; set; }
 
     public UnitSkill SelectedSkill { get; private set; }
-    private bool HasAttacked;
 
     public BattleState BattleState { get; set; }
     public bool CanSelectSkill =>
         (BattleState == BattleState.WaitingSkillSelect || BattleState == BattleState.WaitingTargetSelect)
-        && !IsEnemyUnit(CurrentTurnUnit);
+        && !IsEnemyUnit(CurrentTurnUnit) && AliveEnemies.Count >= 1;
 
     public bool IsAttacking => BattleState == BattleState.Fighting;
 
@@ -69,12 +68,12 @@ public class BattleManager
 
         _attackManager.OnExecuteSkill += ExecuteAttack;
         _attackManager.OnTurnFinish += HandleTurnFinish;
+        _attackManager.OnTurnFinish += HandleTurnInit;
         _attackManager.OnUnitSlay += HandleEnemySlay;
         _attackManager.OnPlaySenderAnimation += PlaySenderAnimation;
         _attackManager.OnPlayTargetsAnimation += PlayTargetsAnimation;
 
         InitializeUnits();
-
         StartWaveTransition();
     }
 
@@ -166,24 +165,7 @@ public class BattleManager
         }
     }
 
-    private bool CanTurnContinue()
-    {
-        var isAttacking = _attackManager.IsExecuting();
-
-        if (isAttacking)
-        {
-            HasAttacked = true;
-            return false;
-        }
-
-        if (!isAttacking && HasAttacked && BattleState != BattleState.WaveTransition)
-        {
-            HasAttacked = false;
-            StartTurn();
-        }
-
-        return true;
-    }
+    private bool CanTurnContinue() => !_attackManager.IsExecuting();
 
     private void UpdateWaveTransition()
     {
@@ -239,18 +221,33 @@ public class BattleManager
 
         OnWaveTransitionFinish?.Invoke();
 
-        StartTurn();
+        HandleTurnInit();
+    }
+
+    private void HandleTurnInit()
+    {
+        do
+        {
+            StartTurn();
+        }
+        while (CurrentTurnUnit.IsDead && BattleState == BattleState.WaitingSkillSelect);
     }
 
     private void StartTurn()
     {
         BattleState = BattleState.WaitingSkillSelect;
 
-        var unitTurn = _turnManager.GetPeekUnit();
+        CurrentTurnUnit = _turnManager.GetPeekUnit();
 
-        unitTurn.OnTurnStart();
+        CurrentTurnUnit.OnTurnStart();
 
-        OnTurnStart?.Invoke(unitTurn, IsEnemyUnit(unitTurn));
+        OnTurnStart?.Invoke(CurrentTurnUnit, IsEnemyUnit(CurrentTurnUnit));
+
+        if (CurrentTurnUnit.IsDead)
+        {
+            HandleEnemySlay(CurrentTurnUnit);
+            HandleTurnFinish();
+        }
     }
 
     private void UpdateSkillSelect()
@@ -417,9 +414,9 @@ public class BattleManager
         OnBattleFinish?.Invoke(isGameOver);
     }
 
-    private void HandleTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
+    private void HandleTurnFinish()
     {
-        OnTurnFinish?.Invoke(sender, target);
+        OnTurnFinish?.Invoke();
         GoToNextTurn();
 
         VerifyWaveFinish();
@@ -441,7 +438,7 @@ public class BattleManager
 
     private void VerifyWaveFinish()
     {
-        if (AliveEnemies.Count >= 1)
+        if (Enemies.Where(x => !x.IsDestroyed).Count() >= 1)
             return;
 
         AdvanceWave();

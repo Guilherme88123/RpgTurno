@@ -15,6 +15,16 @@ public class ParticleEmitterModel
         _texture = texture;
     }
 
+    public ParticleEmitterModel()
+    {
+        _texture = GlobalVariablesDto.Pixel;
+    }
+
+    public void Emit(Point position, Color color, int quantity = 10)
+    {
+        Emit(new Vector2(position.X, position.Y), color, quantity);
+    }
+
     public void Emit(Vector2 position, Color color, int quantity = 10)
     {
         for (int i = 0; i < quantity; i++)

@@ -274,7 +274,7 @@ public class PlayScreen : BaseScreen
     private void SeTurnComponentVisibilityByBattleState()
     {
         var battleState = _battleManager.BattleState;
-        var isFighting = battleState != BattleState.WaveTransition && battleState != BattleState.Finished;
+        var isFighting = battleState != BattleState.WaveTransition && battleState != BattleState.Finished && _battleManager.AliveEnemies.Count >= 1;
 
         _turnQueueComponent.IsVisible = isFighting;
         _turnQueueComponent.IsEnable = isFighting;
@@ -293,7 +293,7 @@ public class PlayScreen : BaseScreen
         _currentTurnUnitComponent.SetCurrentTurnUnit(currentTurnUnit);
     }
 
-    private void OnTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
+    private void OnTurnFinish()
     {
         _turnQueueComponent.StartTransition();
     }

@@ -2,6 +2,7 @@
 using Domain.Enum.Component.Button;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Text;
+using Domain.Model.Particle;
 using Domain.Model.Sound.Base;
 using Domain.Model.Sound.Ui;
 using Microsoft.Xna.Framework;
@@ -26,6 +27,8 @@ public class ButtonComponent : BaseComponent
     private readonly SoundEffectData ClickSoundEffect = new ButtonClickSoundEffect();
     private readonly SoundEffectData HoverSoundEffect = new ButtonHoverSoundEffect();
 
+    private readonly ParticleEmitterModel _particleEmitter = new();
+
     public ButtonComponent()
     {
         HoverState.OnHoverIn += OnHoverIn;
@@ -45,6 +48,8 @@ public class ButtonComponent : BaseComponent
         Text.Update(gameTime);
         Text.Color = TextColor;
         Text.OffsetY = OffsetY;
+
+        _particleEmitter.Update();
 
         AnimationManager.Update(State);
 
@@ -84,6 +89,7 @@ public class ButtonComponent : BaseComponent
     private void OnHoverIn()
     {
         HoverSoundEffect.Play();
+        _particleEmitter.Emit(GlobalVariablesDto.MouseState.Position, Color, 2);
     }
 
     #endregion
@@ -116,6 +122,7 @@ public class ButtonComponent : BaseComponent
     {
         State = ButtonInteractionState.Pressed;
         ClickSoundEffect?.Play();
+        _particleEmitter.Emit(GlobalVariablesDto.MouseState.Position, Color);
 
         _currentDelay = DelayPressed;
 
@@ -158,6 +165,7 @@ public class ButtonComponent : BaseComponent
     {
         base.Draw(spriteBatch);
         Text.Draw(spriteBatch);
+        _particleEmitter.Draw();
     }
 
     #endregion
