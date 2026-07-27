@@ -2,6 +2,7 @@
 using Domain.Enum.Component.Button;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Text;
+using Domain.Model.Particle;
 using Domain.Model.Sound.Base;
 using Domain.Model.Sound.Ui;
 using Domain.Model.Texture.Sprite;
@@ -34,6 +35,8 @@ public class RadioComponent : BaseComponent
     private readonly SoundEffectData ClickSoundEffect = new ButtonClickSoundEffect();
     private readonly SoundEffectData HoverSoundEffect = new ButtonHoverSoundEffect();
 
+    private readonly ParticleEmitterModel _particleEmitter = new();
+
     public RadioComponent()
     {
         HoverState.OnHoverIn += OnHoverIn;
@@ -52,11 +55,13 @@ public class RadioComponent : BaseComponent
         Text.Color = TextColor;
         Text.OffsetY = OffsetY;
 
+        _particleEmitter.Update();
+
         UpdateLineRectangle();
         UpdateDotRectangle();
 
-        var mouse = Mouse.GetState();
-        var mousePos = new Point(mouse.X, mouse.Y);
+        var mouse = GlobalVariablesDto.MouseState;
+        var mousePos = mouse.Position;
 
         var isDotHover = DotRectangle.Contains(mousePos);
         var isLineHover = LineRectangle.Contains(mousePos);
@@ -72,7 +77,7 @@ public class RadioComponent : BaseComponent
             int left = LineRectangle.X;
             int right = LineRectangle.Right - dotSize;
 
-            int clampedX = Math.Clamp(mouse.X, left, right);
+            int clampedX = Math.Clamp(mousePos.X, left, right);
 
             float percent = (clampedX - left) / (float)(right - left);
             Value = (int)(Min + percent * (Max - Min));
@@ -86,7 +91,10 @@ public class RadioComponent : BaseComponent
         if (mouse.LeftButton == ButtonState.Pressed && (isDotHover || isLineHover))
         {
             if (!_wasClick)
+            {
                 ClickSoundEffect?.Play();
+                _particleEmitter.Emit(mousePos, Color);
+            }
 
             IsDotPressed = true;
 
@@ -107,6 +115,7 @@ public class RadioComponent : BaseComponent
     private void OnHoverIn()
     {
         HoverSoundEffect.Play();
+        _particleEmitter.Emit(GlobalVariablesDto.MouseState.Position, Color, 2);
     }
 
     #endregion
@@ -140,6 +149,8 @@ public class RadioComponent : BaseComponent
         DrawLine(spriteBatch);
         DrawDot(spriteBatch);
         Text.Draw(spriteBatch);
+
+        _particleEmitter.Draw();
     }
 
     protected void DrawLine(SpriteBatch spriteBatch)

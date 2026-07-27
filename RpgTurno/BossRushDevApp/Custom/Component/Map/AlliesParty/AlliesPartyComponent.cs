@@ -1,5 +1,6 @@
 ﻿using Domain.Model.Components.Base;
 using Domain.Model.Entity.Units.Base;
+using Domain.Model.Particle;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.Screen.Map.World.Player;
