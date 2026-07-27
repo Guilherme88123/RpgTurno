@@ -244,7 +244,10 @@ public class BattleManager
         OnTurnStart?.Invoke(CurrentTurnUnit, IsEnemyUnit(CurrentTurnUnit));
 
         if (CurrentTurnUnit.IsDead)
+        {
+            HandleEnemySlay(CurrentTurnUnit);
             HandleTurnFinish();
+        }
     }
 
     private void UpdateSkillSelect()
