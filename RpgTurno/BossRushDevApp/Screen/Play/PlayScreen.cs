@@ -293,7 +293,7 @@ public class PlayScreen : BaseScreen
         _currentTurnUnitComponent.SetCurrentTurnUnit(currentTurnUnit);
     }
 
-    private void OnTurnFinish(BaseUnitEntity sender, BaseUnitEntity target)
+    private void OnTurnFinish()
     {
         _turnQueueComponent.StartTransition();
     }
