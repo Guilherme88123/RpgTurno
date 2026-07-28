@@ -2,7 +2,7 @@
 using Domain.Dto.Global;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Domain.Model.Texture.Sprite.Custom.Ui.Maps;
+namespace Domain.Model.Texture.Sprite.Custom.Maps;
 
 public class WorldMapBackgroundSprite : SpriteData
 {

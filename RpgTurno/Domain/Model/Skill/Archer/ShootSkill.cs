@@ -28,11 +28,6 @@ public class ShootSkill : BaseSkill
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
-        var result = ExecuteDefaultSingleTargetAttack(skillData);
-
-        if (!result.Contexts.First().HasMissed)
-            skillData.Target.AddEffect(new CurseEffect());
-
-        return result;
+        return ExecuteDefaultSingleTargetAttack(skillData);
     }
 }

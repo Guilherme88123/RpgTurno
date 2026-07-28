@@ -169,7 +169,10 @@ public static class SpriteConst
 
     #region Maps
 
-    public const string BattleMapBackground = "BasicGrassMap";
+    public const string TowerMapBackground = "TowerMap";
+    public const string BarrackMapBackground = "BarrackMap";
+    public const string CastleMapBackground = "CastleMap";
+
     public const string WorldMapBackground = "WorldMap";
 
     #endregion

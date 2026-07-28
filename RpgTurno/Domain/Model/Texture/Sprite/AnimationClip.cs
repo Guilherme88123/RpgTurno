@@ -23,6 +23,14 @@ public class AnimationClip
     public int Width => _frames.First().Width;
     public int Height => _frames.First().Height;
 
+    public AnimationClip(SpriteData frame, float frameTime = 0f, bool isLoop = true)
+    {
+        _frames = [frame];
+        _frameTime = frameTime;
+        _currentFrameTimeLeft = frameTime;
+        IsLoop = isLoop;
+    }
+
     public AnimationClip(List<SpriteData> frames, float frameTime = 0f, bool isLoop = true)
     {
         _frames = frames;

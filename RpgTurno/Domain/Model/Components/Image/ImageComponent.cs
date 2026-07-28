@@ -6,6 +6,11 @@ namespace Domain.Model.Components.Image;
 
 public class ImageComponent : BaseComponent
 {
+    public ImageComponent()
+    {
+        
+    }
+
     public ImageComponent(SpriteData sprite, int width, int height)
     {
         AnimationManager.Add(true, new AnimationClip([sprite]));

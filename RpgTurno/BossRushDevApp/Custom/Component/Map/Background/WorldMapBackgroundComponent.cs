@@ -1,11 +1,12 @@
 ﻿using Domain.Const.Sprite;
 using Domain.Dto.Global;
+using Domain.Dto.Sprite;
 using Domain.Model.Components.Image;
 using Domain.Model.Texture.Sprite;
+using Domain.Model.Texture.Sprite.Custom.Maps;
 using Domain.Model.Texture.Sprite.Custom.Terrain.Bushes;
 using Domain.Model.Texture.Sprite.Custom.Terrain.Rocks;
 using Domain.Model.Texture.Sprite.Custom.Terrain.Trees;
-using Domain.Model.Texture.Sprite.Custom.Ui.Maps;
 using Infrastructure.Tiled;
 using Infrastructure.Tiled.Dto;
 using Microsoft.Xna.Framework;
@@ -58,9 +59,9 @@ public class WorldMapBackgroundComponent : ImageComponent
 
         Bounds = new(0, 0, dto.RealWidth, dto.RealHeight);
 
-        InitializeLayerDecorationsPositions(dto, dto.Layers.First(x => x.Id == RockLayerId));
-        InitializeLayerDecorationsPositions(dto, dto.Layers.First(x => x.Id == BusheLayerId));
-        InitializeLayerDecorationsPositions(dto, dto.Layers.First(x => x.Id == TreeLayerId));
+        InitializeLayerDecorationsPositions(dto, dto.AllLayers.First(x => x.Id == RockLayerId));
+        InitializeLayerDecorationsPositions(dto, dto.AllLayers.First(x => x.Id == BusheLayerId));
+        InitializeLayerDecorationsPositions(dto, dto.AllLayers.First(x => x.Id == TreeLayerId));
     }
 
     private TiledMapDto GetTiledDto()
@@ -163,5 +164,3 @@ public class WorldMapBackgroundComponent : ImageComponent
 
     #endregion
 }
-
-public record PositionSpriteRecord(AnimationClip Sprite, Point Point);

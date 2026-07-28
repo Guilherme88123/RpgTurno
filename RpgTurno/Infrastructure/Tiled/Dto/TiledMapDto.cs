@@ -24,5 +24,6 @@ public class TiledMapDto
     public string TiledVersion { get; set; }
 
     public List<TiledTilesetDto> Tilesets { get; set; }
-    public List<TiledLayerDto> Layers { get; set; }
+    public List<TiledGroupLayerDto> Layers { get; set; }
+    public List<TiledLayerDto> AllLayers => Layers.SelectMany(x => x.Layers).ToList();
 }

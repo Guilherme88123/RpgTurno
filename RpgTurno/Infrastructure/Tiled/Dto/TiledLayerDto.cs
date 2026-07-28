@@ -18,6 +18,8 @@ public class TiledLayerDto
 
     public string Type { get; set; }
 
+    public List<TiledLayerCustomPropertyDto> Properties { get; set; } = new();
+
     private int[,] GetMatrixData()
     {
         var matrix = new int[Height, Width];

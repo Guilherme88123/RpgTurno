@@ -88,7 +88,7 @@ public class PlayScreen : BaseScreen
         _focusedUnitBannerComponent = new();
         _focusedUnitBannerComponent.SetPosition(70, 48);
 
-        _backgroundImageComponent = new();
+        _backgroundImageComponent = new(GameSession.CurrentStageCode);
 
         _turnQueueComponent = new();
         _currentTurnUnitComponent = new();
@@ -202,6 +202,7 @@ public class PlayScreen : BaseScreen
         UpdateWaveComponents();
         UpdateSkillAnimations();
         UpdateBossHealthBar();
+        UpdateBackground(gameTime);
 
         VerifyCursorHoveringEntities();
     }
@@ -561,6 +562,15 @@ public class PlayScreen : BaseScreen
             return;
 
         _bossHealthBarComponent.SetBossUnit(boss);
+    }
+
+    #endregion
+
+    #region Background
+
+    private void UpdateBackground(GameTime gameTime)
+    {
+        _backgroundImageComponent.Update(gameTime);
     }
 
     #endregion
