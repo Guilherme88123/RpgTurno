@@ -11,8 +11,8 @@ public static class MapFactory
     {
         var map = new MapData();
 
-        var start = new StartMapNode(new Vector2(100, 650));
-        var stage1 = new StageMapNode(new Vector2(650, 650), StageCode.Tower, "Evil Tower", 1);
+        var start = new StartMapNode(new Vector2(130, 750));
+        var stage1 = new StageMapNode(new Vector2(640, 620), StageCode.Tower, "Evil Tower", 1);
         var stage2 = new StageMapNode(new Vector2(1100, 950), StageCode.Barrack, "Barracks of Valor", 2);
         var stage3 = new StageMapNode(new Vector2(1450, 450), StageCode.Castle, "The Castle", 3);
 
