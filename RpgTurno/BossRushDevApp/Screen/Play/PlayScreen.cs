@@ -29,6 +29,7 @@ using SharpDX.XAudio2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RpgTurno.Screen.Play;
 
@@ -713,9 +714,17 @@ public class PlayScreen : BaseScreen
 
     private void GoToMapScreen()
     {
-        ResetUnitsStatus();
+        _ = ResetPlayWhenGoToMapScreen();
+
         GameSession.IsInBattle = false;
         GlobalVariablesDto.PopScreen();
+    }
+
+    private async Task ResetPlayWhenGoToMapScreen()
+    {
+        await Task.Delay(300);
+
+        ResetUnitsStatus();
         GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
     }
 
