@@ -67,8 +67,8 @@ public class BattleManager
         _stage = StageFactory.Create(stageCode);
 
         _attackManager.OnExecuteSkill += ExecuteAttack;
+        _attackManager.OnTurnInit += HandleTurnInit;
         _attackManager.OnTurnFinish += HandleTurnFinish;
-        _attackManager.OnTurnFinish += HandleTurnInit;
         _attackManager.OnUnitSlay += HandleEnemySlay;
         _attackManager.OnPlaySenderAnimation += PlaySenderAnimation;
         _attackManager.OnPlayTargetsAnimation += PlayTargetsAnimation;
@@ -140,13 +140,8 @@ public class BattleManager
 
     private void UpdateTurn()
     {
-        VerifyDeadUnits();
-
         if (!CanTurnContinue())
             return;
-
-        VerifyWaveFinish();
-        VerifyPlayFinish();
 
         switch (BattleState)
         {
@@ -221,11 +216,16 @@ public class BattleManager
 
         OnWaveTransitionFinish?.Invoke();
 
+        BattleState = BattleState.WaitingSkillSelect;
+
         HandleTurnInit();
     }
 
     private void HandleTurnInit()
     {
+        if (BattleState == BattleState.WaveTransition)
+            return;
+
         do
         {
             StartTurn();
@@ -419,7 +419,9 @@ public class BattleManager
         OnTurnFinish?.Invoke();
         GoToNextTurn();
 
+        VerifyDeadUnits();
         VerifyWaveFinish();
+        VerifyPlayFinish();
     }
 
     private void HandleEnemySlay(BaseUnitEntity unit)
@@ -438,7 +440,7 @@ public class BattleManager
 
     private void VerifyWaveFinish()
     {
-        if (Enemies.Where(x => !x.IsDestroyed).Count() >= 1)
+        if (Enemies.Any(x => !x.IsDestroyed))
             return;
 
         AdvanceWave();
