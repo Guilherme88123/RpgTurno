@@ -11,7 +11,7 @@ public class ClericSkillTree : BaseSkillTree
         new UnitSkillDefinition(SkillCode.Smite, 1),
         new UnitSkillDefinition(SkillCode.Heal, 1),
         new UnitSkillDefinition(SkillCode.Bless, 2),
-        new UnitSkillDefinition(SkillCode.Curse, 2),
-        new UnitSkillDefinition(SkillCode.DivineLight, 3),
+        new UnitSkillDefinition(SkillCode.Curse, 3),
+        new UnitSkillDefinition(SkillCode.DivineLight, 4),
     ];
 }

@@ -223,7 +223,7 @@ public class BattleManager
 
     private void HandleTurnInit()
     {
-        if (BattleState == BattleState.WaveTransition)
+        if (BattleState == BattleState.WaveTransition || BattleState == BattleState.Finished)
             return;
 
         do
