@@ -16,6 +16,7 @@ using RpgTurno.Custom.CustomComponents.Map.Stage;
 using RpgTurno.Screen.Map.World;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RpgTurno.Screen.Map;
 
@@ -35,7 +36,7 @@ public class MapScreen : BaseScreen
     private MapPauseBannerComponent _pauseBannerComponent;
     private StartBattleButtonComponent _startButtonComponent;
 
-    private bool _isFinished;
+    private bool _isFinished = false;
     private GameFinishBannerComponent _finishBannerComponent;
 
     #region Initialize
@@ -99,7 +100,7 @@ public class MapScreen : BaseScreen
 
         PlayMusic();
 
-        if (originScreenCode == ScreenConst.MenuScreen)
+        if (originScreenCode != ScreenConst.PlayScreen)
             return;
 
         VerifyGameFinish();
@@ -263,7 +264,17 @@ public class MapScreen : BaseScreen
 
     private void OnMenuAction()
     {
+        if (_isFinished)
+            _ = ResetFinished();
+
         GlobalVariablesDto.ChangeScreen?.Invoke(ScreenConst.MenuScreen);
+    }
+
+    private async Task ResetFinished()
+    {
+        await Task.Delay(300);
+
+        _isFinished = false;
     }
 
     private void OnExitAction()
