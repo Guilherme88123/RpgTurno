@@ -12,8 +12,8 @@ public class EnemyLancerStats : BaseUnitStats
         SpeedStat = new(12, 0.5f);
         MaxManaStat = new(18, 2);
         ManaRegenStat = new(2, 0.15f);
-        Accuracy = 90;
-        Evasion = 10;
+        Accuracy = 92;
+        Evasion = 6;
         CriticalChance = 5;
         CriticalDamage = 1.6f;
 

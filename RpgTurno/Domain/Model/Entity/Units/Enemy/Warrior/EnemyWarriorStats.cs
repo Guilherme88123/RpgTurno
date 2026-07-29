@@ -12,8 +12,8 @@ public class EnemyWarriorStats : BaseUnitStats
         SpeedStat = new(16, 0.7f);
         MaxManaStat = new(20, 3);
         ManaRegenStat = new(3, 0.2f);
-        Accuracy = 95;
-        Evasion = 5;
+        Accuracy = 94;
+        Evasion = 7;
         CriticalChance = 10;
         CriticalDamage = 1.7f;
 

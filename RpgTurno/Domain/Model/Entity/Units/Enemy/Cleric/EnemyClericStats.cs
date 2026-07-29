@@ -12,7 +12,7 @@ public class EnemyClericStats : BaseUnitStats
         SpeedStat = new(18, 0.8f);
         MaxManaStat = new(40, 5);
         ManaRegenStat = new(6, 0.5f);
-        Accuracy = 92;
+        Accuracy = 96;
         Evasion = 8;
         CriticalChance = 5;
         CriticalDamage = 1.5f;

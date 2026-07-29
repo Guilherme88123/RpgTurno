@@ -13,7 +13,7 @@ public class EnemyArcherStats : BaseUnitStats
         MaxManaStat = new(30, 4);
         ManaRegenStat = new(4, 0.35f);
         Accuracy = 98;
-        Evasion = 13;
+        Evasion = 10;
         CriticalChance = 20;
         CriticalDamage = 1.9f;
 
