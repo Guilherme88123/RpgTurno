@@ -647,12 +647,12 @@ public class PlayScreen : BaseScreen
 
     private void OnRetryAction()
     {
+        if (_battleManager.IsBossWave())
+            MediaPlayer.Play(GlobalVariablesDto.Content.Load<Song>(MusicConst.BattleMusic));
+
         ResetUnitsStatus();
         Initialize();
         GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
-
-        if (_battleManager.IsBossWave())
-            MediaPlayer.Play(GlobalVariablesDto.Content.Load<Song>(MusicConst.BattleMusic));
     }
 
     #endregion
