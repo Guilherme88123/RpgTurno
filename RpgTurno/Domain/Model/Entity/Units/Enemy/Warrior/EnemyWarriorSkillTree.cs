@@ -11,7 +11,7 @@ public class EnemyWarriorSkillTree : BaseSkillTree
         new UnitSkillDefinition(SkillCode.Slash, 1),
         new UnitSkillDefinition(SkillCode.HeavySlash, 1),
         new UnitSkillDefinition(SkillCode.GuardStance, 2),
-        new UnitSkillDefinition(SkillCode.Cleave, 2),
-        new UnitSkillDefinition(SkillCode.Execution, 3),
+        new UnitSkillDefinition(SkillCode.Cleave, 3),
+        new UnitSkillDefinition(SkillCode.Execution, 4),
     ];
 }
