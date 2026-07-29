@@ -1,4 +1,5 @@
 ﻿using Domain.Const.Screen;
+using Domain.Const.Version;
 using Domain.Dto.Global;
 using Domain.Dto.Session;
 using Domain.Enum.Transition;
@@ -27,6 +28,7 @@ public class RpgTurno : Game
 
     public RpgTurno()
     {
+        Window.Title = VersionConst.GameName;
         GraphicsDeviceManager graphics = new GraphicsDeviceManager(this);
         graphics.PreferredBackBufferWidth = GlobalOptionsDto.WidthSize;
         graphics.PreferredBackBufferHeight = GlobalOptionsDto.HeightSize;
