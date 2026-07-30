@@ -1,10 +1,12 @@
 ﻿using Domain.Dto.Global;
 using Domain.Dto.Session;
 using Domain.Interface.Cursor;
+using Domain.Interface.Language;
 using Domain.Interface.Screen;
 using Domain.Interface.Transition;
 using Domain.Interface.UiManager;
 using Microsoft.Extensions.DependencyInjection;
+using RpgTurno.Language;
 using RpgTurno.Screen.Map;
 using RpgTurno.Screen.Map.World.Stage;
 using RpgTurno.Screen.Menu;
@@ -45,6 +47,7 @@ public static class Program
         services.AddTransient<IUiManagerService, UiManagerService>();
         services.AddTransient<ITransitionManager, TransitionManager>();
         services.AddSingleton<ICursorManager, CursorManager>();
+        services.AddSingleton<ILanguageService, LanguageService>();
 
         #endregion
 
