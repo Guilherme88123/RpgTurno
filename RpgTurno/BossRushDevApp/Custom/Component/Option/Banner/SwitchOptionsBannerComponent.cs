@@ -7,12 +7,12 @@ namespace RpgTurno.Custom.Component.Option.Banner;
 
 public class SwitchOptionsBannerComponent : SwitchComponent
 {
-    public SwitchOptionsBannerComponent(int width, string text, Action<bool> action)
+    public SwitchOptionsBannerComponent(int width, int height, string text, Action<bool> action)
     {
         AnimationManager.Add(ButtonInteractionState.Regular, new BlueButtonRegularSprite());
         AnimationManager.Add(ButtonInteractionState.Pressed, new BlueButtonPressedSprite());
 
-        Bounds = new(0, 0, width, 96);
+        Bounds = new(0, 0, width, height);
 
         SetText(text);
 

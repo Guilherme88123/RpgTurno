@@ -1,53 +1,143 @@
-﻿using Domain.Dto.Global;
+﻿using Domain.Dto.Components.Dropdown;
+using Domain.Dto.Global;
+using Domain.Enum.Component.Button;
 using Domain.Model.Components.Base;
+using Domain.Model.Components.Dropdown;
+using Domain.Model.Components.Text;
+using Domain.Model.Particle;
+using Domain.Model.Sound.Base;
+using Domain.Model.Sound.Ui;
+using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Application.Model.MenuElements.Dropdown;
 
-//TODO: Refatorar Dropdown quando tiver uma oportunidade de testar
 public class DropdownComponent : BaseComponent
 {
-    public string Text { get; set; }
+    public ButtonInteractionState State { get; set; }
+
     public bool IsOpen { get; set; }
 
-    public List<DropdownItemDto> ListItens { get; set; }
-    public int SelectedItem { get; set; }
+    private List<DropdownItemComponent> ListItens { get; set; } = new();
+    public List<DropdownItemDto> ListItensDto { get; set; } = new();
+    public int SelectedItemIndex { get; set; }
+
+    public SpriteData OptionsOverlaySprite { get; set; }
+
     public Action<DropdownItemDto> ValueUpdate { get; set; }
+
+    private const float DelayPressed = 0.2f;
+    private float _currentDelay = DelayPressed;
+
+    private readonly SoundEffectData ClickSoundEffect = new ButtonClickSoundEffect();
+    private readonly SoundEffectData HoverSoundEffect = new ButtonHoverSoundEffect();
+
+    public readonly TextComponent Text = new(positionXByCenter: true, positionYByCenter: true);
+    private string _baseText;
+
+    private readonly ParticleEmitterModel _particleEmitter = new();
+
+    public DropdownComponent(List<DropdownItemDto> options)
+    {
+        InitializeOptions(options);
+
+        HoverState.OnHoverIn += OnHoverIn;
+
+        HoverAnimation.AffectScaleX = true;
+        HoverAnimation.AffectScaleY = true;
+        HoverAnimation.AffectOffsetY = true;
+        HoverAnimation.AffectTextColor = true;
+    }
+
+    private void InitializeOptions(List<DropdownItemDto> options)
+    {
+        ListItensDto = options;
+
+        ListItens.Clear();
+
+        foreach (var option in ListItensDto)
+            ListItens.Add(new DropdownItemComponent(this, option));
+    }
+
+    #region Update
 
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
 
-        var mouse = Mouse.GetState();
+        Text.Update(gameTime);
+        Text.Color = TextColor;
+        Text.OffsetY = OffsetY;
 
-        bool botaoPressionado = mouse.LeftButton == ButtonState.Pressed;
+        _particleEmitter.Update();
 
-        if (botaoPressionado && !GlobalVariablesDto.PreviousMouseDown && HoverState.IsHover)
+        AnimationManager.Update(State);
+
+        if (IsOpen)
+            UpdateOptions(gameTime);
+
+        if (State == ButtonInteractionState.Pressed)
         {
-            ToggleOpen();
+            UpdatePressedDelay();
+            return;
         }
 
-        UpdateOptions();
+        if (!CanClick())
+            return;
+
+        CursorManager.RequestHover();
+
+        if (IsTryingClick())
+            ExecuteClick();
     }
 
-    private void UpdateOptions()
+    private bool CanClick()
     {
-        var mouse = Mouse.GetState();
-        var mousePos = new Point(mouse.X, mouse.Y);
+        if (!IsVisible)
+            return false;
 
-        foreach (var item in ListItens)
+        if (State == ButtonInteractionState.Pressed)
+            return false;
+
+        if (!HoverState.IsHover)
+            return false;
+
+        if (GlobalVariablesDto.PreviousMouseDown)
+            return false;
+
+        return true;
+    }
+
+    private bool IsTryingClick()
+    {
+        return GlobalVariablesDto.MouseState.LeftButton == ButtonState.Pressed;
+    }
+
+    private void ExecuteClick()
+    {
+        State = ButtonInteractionState.Pressed;
+        ClickSoundEffect?.Play();
+        _particleEmitter.Emit(GlobalVariablesDto.MouseState.Position, Color);
+
+        _currentDelay = DelayPressed;
+
+        SetPositionText();
+    }
+
+    private void UpdatePressedDelay()
+    {
+        _currentDelay -= GlobalVariablesDto.DeltaTime;
+
+        if (_currentDelay < 0)
         {
-            item.IsHover = item.Rectangle.Contains(mousePos);
+            ToggleOpen();
+            ReloadText();
 
-            bool botaoPressionado = mouse.LeftButton == ButtonState.Pressed;
-
-            if (botaoPressionado && !GlobalVariablesDto.PreviousMouseDown && item.IsHover)
-            {
-                ToggleOpen();
-                SelectItem(item.Id);
-            }
+            State = ButtonInteractionState.Regular;
+            AnimationManager.Update(State);
+            SetPositionText();
         }
     }
 
@@ -55,83 +145,142 @@ public class DropdownComponent : BaseComponent
     {
         IsOpen = !IsOpen;
 
-        if (IsOpen) UpdateOptionsRectangle();
+        if (IsOpen)
+            UpdateOptionsRectangle();
     }
 
-    private void SelectItem(int id)
+    private void UpdateOptions(GameTime gameTime)
     {
-        if (SelectedItem != id)
+        ListItens.ForEach(x => x.Update(gameTime));
+    }
+
+    public void SelectItem(int id)
+    {
+        if (SelectedItemIndex != id)
         {
-            var item = ListItens.First(x => x.Id == id);
+            var item = ListItensDto.First(x => x.Id == id);
             ValueUpdate?.Invoke(item);
         }
 
-        SelectedItem = id;
+        SelectedItemIndex = id;
     }
 
     private void UpdateOptionsRectangle()
     {
-        var border = 30;
+        var border = 32;
+        var optionHeight = Bounds.Height / 2;
 
         foreach (var item in ListItens)
         {
             var x = Bounds.X + border;
-            var y = Bounds.Y + Bounds.Height + Bounds.Height / 2 * item.Id;
+            var y = Bounds.Bottom + optionHeight * item.Id;
             var width = Bounds.Width - border * 2;
-            var height = Bounds.Height / 2;
 
-            item.Rectangle = new(x, y, width, height);
+            item.SetBounds(width, optionHeight);
+            item.SetPosition(x, y);
         }
     }
+
+    #endregion
+
+    #region Draw
 
     public override void Draw(SpriteBatch spriteBatch)
     {
         base.Draw(spriteBatch);
+        Text.Draw(spriteBatch);
 
         if (IsOpen)
         {
             DrawDropdownOverlay(spriteBatch);
             DrawDropdownItems(spriteBatch);
         }
+
+        _particleEmitter.Draw();
     }
 
-    protected string GetText()
-    {
-        var optionSelected = ListItens.FirstOrDefault(x => x.Id == SelectedItem);
-
-        if (optionSelected is null) return $"{Text}: N/A";
-
-        return $"{Text}: {optionSelected.Text}";
-    }
 
     private void DrawDropdownItems(SpriteBatch spriteBatch)
     {
-        foreach (var item in ListItens)
-        {
-            var textSize = GlobalVariablesDto.FontThickPixels.MeasureString(item.Text);
-
-            var x = item.Rectangle.X + item.Rectangle.Width / 2 - textSize.X / 2;
-            var y = item.Rectangle.Y + item.Rectangle.Height / 2 - textSize.Y / 2;
-
-            spriteBatch.DrawString(GlobalVariablesDto.FontThickPixels, item.Text, new(x, y), Color.White);
-        }
+        ListItens.ForEach(x => x.Draw(spriteBatch));
     }
 
     private void DrawDropdownOverlay(SpriteBatch spriteBatch)
     {
-        foreach (var item in ListItens)
-        {
-            var color = item.IsHover ? Color.DarkGray * 0.7f : Color.DarkGray;
-            spriteBatch.Draw(GlobalVariablesDto.Pixel, item.Rectangle, color);
-        }
-    }
-}
+        if (OptionsOverlaySprite is null || ListItens.Count == 0)
+            return;
 
-public class DropdownItemDto
-{
-    public int Id { get; set; }
-    public string Text { get; set; }
-    public Rectangle Rectangle { get; set; }
-    public bool IsHover { get; set; }
-    public object Value { get; set; }
+        var exampleItem = ListItens.First();
+
+        var heightGap = exampleItem.Bounds.Height / 2;
+
+        var x = exampleItem.Bounds.Left;
+        var y = Bounds.Bottom - heightGap;
+        var width = exampleItem.Bounds.Width;
+        var height = ListItens.Sum(x => x.Bounds.Height) + heightGap * 2;
+
+        var overlayRectangle = new Rectangle(x, y, width, height);
+
+        OptionsOverlaySprite.Draw(overlayRectangle, Color.White, 0f, SpriteEffects.None, spriteBatch, Vector2.One, Vector2.Zero);
+    }
+
+    #endregion
+
+    #region Position
+
+    public override void SetPosition(int positionX, int positionY)
+    {
+        base.SetPosition(positionX, positionY);
+        SetPositionText(positionX, positionY);
+    }
+
+    private void SetPositionText()
+    {
+        SetPositionText(Bounds.X, Bounds.Y);
+    }
+
+    private void SetPositionText(int positionX, int positionY)
+    {
+        if (State == ButtonInteractionState.Pressed)
+            positionY += 10;
+
+        Text.SetPosition(positionX + Bounds.Width / 2, positionY + Bounds.Height / 2);
+    }
+
+    #endregion
+
+    #region Text
+
+    public void SetText(string text)
+    {
+        _baseText = text;
+        ReloadText();
+    }
+
+    public void ReloadText()
+    {
+        Text.SetText(GetText());
+    }
+
+    protected string GetText()
+    {
+        var optionSelected = ListItensDto.FirstOrDefault(x => x.Id == SelectedItemIndex);
+
+        if (optionSelected is null)
+            return $"{_baseText}: N/A";
+
+        return $"{_baseText}: {optionSelected.Text}";
+    }
+
+    #endregion
+
+    #region Hover
+
+    private void OnHoverIn()
+    {
+        HoverSoundEffect.Play();
+        _particleEmitter.Emit(GlobalVariablesDto.MouseState.Position, Color, 2);
+    }
+
+    #endregion
 }

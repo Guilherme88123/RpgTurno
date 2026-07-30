@@ -8,13 +8,13 @@ namespace RpgTurno.Custom.Component.Option.Banner;
 
 public class RadioOptionsBannerComponent : RadioComponent
 {
-    public RadioOptionsBannerComponent(int width, string text, Action<int> action)
+    public RadioOptionsBannerComponent(int width, int height, string text, Action<int> action)
     {
         AnimationManager.Add(true, new BlueButtonRegularSprite());
         DotSprite = new SquareBannerSprite();
         LineAnimation = new SmallBarBaseSprite();
 
-        Bounds = new(0, 0, width, 96);
+        Bounds = new(0, 0, width, height);
 
         SetText(text);
 

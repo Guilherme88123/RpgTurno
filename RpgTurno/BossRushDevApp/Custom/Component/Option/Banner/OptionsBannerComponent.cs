@@ -1,12 +1,15 @@
-﻿using Domain.Dto.Global;
+﻿using Domain.Dto.Components.Dropdown;
+using Domain.Dto.Global;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
 using Domain.Model.Texture.Sprite.Custom.Ui.Ribbons.Small;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
-using System.Drawing.Printing;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RpgTurno.Custom.Component.Option.Banner;
 
@@ -15,17 +18,20 @@ public class OptionsBannerComponent : FrameComponent
     private const int Width = 832;
     private const int Height = 960;
     private const int Margin = 64;
-    private const int Spacing = 32;
+    private const int Spacing = 16;
+
     private static int ButtonWidth => Width - Margin * 6 - 32;
+    private static int ButtonHeight => Height / 10;
 
     private readonly TextComponent _titleText = new(positionXByCenter: true, positionYByCenter: true);
     private ImageComponent _titleBackground = new(new BlueSmallRibbonSprite(), ButtonWidth, 64);
 
     private readonly ExitOptionsBannerComponent _exitButton = new();
-    private readonly RadioOptionsBannerComponent _musicRadio = new(ButtonWidth, "Music Volume", UpdateMusicVolume);
-    private readonly RadioOptionsBannerComponent _sfxRadio = new(ButtonWidth, "Effects Volume", UpdateSfxVolume);
-    private readonly SwitchOptionsBannerComponent _fullscreenSwitch = new(ButtonWidth, "Fullscreen", ToggleFullscreen);
-    private readonly SwitchOptionsBannerComponent _fpsSwitch = new(ButtonWidth, "Show FPS", ToggleShowFps);
+    private readonly RadioOptionsBannerComponent _musicRadio = new(ButtonWidth, ButtonHeight, "Music Volume", UpdateMusicVolume);
+    private readonly RadioOptionsBannerComponent _sfxRadio = new(ButtonWidth, ButtonHeight, "Effects Volume", UpdateSfxVolume);
+    private readonly SwitchOptionsBannerComponent _fullscreenSwitch = new(ButtonWidth, ButtonHeight, "Fullscreen", ToggleFullscreen);
+    private readonly SwitchOptionsBannerComponent _fpsSwitch = new(ButtonWidth, ButtonHeight, "Show FPS", ToggleShowFps);
+    private readonly DropdownOptionsBannerComponent _screenSizeDropdown = new(ButtonWidth, ButtonHeight, "Window Size", ToggleScreenSize, GetScreenSizeDropdownItens());
 
     public OptionsBannerComponent()
     {
@@ -40,6 +46,7 @@ public class OptionsBannerComponent : FrameComponent
         AddChild(_sfxRadio);
         AddChild(_fullscreenSwitch);
         AddChild(_fpsSwitch);
+        AddChild(_screenSizeDropdown);
 
         Bounds = new(0, 0, Width, Height);
 
@@ -52,9 +59,20 @@ public class OptionsBannerComponent : FrameComponent
         _sfxRadio.Value = GlobalOptionsDto.SfxVolume;
         _fullscreenSwitch.Value = GlobalOptionsDto.Fullscreen;
         _fpsSwitch.Value = GlobalOptionsDto.ShowFps;
+        _screenSizeDropdown.SelectedItemIndex = _screenSizeDropdown.ListItensDto.First(x =>
+            ((Vector2)x.Value).X == GlobalOptionsDto.WidthSize &&
+            ((Vector2)x.Value).Y == GlobalOptionsDto.HeightSize).Id;
 
         _fullscreenSwitch.ReloadText();
         _fpsSwitch.ReloadText();
+        _screenSizeDropdown.ReloadText();
+    }
+
+    public override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+
+        _exitButton.IsEnable = !_screenSizeDropdown.IsOpen;
     }
 
     public override void SetPosition(int positionX, int positionY)
@@ -68,6 +86,7 @@ public class OptionsBannerComponent : FrameComponent
         SetChildComponentPosition(_sfxRadio, 2);
         SetChildComponentPosition(_fullscreenSwitch, 3);
         SetChildComponentPosition(_fpsSwitch, 4);
+        SetChildComponentPosition(_screenSizeDropdown, 5);
 
         _exitButton.SetPosition(GetXMiddlePosition(_exitButton.Bounds.Width), Bounds.Bottom - Margin - _exitButton.Bounds.Height - Spacing);
     }
@@ -89,6 +108,17 @@ public class OptionsBannerComponent : FrameComponent
 
     #region Button Actions
 
+    public static void UpdateMusicVolume(int volume)
+    {
+        GlobalOptionsDto.MusicVolume = volume;
+        MediaPlayer.Volume = GlobalOptionsDto.MusicVolumeFloat;
+    }
+
+    public static void UpdateSfxVolume(int volume)
+    {
+        GlobalOptionsDto.SfxVolume = volume;
+    }
+
     public static void ToggleShowFps(bool showFps)
     {
         GlobalOptionsDto.ShowFps = showFps;
@@ -101,15 +131,32 @@ public class OptionsBannerComponent : FrameComponent
         GlobalOptionsDto.Fullscreen = isFullscreen;
     }
 
-    public static void UpdateMusicVolume(int volume)
+    public static void ToggleScreenSize(DropdownItemDto dto)
     {
-        GlobalOptionsDto.MusicVolume = volume;
-        MediaPlayer.Volume = GlobalOptionsDto.MusicVolumeFloat;
+        var size = dto.Value as Vector2?;
+
+        if (size is null) return;
+
+        var width = (int)size.Value.X;
+        var height = (int)size.Value.Y;
+
+        GlobalOptionsDto.WidthSize = width;
+        GlobalOptionsDto.HeightSize = height;
+        GlobalVariablesDto.Graphics.PreferredBackBufferWidth = width;
+        GlobalVariablesDto.Graphics.PreferredBackBufferHeight = height;
+        GlobalVariablesDto.Graphics.ApplyChanges();
     }
 
-    public static void UpdateSfxVolume(int volume)
+    public static List<DropdownItemDto> GetScreenSizeDropdownItens()
     {
-        GlobalOptionsDto.SfxVolume = volume;
+        return new List<DropdownItemDto>()
+            {
+                new() { Id = 0, Text = "640x480", Value = new Vector2(640, 480) },
+                new() { Id = 1, Text = "800x600", Value = new Vector2(800, 600) },
+                new() { Id = 2, Text = "1280x720", Value = new Vector2(1280, 720) },
+                new() { Id = 3, Text = "1600x900", Value = new Vector2(1600, 900) },
+                new() { Id = 4, Text = "1920x1080", Value = new Vector2(1920, 1080) },
+            };
     }
 
     #endregion
