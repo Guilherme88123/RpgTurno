@@ -164,6 +164,7 @@ public class DropdownComponent : BaseComponent
 
         SelectedItemIndex = id;
 
+        ReloadText();
         ToggleOpen();
     }
 
@@ -262,6 +263,7 @@ public class DropdownComponent : BaseComponent
     public void ReloadText()
     {
         Text.SetText(GetText());
+        SetPositionText();
     }
 
     protected string GetText()

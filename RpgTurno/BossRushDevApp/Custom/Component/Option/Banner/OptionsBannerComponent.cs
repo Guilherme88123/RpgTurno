@@ -21,11 +21,13 @@ public class OptionsBannerComponent : FrameComponent
     private const int Margin = 64;
     private const int Spacing = 16;
 
-    private static int ButtonWidth => Width - Margin * 6 - 32;
-    private static int ButtonHeight => Height / 12;
+    private static int TitleBackgroundWidth => Width - Margin * 4 - 32;
+
+    private static int ButtonWidth => Width / 2 - Margin * 2;
+    private static int ButtonHeight => Height / 10;
 
     private readonly TextComponent _titleText = new(positionXByCenter: true, positionYByCenter: true);
-    private ImageComponent _titleBackground = new(new BlueSmallRibbonSprite(), ButtonWidth, 64);
+    private ImageComponent _titleBackground = new(new BlueSmallRibbonSprite(), TitleBackgroundWidth, Margin);
 
     private readonly ExitOptionsBannerComponent _exitButton = new();
     private readonly RadioOptionsBannerComponent _musicRadio = new(ButtonWidth, ButtonHeight, "Music Volume", UpdateMusicVolume);
@@ -74,14 +76,6 @@ public class OptionsBannerComponent : FrameComponent
         _languageDropdown.ReloadText();
     }
 
-    public override void Update(GameTime gameTime)
-    {
-        base.Update(gameTime);
-
-        _exitButton.IsEnable = !_languageDropdown.IsOpen;
-        _exitButton.Text.IsVisible = !_languageDropdown.IsOpen;
-    }
-
     public override void SetPosition(int positionX, int positionY)
     {
         base.SetPosition(positionX, positionY);
@@ -101,7 +95,7 @@ public class OptionsBannerComponent : FrameComponent
 
     private void SetChildComponentPosition(BaseComponent component, int index)
     {
-        component.SetPosition(GetXMiddlePosition(_musicRadio.Bounds.Width), GetYPositionByIndex(_musicRadio.Bounds.Height, index));
+        component.SetPosition(GetXPositionPosition(_musicRadio.Bounds.Width, index), GetYPositionByIndex(_musicRadio.Bounds.Height, index));
     }
 
     private int GetXMiddlePosition(int componentWidth)
@@ -109,9 +103,18 @@ public class OptionsBannerComponent : FrameComponent
         return Bounds.Center.X - componentWidth / 2;
     }
 
+    private int GetXPositionPosition(int componentWidth, int index)
+    {
+        var buttonGap = index % 2 == 0 ? Spacing : -(componentWidth + Spacing);
+
+        return Bounds.Center.X + buttonGap;
+    }
+
     private int GetYPositionByIndex(int componentHeight, int index)
     {
-        return Bounds.Y + Margin + index * componentHeight + Spacing * index - 1;
+        var realYIndex = (index + 1) / 2;
+
+        return Bounds.Y + Margin * 2 + realYIndex * componentHeight + Spacing * realYIndex - 1;
     }
 
     #region Button Actions
