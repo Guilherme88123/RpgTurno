@@ -55,8 +55,8 @@ public class SkillSelectBannerComponent : FrameComponent
 
     public SkillSelectButtonComponent GetHoverButton()
     {
-        var mouse = GlobalVariablesDto.MouseState;
-        return _buttons.FirstOrDefault(x => x.Bounds.Contains(mouse.Position));
+        var mouse = GlobalVariablesDto.MousePoint;
+        return _buttons.FirstOrDefault(x => x.Bounds.Contains(mouse));
     }
 
     public override void Update(GameTime gameTime)

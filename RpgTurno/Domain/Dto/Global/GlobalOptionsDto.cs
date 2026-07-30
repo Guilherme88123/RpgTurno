@@ -5,11 +5,14 @@ public static class GlobalOptionsDto
     public static int MusicVolume { get; set; } = 60;
     public static int SfxVolume { get; set; } = 80;
 
-    public static bool Fullscreen { get; set; } = true;
+    public static bool Fullscreen { get; set; } = false;
     public static bool ShowFps { get; set; } = false;
 
-    public static int WidthSize { get; set; } = 1920;
-    public static int HeightSize { get; set; } = 1080;
+    public const int WidthSize = 1920;
+    public const int HeightSize = 1080;
+
+    public static int RealWidthSize { get; set; } = 1280;
+    public static int RealHeightSize { get; set; } = 720;
 
     public static float MusicVolumeFloat => VolumeToFloat(MusicVolume);
     public static float SfxVolumeFloat => VolumeToFloat(SfxVolume);

@@ -119,7 +119,7 @@ public class DropdownComponent : BaseComponent
     {
         State = ButtonInteractionState.Pressed;
         ClickSoundEffect?.Play();
-        _particleEmitter.Emit(GlobalVariablesDto.MouseState.Position, Color);
+        _particleEmitter.Emit(GlobalVariablesDto.MousePoint, Color);
 
         _currentDelay = DelayPressed;
 
@@ -279,7 +279,7 @@ public class DropdownComponent : BaseComponent
     private void OnHoverIn()
     {
         HoverSoundEffect.Play();
-        _particleEmitter.Emit(GlobalVariablesDto.MouseState.Position, Color, 2);
+        _particleEmitter.Emit(GlobalVariablesDto.MousePoint, Color, 2);
     }
 
     #endregion

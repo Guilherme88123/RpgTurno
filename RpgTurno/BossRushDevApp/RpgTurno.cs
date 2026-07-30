@@ -30,8 +30,8 @@ public class RpgTurno : Game
     {
         Window.Title = VersionConst.GameName;
         GraphicsDeviceManager graphics = new GraphicsDeviceManager(this);
-        graphics.PreferredBackBufferWidth = GlobalOptionsDto.WidthSize;
-        graphics.PreferredBackBufferHeight = GlobalOptionsDto.HeightSize;
+        graphics.PreferredBackBufferWidth = GlobalOptionsDto.RealWidthSize;
+        graphics.PreferredBackBufferHeight = GlobalOptionsDto.RealHeightSize;
         graphics.HardwareModeSwitch = true;
         graphics.IsFullScreen = GlobalOptionsDto.Fullscreen;
         graphics.SynchronizeWithVerticalRetrace = false;
@@ -138,9 +138,9 @@ public class RpgTurno : Game
         var backgroundColor = new Color(71, 171, 169);
         GraphicsDevice.Clear(backgroundColor);
 
-        GlobalVariablesDto.SpriteBatchBackground.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
-        GlobalVariablesDto.SpriteBatchEntities.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
-        GlobalVariablesDto.SpriteBatchInterface.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+        GlobalVariablesDto.SpriteBatchBackground.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, transformMatrix: GetScreenScaleMatrix());
+        GlobalVariablesDto.SpriteBatchEntities.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, transformMatrix: GetScreenScaleMatrix());
+        GlobalVariablesDto.SpriteBatchInterface.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, transformMatrix: GetScreenScaleMatrix());
 
         ScreenManager.ActualScreen.Draw();
         TransitionManager.Draw(GlobalVariablesDto.SpriteBatchInterface);
@@ -154,6 +154,14 @@ public class RpgTurno : Game
         GlobalVariablesDto.SpriteBatchInterface.End();
 
         base.Draw(gameTime);
+    }
+
+    private Matrix GetScreenScaleMatrix()
+    {
+        float scaleX = (float)GraphicsDevice.Viewport.Width / 1920f;
+        float scaleY = (float)GraphicsDevice.Viewport.Height / 1080f;
+
+        return Matrix.CreateScale(scaleX, scaleY, 1f);
     }
 
     private void DrawFps()

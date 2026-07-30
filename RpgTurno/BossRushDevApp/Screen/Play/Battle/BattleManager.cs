@@ -516,14 +516,14 @@ public class BattleManager
         if (BattleState == BattleState.Finished)
             return false;
 
-        var mouse = GlobalVariablesDto.MouseState;
-        return GetLiveUnits().Any(x => x.IsHovering(mouse.Position));
+        var mouse = GlobalVariablesDto.MousePoint;
+        return GetLiveUnits().Any(x => x.IsHovering(mouse));
     }
 
     public BaseUnitEntity GetCursorHoveringEntity()
     {
-        var mouse = GlobalVariablesDto.MouseState;
-        return GetLiveUnits().First(x => x.IsHovering(mouse.Position));
+        var mouse = GlobalVariablesDto.MousePoint;
+        return GetLiveUnits().First(x => x.IsHovering(mouse));
     }
 
     #endregion

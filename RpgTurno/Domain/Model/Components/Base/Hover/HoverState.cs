@@ -16,9 +16,7 @@ public class HoverState
 
     public void Update(Rectangle bounds)
     {
-        var mouse = GlobalVariablesDto.MouseState;
-
-        IsHover = bounds.Contains(mouse.Position);
+        IsHover = bounds.Contains(GlobalVariablesDto.GetRealMousePoint());
 
         if (IsHover && !_wasHover)
             OnHoverIn?.Invoke();

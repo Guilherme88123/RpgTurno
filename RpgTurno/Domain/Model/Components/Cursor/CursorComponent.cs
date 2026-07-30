@@ -5,6 +5,8 @@ using Domain.Model.Texture.Manager;
 using Domain.Model.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace Domain.Model.Components.Cursor;
 
@@ -32,9 +34,8 @@ public class CursorComponent : BaseComponent
     {
         base.Update(gameTime);
 
-        var mouse = GlobalVariablesDto.MouseState;
-        var cursorRectangle = new Rectangle(mouse.X - _hotspotX, mouse.Y - _hotspotY, Bounds.Width, Bounds.Height);
-        Bounds = cursorRectangle;
+        var mousePoint = GetMousePoint();
+        SetPosition(mousePoint.X, mousePoint.Y);
 
         AnimationManager.Update(State);
     }
@@ -42,5 +43,19 @@ public class CursorComponent : BaseComponent
     public void SetCursorState(CursorStateType state)
     {
         State = state;
+    }
+
+    private Point GetMousePoint()
+    {
+        var rawMousePoint = GlobalVariablesDto.MouseState.Position;
+
+        float scaleX = (float)GlobalVariablesDto.Graphics.GraphicsDevice.Viewport.Width / 1920f;
+        float scaleY = (float)GlobalVariablesDto.Graphics.GraphicsDevice.Viewport.Height / 1080f;
+
+        var point = new Point(
+            (int)((rawMousePoint.X - _hotspotX) / scaleX),
+            (int)((rawMousePoint.Y - _hotspotY) / scaleY));
+
+        return point;
     }
 }

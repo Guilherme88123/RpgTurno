@@ -185,13 +185,13 @@ public class TurnQueueComponent : BaseComponent
 
     public bool HasCursorHoveringEntity()
     {
-        var mouse = GlobalVariablesDto.MouseState;
+        var mouse = GlobalVariablesDto.MousePoint;
         return _unitsIconList.Any(x => x.Rectangle.Contains(mouse.X, mouse.Y));
     }
 
     public BaseUnitEntity GetCursorHoveringEntity()
     {
-        var mouse = GlobalVariablesDto.MouseState;
+        var mouse = GlobalVariablesDto.MousePoint;
         return _unitsIconList.First(x => x.Rectangle.Contains(mouse.X, mouse.Y)).Unit;
     }
 

@@ -33,6 +33,7 @@ public static class GlobalVariablesDto
 
     public static KeyboardState KeyboardState;
     public static MouseState MouseState;
+    public static Point MousePoint => GetRealMousePoint();
 
     public static Dictionary<SpriteBatch, Vector2> SpriteBatchTransforms = new();
 
@@ -69,5 +70,17 @@ public static class GlobalVariablesDto
     public static float GetBounceValue(float bounceAmplitude = 8f, float bounceSpeed = 6f)
     {
         return bounceAmplitude * (float)(Math.Cos(AcumulatedDeltaTime * bounceSpeed));
+    }
+
+    public static Point GetRealMousePoint()
+    {
+        var rawMousePoint = MouseState.Position;
+
+        float scaleX = (float)Graphics.GraphicsDevice.Viewport.Width / 1920f;
+        float scaleY = (float)Graphics.GraphicsDevice.Viewport.Height / 1080f;
+
+        return new Point(
+            (int)(rawMousePoint.X / scaleX),
+            (int)(rawMousePoint.Y / scaleY));
     }
 }

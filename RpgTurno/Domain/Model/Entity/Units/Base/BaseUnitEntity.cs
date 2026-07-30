@@ -173,7 +173,7 @@ public class BaseUnitEntity : BaseEntity
 
     private void UpdateEffectsHover()
     {
-        var mousePosition = GlobalVariablesDto.MouseState.Position;
+        var mousePosition = GlobalVariablesDto.MousePoint;
         var isHovering = IsHoveringEffect(mousePosition);
 
         _effectBanner.IsVisible = isHovering;

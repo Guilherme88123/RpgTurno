@@ -71,7 +71,7 @@ public class SwitchComponent : BaseComponent
     private void OnHoverIn()
     {
         HoverSoundEffect.Play();
-        _particleEmitter.Emit(GlobalVariablesDto.MouseState.Position, Color, 2);
+        _particleEmitter.Emit(GlobalVariablesDto.MousePoint, Color, 2);
     }
 
     #endregion
@@ -102,7 +102,7 @@ public class SwitchComponent : BaseComponent
     {
         State = ButtonInteractionState.Pressed;
         ClickSoundEffect?.Play();
-        _particleEmitter.Emit(GlobalVariablesDto.MouseState.Position, Color);
+        _particleEmitter.Emit(GlobalVariablesDto.MousePoint, Color);
 
         _currentDelay = DelayPressed;
 

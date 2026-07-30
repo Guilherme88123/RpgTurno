@@ -60,8 +60,8 @@ public class OptionsBannerComponent : FrameComponent
         _fullscreenSwitch.Value = GlobalOptionsDto.Fullscreen;
         _fpsSwitch.Value = GlobalOptionsDto.ShowFps;
         _screenSizeDropdown.SelectedItemIndex = _screenSizeDropdown.ListItensDto.First(x =>
-            ((Vector2)x.Value).X == GlobalOptionsDto.WidthSize &&
-            ((Vector2)x.Value).Y == GlobalOptionsDto.HeightSize).Id;
+            ((Vector2)x.Value).X == GlobalOptionsDto.RealWidthSize &&
+            ((Vector2)x.Value).Y == GlobalOptionsDto.RealHeightSize).Id;
 
         _fullscreenSwitch.ReloadText();
         _fpsSwitch.ReloadText();
@@ -140,8 +140,8 @@ public class OptionsBannerComponent : FrameComponent
         var width = (int)size.Value.X;
         var height = (int)size.Value.Y;
 
-        GlobalOptionsDto.WidthSize = width;
-        GlobalOptionsDto.HeightSize = height;
+        GlobalOptionsDto.RealWidthSize = width;
+        GlobalOptionsDto.RealHeightSize = height;
         GlobalVariablesDto.Graphics.PreferredBackBufferWidth = width;
         GlobalVariablesDto.Graphics.PreferredBackBufferHeight = height;
         GlobalVariablesDto.Graphics.ApplyChanges();
@@ -151,11 +151,10 @@ public class OptionsBannerComponent : FrameComponent
     {
         return new List<DropdownItemDto>()
             {
-                new() { Id = 0, Text = "640x480", Value = new Vector2(640, 480) },
-                new() { Id = 1, Text = "800x600", Value = new Vector2(800, 600) },
-                new() { Id = 2, Text = "1280x720", Value = new Vector2(1280, 720) },
-                new() { Id = 3, Text = "1600x900", Value = new Vector2(1600, 900) },
-                new() { Id = 4, Text = "1920x1080", Value = new Vector2(1920, 1080) },
+                new() { Id = 0, Text = "960x540", Value = new Vector2(960, 540) },
+                new() { Id = 1, Text = "1280x720", Value = new Vector2(1280, 720) },
+                new() { Id = 2, Text = "1600x900", Value = new Vector2(1600, 900) },
+                new() { Id = 3, Text = "1920x1080", Value = new Vector2(1920, 1080) },
             };
     }
 

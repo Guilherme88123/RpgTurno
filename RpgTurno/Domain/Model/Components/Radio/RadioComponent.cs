@@ -61,7 +61,7 @@ public class RadioComponent : BaseComponent
         UpdateDotRectangle();
 
         var mouse = GlobalVariablesDto.MouseState;
-        var mousePos = mouse.Position;
+        var mousePos = GlobalVariablesDto.MousePoint;
 
         var isDotHover = DotRectangle.Contains(mousePos);
         var isLineHover = LineRectangle.Contains(mousePos);
@@ -115,7 +115,7 @@ public class RadioComponent : BaseComponent
     private void OnHoverIn()
     {
         HoverSoundEffect.Play();
-        _particleEmitter.Emit(GlobalVariablesDto.MouseState.Position, Color, 2);
+        _particleEmitter.Emit(GlobalVariablesDto.MousePoint, Color, 2);
     }
 
     #endregion
