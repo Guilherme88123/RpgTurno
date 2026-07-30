@@ -163,6 +163,8 @@ public class DropdownComponent : BaseComponent
         }
 
         SelectedItemIndex = id;
+
+        ToggleOpen();
     }
 
     private void UpdateOptionsRectangle()

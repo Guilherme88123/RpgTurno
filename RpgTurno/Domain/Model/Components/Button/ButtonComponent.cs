@@ -48,6 +48,7 @@ public class ButtonComponent : BaseComponent
         Text.Update(gameTime);
         Text.Color = TextColor;
         Text.OffsetY = OffsetY;
+        Text.Rotation = Rotation;
 
         _particleEmitter.Update();
 

@@ -67,6 +67,12 @@ public class TextComponent : BaseComponent
 
         var position = new Vector2(Bounds.X, Bounds.Y) + Offset;
 
-        spriteBatch.DrawString(Font, Text, position, Color);    
+        var textSize = Font.MeasureString(Text);
+
+        Vector2 origin = new Vector2(
+            textSize.X * (ScaleX - 1) / (ScaleX * 2),
+            textSize.Y * (ScaleY - 1) / (ScaleY * 2));
+
+        GlobalVariablesDto.SpriteBatchText.DrawString(Font, Text, position, Color, Rotation, origin, Scale, SpriteEffects, 1f);    
     }
 }

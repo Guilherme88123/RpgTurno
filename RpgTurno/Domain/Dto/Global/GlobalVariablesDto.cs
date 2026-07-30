@@ -30,6 +30,8 @@ public static class GlobalVariablesDto
     public static SpriteBatch SpriteBatchBackground;
     public static SpriteBatch SpriteBatchEntities;
     public static SpriteBatch SpriteBatchInterface;
+    public static SpriteBatch SpriteBatchText;
+    public static SpriteBatch SpriteBatchTransition;
 
     public static KeyboardState KeyboardState;
     public static MouseState MouseState;

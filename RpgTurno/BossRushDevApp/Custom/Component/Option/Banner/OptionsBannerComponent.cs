@@ -73,6 +73,7 @@ public class OptionsBannerComponent : FrameComponent
         base.Update(gameTime);
 
         _exitButton.IsEnable = !_screenSizeDropdown.IsOpen;
+        _exitButton.Text.IsVisible = !_screenSizeDropdown.IsOpen;
     }
 
     public override void SetPosition(int positionX, int positionY)
