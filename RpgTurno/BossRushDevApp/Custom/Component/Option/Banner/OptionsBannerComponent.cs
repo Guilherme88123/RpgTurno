@@ -1,5 +1,6 @@
 ﻿using Domain.Dto.Components.Dropdown;
 using Domain.Dto.Global;
+using Domain.Enum.Language;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
@@ -21,7 +22,7 @@ public class OptionsBannerComponent : FrameComponent
     private const int Spacing = 16;
 
     private static int ButtonWidth => Width - Margin * 6 - 32;
-    private static int ButtonHeight => Height / 10;
+    private static int ButtonHeight => Height / 12;
 
     private readonly TextComponent _titleText = new(positionXByCenter: true, positionYByCenter: true);
     private ImageComponent _titleBackground = new(new BlueSmallRibbonSprite(), ButtonWidth, 64);
@@ -32,6 +33,7 @@ public class OptionsBannerComponent : FrameComponent
     private readonly SwitchOptionsBannerComponent _fullscreenSwitch = new(ButtonWidth, ButtonHeight, "Fullscreen", ToggleFullscreen);
     private readonly SwitchOptionsBannerComponent _fpsSwitch = new(ButtonWidth, ButtonHeight, "Show FPS", ToggleShowFps);
     private readonly DropdownOptionsBannerComponent _screenSizeDropdown = new(ButtonWidth, ButtonHeight, "Window Size", ToggleScreenSize, GetScreenSizeDropdownItens());
+    private readonly DropdownOptionsBannerComponent _languageDropdown = new(ButtonWidth, ButtonHeight, "Language", ToggleLanguage, GetLanguageDropdownItens());
 
     public OptionsBannerComponent()
     {
@@ -47,6 +49,7 @@ public class OptionsBannerComponent : FrameComponent
         AddChild(_fullscreenSwitch);
         AddChild(_fpsSwitch);
         AddChild(_screenSizeDropdown);
+        AddChild(_languageDropdown);
 
         Bounds = new(0, 0, Width, Height);
 
@@ -62,18 +65,21 @@ public class OptionsBannerComponent : FrameComponent
         _screenSizeDropdown.SelectedItemIndex = _screenSizeDropdown.ListItensDto.First(x =>
             ((Vector2)x.Value).X == GlobalOptionsDto.RealWidthSize &&
             ((Vector2)x.Value).Y == GlobalOptionsDto.RealHeightSize).Id;
+        _languageDropdown.SelectedItemIndex = _languageDropdown.ListItensDto.First(x =>
+            (LanguageType)x.Value == GlobalOptionsDto.Language).Id;
 
         _fullscreenSwitch.ReloadText();
         _fpsSwitch.ReloadText();
         _screenSizeDropdown.ReloadText();
+        _languageDropdown.ReloadText();
     }
 
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
 
-        _exitButton.IsEnable = !_screenSizeDropdown.IsOpen;
-        _exitButton.Text.IsVisible = !_screenSizeDropdown.IsOpen;
+        _exitButton.IsEnable = !_languageDropdown.IsOpen;
+        _exitButton.Text.IsVisible = !_languageDropdown.IsOpen;
     }
 
     public override void SetPosition(int positionX, int positionY)
@@ -88,6 +94,7 @@ public class OptionsBannerComponent : FrameComponent
         SetChildComponentPosition(_fullscreenSwitch, 3);
         SetChildComponentPosition(_fpsSwitch, 4);
         SetChildComponentPosition(_screenSizeDropdown, 5);
+        SetChildComponentPosition(_languageDropdown, 6);
 
         _exitButton.SetPosition(GetXMiddlePosition(_exitButton.Bounds.Width), Bounds.Bottom - Margin - _exitButton.Bounds.Height - Spacing);
     }
@@ -136,7 +143,8 @@ public class OptionsBannerComponent : FrameComponent
     {
         var size = dto.Value as Vector2?;
 
-        if (size is null) return;
+        if (size is null) 
+            return;
 
         var width = (int)size.Value.X;
         var height = (int)size.Value.Y;
@@ -156,6 +164,26 @@ public class OptionsBannerComponent : FrameComponent
                 new() { Id = 1, Text = "1280x720", Value = new Vector2(1280, 720) },
                 new() { Id = 2, Text = "1600x900", Value = new Vector2(1600, 900) },
                 new() { Id = 3, Text = "1920x1080", Value = new Vector2(1920, 1080) },
+            };
+    }
+
+    public static void ToggleLanguage(DropdownItemDto dto)
+    {
+        var language = dto.Value as LanguageType?;
+
+        if (language is null) 
+            return;
+
+        GlobalOptionsDto.Language = language.Value;
+    }
+
+    public static List<DropdownItemDto> GetLanguageDropdownItens()
+    {
+        return new List<DropdownItemDto>()
+            {
+                new() { Id = 0, Text = "English", Value = LanguageType.English },
+                new() { Id = 1, Text = "Portuguese", Value = LanguageType.Portuguese },
+                new() { Id = 2, Text = "Spanish", Value = LanguageType.Spanish },
             };
     }
 

@@ -1,4 +1,6 @@
-﻿namespace Domain.Dto.Global;
+﻿using Domain.Enum.Language;
+
+namespace Domain.Dto.Global;
 
 public static class GlobalOptionsDto
 {
@@ -13,6 +15,8 @@ public static class GlobalOptionsDto
 
     public static int RealWidthSize { get; set; } = 1280;
     public static int RealHeightSize { get; set; } = 720;
+
+    public static LanguageType Language { get; set; } = LanguageType.English;
 
     public static float MusicVolumeFloat => VolumeToFloat(MusicVolume);
     public static float SfxVolumeFloat => VolumeToFloat(SfxVolume);
