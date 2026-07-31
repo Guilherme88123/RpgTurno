@@ -21,13 +21,14 @@ public static class GlobalVariablesDto
     public static float DeltaTime;
     public static float AcumulatedDeltaTime;
 
-    public static SpriteFont FontArial;
-    public static SpriteFont FontThickPixels;
-    public static SpriteFont FontLazyFox;
-    public static SpriteFont FontStacked;
-    public static SpriteFont FontManaRoot;
-    public static SpriteFont FontManaTrunk;
-    public static SpriteFont GlobalFont => FontThickPixels;
+    //public static SpriteFont FontArial;
+    //public static SpriteFont FontThickPixels;
+    //public static SpriteFont FontLazyFox;
+    //public static SpriteFont FontStacked;
+    //public static SpriteFont FontManaRoot;
+    //public static SpriteFont FontManaTrunk;
+    public static SpriteFont FontBadge;
+    public static SpriteFont GlobalFont => FontBadge;
 
     public static SpriteBatch SpriteBatchBackground;
     public static SpriteBatch SpriteBatchEntities;

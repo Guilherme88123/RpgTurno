@@ -75,19 +75,21 @@ public class RpgTurno : Game
         Texture2D pixel = new Texture2D(GraphicsDevice, 1, 1);
         pixel.SetData([Color.White]);
 
-        GlobalVariablesDto.FontArial = Content.Load<SpriteFont>("Arial");
-        GlobalVariablesDto.FontThickPixels = Content.Load<SpriteFont>("ThickPixels");
-        GlobalVariablesDto.FontLazyFox = Content.Load<SpriteFont>("LazyFox");
-        GlobalVariablesDto.FontStacked = Content.Load<SpriteFont>("Stacked");
-        GlobalVariablesDto.FontManaRoot = Content.Load<SpriteFont>("ManaRoot");
-        GlobalVariablesDto.FontManaTrunk = Content.Load<SpriteFont>("ManaTrunk");
+        //GlobalVariablesDto.FontArial = Content.Load<SpriteFont>("Arial");
+        //GlobalVariablesDto.FontThickPixels = Content.Load<SpriteFont>("ThickPixels");
+        //GlobalVariablesDto.FontLazyFox = Content.Load<SpriteFont>("LazyFox");
+        //GlobalVariablesDto.FontStacked = Content.Load<SpriteFont>("Stacked");
+        //GlobalVariablesDto.FontManaRoot = Content.Load<SpriteFont>("ManaRoot");
+        //GlobalVariablesDto.FontManaTrunk = Content.Load<SpriteFont>("ManaTrunk");
+        GlobalVariablesDto.FontBadge = Content.Load<SpriteFont>("Badge");
 
-        GlobalVariablesDto.FontArial.Spacing = 2;
-        GlobalVariablesDto.FontThickPixels.Spacing = 2;
-        GlobalVariablesDto.FontLazyFox.Spacing = 2;
-        GlobalVariablesDto.FontStacked.Spacing = 2;
-        GlobalVariablesDto.FontManaRoot.Spacing = 2;
-        GlobalVariablesDto.FontManaTrunk.Spacing = 2;
+        //GlobalVariablesDto.FontArial.Spacing = 2;
+        //GlobalVariablesDto.FontThickPixels.Spacing = 2;
+        //GlobalVariablesDto.FontLazyFox.Spacing = 2;
+        //GlobalVariablesDto.FontStacked.Spacing = 2;
+        //GlobalVariablesDto.FontManaRoot.Spacing = 2;
+        //GlobalVariablesDto.FontManaTrunk.Spacing = 2;
+        GlobalVariablesDto.FontBadge.Spacing = 2;
 
         GlobalVariablesDto.SpriteBatchBackground = spriteBatchBackground;
         GlobalVariablesDto.SpriteBatchEntities = spriteBatchEntities;

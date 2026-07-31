@@ -95,7 +95,7 @@ public class PlayScreen : BaseScreen
         _currentTurnUnitComponent = new();
 
         _skillSelectComponent = new();
-        _skillSelectComponent.SetPosition(30, GlobalOptionsDto.HeightSize - _skillSelectComponent.Bounds.Height - 30);
+        _skillSelectComponent.SetPosition(0, GlobalOptionsDto.HeightSize - _skillSelectComponent.Bounds.Height - 30);
         _skillSelectComponent.OnSkillSelect = SetSelectedSkill;
         _skillSelectComponent.IsVisible = false;
 

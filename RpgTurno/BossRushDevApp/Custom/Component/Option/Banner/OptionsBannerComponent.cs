@@ -17,7 +17,7 @@ namespace RpgTurno.Custom.Component.Option.Banner;
 
 public class OptionsBannerComponent : FrameComponent
 {
-    private const int Width = 832;
+    private const int Width = 928;
     private const int Height = 960;
     private const int Margin = 64;
     private const int Spacing = 16;

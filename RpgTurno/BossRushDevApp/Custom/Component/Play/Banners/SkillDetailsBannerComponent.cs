@@ -8,7 +8,7 @@ namespace RpgTurno.Custom.Component.Play.Banners;
 
 public class SkillDetailsBannerComponent : FrameComponent
 {
-    private const int _sizeX = 256;
+    private const int _sizeX = 320;
     private const int _sizeY = 384;
 
     private readonly TextComponent _nameText = new(positionXByCenter: true, positionYByCenter: true);
