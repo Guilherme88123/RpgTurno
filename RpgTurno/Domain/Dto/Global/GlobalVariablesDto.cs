@@ -25,7 +25,7 @@ public static class GlobalVariablesDto
     public static SpriteFont FontThickPixels;
     public static SpriteFont FontLazyFox;
     public static SpriteFont FontStacked;
-    public static SpriteFont GlobalFont => FontThickPixels;
+    public static SpriteFont GlobalFont => FontStacked;
 
     public static SpriteBatch SpriteBatchBackground;
     public static SpriteBatch SpriteBatchEntities;

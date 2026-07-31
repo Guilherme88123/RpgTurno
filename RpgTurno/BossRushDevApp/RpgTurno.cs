@@ -80,6 +80,8 @@ public class RpgTurno : Game
         GlobalVariablesDto.FontLazyFox = Content.Load<SpriteFont>("LazyFox");
         GlobalVariablesDto.FontStacked = Content.Load<SpriteFont>("Stacked");
 
+        GlobalVariablesDto.FontStacked.Spacing = 2;
+
         GlobalVariablesDto.SpriteBatchBackground = spriteBatchBackground;
         GlobalVariablesDto.SpriteBatchEntities = spriteBatchEntities;
         GlobalVariablesDto.SpriteBatchInterface = spriteBatchInterface;

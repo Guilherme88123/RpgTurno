@@ -95,6 +95,22 @@ public class TextComponent : BaseComponent
             textSize.X * (ScaleX - 1) / (ScaleX * 2),
             textSize.Y * (ScaleY - 1) / (ScaleY * 2));
 
-        GlobalVariablesDto.SpriteBatchText.DrawString(Font, RemoveAccents(Text), position, Color, Rotation, origin, Scale, SpriteEffects, 1f);    
+        var text = CanDraw(Text) ? Text : RemoveAccents(Text);
+
+        GlobalVariablesDto.SpriteBatchText.DrawString(Font, text, position, Color, Rotation, origin, Scale, SpriteEffects, 1f);    
+    }
+
+    private bool CanDraw(string text)
+    {
+        try
+        {
+            Font.MeasureString(Text);
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }
