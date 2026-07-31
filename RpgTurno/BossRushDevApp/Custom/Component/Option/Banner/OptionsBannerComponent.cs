@@ -1,5 +1,7 @@
-﻿using Domain.Dto.Components.Dropdown;
+﻿using Domain.Const.Text;
+using Domain.Dto.Components.Dropdown;
 using Domain.Dto.Global;
+using Domain.Dto.Language;
 using Domain.Enum.Language;
 using Domain.Interface.Language;
 using Domain.Model.Components.Base;
@@ -31,18 +33,18 @@ public class OptionsBannerComponent : FrameComponent
     private ImageComponent _titleBackground = new(new BlueSmallRibbonSprite(), TitleBackgroundWidth, Margin);
 
     private readonly ExitOptionsBannerComponent _exitButton = new();
-    private readonly RadioOptionsBannerComponent _musicRadio = new(ButtonWidth, ButtonHeight, "Music Volume", UpdateMusicVolume);
-    private readonly RadioOptionsBannerComponent _sfxRadio = new(ButtonWidth, ButtonHeight, "Effects Volume", UpdateSfxVolume);
-    private readonly SwitchOptionsBannerComponent _fullscreenSwitch = new(ButtonWidth, ButtonHeight, "Fullscreen", ToggleFullscreen);
-    private readonly SwitchOptionsBannerComponent _fpsSwitch = new(ButtonWidth, ButtonHeight, "Show FPS", ToggleShowFps);
-    private readonly DropdownOptionsBannerComponent _screenSizeDropdown = new(ButtonWidth, ButtonHeight, "Window Size", ToggleScreenSize, GetScreenSizeDropdownItens());
-    private readonly DropdownOptionsBannerComponent _languageDropdown = new(ButtonWidth, ButtonHeight, "Language", ToggleLanguage, GetLanguageDropdownItens());
+    private readonly RadioOptionsBannerComponent _musicRadio = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.MusicVolume), UpdateMusicVolume);
+    private readonly RadioOptionsBannerComponent _sfxRadio = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.EffectsVolume), UpdateSfxVolume);
+    private readonly SwitchOptionsBannerComponent _fullscreenSwitch = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.Fullscreen), ToggleFullscreen);
+    private readonly SwitchOptionsBannerComponent _fpsSwitch = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.ShowFps), ToggleShowFps);
+    private readonly DropdownOptionsBannerComponent _screenSizeDropdown = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.WindowSize), ToggleScreenSize, GetScreenSizeDropdownItens());
+    private readonly DropdownOptionsBannerComponent _languageDropdown = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.Language), ToggleLanguage, GetLanguageDropdownItens());
 
     public OptionsBannerComponent()
     {
         AnimationManager.Add(true, new WoodBannerSprite());
 
-        _titleText.SetText("Options");
+        _titleText.SetText(LanguageManager.Get(TextConst.Options));
 
         AddChild(_titleBackground);
         AddChild(_titleText);
@@ -187,9 +189,9 @@ public class OptionsBannerComponent : FrameComponent
     {
         return new List<DropdownItemDto>()
             {
-                new() { Id = 0, Text = "English", Value = LanguageType.English },
-                new() { Id = 1, Text = "Portuguese", Value = LanguageType.Portuguese },
-                new() { Id = 2, Text = "Spanish", Value = LanguageType.Spanish },
+                new() { Id = 0, Text = LanguageManager.Get(TextConst.English), Value = LanguageType.English },
+                new() { Id = 1, Text = LanguageManager.Get(TextConst.Portuguese), Value = LanguageType.Portuguese },
+                new() { Id = 2, Text = LanguageManager.Get(TextConst.Spanish), Value = LanguageType.Spanish },
             };
     }
 

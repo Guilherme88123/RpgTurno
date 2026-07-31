@@ -1,5 +1,7 @@
 ﻿using Application.Model.MenuElements.Button;
+using Domain.Const.Text;
 using Domain.Dto.Global;
+using Domain.Dto.Language;
 using Domain.Enum.Component.Button;
 using Domain.Model.Texture.Sprite.Custom.Ui.Buttons;
 
@@ -16,6 +18,6 @@ public class ExitOptionsBannerComponent : ButtonComponent
 
         Click = () => GlobalVariablesDto.PopScreen();
 
-        Text.SetText("Exit");
+        Text.SetText(LanguageManager.Get(TextConst.Exit));
     }
 }

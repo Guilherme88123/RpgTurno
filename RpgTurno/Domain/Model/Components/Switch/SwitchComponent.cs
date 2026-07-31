@@ -1,4 +1,6 @@
-﻿using Domain.Dto.Global;
+﻿using Domain.Const.Text;
+using Domain.Dto.Global;
+using Domain.Dto.Language;
 using Domain.Enum.Component.Button;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Text;
@@ -162,5 +164,6 @@ public class SwitchComponent : BaseComponent
         Text.SetText(GetText());
     }
 
-    protected string GetText() => $"{_baseText}: {(Value ? "Yes" : "No")}";
+    protected string GetText() 
+        => $"{_baseText}: {(Value ? LanguageManager.Get(TextConst.Yes) : LanguageManager.Get(TextConst.No))}";
 }

@@ -123,16 +123,49 @@
   <data name="Credits" xml:space="preserve">
     <value>Créditos</value>
   </data>
+  <data name="EffectsVolume" xml:space="preserve">
+    <value>Volumen Efectos</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Inglés</value>
+  </data>
   <data name="Exit" xml:space="preserve">
     <value>Salir</value>
   </data>
+  <data name="Fullscreen" xml:space="preserve">
+    <value>Pantalla completa</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="MusicVolume" xml:space="preserve">
+    <value>Volume Música</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="Options" xml:space="preserve">
     <value>Opciones</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>Portugués</value>
+  </data>
+  <data name="ShowFps" xml:space="preserve">
+    <value>Mostrar FPS</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>Español</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Empezar</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Versión</value>
+  </data>
+  <data name="WindowSize" xml:space="preserve">
+    <value>Tamaño ventana</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sí</value>
   </data>
 </root>
