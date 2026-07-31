@@ -4,6 +4,7 @@ using Domain.Dto.Global;
 using Domain.Dto.Session;
 using Domain.Enum.Transition;
 using Domain.Interface.Cursor;
+using Domain.Interface.Language;
 using Domain.Interface.Screen;
 using Domain.Interface.Transition;
 using Microsoft.Xna.Framework;
@@ -56,6 +57,9 @@ public class RpgTurno : Game
         GlobalVariablesDto.Exit = Exit;
 
         CursorManager = GlobalVariablesDto.GetService<ICursorManager>();
+
+        var languageService = GlobalVariablesDto.GetService<ILanguageService>();
+        languageService.SetLanguage(GlobalOptionsDto.Language);
 
         base.Initialize();
     }

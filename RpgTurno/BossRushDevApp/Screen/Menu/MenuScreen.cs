@@ -1,20 +1,17 @@
 ﻿using Domain.Const.Screen;
 using Domain.Const.Sound.Music;
-using Domain.Const.Sprite;
+using Domain.Const.Text;
 using Domain.Const.Version;
 using Domain.Dto.Global;
+using Domain.Dto.Language;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Text;
-using Infrastructure.Tiled;
 using Microsoft.Xna.Framework.Media;
 using RpgTurno.Custom.Component.Menu.Background;
 using RpgTurno.Custom.Component.Menu.Button;
 using RpgTurno.Custom.Component.Menu.Logo;
 using RpgTurnoApp.Screen.Base;
-using SharpDX.Direct2D1.Effects;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace RpgTurno.Screen.Menu;
 
@@ -35,12 +32,12 @@ public class MenuScreen : BaseScreen
         TextComponent versionText = new();
         TextComponent creatorText = new();
 
-        startButton.SetText("Start");
-        optionsButton.SetText("Options");
-        creditsButton.SetText("Credits");
-        exitButton.SetText("Exit");
-        versionText.SetText($"Version: {VersionConst.Version}");
-        creatorText.SetText($"Por: Guilherme Doerner de Oliveira");
+        startButton.SetText(LanguageManager.Get(TextConst.Start));
+        optionsButton.SetText(LanguageManager.Get(TextConst.Options));
+        creditsButton.SetText(LanguageManager.Get(TextConst.Credits));
+        exitButton.SetText(LanguageManager.Get(TextConst.Exit));
+        versionText.SetText($"{LanguageManager.Get(TextConst.Version)}: {VersionConst.Version}");
+        creatorText.SetText($"{LanguageManager.Get(TextConst.By)}: {VersionConst.GameOwner}");
 
         var initialPositionY = GlobalOptionsDto.HeightSize / 3 + 128;
 

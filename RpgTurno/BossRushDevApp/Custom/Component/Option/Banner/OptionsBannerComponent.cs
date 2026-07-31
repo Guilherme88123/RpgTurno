@@ -1,6 +1,7 @@
 ﻿using Domain.Dto.Components.Dropdown;
 using Domain.Dto.Global;
 using Domain.Enum.Language;
+using Domain.Interface.Language;
 using Domain.Model.Components.Base;
 using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
@@ -178,6 +179,8 @@ public class OptionsBannerComponent : FrameComponent
             return;
 
         GlobalOptionsDto.Language = language.Value;
+        var languageService = GlobalVariablesDto.GetService<ILanguageService>();
+        languageService.SetLanguage(GlobalOptionsDto.Language);
     }
 
     public static List<DropdownItemDto> GetLanguageDropdownItens()

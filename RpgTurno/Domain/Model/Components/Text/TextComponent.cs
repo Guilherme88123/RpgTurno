@@ -2,6 +2,8 @@
 using Domain.Model.Components.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Globalization;
+using System.Text;
 
 namespace Domain.Model.Components.Text;
 
@@ -13,7 +15,7 @@ public class TextComponent : BaseComponent
     public bool IsPositionYByCenter { get; private set; }
     public SpriteFont Font { get; private set; }
 
-    public Rectangle Bounds => new(base.Bounds.X, base.Bounds.Y, (int)Font.MeasureString(Text).X, (int)Font.MeasureString(Text).Y);
+    public Rectangle Bounds => new(base.Bounds.X, base.Bounds.Y, (int)Font.MeasureString(RemoveAccents(Text)).X, (int)Font.MeasureString(RemoveAccents(Text)).Y);
 
     public Color Color { get; set; } = Color.Black;
 
@@ -42,12 +44,32 @@ public class TextComponent : BaseComponent
         if (string.IsNullOrEmpty(Text))
             return (rawPositionX, rawPositionY);
 
-        var textSize = Font.MeasureString(Text);
+        var textSize = Font.MeasureString(RemoveAccents(Text));
 
         var positionX = IsPositionXByCenter ? rawPositionX - textSize.X / 2 : rawPositionX;
         var positionY = IsPositionYByCenter ? rawPositionY - textSize.Y / 2 : rawPositionY;
 
         return ((int)positionX, (int)positionY);
+    }
+
+    private static string RemoveAccents(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return text;
+
+        var normalized = text.Normalize(NormalizationForm.FormD);
+
+        var builder = new StringBuilder();
+
+        foreach (var c in normalized)
+        {
+            var category = CharUnicodeInfo.GetUnicodeCategory(c);
+
+            if (category != UnicodeCategory.NonSpacingMark)
+                builder.Append(c);
+        }
+
+        return builder.ToString().Normalize(NormalizationForm.FormC);
     }
 
     public override void Draw(SpriteBatch spriteBatch)
@@ -67,12 +89,12 @@ public class TextComponent : BaseComponent
 
         var position = new Vector2(Bounds.X, Bounds.Y) + Offset;
 
-        var textSize = Font.MeasureString(Text);
+        var textSize = Font.MeasureString(RemoveAccents(Text));
 
         Vector2 origin = new Vector2(
             textSize.X * (ScaleX - 1) / (ScaleX * 2),
             textSize.Y * (ScaleY - 1) / (ScaleY * 2));
 
-        GlobalVariablesDto.SpriteBatchText.DrawString(Font, Text, position, Color, Rotation, origin, Scale, SpriteEffects, 1f);    
+        GlobalVariablesDto.SpriteBatchText.DrawString(Font, RemoveAccents(Text), position, Color, Rotation, origin, Scale, SpriteEffects, 1f);    
     }
 }
