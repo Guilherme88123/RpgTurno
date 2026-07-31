@@ -29,7 +29,7 @@ with.
     UseKerning controls the layout of the font. If this value is true, kerning information
     will be used when placing characters.
     -->
-    <UseKerning>true</UseKerning>
+    <UseKerning>false</UseKerning>
 
     <!--
     Style controls the style of the font. Valid entries are "Regular", "Bold", "Italic",
@@ -41,7 +41,7 @@ with.
     If you uncomment this line, the default character will be substituted if you draw
     or measure text that contains characters which were not included in the font.
     -->
-    <!-- <DefaultCharacter>*</DefaultCharacter> -->
+    <DefaultCharacter>*</DefaultCharacter>
 
     <!--
     CharacterRegions control what letters are available in the font. Every
@@ -54,6 +54,11 @@ with.
       <CharacterRegion>
         <Start>&#32;</Start>
         <End>&#126;</End>
+      </CharacterRegion>
+
+      <CharacterRegion>
+          <Start>&#160;</Start>
+          <End>&#255;</End>
       </CharacterRegion>
     </CharacterRegions>
   </Asset>

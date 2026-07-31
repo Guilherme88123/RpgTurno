@@ -1143,6 +1143,20 @@
 /processorParam:TextureFormat=Color
 /build:ManaIcon.png
 
+#begin ManaRoot.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:ManaRoot.spritefont
+
+#begin ManaTrunk.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:ManaTrunk.spritefont
+
 #begin MapMusic.ogg
 /importer:OggImporter
 /processor:SongProcessor
