@@ -1,4 +1,6 @@
-﻿using Domain.Model.Components.Text;
+﻿using Domain.Const.Text;
+using Domain.Dto.Language;
+using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
 using RpgTurno.Custom.Component.Play.Banners.Pause;
@@ -23,11 +25,11 @@ public class MapPauseBannerComponent : FrameComponent
     {
         AnimationManager.Add(true, new SpecialPaperBannerSprite());
 
-        _titleText.SetText("Paused");
-        _resumeButton = new("Resume", onResumeAction);
-        _optionsButton = new("Options", onOptionsAction);
-        _menuButton = new("Main Menu", onMenuAction);
-        _exitButton = new("Exit", onExitAction, isDanger: true);
+        _titleText.SetText(LanguageManager.Get(TextConst.Paused));
+        _resumeButton = new(LanguageManager.Get(TextConst.Resume), onResumeAction);
+        _optionsButton = new(LanguageManager.Get(TextConst.Options), onOptionsAction);
+        _menuButton = new(LanguageManager.Get(TextConst.MainMenu), onMenuAction);
+        _exitButton = new(LanguageManager.Get(TextConst.Exit), onExitAction, isDanger: true);
 
         AddChild(_titleText);
         AddChild(_resumeButton);

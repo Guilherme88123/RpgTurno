@@ -22,4 +22,18 @@ public static class TextConst
 
     public const string Yes = "Yes";
     public const string No = "No";
+
+    public const string Difficulty = "Difficulty";
+    public const string Defeated = "Defeated";
+    public const string Paused = "Paused";
+    public const string Resume = "Resume";
+    public const string MainMenu = "MainMenu";
+
+    #region Stages
+
+    public const string EvilTowerStage = "EvilTowerStage";
+    public const string BarracksOfValorStage = "BarracksOfValorStage";
+    public const string TheCastleStage = "TheCastleStage";
+
+    #endregion
 }

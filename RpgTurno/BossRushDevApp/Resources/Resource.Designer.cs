@@ -61,6 +61,15 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a BarracksOfValorStage.
+        /// </summary>
+        internal static string BarracksOfValorStage {
+            get {
+                return ResourceManager.GetString("BarracksOfValorStage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a By.
         /// </summary>
         internal static string By {
@@ -79,6 +88,24 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Defeated.
+        /// </summary>
+        internal static string Defeated {
+            get {
+                return ResourceManager.GetString("Defeated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Difficulty.
+        /// </summary>
+        internal static string Difficulty {
+            get {
+                return ResourceManager.GetString("Difficulty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a EffectsVolume.
         /// </summary>
         internal static string EffectsVolume {
@@ -93,6 +120,15 @@ namespace RpgTurno.Resources {
         internal static string English {
             get {
                 return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a EvilTowerStage.
+        /// </summary>
+        internal static string EvilTowerStage {
+            get {
+                return ResourceManager.GetString("EvilTowerStage", resourceCulture);
             }
         }
         
@@ -124,6 +160,15 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a MainMenu.
+        /// </summary>
+        internal static string MainMenu {
+            get {
+                return ResourceManager.GetString("MainMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a MusicVolume.
         /// </summary>
         internal static string MusicVolume {
@@ -151,11 +196,29 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Paused.
+        /// </summary>
+        internal static string Paused {
+            get {
+                return ResourceManager.GetString("Paused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Portuguese.
         /// </summary>
         internal static string Portuguese {
             get {
                 return ResourceManager.GetString("Portuguese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Resume.
+        /// </summary>
+        internal static string Resume {
+            get {
+                return ResourceManager.GetString("Resume", resourceCulture);
             }
         }
         
@@ -183,6 +246,15 @@ namespace RpgTurno.Resources {
         internal static string Start {
             get {
                 return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a TheCastleStage.
+        /// </summary>
+        internal static string TheCastleStage {
+            get {
+                return ResourceManager.GetString("TheCastleStage", resourceCulture);
             }
         }
         

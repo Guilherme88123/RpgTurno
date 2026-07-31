@@ -1,4 +1,6 @@
-﻿using Domain.Dto.Global;
+﻿using Domain.Const.Text;
+using Domain.Dto.Global;
+using Domain.Dto.Language;
 using Domain.Dto.Map.Node;
 using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
@@ -55,9 +57,9 @@ public class MapNodeBannerComponent : FrameComponent
     {
         SetPositionByMapNode(mapNode);
 
-        _nameText.SetText(mapNode.Name);
-        _difficultyText.SetText("Difficulty:");
-        _clearedText.SetText("Defeated:");
+        _nameText.SetText(LanguageManager.Get(mapNode.Name));
+        _difficultyText.SetText($"{LanguageManager.Get(TextConst.Difficulty)}:");
+        _clearedText.SetText($"{LanguageManager.Get(TextConst.Defeated)}:");
         _stageStatusIcon.SetImage(mapNode.Cleared ? new ConfirmIconSprite() : new CloseIconSprite());
 
         _starsCount = mapNode.Difficulty;
@@ -82,7 +84,7 @@ public class MapNodeBannerComponent : FrameComponent
         FixDificultyIconsPosition();
 
         _clearedText.SetPosition(positionX + Bounds.Width / 3 + 20, bouncedPositionY + 190);
-        _stageStatusIcon.SetPosition(positionX + Bounds.Width / 3 * 2 - _iconSize / 2 + 10, bouncedPositionY + 190 - 3 - _iconSize / 2);
+        _stageStatusIcon.SetPosition(positionX + Bounds.Width / 3 * 2 - _iconSize / 2 + 25, bouncedPositionY + 190 - 3 - _iconSize / 2);
     }
 
     private int ApplyBounce(int baseValue)

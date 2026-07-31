@@ -117,17 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BarracksOfValorStage" xml:space="preserve">
+    <value>Barracks Of Valor</value>
+  </data>
   <data name="By" xml:space="preserve">
     <value>By</value>
   </data>
   <data name="Credits" xml:space="preserve">
     <value>Credits</value>
   </data>
+  <data name="Defeated" xml:space="preserve">
+    <value>Defeated</value>
+  </data>
+  <data name="Difficulty" xml:space="preserve">
+    <value>Difficulty</value>
+  </data>
   <data name="EffectsVolume" xml:space="preserve">
     <value>Effects Volume</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
+  </data>
+  <data name="EvilTowerStage" xml:space="preserve">
+    <value>Evil Tower</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>
@@ -138,6 +150,9 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="MainMenu" xml:space="preserve">
+    <value>Main Menu</value>
+  </data>
   <data name="MusicVolume" xml:space="preserve">
     <value>Music Volume</value>
   </data>
@@ -147,8 +162,14 @@
   <data name="Options" xml:space="preserve">
     <value>Options</value>
   </data>
+  <data name="Paused" xml:space="preserve">
+    <value>Paused</value>
+  </data>
   <data name="Portuguese" xml:space="preserve">
     <value>Portuguese</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Resume</value>
   </data>
   <data name="ShowFps" xml:space="preserve">
     <value>Show FPS</value>
@@ -158,6 +179,9 @@
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="TheCastleStage" xml:space="preserve">
+    <value>The Castle</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
