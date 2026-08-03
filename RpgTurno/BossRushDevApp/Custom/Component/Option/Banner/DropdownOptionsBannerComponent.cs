@@ -3,6 +3,7 @@ using Domain.Dto.Components.Dropdown;
 using Domain.Enum.Component.Button;
 using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
 using Domain.Model.Texture.Sprite.Custom.Ui.Buttons;
+using Domain.Model.Texture.Sprite.Custom.Ui.Icons;
 using System;
 using System.Collections.Generic;
 
@@ -17,6 +18,7 @@ public class DropdownOptionsBannerComponent : DropdownComponent
         AnimationManager.Add(ButtonInteractionState.Pressed, new BlueButtonPressedSprite());
 
         OptionsOverlaySprite = new PaperBannerSprite();
+        SelectedIndicatorSprite = new ConfirmIconSprite();
 
         Bounds = new(0, 0, width, height);
 

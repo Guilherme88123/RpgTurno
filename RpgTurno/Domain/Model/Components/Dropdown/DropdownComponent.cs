@@ -37,6 +37,9 @@ public class DropdownComponent : BaseComponent
     public readonly TextComponent Text = new(positionXByCenter: true, positionYByCenter: true);
     private string _baseText;
 
+    private const int SelectedIndicatorSize = 28;
+    public SpriteData SelectedIndicatorSprite { get; set; }
+
     private readonly ParticleEmitterModel _particleEmitter = new();
 
     public DropdownComponent(List<DropdownItemDto> options)
@@ -205,7 +208,24 @@ public class DropdownComponent : BaseComponent
 
     private void DrawDropdownItems(SpriteBatch spriteBatch)
     {
-        ListItens.ForEach(x => x.Draw(spriteBatch));
+        foreach (var item in ListItens)
+        {
+            item.Draw(spriteBatch);
+
+            if (item.Id == SelectedItemIndex && SelectedIndicatorSprite is not null)
+                DrawSelectedOptionIndicator(spriteBatch, item);
+        }
+    }
+
+    private void DrawSelectedOptionIndicator(SpriteBatch spriteBatch, DropdownItemComponent selectedOption)
+    {
+        Rectangle spriteRect = new(
+            selectedOption.Bounds.X + SelectedIndicatorSize, 
+            selectedOption.Bounds.Center.Y - SelectedIndicatorSize / 2 - 5, 
+            SelectedIndicatorSize, 
+            SelectedIndicatorSize);
+
+        SelectedIndicatorSprite.Draw(spriteRect, Color.White, 0f, SpriteEffects.None, spriteBatch, Vector2.One, Vector2.Zero);
     }
 
     private void DrawDropdownOverlay(SpriteBatch spriteBatch)
