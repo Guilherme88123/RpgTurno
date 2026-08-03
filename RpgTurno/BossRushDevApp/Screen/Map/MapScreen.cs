@@ -76,8 +76,8 @@ public class MapScreen : BaseScreen
         _finishBannerComponent.IsVisible = false;
         _finishBannerComponent.IsEnable = false;
         _finishBannerComponent.SetPosition(
-            GlobalOptionsDto.WidthSize / 2 - _pauseBannerComponent.Bounds.Width / 2,
-            GlobalOptionsDto.HeightSize / 2 - _pauseBannerComponent.Bounds.Height / 2);
+            GlobalOptionsDto.WidthSize / 2 - _finishBannerComponent.Bounds.Width / 2,
+            GlobalOptionsDto.HeightSize / 2 - _finishBannerComponent.Bounds.Height / 2);
 
         return new()
         {

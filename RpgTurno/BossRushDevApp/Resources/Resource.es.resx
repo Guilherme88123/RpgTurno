@@ -387,4 +387,19 @@
   <data name="Cleared" xml:space="preserve">
     <value>Limpia</value>
   </data>
+  <data name="Congratulations" xml:space="preserve">
+    <value>Felicidades</value>
+  </data>
+  <data name="DefeatedSupremeWarrior" xml:space="preserve">
+    <value>Derrotaste al guerrero supremo</value>
+  </data>
+  <data name="ThanksForPlaying" xml:space="preserve">
+    <value>Gracias por jugar</value>
+  </data>
+  <data name="MoreContentComingSoon" xml:space="preserve">
+    <value>Más contenido próximamente</value>
+  </data>
+  <data name="DontForgetToLeaveSuggestions" xml:space="preserve">
+    <value>No olvides dejar sugerencias</value>
+  </data>
 </root>

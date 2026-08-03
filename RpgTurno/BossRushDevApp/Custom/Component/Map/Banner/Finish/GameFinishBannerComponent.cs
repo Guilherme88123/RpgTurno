@@ -1,4 +1,7 @@
-﻿using Domain.Model.Components.Image;
+﻿using Domain.Const.Text;
+using Domain.Const.Version;
+using Domain.Dto.Language;
+using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
@@ -10,7 +13,7 @@ namespace RpgTurno.Custom.Component.Map.Banner.Finish;
 
 public class GameFinishBannerComponent : FrameComponent
 {
-    private const int Width = 534;
+    private const int Width = 662;
     private const int MarginTop = 96;
     private const int MarginBottom = 80;
     private const int MarginX = 48;
@@ -31,13 +34,13 @@ public class GameFinishBannerComponent : FrameComponent
     {
         AnimationManager.Add(true, new ScrollBannerSprite());
 
-        _menuButton = new("Main Menu", onMenuAction);
+        _menuButton = new(LanguageManager.Get(TextConst.MainMenu), onMenuAction);
 
-        _title.SetText("Congratulations!");
-        _textDefeatedBoss.SetText("You defeated the supreme knight.");
-        _textThanks.SetText("Thank you for playing Tiny RPG Alpha 0.1.0");
-        _textMoreContent.SetText("More content coming soon!");
-        _textSuggestions.SetText("Don't forget to leave suggestions!");
+        _title.SetText($"{LanguageManager.Get(TextConst.Congratulations)}!");
+        _textDefeatedBoss.SetText(LanguageManager.Get(TextConst.DefeatedSupremeWarrior));
+        _textThanks.SetText($"{LanguageManager.Get(TextConst.ThanksForPlaying)} {VersionConst.GameName} {VersionConst.Version}");
+        _textMoreContent.SetText($"{LanguageManager.Get(TextConst.MoreContentComingSoon)}!");
+        _textSuggestions.SetText($"{LanguageManager.Get(TextConst.DontForgetToLeaveSuggestions)}!");
 
         AddChild(_titleBackground);
         AddChild(_title);

@@ -35,6 +35,12 @@ public static class TextConst
     public const string ReturnToMap = "ReturnToMap";
     public const string Restart = "Restart";
 
+    public const string Congratulations = "Congratulations";
+    public const string DefeatedSupremeWarrior = "DefeatedSupremeWarrior";
+    public const string ThanksForPlaying = "ThanksForPlaying";
+    public const string MoreContentComingSoon = "MoreContentComingSoon";
+    public const string DontForgetToLeaveSuggestions = "DontForgetToLeaveSuggestions";
+
     #region Units
 
     public const string ArcherUnit = "ArcherUnit";

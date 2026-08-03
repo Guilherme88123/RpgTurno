@@ -387,4 +387,19 @@
   <data name="Cleared" xml:space="preserve">
     <value>Cleared</value>
   </data>
+  <data name="Congratulations" xml:space="preserve">
+    <value>Congratulations</value>
+  </data>
+  <data name="DefeatedSupremeWarrior" xml:space="preserve">
+    <value>You defeated the supreme warrior</value>
+  </data>
+  <data name="ThanksForPlaying" xml:space="preserve">
+    <value>Thank you for playing</value>
+  </data>
+  <data name="MoreContentComingSoon" xml:space="preserve">
+    <value>More content coming soon</value>
+  </data>
+  <data name="DontForgetToLeaveSuggestions" xml:space="preserve">
+    <value>Don't forget to leave suggestions</value>
+  </data>
 </root>

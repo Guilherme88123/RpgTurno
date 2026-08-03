@@ -187,6 +187,15 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Congratulations.
+        /// </summary>
+        internal static string Congratulations {
+            get {
+                return ResourceManager.GetString("Congratulations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Cooldown.
         /// </summary>
         internal static string Cooldown {
@@ -241,6 +250,15 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a DefeatedSupremeWarrior.
+        /// </summary>
+        internal static string DefeatedSupremeWarrior {
+            get {
+                return ResourceManager.GetString("DefeatedSupremeWarrior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Difficulty.
         /// </summary>
         internal static string Difficulty {
@@ -264,6 +282,15 @@ namespace RpgTurno.Resources {
         internal static string DivineLightDescription {
             get {
                 return ResourceManager.GetString("DivineLightDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a DontForgetToLeaveSuggestions.
+        /// </summary>
+        internal static string DontForgetToLeaveSuggestions {
+            get {
+                return ResourceManager.GetString("DontForgetToLeaveSuggestions", resourceCulture);
             }
         }
         
@@ -507,6 +534,15 @@ namespace RpgTurno.Resources {
         internal static string ManaCost {
             get {
                 return ResourceManager.GetString("ManaCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a MoreContentComingSoon.
+        /// </summary>
+        internal static string MoreContentComingSoon {
+            get {
+                return ResourceManager.GetString("MoreContentComingSoon", resourceCulture);
             }
         }
         
@@ -813,6 +849,15 @@ namespace RpgTurno.Resources {
         internal static string TargetType {
             get {
                 return ResourceManager.GetString("TargetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a ThanksForPlaying.
+        /// </summary>
+        internal static string ThanksForPlaying {
+            get {
+                return ResourceManager.GetString("ThanksForPlaying", resourceCulture);
             }
         }
         
