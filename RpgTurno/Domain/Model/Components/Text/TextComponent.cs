@@ -97,6 +97,8 @@ public class TextComponent : BaseComponent
 
         var text = CanDraw(Text) ? Text : RemoveAccents(Text);
 
+        text = text.Replace(" ", "  ");
+
         GlobalVariablesDto.SpriteBatchText.DrawString(Font, text, position, Color, Rotation, origin, Scale, SpriteEffects, 1f);    
     }
 

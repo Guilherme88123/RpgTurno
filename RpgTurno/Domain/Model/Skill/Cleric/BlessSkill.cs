@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Effect;
 using Domain.Model.Skill.Base;
@@ -12,8 +13,8 @@ namespace Domain.Model.Skill;
 
 public class BlessSkill : BaseSkill
 {
-    public override string Name => "Bless";
-    public override string Description => "Applies the \nBlessing of Bravery \nto an ally";
+    public override string Name => TextConst.Bless;
+    public override string Description => TextConst.BlessDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Ally;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

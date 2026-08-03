@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
@@ -11,8 +12,8 @@ namespace Domain.Model.Skill.Cleric;
 
 public class HealSkill : BaseSkill
 {
-    public override string Name => "Heal";
-    public override string Description => "A heal that \nsave your allies";
+    public override string Name => TextConst.Heal;
+    public override string Description => TextConst.HealDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Ally;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

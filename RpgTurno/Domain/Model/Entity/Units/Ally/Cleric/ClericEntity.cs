@@ -1,4 +1,5 @@
 ﻿using Domain.Const.Sprite;
+using Domain.Const.Text;
 using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Model.Entity.Units.Base;
@@ -24,7 +25,7 @@ public class ClericEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 96;
-        Name = "Cleric";
+        Name = TextConst.ClericUnit;
 
         AnimationSizeX = 192;
         AnimationSizeY = 192;

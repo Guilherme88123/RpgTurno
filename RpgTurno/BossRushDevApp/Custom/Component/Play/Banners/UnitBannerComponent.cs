@@ -1,4 +1,5 @@
-﻿using Domain.Model.Components.Image;
+﻿using Domain.Dto.Language;
+using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.MenuComponents.Frame;
@@ -53,7 +54,7 @@ public class UnitBannerComponent : FrameComponent
 
     public void SetFocusedUnit(BaseUnitEntity focusedEntity, bool isEnemy)
     {
-        _nameText.SetText($"{focusedEntity.Name} Lvl {focusedEntity.Stats.Level}");
+        _nameText.SetText($"{LanguageManager.Get(focusedEntity.Name)} Lvl {focusedEntity.Stats.Level}");
         _healtText.SetText($"{focusedEntity.Stats.CurrentHealth}/{focusedEntity.Stats.MaxHealth}");
         _manaText.SetText($"{focusedEntity.Stats.CurrentMana}/{focusedEntity.Stats.MaxMana}");
         _defenseText.SetText(focusedEntity.Stats.Defense.ToString());

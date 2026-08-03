@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
@@ -10,8 +11,8 @@ namespace Domain.Model.Skill.Warrior;
 
 public class CleaveSkill : BaseSkill
 {
-    public override string Name => "Cleave";
-    public override string Description => "Attacks all enemies \nwith a horizontal \nslash.";
+    public override string Name => TextConst.Cleave;
+    public override string Description => TextConst.CleaveDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.All;

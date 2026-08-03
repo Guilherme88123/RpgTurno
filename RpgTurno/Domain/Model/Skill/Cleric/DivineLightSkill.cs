@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Effect;
 using Domain.Model.Skill.Base;
@@ -12,8 +13,8 @@ namespace Domain.Model.Skill.Cleric;
 
 public class DivineLightSkill : BaseSkill
 {
-    public override string Name => "Divine Light";
-    public override string Description => "It carries the \ndivine light as \na companion";
+    public override string Name => TextConst.DivineLight;
+    public override string Description => TextConst.DivineLightDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Ally;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.All;

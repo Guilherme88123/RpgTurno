@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
@@ -10,8 +11,8 @@ namespace Domain.Model.Skill.Lancer;
 
 public class SpearSweepSkill : BaseSkill
 {
-    public override string Name => "Spear Sweep";
-    public override string Description => "Performs a sweep \nwith their spear";
+    public override string Name => TextConst.SpearSweep;
+    public override string Description => TextConst.SpearSweepDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.All;

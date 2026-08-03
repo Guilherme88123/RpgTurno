@@ -1,4 +1,5 @@
 ﻿using Domain.Const.Sprite;
+using Domain.Const.Text;
 using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Model.Entity.Units.Base;
@@ -29,7 +30,7 @@ public class LancerEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 96;
-        Name = "Lancer";
+        Name = TextConst.LancerUnit;
 
         AnimationSizeX = 320;
         AnimationSizeY = 320;

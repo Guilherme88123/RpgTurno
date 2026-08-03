@@ -1,6 +1,6 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
-using Domain.Model.Effect;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
 using Domain.Model.Skill.Base.Data;
@@ -11,8 +11,8 @@ namespace Domain.Model.Skill.Archer;
 
 public class ShootSkill : BaseSkill
 {
-    public override string Name => "Shoot";
-    public override string Description => "A ranged bow attack";
+    public override string Name => TextConst.Shoot;
+    public override string Description => TextConst.ShootDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

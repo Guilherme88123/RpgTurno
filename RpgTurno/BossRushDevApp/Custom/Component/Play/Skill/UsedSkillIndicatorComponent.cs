@@ -1,4 +1,5 @@
 ﻿using Domain.Dto.Global;
+using Domain.Dto.Language;
 using Domain.Model.Components.Image;
 using Domain.Model.Components.Text;
 using Domain.Model.Skill.Base.Unit;
@@ -13,7 +14,7 @@ public class UsedSkillIndicatorComponent : ImageComponent
 {
     private readonly TextComponent _skillNameText = new(positionXByCenter: true, positionYByCenter: true);
 
-    public UsedSkillIndicatorComponent() : base(new BlueSwordRibbonSprite(), 384, 112)
+    public UsedSkillIndicatorComponent() : base(new BlueSwordRibbonSprite(), 480, 112)
     {
     }
 
@@ -31,7 +32,7 @@ public class UsedSkillIndicatorComponent : ImageComponent
 
     private void SetSkillName(string skillName)
     {
-        _skillNameText.SetText(skillName);
+        _skillNameText.SetText(LanguageManager.Get(skillName));
         _skillNameText.SetPosition(Bounds.Center.X, Bounds.Center.Y);
     }
 

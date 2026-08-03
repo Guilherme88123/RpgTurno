@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
@@ -10,8 +11,8 @@ namespace Domain.Model.Skill.Lancer;
 
 public class PiercingStrikeSkill : BaseSkill
 {
-    public override string Name => "Piercing \nStrike";
-    public override string Description => "A piercing attack \nthat ignores the \ntarget's armor";
+    public override string Name => TextConst.PiercingStrike;
+    public override string Description => TextConst.PiercingStrikeDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

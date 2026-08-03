@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Effect;
 using Domain.Model.Skill.Base;
@@ -12,8 +13,8 @@ namespace Domain.Model.Skill.Cleric;
 
 public class CurseSkill : BaseSkill
 {
-    public override string Name => "Curse";
-    public override string Description => "A colossal attack \nthat makes enemies \nregret it";
+    public override string Name => TextConst.Curse;
+    public override string Description => TextConst.CurseDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

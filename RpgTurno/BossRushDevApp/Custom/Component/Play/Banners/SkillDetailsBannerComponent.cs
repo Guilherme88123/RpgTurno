@@ -1,4 +1,6 @@
-﻿using Domain.Dto.Global;
+﻿using Domain.Const.Text;
+using Domain.Dto.Global;
+using Domain.Dto.Language;
 using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Skill.Base.Unit;
@@ -8,7 +10,7 @@ namespace RpgTurno.Custom.Component.Play.Banners;
 
 public class SkillDetailsBannerComponent : FrameComponent
 {
-    private const int _sizeX = 320;
+    private const int _sizeX = 400;
     private const int _sizeY = 384;
 
     private readonly TextComponent _nameText = new(positionXByCenter: true, positionYByCenter: true);
@@ -45,16 +47,15 @@ public class SkillDetailsBannerComponent : FrameComponent
 
     private void SetSkill(UnitSkill skill)
     {
-        _nameText.SetText(skill.Definition.Name);
-        _descriptionText.SetText(skill.Definition.Description);
-        _targetTypeText.SetText($"Target Type: {skill.Definition.TargetType.ToString()}");
-        _targetAmountText.SetText($"Target Amount: {skill.Definition.TargetAmount.ToString()}");
-        _cooldownText.SetText($"Cooldown: {skill.Definition.Cooldown.ToString()}");
-        _currentCooldownText.SetText($"Current Cooldown: {skill.CurrentCooldown.ToString()}");
-        _manaCostText.SetText($"Mana Cost: {skill.Definition.ManaCost.ToString()}");
-
+        _nameText.SetText(LanguageManager.Get(skill.Definition.Name));
+        _descriptionText.SetText(LanguageManager.Get(skill.Definition.Description));
+        _targetTypeText.SetText($"{LanguageManager.Get(TextConst.TargetType)}: {LanguageManager.Get(skill.Definition.TargetType.ToString())}");
+        _targetAmountText.SetText($"{LanguageManager.Get(TextConst.TargetAmount)}: {LanguageManager.Get(skill.Definition.TargetAmount.ToString())}");
+        _cooldownText.SetText($"{LanguageManager.Get(TextConst.Cooldown)}: {skill.Definition.Cooldown.ToString()}");
+        _currentCooldownText.SetText($"{LanguageManager.Get(TextConst.CurrentCooldown)}: {skill.CurrentCooldown.ToString()}");
+        _manaCostText.SetText($"{LanguageManager.Get(TextConst.ManaCost)}: {skill.Definition.ManaCost.ToString()}");
         _currentCooldownText.Color = skill.CurrentCooldown <= 0
-            ? Microsoft.Xna.Framework.Color.Black
+            ? Microsoft.Xna.Framework.Color.Black   
             : Microsoft.Xna.Framework.Color.Red;
 
         _manaCostText.Color = skill.OwnerUnit.Stats.CanSpendMana(skill.Definition.ManaCost)

@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
@@ -10,8 +11,8 @@ namespace Domain.Model.Skill.Archer;
 
 public class ArrowRainSkill : BaseSkill
 {
-    public override string Name => "Arrow Rain";
-    public override string Description => "Attack all \ntargets with \nporwerfull arrows";
+    public override string Name => TextConst.ArrowRain;
+    public override string Description => TextConst.ArrowRainDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.All;

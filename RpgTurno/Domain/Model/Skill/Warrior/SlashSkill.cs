@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
@@ -10,8 +11,8 @@ namespace Domain.Model.Skill.Warrior;
 
 public class SlashSkill : BaseSkill
 {
-    public override string Name => "Slash";
-    public override string Description => "A powerful \nslash attack";
+    public override string Name => TextConst.Slash;
+    public override string Description => TextConst.SlashDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

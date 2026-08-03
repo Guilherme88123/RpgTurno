@@ -20,6 +20,6 @@ public class ButtonMapPauseBannerComponent : ButtonComponent
 
         Click = action;
 
-        Bounds = new(0, 0, 224, 96);
+        Bounds = new(0, 0, 272, 96);
     }
 }

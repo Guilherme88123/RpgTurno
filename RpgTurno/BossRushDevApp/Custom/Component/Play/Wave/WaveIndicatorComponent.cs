@@ -1,4 +1,6 @@
-﻿using Domain.Model.Components.Text;
+﻿using Domain.Const.Text;
+using Domain.Dto.Language;
+using Domain.Model.Components.Text;
 
 namespace RpgTurno.Custom.CustomComponents.Play.Wave;
 
@@ -11,6 +13,6 @@ public class WaveIndicatorComponent : TextComponent
 
     private string GetWavesText(int currentWave, int totalWaves)
     {
-        return $"Wave: {currentWave}/{totalWaves}";
+        return $"{LanguageManager.Get(TextConst.Wave)}: {currentWave}/{totalWaves}";
     }
 }

@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
@@ -10,8 +11,8 @@ namespace Domain.Model.Skill;
 
 public class PowerShootSkill : BaseSkill
 {
-    public override string Name => "Power Shoot";
-    public override string Description => "A more powerful \nrange attack";
+    public override string Name => TextConst.PowerShoot;
+    public override string Description => TextConst.PowerShootDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

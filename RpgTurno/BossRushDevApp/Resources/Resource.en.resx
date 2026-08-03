@@ -117,14 +117,59 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Ally" xml:space="preserve">
+    <value>Ally</value>
+  </data>
+  <data name="Any" xml:space="preserve">
+    <value>Any</value>
+  </data>
+  <data name="ArcherUnit" xml:space="preserve">
+    <value>Archer</value>
+  </data>
+  <data name="ArrowRain" xml:space="preserve">
+    <value>Arrow Rain</value>
+  </data>
+  <data name="ArrowRainDescription" xml:space="preserve">
+    <value>Attack all \ntargets with \nporwerfull arrows</value>
+  </data>
   <data name="BarracksOfValorStage" xml:space="preserve">
     <value>Barracks Of Valor</value>
+  </data>
+  <data name="Bless" xml:space="preserve">
+    <value>Bless</value>
+  </data>
+  <data name="BlessDescription" xml:space="preserve">
+    <value>Applies the \nblessing of bravery \nto an ally</value>
   </data>
   <data name="By" xml:space="preserve">
     <value>By</value>
   </data>
+  <data name="Cleave" xml:space="preserve">
+    <value>Cleave</value>
+  </data>
+  <data name="CleaveDescription" xml:space="preserve">
+    <value>Attacks all enemies \nwith a horizontal \nslash</value>
+  </data>
+  <data name="ClericUnit" xml:space="preserve">
+    <value>Cleric</value>
+  </data>
+  <data name="Cooldown" xml:space="preserve">
+    <value>Cooldown</value>
+  </data>
   <data name="Credits" xml:space="preserve">
     <value>Credits</value>
+  </data>
+  <data name="CurrentCooldown" xml:space="preserve">
+    <value>Current Cooldown</value>
+  </data>
+  <data name="Curse" xml:space="preserve">
+    <value>Curse</value>
+  </data>
+  <data name="CurseDescription" xml:space="preserve">
+    <value>A colossal attack \nthat makes enemies \nregret it</value>
   </data>
   <data name="Defeated" xml:space="preserve">
     <value>Defeated</value>
@@ -132,26 +177,92 @@
   <data name="Difficulty" xml:space="preserve">
     <value>Difficulty</value>
   </data>
+  <data name="DivineLight" xml:space="preserve">
+    <value>Divine Light</value>
+  </data>
+  <data name="DivineLightDescription" xml:space="preserve">
+    <value>Applies divine light \nto allies</value>
+  </data>
   <data name="EffectsVolume" xml:space="preserve">
     <value>Effects Volume</value>
+  </data>
+  <data name="Enemy" xml:space="preserve">
+    <value>Enemy</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="EvilArcherUnit" xml:space="preserve">
+    <value>Evil Archer</value>
+  </data>
+  <data name="EvilClericUnit" xml:space="preserve">
+    <value>Evil Cleric</value>
+  </data>
+  <data name="EvilLancerUnit" xml:space="preserve">
+    <value>Evil Lancer</value>
+  </data>
   <data name="EvilTowerStage" xml:space="preserve">
     <value>Evil Tower</value>
+  </data>
+  <data name="EvilWarriorUnit" xml:space="preserve">
+    <value>Evil Warrior</value>
+  </data>
+  <data name="Execution" xml:space="preserve">
+    <value>Execution</value>
+  </data>
+  <data name="ExecutionDescription" xml:space="preserve">
+    <value>Executes an enemy \nwith catastrophic \ndamage</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>
   </data>
+  <data name="Fortress" xml:space="preserve">
+    <value>Fortress</value>
+  </data>
+  <data name="FortressDescription" xml:space="preserve">
+    <value>Transforms allies \ninto veritable \nfortresses</value>
+  </data>
   <data name="Fullscreen" xml:space="preserve">
     <value>Fullscreen</value>
+  </data>
+  <data name="GoingToWave" xml:space="preserve">
+    <value>Going To Wave</value>
+  </data>
+  <data name="GuardStance" xml:space="preserve">
+    <value>Guard Stance</value>
+  </data>
+  <data name="GuardStanceDescription" xml:space="preserve">
+    <value>Place this unit \nin a guard stance</value>
+  </data>
+  <data name="Heal" xml:space="preserve">
+    <value>Heal</value>
+  </data>
+  <data name="HealDescription" xml:space="preserve">
+    <value>A heal that \nsave your allies</value>
+  </data>
+  <data name="HeavySlash" xml:space="preserve">
+    <value>Heavy Slash</value>
+  </data>
+  <data name="HeavySlashDescription" xml:space="preserve">
+    <value>A heavy \nand more \npowerful attack</value>
+  </data>
+  <data name="LancerUnit" xml:space="preserve">
+    <value>Lancer</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="LastBastion" xml:space="preserve">
+    <value>Last Bastion</value>
+  </data>
+  <data name="LastBastionDescription" xml:space="preserve">
+    <value>The final point \nbetween death \nand glory</value>
+  </data>
   <data name="MainMenu" xml:space="preserve">
     <value>Main Menu</value>
+  </data>
+  <data name="ManaCost" xml:space="preserve">
+    <value>Mana Cost</value>
   </data>
   <data name="MusicVolume" xml:space="preserve">
     <value>Music Volume</value>
@@ -165,14 +276,74 @@
   <data name="Paused" xml:space="preserve">
     <value>Paused</value>
   </data>
+  <data name="PiercingStrike" xml:space="preserve">
+    <value>Piercing Strike</value>
+  </data>
+  <data name="PiercingStrikeDescription" xml:space="preserve">
+    <value>A piercing attack \nthat ignores the \ntarget's armor</value>
+  </data>
+  <data name="Pike" xml:space="preserve">
+    <value>Pike</value>
+  </data>
+  <data name="PikeDescription" xml:space="preserve">
+    <value>A spear-point attack</value>
+  </data>
+  <data name="PoisonShoot" xml:space="preserve">
+    <value>Poison Shoot</value>
+  </data>
+  <data name="PoisonShootDescription" xml:space="preserve">
+    <value>A poisonous attack \nthat infects its \ntarget</value>
+  </data>
   <data name="Portuguese" xml:space="preserve">
     <value>Portuguese</value>
+  </data>
+  <data name="PowerShoot" xml:space="preserve">
+    <value>Power Shoot</value>
+  </data>
+  <data name="PowerShootDescription" xml:space="preserve">
+    <value>A more powerful \nrange attack</value>
+  </data>
+  <data name="Restart" xml:space="preserve">
+    <value>Restart</value>
   </data>
   <data name="Resume" xml:space="preserve">
     <value>Resume</value>
   </data>
+  <data name="ReturnToMap" xml:space="preserve">
+    <value>Return To Map</value>
+  </data>
+  <data name="Self" xml:space="preserve">
+    <value>Self</value>
+  </data>
+  <data name="Shoot" xml:space="preserve">
+    <value>Shoot</value>
+  </data>
+  <data name="ShootDescription" xml:space="preserve">
+    <value>A ranged bow attack</value>
+  </data>
   <data name="ShowFps" xml:space="preserve">
     <value>Show FPS</value>
+  </data>
+  <data name="Single" xml:space="preserve">
+    <value>Single</value>
+  </data>
+  <data name="Slash" xml:space="preserve">
+    <value>Slash</value>
+  </data>
+  <data name="SlashDescription" xml:space="preserve">
+    <value>A powerful \nslashing blow</value>
+  </data>
+  <data name="Smite" xml:space="preserve">
+    <value>Smite</value>
+  </data>
+  <data name="SmiteDescription" xml:space="preserve">
+    <value>A ray of \nfaith descending \nupon the impure</value>
+  </data>
+  <data name="Snipe" xml:space="preserve">
+    <value>Snipe</value>
+  </data>
+  <data name="SnipeDescription" xml:space="preserve">
+    <value>A devastating shot \nwith a higher chance \nof being a critical \nhit</value>
   </data>
   <data name="Spanish" xml:space="preserve">
     <value>Spanish</value>
@@ -180,16 +351,40 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="SupremeWarriorUnit" xml:space="preserve">
+    <value>Supreme \nWarrior</value>
+  </data>
+  <data name="SpearSweep" xml:space="preserve">
+    <value>Swear Sweep</value>
+  </data>
+  <data name="SpearSweepDescription" xml:space="preserve">
+    <value>Performs a sweep \nwith their spear</value>
+  </data>
+  <data name="TargetAmount" xml:space="preserve">
+    <value>Target Amout</value>
+  </data>
+  <data name="TargetType" xml:space="preserve">
+    <value>Target Type</value>
+  </data>
   <data name="TheCastleStage" xml:space="preserve">
     <value>The Castle</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="WarriorUnit" xml:space="preserve">
+    <value>Warrior</value>
+  </data>
+  <data name="Wave" xml:space="preserve">
+    <value>Wave</value>
+  </data>
   <data name="WindowSize" xml:space="preserve">
     <value>Window Size</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="Cleared" xml:space="preserve">
+    <value>Cleared</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Effect;
 using Domain.Model.Skill.Base;
@@ -11,8 +12,8 @@ namespace Domain.Model.Skill.Lancer;
 
 public class FortressSkill : BaseSkill
 {
-    public override string Name => "Fortress";
-    public override string Description => "Transforms allies \ninto veritable \nfortresses";
+    public override string Name => TextConst.Fortress;
+    public override string Description => TextConst.FortressDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Ally;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.All;

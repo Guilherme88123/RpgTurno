@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
@@ -10,8 +11,8 @@ namespace Domain.Model.Skill.Warrior;
 
 public class HeavySlashSkill : BaseSkill
 {
-    public override string Name => "Heavy Slash";
-    public override string Description => "A heavy \nand more \npowerful attack";
+    public override string Name => TextConst.HeavySlash;
+    public override string Description => TextConst.HeavySlashDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

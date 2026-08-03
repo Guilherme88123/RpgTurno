@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Effect;
 using Domain.Model.Skill.Base;
@@ -11,8 +12,8 @@ namespace Domain.Model.Skill;
 
 public class PoisonShootSkill : BaseSkill
 {
-    public override string Name => "Poison Shoot";
-    public override string Description => "A poisonous attack \nthat infects its \ntarget";
+    public override string Name => TextConst.PoisonShoot;
+    public override string Description => TextConst.PoisonShootDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

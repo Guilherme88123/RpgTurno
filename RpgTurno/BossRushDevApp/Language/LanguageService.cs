@@ -20,6 +20,12 @@ public class LanguageService : ILanguageService
 
     public string Get(string key)
     {
-        return _resourceManager.GetString(key, CurrentCulture) ?? key;
+        var rawResource = _resourceManager.GetString(key, CurrentCulture) ?? key;
+        return ReplaceLineFeed(rawResource);
+    }
+
+    private string ReplaceLineFeed(string rawResource)
+    {
+        return rawResource.Replace("\\n", "\n");
     }
 }

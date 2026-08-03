@@ -1,4 +1,6 @@
-﻿using Domain.Model.Components.Text;
+﻿using Domain.Const.Text;
+using Domain.Dto.Language;
+using Domain.Model.Components.Text;
 using Domain.Model.MenuComponents.Frame;
 using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
 using System;
@@ -22,11 +24,11 @@ public class PlayPauseBannerComponent : FrameComponent
     {
         AnimationManager.Add(true, new SpecialPaperBannerSprite());
 
-        _titleText.SetText("Paused");
-        _resumeButton = new("Resume", onResumeAction);
-        _optionsButton = new("Options", onOptionsAction);
-        _restartButton = new("Restart", onRestartAction, isDanger: true);
-        _mapButton = new("Return To Map", onMapAction, isDanger: true);
+        _titleText.SetText(LanguageManager.Get(TextConst.Paused));
+        _resumeButton = new(LanguageManager.Get(TextConst.Resume), onResumeAction);
+        _optionsButton = new(LanguageManager.Get(TextConst.Options), onOptionsAction);
+        _restartButton = new(LanguageManager.Get(TextConst.Restart), onRestartAction, isDanger: true);
+        _mapButton = new(LanguageManager.Get(TextConst.ReturnToMap), onMapAction, isDanger: true);
 
         AddChild(_titleText);
         AddChild(_resumeButton);

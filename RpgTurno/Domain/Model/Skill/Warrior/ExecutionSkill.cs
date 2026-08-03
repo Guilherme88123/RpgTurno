@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
@@ -10,8 +11,8 @@ namespace Domain.Model.Skill.Warrior;
 
 public class ExecutionSkill : BaseSkill
 {
-    public override string Name => "Execution";
-    public override string Description => "Executes an enemy \nwith catastrophic \ndamage";
+    public override string Name => TextConst.Execution;
+    public override string Description => TextConst.ExecutionDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

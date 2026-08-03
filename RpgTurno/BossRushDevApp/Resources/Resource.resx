@@ -117,14 +117,59 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Ally" xml:space="preserve">
+    <value>Ally</value>
+  </data>
+  <data name="Any" xml:space="preserve">
+    <value>Any</value>
+  </data>
+  <data name="ArcherUnit" xml:space="preserve">
+    <value>ArcherUnit</value>
+  </data>
+  <data name="ArrowRain" xml:space="preserve">
+    <value>ArrowRain</value>
+  </data>
+  <data name="ArrowRainDescription" xml:space="preserve">
+    <value>ArrowRainDescription</value>
+  </data>
   <data name="BarracksOfValorStage" xml:space="preserve">
     <value>BarracksOfValorStage</value>
+  </data>
+  <data name="Bless" xml:space="preserve">
+    <value>Bless</value>
+  </data>
+  <data name="BlessDescription" xml:space="preserve">
+    <value>BlessDescription</value>
   </data>
   <data name="By" xml:space="preserve">
     <value>By</value>
   </data>
+  <data name="Cleave" xml:space="preserve">
+    <value>Cleave</value>
+  </data>
+  <data name="CleaveDescription" xml:space="preserve">
+    <value>CleaveDescription</value>
+  </data>
+  <data name="ClericUnit" xml:space="preserve">
+    <value>ClericUnit</value>
+  </data>
+  <data name="Cooldown" xml:space="preserve">
+    <value>Cooldown</value>
+  </data>
   <data name="Credits" xml:space="preserve">
     <value>Credits</value>
+  </data>
+  <data name="CurrentCooldown" xml:space="preserve">
+    <value>CurrentCooldown</value>
+  </data>
+  <data name="Curse" xml:space="preserve">
+    <value>Curse</value>
+  </data>
+  <data name="CurseDescription" xml:space="preserve">
+    <value>CurseDescription</value>
   </data>
   <data name="Defeated" xml:space="preserve">
     <value>Defeated</value>
@@ -132,26 +177,92 @@
   <data name="Difficulty" xml:space="preserve">
     <value>Difficulty</value>
   </data>
+  <data name="DivineLight" xml:space="preserve">
+    <value>DivineLight</value>
+  </data>
+  <data name="DivineLightDescription" xml:space="preserve">
+    <value>DivineLightDescription</value>
+  </data>
   <data name="EffectsVolume" xml:space="preserve">
     <value>EffectsVolume</value>
+  </data>
+  <data name="Enemy" xml:space="preserve">
+    <value>Enemy</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="EvilArcherUnit" xml:space="preserve">
+    <value>EvilArcherUnit</value>
+  </data>
+  <data name="EvilClericUnit" xml:space="preserve">
+    <value>EvilClericUnit</value>
+  </data>
+  <data name="EvilLancerUnit" xml:space="preserve">
+    <value>EvilLancerUnit</value>
+  </data>
   <data name="EvilTowerStage" xml:space="preserve">
     <value>EvilTowerStage</value>
+  </data>
+  <data name="EvilWarriorUnit" xml:space="preserve">
+    <value>EvilWarriorUnit</value>
+  </data>
+  <data name="Execution" xml:space="preserve">
+    <value>Execution</value>
+  </data>
+  <data name="ExecutionDescription" xml:space="preserve">
+    <value>ExecutionDescription</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>
   </data>
+  <data name="Fortress" xml:space="preserve">
+    <value>Fortress</value>
+  </data>
+  <data name="FortressDescription" xml:space="preserve">
+    <value>FortressDescription</value>
+  </data>
   <data name="Fullscreen" xml:space="preserve">
     <value>Fullscreen</value>
+  </data>
+  <data name="GoingToWave" xml:space="preserve">
+    <value>GoingToWave</value>
+  </data>
+  <data name="GuardStance" xml:space="preserve">
+    <value>GuardStance</value>
+  </data>
+  <data name="GuardStanceDescription" xml:space="preserve">
+    <value>GuardStanceDescription</value>
+  </data>
+  <data name="Heal" xml:space="preserve">
+    <value>Heal</value>
+  </data>
+  <data name="HealDescription" xml:space="preserve">
+    <value>HealDescription</value>
+  </data>
+  <data name="HeavySlash" xml:space="preserve">
+    <value>HeavySlash</value>
+  </data>
+  <data name="HeavySlashDescription" xml:space="preserve">
+    <value>HeavySlashDescription</value>
+  </data>
+  <data name="LancerUnit" xml:space="preserve">
+    <value>LancerUnit</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="LastBastion" xml:space="preserve">
+    <value>LastBastion</value>
+  </data>
+  <data name="LastBastionDescription" xml:space="preserve">
+    <value>LastBastionDescription</value>
+  </data>
   <data name="MainMenu" xml:space="preserve">
     <value>MainMenu</value>
+  </data>
+  <data name="ManaCost" xml:space="preserve">
+    <value>ManaCost</value>
   </data>
   <data name="MusicVolume" xml:space="preserve">
     <value>MusicVolume</value>
@@ -165,14 +276,74 @@
   <data name="Paused" xml:space="preserve">
     <value>Paused</value>
   </data>
+  <data name="PiercingStrike" xml:space="preserve">
+    <value>PiercingStrike</value>
+  </data>
+  <data name="PiercingStrikeDescription" xml:space="preserve">
+    <value>PiercingStrikeDescription</value>
+  </data>
+  <data name="Pike" xml:space="preserve">
+    <value>Pike</value>
+  </data>
+  <data name="PikeDescription" xml:space="preserve">
+    <value>PikeDescription</value>
+  </data>
+  <data name="PoisonShoot" xml:space="preserve">
+    <value>PoisonShoot</value>
+  </data>
+  <data name="PoisonShootDescription" xml:space="preserve">
+    <value>PoisonShootDescription</value>
+  </data>
   <data name="Portuguese" xml:space="preserve">
     <value>Portuguese</value>
+  </data>
+  <data name="PowerShoot" xml:space="preserve">
+    <value>PowerShoot</value>
+  </data>
+  <data name="PowerShootDescription" xml:space="preserve">
+    <value>PowerShootDescription</value>
+  </data>
+  <data name="Restart" xml:space="preserve">
+    <value>Restart</value>
   </data>
   <data name="Resume" xml:space="preserve">
     <value>Resume</value>
   </data>
+  <data name="ReturnToMap" xml:space="preserve">
+    <value>ReturnToMap</value>
+  </data>
+  <data name="Self" xml:space="preserve">
+    <value>Self</value>
+  </data>
+  <data name="Shoot" xml:space="preserve">
+    <value>Shoot</value>
+  </data>
+  <data name="ShootDescription" xml:space="preserve">
+    <value>ShootDescription</value>
+  </data>
   <data name="ShowFps" xml:space="preserve">
     <value>ShowFps</value>
+  </data>
+  <data name="Single" xml:space="preserve">
+    <value>Single</value>
+  </data>
+  <data name="Slash" xml:space="preserve">
+    <value>Slash</value>
+  </data>
+  <data name="SlashDescription" xml:space="preserve">
+    <value>SlashDescription</value>
+  </data>
+  <data name="Smite" xml:space="preserve">
+    <value>Smite</value>
+  </data>
+  <data name="SmiteDescription" xml:space="preserve">
+    <value>SmiteDescription</value>
+  </data>
+  <data name="Snipe" xml:space="preserve">
+    <value>Snipe</value>
+  </data>
+  <data name="SnipeDescription" xml:space="preserve">
+    <value>SnipeDescription</value>
   </data>
   <data name="Spanish" xml:space="preserve">
     <value>Spanish</value>
@@ -180,16 +351,40 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="SupremeWarriorUnit" xml:space="preserve">
+    <value>SupremeWarriorUnit</value>
+  </data>
+  <data name="SpearSweep" xml:space="preserve">
+    <value>SpearSweep</value>
+  </data>
+  <data name="SpearSweepDescription" xml:space="preserve">
+    <value>SpearSweepDescription</value>
+  </data>
+  <data name="TargetAmount" xml:space="preserve">
+    <value>TargetAmount</value>
+  </data>
+  <data name="TargetType" xml:space="preserve">
+    <value>TargetType</value>
+  </data>
   <data name="TheCastleStage" xml:space="preserve">
     <value>TheCastleStage</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="WarriorUnit" xml:space="preserve">
+    <value>WarriorUnit</value>
+  </data>
+  <data name="Wave" xml:space="preserve">
+    <value>Wave</value>
+  </data>
   <data name="WindowSize" xml:space="preserve">
     <value>WindowSize</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="Cleared" xml:space="preserve">
+    <value>Cleared</value>
   </data>
 </root>

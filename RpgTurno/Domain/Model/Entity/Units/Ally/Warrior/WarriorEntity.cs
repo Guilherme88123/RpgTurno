@@ -1,4 +1,5 @@
 ﻿using Domain.Const.Sprite;
+using Domain.Const.Text;
 using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Model.Components.Image;
@@ -27,7 +28,7 @@ public class WarriorEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 96;
-        Name = "Warrior";
+        Name = TextConst.WarriorUnit;
 
         AnimationSizeX = 192;
         AnimationSizeY = 192;

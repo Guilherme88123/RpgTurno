@@ -1,4 +1,5 @@
-﻿using Domain.Enum;
+﻿using Domain.Const.Text;
+using Domain.Enum;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Texture.Sprite.Custom.Enemy.SuperWarrior;
 using Domain.Model.Texture.Sprite.Custom.ParticleFx;
@@ -16,7 +17,7 @@ public class EnemySuperWarriorEntity : BaseUnitEntity
 
         SizeX = 144;
         SizeY = 144;
-        Name = "Supreme Warrior";
+        Name = TextConst.SupremeWarriorUnit;
 
         AnimationSizeX = 294;
         AnimationSizeY = 294;

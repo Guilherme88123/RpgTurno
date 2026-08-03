@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Effect;
 using Domain.Model.Skill.Base;
@@ -11,8 +12,8 @@ namespace Domain.Model.Skill.Lancer;
 
 public class LastBastionSkill : BaseSkill
 {
-    public override string Name => "Last Bastion";
-    public override string Description => "The final point \nbetween death \nand glory";
+    public override string Name => TextConst.LastBastion;
+    public override string Description => TextConst.LastBastionDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Self;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

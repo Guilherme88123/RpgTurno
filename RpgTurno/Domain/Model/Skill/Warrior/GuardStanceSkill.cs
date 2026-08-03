@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Effect;
 using Domain.Model.Skill.Base;
@@ -11,8 +12,8 @@ namespace Domain.Model.Skill.Warrior;
 
 public class GuardStanceSkill : BaseSkill
 {
-    public override string Name => "Guard Stance";
-    public override string Description => "Place this unit \nin a guard stance.";
+    public override string Name => TextConst.GuardStance;
+    public override string Description => TextConst.GuardStanceDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Self;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

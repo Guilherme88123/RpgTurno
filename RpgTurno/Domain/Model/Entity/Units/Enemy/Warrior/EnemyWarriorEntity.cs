@@ -1,4 +1,5 @@
 ﻿using Domain.Const.Sprite;
+using Domain.Const.Text;
 using Domain.Dto.Global;
 using Domain.Enum;
 using Domain.Model.Entity.Units.Base;
@@ -26,7 +27,7 @@ public class EnemyWarriorEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 96;
-        Name = "Evil Warrior";
+        Name = TextConst.EvilWarriorUnit;
 
         AnimationSizeX = 192;
         AnimationSizeY = 192;

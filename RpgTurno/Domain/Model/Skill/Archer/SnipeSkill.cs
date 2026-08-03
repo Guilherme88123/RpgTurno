@@ -1,4 +1,5 @@
-﻿using Domain.Enum.Skill.Target;
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
 using Domain.Model.Skill.Base;
 using Domain.Model.Skill.Base.Animation;
@@ -10,8 +11,8 @@ namespace Domain.Model.Skill;
 
 public class SnipeSkill : BaseSkill
 {
-    public override string Name => "Snipe";
-    public override string Description => "A devastating shot \nwith a higher chance \nof being a critical \nhit";
+    public override string Name => TextConst.Snipe;
+    public override string Description => TextConst.SnipeDescription;
 
     public override TargetSkillType TargetType => TargetSkillType.Enemy;
     public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;

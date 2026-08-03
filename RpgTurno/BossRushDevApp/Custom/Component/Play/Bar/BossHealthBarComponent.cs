@@ -1,4 +1,5 @@
-﻿using Domain.Model.Components.ProgressBar;
+﻿using Domain.Dto.Language;
+using Domain.Model.Components.ProgressBar;
 using Domain.Model.Components.Text;
 using Domain.Model.Entity.Units.Base;
 using Domain.Model.Texture.Sprite.Custom.Ui.Bars;
@@ -21,7 +22,7 @@ public class BossHealthBarComponent : ProgressBarComponent
     public void SetBossUnit(BaseUnitEntity boss)
     {
         SetValues(boss.Stats.MaxHealth, boss.Stats.CurrentHealth);
-        _title.SetText(boss.Name);
+        _title.SetText(LanguageManager.Get(boss.Name));
 
         SetPosition(Bounds.X, Bounds.Y);
     }
