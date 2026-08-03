@@ -1,9 +1,9 @@
 ﻿using Domain.Dto.Global;
-using Domain.Model.Components.Base;
-using Domain.Model.Components.Image;
-using Domain.Model.Entity.Units.Base;
-using Domain.Model.Texture.Sprite.Custom.ParticleFx;
-using Domain.Model.Texture.Sprite.Custom.Ui.Ribbons.Big;
+using Domain.Application.Components.Base;
+using Domain.Application.Components.Image;
+using Domain.Application.Entity.Units.Base;
+using Domain.Application.Texture.Sprite.Custom.ParticleFx;
+using Domain.Application.Texture.Sprite.Custom.Ui.Ribbons.Big;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
-﻿using Domain.Model.Entity.Units.Enemy.Archer;
-using Domain.Model.Entity.Units.Enemy.Cleric;
-using Domain.Model.Entity.Units.Enemy.Lancer;
-using Domain.Model.Entity.Units.Enemy.Warrior;
+﻿using Domain.Application.Entity.Units.Enemy.Archer;
+using Domain.Application.Entity.Units.Enemy.Cleric;
+using Domain.Application.Entity.Units.Enemy.Lancer;
+using Domain.Application.Entity.Units.Enemy.Warrior;
 using System.Collections.Generic;
 
 namespace RpgTurno.Screen.Play.Battle.Stage.Factory;

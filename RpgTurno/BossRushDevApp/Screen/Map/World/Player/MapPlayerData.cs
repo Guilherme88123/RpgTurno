@@ -2,7 +2,7 @@
 using Domain.Dto.Global;
 using Domain.Dto.Map.Node;
 using Domain.Enum;
-using Domain.Model.Sprite.Border;
+using Domain.Application.Sprite.Border;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

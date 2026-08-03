@@ -1,4 +1,4 @@
-﻿using Domain.Model.Texture.Sprite;
+﻿using Domain.Application.Texture.Sprite;
 using Microsoft.Xna.Framework;
 
 namespace Domain.Dto.Sprite;

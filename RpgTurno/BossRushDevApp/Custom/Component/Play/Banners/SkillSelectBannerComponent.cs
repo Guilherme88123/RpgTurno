@@ -1,10 +1,10 @@
 ﻿using Domain.Dto.Global;
-using Domain.Model.Components.Image;
-using Domain.Model.Entity.Units.Base;
-using Domain.Model.MenuComponents.Frame;
-using Domain.Model.Skill.Base.Unit;
-using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
-using Domain.Model.Texture.Sprite.Custom.Ui.Icons;
+using Domain.Application.Components.Image;
+using Domain.Application.Entity.Units.Base;
+using Domain.Application.MenuComponents.Frame;
+using Domain.Application.Skill.Base.Unit;
+using Domain.Application.Texture.Sprite.Custom.Ui.Banners;
+using Domain.Application.Texture.Sprite.Custom.Ui.Icons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.Custom.Component.Play.Banners;

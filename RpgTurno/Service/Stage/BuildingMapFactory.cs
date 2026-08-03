@@ -1,6 +1,6 @@
 ﻿using Domain.Dto.Map.Building;
 using Domain.Enum.Stage;
-using Domain.Model.Texture.Sprite;
+using Domain.Application.Texture.Sprite;
 using Infrastructure.Tiled.Dto;
 
 namespace Service.Stage;

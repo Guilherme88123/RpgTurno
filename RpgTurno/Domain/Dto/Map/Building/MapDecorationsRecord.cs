@@ -1,5 +1,5 @@
 ﻿using Domain.Dto.Sprite;
-using Domain.Model.Texture.Sprite;
+using Domain.Application.Texture.Sprite;
 
 namespace Domain.Dto.Map.Building;
 

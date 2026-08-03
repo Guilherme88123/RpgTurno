@@ -1,0 +1,561 @@
+﻿using Domain.Dto.Global;
+using Domain.Application.Effect.Base;
+using Domain.Application.Entity.Base;
+using Domain.Application.Entity.Units.Base.Bar;
+using Domain.Application.Entity.Units.Base.Skill.SkillTree;
+using Domain.Application.Entity.Units.Base.Skill.Text;
+using Domain.Application.Entity.Units.Base.Stats;
+using Domain.Application.Skill.Base.Result;
+using Domain.Application.Skill.Base.Unit;
+using Domain.Application.Sound.Unit.Death;
+using Domain.Application.Sound.Unit.LevelUp;
+using Domain.Application.Texture.Sprite;
+using Domain.Application.Texture.Sprite.Custom.ParticleFx;
+using Domain.Application.Texture.Sprite.Custom.Ui.Banners;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using RpgTurno.Custom.Component.Play.Banners;
+
+namespace Domain.Application.Entity.Units.Base;
+
+public class BaseUnitEntity : BaseEntity
+{
+    public string Name { get; set; }
+
+    public BaseUnitStats Stats { get; }
+
+    private BaseSkillTree _skillTree;
+    public List<UnitSkill> Skills { get; private set; }
+
+    public List<UnitEffect> Effects { get; } = new();
+
+    public SpriteData Icon { get; protected set; }
+
+    private readonly HealthBarComponent _healthBar;
+    private readonly ManaBarComponent _manaBar;
+    private readonly EffectDetailsBannerComponent _effectBanner;
+
+    public bool IsDead { get; protected set; }
+
+    private const float DelayDamageTakenFlash = 0.1f;
+    private float _currentDelayDamageTakenFlash;
+    private bool HasTakeDamage => _currentDelayDamageTakenFlash > 0;
+
+    private const float DelayHealTakenFlash = 0.1f;
+    private float _currentDelayHealTakenFlash;
+    private bool HasTakeHeal => _currentDelayHealTakenFlash > 0;
+
+    private LargeDustSprite _deadAnimation;
+    private UnitDeathSoundEffect _deadSound;
+
+    private const float DelayLevelUpAnimation = 1.1f;
+    private float _currentDelayLevelUpAnimation;
+    private bool HasLevelUpAnimation => _currentDelayLevelUpAnimation > 0;
+    private LevelUpSprite _levelUpAnimation;
+    private UnitLevelUpSoundEffect _levelUpSound;
+
+    private List<SkillResultTextComponent> _skillResultTexts = new();
+
+    public BaseUnitEntity(BaseUnitStats stats, BaseSkillTree skillTree)
+    {
+        Stats = stats;
+        Stats.OnLevelUp += HasLevelUp;
+
+        _skillTree = skillTree;
+        ReloadSkills();
+
+        _healthBar = new HealthBarComponent(Stats.MaxHealth, Stats.CurrentHealth);
+        _manaBar = new ManaBarComponent(Stats.MaxMana, Stats.CurrentMana);
+        _effectBanner = new();
+
+        _deadAnimation = new();
+        _deadAnimation.IsLoop = false;
+        _deadSound = new();
+
+        _levelUpAnimation = new();
+        _levelUpSound = new();
+    }
+
+    #region Update
+
+    public override void Update()
+    {
+        base.Update();
+
+        UpdateDelays();
+        UpdateHealthBarComponent();
+        UpdateManaBarComponent();
+        UpdateColorEffect();
+        UpdateSkillTexts();
+        UpdateEffects();
+
+        if (IsDead)
+            VerifyDeadDelayFinish();
+
+        if (HasLevelUpAnimation)
+            UpdateLevelUpAnimation();
+    }
+
+    private void UpdateDelays()
+    {
+        _currentDelayDamageTakenFlash = Math.Max(0, _currentDelayDamageTakenFlash - GlobalVariablesDto.DeltaTime);
+        _currentDelayHealTakenFlash = Math.Max(0, _currentDelayHealTakenFlash - GlobalVariablesDto.DeltaTime);
+        _currentDelayLevelUpAnimation = Math.Max(0, _currentDelayLevelUpAnimation - GlobalVariablesDto.DeltaTime);
+    }
+
+    private void UpdateHealthBarComponent()
+    {
+        _healthBar.SetPosition((int)PositionX + SizeX / 2 - _healthBar.Bounds.Width / 2, (int)PositionY + SizeY);
+        _healthBar.SetValues(Stats.MaxHealth, Stats.CurrentHealth);
+        _healthBar.Update(GlobalVariablesDto.GameTime);
+    }
+
+    private void UpdateManaBarComponent()
+    {
+        _manaBar.SetPosition((int)PositionX + SizeX / 2 - _healthBar.Bounds.Width / 2, (int)PositionY + SizeY + 18);
+        _manaBar.SetValues(Stats.MaxMana, Stats.CurrentMana);
+        _manaBar.Update(GlobalVariablesDto.GameTime);
+    }
+
+    private void UpdateColorEffect()
+    {
+        Color = true switch
+        {
+            _ when HasTakeDamage => Color.Red,
+            _ when HasTakeHeal => Color.Green,
+            _ => Color.White,
+        };
+    }
+
+    private void VerifyDeadDelayFinish()
+    {
+        _deadAnimation.Update();
+
+        if (_deadAnimation.IsFinished)
+            Destroy();
+    }
+
+    private void UpdateLevelUpAnimation()
+    {
+        _levelUpAnimation.Update();
+    }
+
+    private void UpdateSkillTexts()
+    {
+        _skillResultTexts.ForEach(x => x.Update(GlobalVariablesDto.GameTime));
+        _skillResultTexts.RemoveAll(x => x.IsDestroyed);
+    }
+
+    private void UpdateEffects()
+    {
+        UpdateEffectsRectangle();
+        UpdateEffectsHover();
+    }
+
+    private void UpdateEffectsRectangle()
+    {
+        var iconSize = 32;
+        var margin = 4;
+
+        var accumulatedIconSize = Effects.Count * iconSize;
+        var initialX = Center.X - accumulatedIconSize / 2 - margin / 2;
+
+        var index = 0;
+        foreach (var unitEffect in Effects)
+        {
+            var indexMargin = (iconSize + margin) * index;
+
+            unitEffect.Rectangle = new Rectangle((int)(initialX + indexMargin), (int)(PositionY + SizeY + 50), iconSize, iconSize);
+
+            index++;
+        }
+    }
+
+    private void UpdateEffectsHover()
+    {
+        var mousePosition = GlobalVariablesDto.MousePoint;
+        var isHovering = IsHoveringEffect(mousePosition);
+
+        _effectBanner.IsVisible = isHovering;
+
+        if (!isHovering)
+            return;
+
+        var unitEffect = GetHoveringEffect(mousePosition);
+        _effectBanner.SetHoverSkillButton(unitEffect.Effect, unitEffect.Rectangle);
+    }
+
+    #endregion
+
+    #region Draw
+
+    public override void Draw()
+    {
+        if (IsDead)
+        {
+            DrawDeadAnimation();
+            DrawSkillTexts();
+            return;
+        }
+
+        base.Draw();
+        DrawHealthBar();
+        DrawManaBar();
+        DrawEffects();
+
+        if (HasLevelUpAnimation)
+            DrawLevelUpAnimation();
+
+        DrawSkillTexts();
+        DrawEffectBanner();
+    }
+
+    public void DrawMap(int positionX, int positionY)
+    {
+        float scale = 1.5f;
+
+        int width = (int)(AnimationRectangle.Width / scale);
+        int height = (int)(AnimationRectangle.Height / scale);
+
+        int pivotX = (int)(FeetOffset.X / scale);
+        int pivotY = (int)(FeetOffset.Y / scale);
+
+        Animation.Draw(
+            new Rectangle(
+                positionX - pivotX,
+                positionY - pivotY,
+                width,
+                height),
+            Color,
+            ActualAngle,
+            DrawEffect,
+            GlobalVariablesDto.SpriteBatchEntities, 
+            Vector2.One, 
+            Vector2.Zero);
+    }
+
+    protected virtual void DrawHealthBar()
+    {
+        _healthBar.Draw(GlobalVariablesDto.SpriteBatchEntities);
+    }
+
+    protected virtual void DrawManaBar()
+    {
+        _manaBar.Draw(GlobalVariablesDto.SpriteBatchEntities);
+    }
+
+    private void DrawEffects()
+    {
+        int iconSize = 20;
+
+        foreach (var unitEffect in Effects)
+        {
+            var iconRectangle = new Rectangle(
+                unitEffect.Rectangle.X + unitEffect.Rectangle.Width / 2 - iconSize / 2,
+                unitEffect.Rectangle.Y + unitEffect.Rectangle.Height / 2 - iconSize / 2 - 2,
+                iconSize, iconSize);
+
+            new SquareBannerSprite().Draw(unitEffect.Rectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities, Vector2.One, Vector2.Zero);
+            unitEffect.Effect.Icon.Draw(iconRectangle, Color.White, 0f, SpriteEffects.None, GlobalVariablesDto.SpriteBatchEntities, Vector2.One, Vector2.Zero);
+        }
+    }
+
+    protected virtual void DrawDeadAnimation()
+    {
+        if (_deadAnimation.IsFinished)
+            return;
+
+        _deadAnimation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities, Vector2.One, Vector2.Zero);
+    }
+
+    protected virtual void DrawLevelUpAnimation()
+    {
+        _levelUpAnimation.Draw(Rectangle, Color, ActualAngle, DrawEffect, GlobalVariablesDto.SpriteBatchEntities, Vector2.One, Vector2.Zero);
+    }
+
+    private void DrawSkillTexts()
+    {
+        _skillResultTexts.ForEach(x => x.Draw(GlobalVariablesDto.SpriteBatchEntities));
+    }
+
+    private void DrawEffectBanner()
+    {
+        if (_effectBanner.IsVisible)
+            _effectBanner.Draw(GlobalVariablesDto.SpriteBatchInterface);
+    }
+
+    #endregion
+
+    #region Functions
+
+    #region Hover
+
+    public bool IsHovering(Point mousePosition)
+    {
+        return IsHoveringUnit(mousePosition) || IsHoveringEffect(mousePosition);
+    }
+
+    private bool IsHoveringUnit(Point mousePosition)
+    {
+        return Rectangle.Contains(mousePosition);
+    }
+
+    private bool IsHoveringEffect(Point mousePosition)
+    {
+        return Effects.Any(x => x.Rectangle.Contains(mousePosition));
+    }
+
+    private UnitEffect GetHoveringEffect(Point mousePosition)
+    {
+        return Effects.First(x => x.Rectangle.Contains(mousePosition));
+    }
+
+    #endregion
+
+    #region Take Damage
+
+    public int RecieveAttack(int damage, bool hasMissed = false, bool hasCritical = false)
+    {
+        var damageTaken = Stats.RecieveDamage(damage);
+
+        if (!hasMissed)
+            TickDamageRecieved();
+
+        AddAttackSkillTextByContext(damage, hasMissed, hasCritical);
+
+        return damageTaken;
+    }
+
+    private void TickDamageRecieved()
+    {
+        if (Stats.IsDead)
+            MakeDead();
+        else
+            ResetTakeDamageDelay();
+    }
+
+    private void ResetTakeDamageDelay()
+    {
+        _currentDelayDamageTakenFlash = DelayDamageTakenFlash;
+    }
+
+    private void AddAttackSkillTextByContext(int damage, bool hasMissed, bool hasCritical)
+    {
+        if (hasMissed)
+        {
+            AddAttackMissSkillText();
+            return;
+        }
+
+        if (hasCritical)
+        {
+            AddCriticalAttackSkillText(damage);
+            return;
+        }
+
+        AddAttackSkillText(damage);
+    }
+
+    #endregion
+
+    #region Take Heal
+
+    public int RecieveHeal(int healAmount, bool hasCritical = false)
+    {
+        var trueHealAmount = Stats.HealHealth(healAmount);
+
+        ResetTakeHealDelay();
+        AddHealSkillTextByContext(trueHealAmount, hasCritical);
+
+        return trueHealAmount;
+    }
+
+    private void ResetTakeHealDelay()
+    {
+        _currentDelayHealTakenFlash = DelayHealTakenFlash;
+    }
+
+    private void AddHealSkillTextByContext(int healAmount, bool hasCritical)
+    {
+        if (hasCritical)
+        {
+            AddCriticalHealthSkillText(healAmount);
+            return;
+        }
+
+        AddHealthSkillText(healAmount);
+    }
+
+    #endregion
+
+    #region Death
+
+    private void MakeDead()
+    {
+        if (IsDead)
+            return;
+
+        IsDead = true;
+
+        _deadSound.Play();
+        _deadAnimation.Reset();
+    }
+
+    #endregion
+
+    #region Level Up
+
+    private void HasLevelUp()
+    {
+        StartLevelUpAnimation();
+        ReloadSkills();
+    }
+
+    private void StartLevelUpAnimation()
+    {
+        _currentDelayLevelUpAnimation = DelayLevelUpAnimation;
+        _levelUpAnimation.Reset();
+        _levelUpSound.Play();
+    }
+
+    private void ReloadSkills()
+    {
+        Skills = _skillTree.GetAvaliableSkills(this, Stats.Level);
+    }
+
+    #endregion
+
+    #region Turn Start
+
+    public void OnTurnStart()
+    {
+        Tick();
+        ApplyEffectOnTurnStart();
+        RemoveExpiredEffects();
+    }
+
+    public void Tick()
+    {
+        Skills.ForEach(x => x.TickCooldown());
+        Effects.ForEach(x => x.Effect.TickDuration());
+        Stats.RecoveryMana(Stats.ManaRegen);
+    }
+
+    public void ApplyEffectOnTurnStart()
+    {
+        Effects.ForEach(x => x.Effect.OnTurnStart(this));
+    }
+
+    public void RemoveExpiredEffects()
+    {
+        var effectsToRemove = Effects.Where(x => x.Effect.HasFinished).ToList();
+        
+        foreach (var effect in effectsToRemove)
+            Effects.Remove(effect);
+    }
+
+    #endregion
+
+    #region Effects
+
+    #region Apply
+
+    public void AddEffect(BaseEffect effect)
+    {
+        Effects.Add(new(effect));
+        effect.OnApply(this);
+    }
+
+    public void ApplyReciveAttackEffects(SkillContext context)
+    {
+        foreach (var unitEffect in Effects)
+            unitEffect.Effect.OnReceiveAttack(context);
+    }
+
+    public void ApplyExecuteAttackEffects(SkillContext context)
+    {
+        foreach (var unitEffect in Effects)
+            unitEffect.Effect.OnAttack(context);
+    }
+
+    #endregion
+
+    #region Hover
+
+    //public bool IsHovering
+
+    #endregion
+
+    #endregion
+
+    #region Skill Result Text
+
+    private void AddAttackMissSkillText()
+    {
+        AddSkillText($"Miss", Color.Yellow);
+    }
+
+    private void AddCriticalAttackSkillText(int damage)
+    {
+        AddSkillText($"-{damage}", Color.DarkRed, isCritical: true);
+    }
+
+    private void AddAttackSkillText(int damage)
+    {
+        AddSkillText($"-{damage}", Color.Red);
+    }
+
+    private void AddCriticalHealthSkillText(int healthAmount)
+    {
+        AddSkillText($"+{healthAmount}", Color.DarkGreen, isCritical: true);
+    }
+
+    private void AddHealthSkillText(int healthAmount)
+    {
+        AddSkillText($"+{healthAmount}", Color.Green);
+    }
+
+    public void AddSkillText(string text, Color color, bool isCritical = false)
+    {
+        _skillResultTexts.Add(new((int)Center.X, (int)Center.Y, text, color, isCritical));
+    }
+
+    #endregion
+
+    #region Battle Reset
+
+    public void ResetStatus()
+    {
+        Stats.Reset();
+        Effects.Clear();
+        ReloadSkills();
+
+        IsDead = false;
+        IsDestroyed = false;
+
+        _deadAnimation = new();
+        _deadAnimation.IsLoop = false;
+    }
+
+    #endregion
+
+    #endregion
+}
+
+public class UnitEffect
+{
+    public BaseEffect Effect { get; set; }
+    public Rectangle Rectangle { get; set; }
+
+    public UnitEffect(BaseEffect effect, Rectangle rectangle)
+    {
+        Effect = effect;
+        Rectangle = rectangle;
+    }
+
+    public UnitEffect(BaseEffect effect)
+    {
+        Effect = effect;
+        Rectangle = Rectangle.Empty;
+    }
+}

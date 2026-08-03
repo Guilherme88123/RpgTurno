@@ -1,7 +1,7 @@
 ﻿using Application.Model.MenuElements.Radio;
-using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
-using Domain.Model.Texture.Sprite.Custom.Ui.Bars;
-using Domain.Model.Texture.Sprite.Custom.Ui.Buttons;
+using Domain.Application.Texture.Sprite.Custom.Ui.Banners;
+using Domain.Application.Texture.Sprite.Custom.Ui.Bars;
+using Domain.Application.Texture.Sprite.Custom.Ui.Buttons;
 using System;
 
 namespace RpgTurno.Custom.Component.Option.Banner;

@@ -1,6 +1,6 @@
 ﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
-using Domain.Model.Components.Base;
+using Domain.Application.Components.Base;
 using RpgTurno.Custom.Component.Option.Banner;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;

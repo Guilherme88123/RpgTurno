@@ -1,8 +1,8 @@
 ﻿using Domain.Const.Tiled;
-using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Terrain.Bushes;
-using Domain.Model.Texture.Sprite.Custom.Terrain.Rocks;
-using Domain.Model.Texture.Sprite.Custom.Terrain.Trees;
+using Domain.Application.Texture.Sprite;
+using Domain.Application.Texture.Sprite.Custom.Terrain.Bushes;
+using Domain.Application.Texture.Sprite.Custom.Terrain.Rocks;
+using Domain.Application.Texture.Sprite.Custom.Terrain.Trees;
 
 namespace Service.Stage;
 

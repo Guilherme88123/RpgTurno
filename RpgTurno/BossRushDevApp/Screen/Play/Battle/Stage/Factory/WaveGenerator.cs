@@ -1,4 +1,4 @@
-﻿using Domain.Model.Entity.Units.Base;
+﻿using Domain.Application.Entity.Units.Base;
 using RpgTurno.Screen.Play.Battle.Wave;
 using System;
 using System.Collections.Generic;

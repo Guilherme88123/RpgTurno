@@ -1,12 +1,12 @@
 ﻿using Domain.Const.Text;
 using Domain.Const.Version;
 using Domain.Dto.Language;
-using Domain.Model.Components.Image;
-using Domain.Model.Components.Text;
-using Domain.Model.MenuComponents.Frame;
-using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
-using Domain.Model.Texture.Sprite.Custom.Ui.Icons;
-using Domain.Model.Texture.Sprite.Custom.Ui.Ribbons.Small;
+using Domain.Application.Components.Image;
+using Domain.Application.Components.Text;
+using Domain.Application.MenuComponents.Frame;
+using Domain.Application.Texture.Sprite.Custom.Ui.Banners;
+using Domain.Application.Texture.Sprite.Custom.Ui.Icons;
+using Domain.Application.Texture.Sprite.Custom.Ui.Ribbons.Small;
 using System;
 
 namespace RpgTurno.Custom.Component.Map.Banner.Finish;

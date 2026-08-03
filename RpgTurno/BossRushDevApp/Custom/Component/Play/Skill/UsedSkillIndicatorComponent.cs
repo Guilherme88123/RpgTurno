@@ -1,10 +1,10 @@
 ﻿using Domain.Dto.Global;
 using Domain.Dto.Language;
-using Domain.Model.Components.Image;
-using Domain.Model.Components.Text;
-using Domain.Model.Skill.Base.Unit;
-using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Ui.Ribbons.Sword;
+using Domain.Application.Components.Image;
+using Domain.Application.Components.Text;
+using Domain.Application.Skill.Base.Unit;
+using Domain.Application.Texture.Sprite;
+using Domain.Application.Texture.Sprite.Custom.Ui.Ribbons.Sword;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

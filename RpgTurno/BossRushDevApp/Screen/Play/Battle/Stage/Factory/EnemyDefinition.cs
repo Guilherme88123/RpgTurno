@@ -1,4 +1,4 @@
-﻿using Domain.Model.Entity.Units.Base;
+﻿using Domain.Application.Entity.Units.Base;
 using System;
 
 namespace RpgTurno.Screen.Play.Battle.Stage.Factory;

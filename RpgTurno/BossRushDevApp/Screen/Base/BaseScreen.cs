@@ -2,7 +2,7 @@
 using Domain.Dto.Session;
 using Domain.Interface.Screen;
 using Domain.Interface.UiManager;
-using Domain.Model.Components.Base;
+using Domain.Application.Components.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;

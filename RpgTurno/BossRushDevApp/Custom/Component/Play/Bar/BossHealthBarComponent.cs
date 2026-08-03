@@ -1,8 +1,8 @@
 ﻿using Domain.Dto.Language;
-using Domain.Model.Components.ProgressBar;
-using Domain.Model.Components.Text;
-using Domain.Model.Entity.Units.Base;
-using Domain.Model.Texture.Sprite.Custom.Ui.Bars;
+using Domain.Application.Components.ProgressBar;
+using Domain.Application.Components.Text;
+using Domain.Application.Entity.Units.Base;
+using Domain.Application.Texture.Sprite.Custom.Ui.Bars;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

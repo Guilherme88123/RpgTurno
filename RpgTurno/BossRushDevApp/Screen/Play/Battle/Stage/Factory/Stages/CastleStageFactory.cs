@@ -1,5 +1,5 @@
-﻿using Domain.Model.Entity.Units.Enemy.SuperWarrior;
-using Domain.Model.Entity.Units.Enemy.Warrior;
+﻿using Domain.Application.Entity.Units.Enemy.SuperWarrior;
+using Domain.Application.Entity.Units.Enemy.Warrior;
 using RpgTurno.Screen.Play.Battle.Wave;
 
 namespace RpgTurno.Screen.Play.Battle.Stage.Factory.Stages;

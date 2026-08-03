@@ -2,11 +2,11 @@
 using Domain.Dto.Global;
 using Domain.Dto.Language;
 using Domain.Dto.Map.Node;
-using Domain.Model.Components.Image;
-using Domain.Model.Components.Text;
-using Domain.Model.MenuComponents.Frame;
-using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
-using Domain.Model.Texture.Sprite.Custom.Ui.Icons;
+using Domain.Application.Components.Image;
+using Domain.Application.Components.Text;
+using Domain.Application.MenuComponents.Frame;
+using Domain.Application.Texture.Sprite.Custom.Ui.Banners;
+using Domain.Application.Texture.Sprite.Custom.Ui.Icons;
 using Microsoft.Xna.Framework;
 using System;
 

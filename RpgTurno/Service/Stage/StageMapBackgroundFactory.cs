@@ -1,6 +1,6 @@
 ﻿using Domain.Enum.Stage;
-using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Maps;
+using Domain.Application.Texture.Sprite;
+using Domain.Application.Texture.Sprite.Custom.Maps;
 
 namespace Service.Stage;
 

@@ -1,0 +1,39 @@
+﻿using Domain.Const.Text;
+using Domain.Enum.Skill.Target;
+using Domain.Enum.Skill.Type;
+using Domain.Application.Effect;
+using Domain.Application.Skill.Base;
+using Domain.Application.Skill.Base.Animation;
+using Domain.Application.Skill.Base.Data;
+using Domain.Application.Skill.Base.Result;
+using Domain.Application.Sound.Attack.Archer;
+
+namespace Domain.Application.Skill;
+
+public class PoisonShootSkill : BaseSkill
+{
+    public override string Name => TextConst.PoisonShoot;
+    public override string Description => TextConst.PoisonShootDescription;
+
+    public override TargetSkillType TargetType => TargetSkillType.Enemy;
+    public override TargetSkillAmount TargetAmount => TargetSkillAmount.Single;
+    public override SkillType Type => SkillType.Attack;
+
+    public override float PowerMin => 1.2f;
+    public override float PowerMax => 1.45f;
+
+    public override int Cooldown => 3;
+    public override int ManaCost => 10;
+
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new LightShootAttackSoundEffect(), true, 0.5f);
+
+    public override SkillResult ExecuteSkill(SkillExecuteData skillData)
+    {
+        var result = ExecuteDefaultSingleTargetAttack(skillData);
+
+        if (!result.Contexts.First().HasMissed)
+            skillData.Target.AddEffect(new PoisonEffect());
+
+        return result;
+    }
+}

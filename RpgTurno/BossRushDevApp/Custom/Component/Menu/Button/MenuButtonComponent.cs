@@ -1,8 +1,8 @@
 ﻿using Application.Model.MenuElements.Button;
 using Domain.Dto.Global;
 using Domain.Enum.Component.Button;
-using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Ui.Buttons;
+using Domain.Application.Texture.Sprite;
+using Domain.Application.Texture.Sprite.Custom.Ui.Buttons;
 
 namespace RpgTurno.Custom.Component.Menu.Button;
 

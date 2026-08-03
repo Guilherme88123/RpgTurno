@@ -1,9 +1,9 @@
-﻿using Application.Model.MenuElements.Dropdown;
-using Domain.Dto.Components.Dropdown;
+﻿using Domain.Dto.Components.Dropdown;
 using Domain.Enum.Component.Button;
-using Domain.Model.Texture.Sprite.Custom.Ui.Banners;
-using Domain.Model.Texture.Sprite.Custom.Ui.Buttons;
-using Domain.Model.Texture.Sprite.Custom.Ui.Icons;
+using Domain.Application.Components.Dropdown;
+using Domain.Application.Texture.Sprite.Custom.Ui.Banners;
+using Domain.Application.Texture.Sprite.Custom.Ui.Buttons;
+using Domain.Application.Texture.Sprite.Custom.Ui.Icons;
 using System;
 using System.Collections.Generic;
 

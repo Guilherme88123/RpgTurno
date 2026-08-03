@@ -1,8 +1,8 @@
 ﻿using Application.Model.MenuElements.Button;
 using Domain.Dto.Language;
 using Domain.Enum.Component.Button;
-using Domain.Model.Skill.Base.Unit;
-using Domain.Model.Texture.Sprite.Custom.Ui.Buttons;
+using Domain.Application.Skill.Base.Unit;
+using Domain.Application.Texture.Sprite.Custom.Ui.Buttons;
 using Microsoft.Xna.Framework;
 using RpgTurno.Custom.CustomComponents.Play.Banners;
 

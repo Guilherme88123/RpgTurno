@@ -1,6 +1,6 @@
 ﻿using Domain.Const.Text;
 using Domain.Dto.Language;
-using Domain.Model.Components.Text;
+using Domain.Application.Components.Text;
 
 namespace RpgTurno.Custom.CustomComponents.Play.Wave;
 

@@ -1,7 +1,7 @@
 ﻿using Domain.Const.Tiled;
 using Domain.Dto.Map.Building;
 using Domain.Dto.Sprite;
-using Domain.Model.Texture.Sprite;
+using Domain.Application.Texture.Sprite;
 using Infrastructure.Tiled.Dto;
 using Microsoft.Xna.Framework;
 using System.Reflection.Metadata.Ecma335;

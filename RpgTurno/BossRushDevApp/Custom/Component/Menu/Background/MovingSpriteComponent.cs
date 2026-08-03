@@ -1,7 +1,7 @@
 ﻿using Domain.Dto.Global;
 using Domain.Enum;
-using Domain.Model.Components.Image;
-using Domain.Model.Texture.Sprite;
+using Domain.Application.Components.Image;
+using Domain.Application.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

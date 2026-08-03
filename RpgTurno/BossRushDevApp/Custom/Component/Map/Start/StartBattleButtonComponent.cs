@@ -1,10 +1,10 @@
 ﻿using Application.Model.MenuElements.Button;
 using Domain.Dto.Global;
 using Domain.Enum.Component.Button;
-using Domain.Model.Components.Button;
-using Domain.Model.Components.Image;
-using Domain.Model.Texture.Sprite.Custom.Ui.Buttons;
-using Domain.Model.Texture.Sprite.Custom.Ui.Icons;
+using Domain.Application.Components.Button;
+using Domain.Application.Components.Image;
+using Domain.Application.Texture.Sprite.Custom.Ui.Buttons;
+using Domain.Application.Texture.Sprite.Custom.Ui.Icons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

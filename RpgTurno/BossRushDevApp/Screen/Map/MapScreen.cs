@@ -3,7 +3,7 @@ using Domain.Const.Sound.Music;
 using Domain.Dto.Global;
 using Domain.Dto.Map.Node;
 using Domain.Enum.Stage;
-using Domain.Model.Components.Base;
+using Domain.Application.Components.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;

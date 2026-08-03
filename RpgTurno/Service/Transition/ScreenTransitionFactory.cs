@@ -1,6 +1,6 @@
 ﻿using Domain.Enum.Transition;
 using Domain.Interface.Transition;
-using Domain.Model.Transition;
+using Domain.Application.Transition;
 
 namespace Service.Transition;
 

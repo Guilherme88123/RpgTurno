@@ -3,7 +3,7 @@ using Domain.Const.Text;
 using Domain.Dto.Global;
 using Domain.Dto.Language;
 using Domain.Enum.Component.Button;
-using Domain.Model.Texture.Sprite.Custom.Ui.Buttons;
+using Domain.Application.Texture.Sprite.Custom.Ui.Buttons;
 
 namespace RpgTurno.Custom.Component.Option.Banner;
 

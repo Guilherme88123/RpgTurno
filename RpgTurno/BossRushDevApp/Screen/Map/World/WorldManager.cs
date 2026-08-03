@@ -5,7 +5,7 @@ using Domain.Dto.Map.Node;
 using Domain.Dto.Session;
 using Domain.Enum;
 using Domain.Enum.Stage;
-using Domain.Model.Sound.Unit.Footsteps.Walk;
+using Domain.Application.Sound.Unit.Footsteps.Walk;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.Screen.Map.World.Player;
 using System;

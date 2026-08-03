@@ -1,7 +1,7 @@
 ﻿using Domain.Enum;
-using Domain.Model.Components.Base;
-using Domain.Model.Texture.Sprite;
-using Domain.Model.Texture.Sprite.Custom.Terrain.Clouds;
+using Domain.Application.Components.Base;
+using Domain.Application.Texture.Sprite;
+using Domain.Application.Texture.Sprite.Custom.Terrain.Clouds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

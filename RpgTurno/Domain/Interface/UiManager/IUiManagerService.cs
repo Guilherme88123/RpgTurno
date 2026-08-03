@@ -1,4 +1,4 @@
-﻿using Domain.Model.Components.Base;
+﻿using Domain.Application.Components.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

@@ -1,6 +1,6 @@
 ﻿using Domain.Dto.Global;
-using Domain.Model.Components.Image;
-using Domain.Model.Texture.Sprite.Custom.Ui.Logo;
+using Domain.Application.Components.Image;
+using Domain.Application.Texture.Sprite.Custom.Ui.Logo;
 using Microsoft.Xna.Framework;
 
 namespace RpgTurno.Custom.Component.Menu.Logo;

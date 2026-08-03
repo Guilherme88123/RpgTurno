@@ -1,0 +1,29 @@
+﻿using Domain.Dto.Global;
+using Domain.Application.Sound.Base;
+using Domain.Application.Sound.Ui;
+using Microsoft.Xna.Framework;
+
+namespace Domain.Application.Components.Base.Hover;
+
+public class HoverState
+{
+    public bool IsHover { get; private set; }
+
+    public Action OnHoverIn { get; set; }
+    public Action OnHoverOut { get; set; }
+
+    private bool _wasHover;
+
+    public void Update(Rectangle bounds)
+    {
+        IsHover = bounds.Contains(GlobalVariablesDto.GetRealMousePoint());
+
+        if (IsHover && !_wasHover)
+            OnHoverIn?.Invoke();
+
+        if (!IsHover && _wasHover)
+            OnHoverOut?.Invoke();
+
+        _wasHover = IsHover;
+    }
+}

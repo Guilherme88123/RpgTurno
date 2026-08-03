@@ -1,10 +1,10 @@
 ﻿using Domain.Dto.Map;
 using Domain.Enum.Stage;
-using Domain.Model.Entity.Units.Ally.Archer;
-using Domain.Model.Entity.Units.Ally.Cleric;
-using Domain.Model.Entity.Units.Ally.Lancer;
-using Domain.Model.Entity.Units.Ally.Warrior;
-using Domain.Model.Entity.Units.Base;
+using Domain.Application.Entity.Units.Ally.Archer;
+using Domain.Application.Entity.Units.Ally.Cleric;
+using Domain.Application.Entity.Units.Ally.Lancer;
+using Domain.Application.Entity.Units.Ally.Warrior;
+using Domain.Application.Entity.Units.Base;
 
 namespace Domain.Dto.Session;
 
