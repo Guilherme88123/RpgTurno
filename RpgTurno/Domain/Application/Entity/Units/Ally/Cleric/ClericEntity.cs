@@ -11,7 +11,7 @@ namespace Domain.Application.Entity.Units.Ally.Cleric;
 
 public class ClericEntity : BaseUnitEntity
 {
-    public ClericEntity() : base(stats: new ClericStats(level: 1), skillTree: new ClericSkillTree())
+    public ClericEntity(int level = 1) : base(stats: new ClericStats(level), skillTree: new ClericSkillTree())
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ClericIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.ClericRun);

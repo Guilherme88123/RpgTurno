@@ -7,6 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Unit\SuperWarriorEntity.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4.1" />
 	</ItemGroup>
 	

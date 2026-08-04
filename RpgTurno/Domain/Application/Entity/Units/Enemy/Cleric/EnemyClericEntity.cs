@@ -11,7 +11,7 @@ namespace Domain.Application.Entity.Units.Enemy.Cleric;
 
 public class EnemyClericEntity : BaseUnitEntity
 {
-    public EnemyClericEntity() : base(stats: new EnemyClericStats(level: 1), skillTree: new EnemyClericSkillTree())
+    public EnemyClericEntity(int level = 1) : base(stats: new EnemyClericStats(level), skillTree: new EnemyClericSkillTree())
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyClericRun);

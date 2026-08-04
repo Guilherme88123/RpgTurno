@@ -11,7 +11,7 @@ namespace Domain.Application.Entity.Units.Enemy.Warrior;
 
 public class EnemyWarriorEntity : BaseUnitEntity
 {
-    public EnemyWarriorEntity() : base(stats: new EnemyWarriorStats(level: 1), skillTree: new EnemyWarriorSkillTree())
+    public EnemyWarriorEntity(int level = 1) : base(stats: new EnemyWarriorStats(level), skillTree: new EnemyWarriorSkillTree())
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorRun);

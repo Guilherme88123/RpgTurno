@@ -8,7 +8,7 @@ namespace Domain.Application.Entity.Units.Enemy.SuperWarrior;
 
 public class EnemySuperWarriorEntity : BaseUnitEntity
 {
-    public EnemySuperWarriorEntity() : base(stats: new EnemySuperWarriorStats(level: 20), skillTree: new EnemySuperWarriorSkillTree())
+    public EnemySuperWarriorEntity(int level = 20) : base(stats: new EnemySuperWarriorStats(level), skillTree: new EnemySuperWarriorSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new EnemySuperWarriorIdleSprite());
         Animation.Add(CreatureStateType.Running, new EnemySuperWarriorRunSprite());

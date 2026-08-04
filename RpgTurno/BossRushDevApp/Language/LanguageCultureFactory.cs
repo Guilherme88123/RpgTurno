@@ -1,8 +1,9 @@
 ﻿using Domain.Const.Language;
 using Domain.Enum.Language;
+using System;
 using System.Globalization;
 
-namespace Service.Language;
+namespace Service.Stage.Language;
 
 public static class LanguageCultureFactory
 {

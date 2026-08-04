@@ -14,7 +14,7 @@ public class LancerEntity : BaseUnitEntity
 {
     public override int FeetPadding => 64;
 
-    public LancerEntity() : base(stats: new LancerStats(level: 1), skillTree: new LancerSkillTree())
+    public LancerEntity(int level = 1) : base(stats: new LancerStats(level), skillTree: new LancerSkillTree())
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.LancerIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.LancerRun);

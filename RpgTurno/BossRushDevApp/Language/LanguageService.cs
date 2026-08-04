@@ -1,7 +1,7 @@
 ﻿using Domain.Enum.Language;
 using Domain.Interface.Language;
 using RpgTurno.Resources;
-using Service.Language;
+using Service.Stage.Language;
 using System.Globalization;
 using System.Resources;
 

@@ -11,7 +11,7 @@ namespace Domain.Application.Entity.Units.Enemy.Archer;
 
 public class EnemyArcherEntity : BaseUnitEntity
 {
-    public EnemyArcherEntity() : base(stats: new EnemyArcherStats(level: 1), skillTree: new EnemyArcherSkillTree())
+    public EnemyArcherEntity(int level = 1) : base(stats: new EnemyArcherStats(level), skillTree: new EnemyArcherSkillTree())
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyArcherIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyArcherRun);

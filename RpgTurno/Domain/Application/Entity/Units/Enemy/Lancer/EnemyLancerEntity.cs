@@ -11,7 +11,7 @@ namespace Domain.Application.Entity.Units.Enemy.Lancer;
 
 public class EnemyLancerEntity : BaseUnitEntity
 {
-    public EnemyLancerEntity() : base(stats: new EnemyLancerStats(level: 1), skillTree: new EnemyLancerSkillTree())
+    public EnemyLancerEntity(int level = 1) : base(stats: new EnemyLancerStats(level), skillTree: new EnemyLancerSkillTree())
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyLancerIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyLancerRun);
