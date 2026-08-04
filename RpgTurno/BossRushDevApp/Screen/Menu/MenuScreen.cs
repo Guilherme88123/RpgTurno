@@ -71,7 +71,7 @@ public class MenuScreen : BaseScreen
 
     private void StartGame()
     {
-        GlobalVariablesDto.ChangeScreen?.Invoke(ScreenConst.MapScreen);
+        GlobalVariablesDto.ChangeScreen?.Invoke(ScreenConst.SaveScreen);
     }
 
     private void GoToOptionsScreen()

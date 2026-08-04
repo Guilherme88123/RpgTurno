@@ -19,6 +19,7 @@ using RpgTurno.Screen.Map.World.Stage;
 using RpgTurno.Screen.Menu;
 using RpgTurno.Screen.Option;
 using RpgTurno.Screen.Play;
+using RpgTurno.Screen.Save;
 using Service.Cursor;
 using Service.Repositories.Save;
 using Service.Repositories.Settings;
@@ -48,6 +49,7 @@ public static class Program
         {
             options.UseSqlite($"Data Source={DatabaseConst.Filename}");
         });
+        services.AddTransient<DbContext, AppDbContext>();
 
         #endregion
 
@@ -70,11 +72,13 @@ public static class Program
         services.AddTransient<IScreen, MapScreen>();
         services.AddTransient<IScreen, MenuScreen>();
         services.AddTransient<IScreen, OptionScreen>();
+        services.AddTransient<IScreen, SaveScreen>();
 
         services.AddTransient<PlayScreen>();
         services.AddTransient<MapScreen>();
         services.AddTransient<MenuScreen>();
         services.AddTransient<OptionScreen>();
+        services.AddTransient<SaveScreen>();
 
         services.AddTransient<IScreenManager, ScreenManager>();
         services.AddTransient<IUiManagerService, UiManagerService>();

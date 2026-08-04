@@ -16,6 +16,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Position = table.Column<int>(type: "INTEGER", nullable: false),
                     Progress = table.Column<double>(type: "REAL", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     LastPlayDate = table.Column<DateTime>(type: "TEXT", nullable: false)

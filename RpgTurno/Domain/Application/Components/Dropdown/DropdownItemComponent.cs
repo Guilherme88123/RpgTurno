@@ -25,11 +25,6 @@ public class DropdownItemComponent : ButtonComponent
         HoverAnimation.HoverTextColor = new Color(71, 171, 169);
     }
 
-    public void SetBounds(int width, int height)
-    {
-        Bounds = new(Bounds.X, Bounds.Y, width, height);
-    }
-
     private void OnSelectOption()
     {
         _parentDropdown.SelectItem(_itemDto.Id);

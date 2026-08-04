@@ -51,6 +51,11 @@ public class BaseComponent
         AnimationManager.Update(true);
     }
 
+    public void SetBounds(int width, int height)
+    {
+        Bounds = new(Bounds.X, Bounds.Y, width, height);
+    }
+
     public virtual void SetPosition(int positionX, int positionY)
     {
         var newBound = new Rectangle(positionX, positionY, Bounds.Width, Bounds.Height);

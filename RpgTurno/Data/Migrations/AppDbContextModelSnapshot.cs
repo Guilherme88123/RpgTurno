@@ -29,6 +29,9 @@ namespace Data.Migrations
                     b.Property<DateTime>("LastPlayDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Position")
+                        .HasColumnType("INTEGER");
+
                     b.Property<double>("Progress")
                         .HasColumnType("REAL");
 

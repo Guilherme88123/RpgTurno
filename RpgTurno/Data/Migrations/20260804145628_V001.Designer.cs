@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260804124035_V001")]
+    [Migration("20260804145628_V001")]
     partial class V001
     {
         /// <inheritdoc />
@@ -31,6 +31,9 @@ namespace Data.Migrations
 
                     b.Property<DateTime>("LastPlayDate")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("INTEGER");
 
                     b.Property<double>("Progress")
                         .HasColumnType("REAL");
