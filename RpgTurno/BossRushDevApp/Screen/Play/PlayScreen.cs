@@ -30,6 +30,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Service.Save;
 
 namespace RpgTurno.Screen.Play;
 
@@ -653,6 +654,8 @@ public class PlayScreen : BaseScreen
         ResetUnitsStatus();
         Initialize();
         GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
+
+        SaveGameSession();
     }
 
     #endregion
@@ -676,6 +679,8 @@ public class PlayScreen : BaseScreen
 
         if (!isGameOver)
             GameSession.OnStageCleared?.Invoke();
+
+        SaveGameSession();
     }
 
     private void PlayBattleFinishSounfEffect(bool isGameOver)
@@ -718,6 +723,8 @@ public class PlayScreen : BaseScreen
 
         GameSession.IsInBattle = false;
         GlobalVariablesDto.PopScreen();
+
+        SaveGameSession();
     }
 
     private async Task ResetPlayWhenGoToMapScreen()
@@ -748,6 +755,15 @@ public class PlayScreen : BaseScreen
             return;
 
         MediaPlayer.Play(GlobalVariablesDto.Content.Load<Song>(MusicConst.BossBattleMusic));
+    }
+
+    #endregion
+
+    #region Save Update
+
+    private void SaveGameSession()
+    {
+        _ = SaveManager.UpdateGameSaveAsync(GameSession.Save);
     }
 
     #endregion

@@ -1,5 +1,6 @@
 ﻿using Domain.Application.Entity.Units.Base;
 using Domain.Dto.Map;
+using Domain.Dto.Map.Node;
 using Domain.Enum.Stage;
 
 namespace Domain.Dto.Session;
@@ -16,21 +17,8 @@ public class GameSession
 
     public PlayStatistics Statistics { get; set; }
 
-    public void Initialze(MapData map, List<BaseUnitEntity> allies)
+    public void InitialzeSave(GameSessionSave save)
     {
-        Save = new(map, allies);
+        Save = save;
     }
-
-    //private void InitializeAllies()
-    //{
-    //    List<BaseUnitEntity> allies =
-    //    [
-    //        new WarriorEntity(),
-    //        new ArcherEntity(),
-    //        new LancerEntity(),
-    //        new ClericEntity(),
-    //    ];
-
-    //    Allies = allies;
-    //}
 }

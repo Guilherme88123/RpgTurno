@@ -1,5 +1,7 @@
 ﻿using Domain.Application.Entity.Units.Base;
 using Domain.Dto.Global;
+using Domain.Dto.Map;
+using Domain.Dto.Map.Node;
 using Domain.Dto.Session;
 using Domain.Enum.Save;
 using Domain.Enum.Stage;
@@ -23,7 +25,7 @@ public static class SaveManager
 
     #region Save Selection
 
-    public static async Task HandleSaveSelectionAsync(SaveModel selectedSave, SavePositionType position)
+    public static async Task<GameSessionSave> HandleSaveSelectionAsync(SaveModel selectedSave, SavePositionType position)
     {
         if (selectedSave is null)
             selectedSave = await CreateDefaultSaveSlotAsync(position);
@@ -31,13 +33,12 @@ public static class SaveManager
         var units = await GetUnitsBySave(selectedSave.Id);
         var stages = await GetStagesBySave(selectedSave.Id);
 
-        InitializeGameSessionSave(stages, units);
+        return InitializeGameSessionSave(selectedSave, stages, units);
     }
 
-    private static void InitializeGameSessionSave(List<StageModel> stages, List<BaseUnitEntity> units)
+    private static GameSessionSave InitializeGameSessionSave(SaveModel save, List<StageModel> stages, List<BaseUnitEntity> units)
     {
-        var gameSession = GlobalVariablesDto.GetService<GameSession>();
-        gameSession.Initialze(MapFactory.Create(stages), units);
+        return new GameSessionSave(save.Id, MapFactory.Create(stages), units);
     }
 
     #region Units Handler
@@ -61,6 +62,7 @@ public static class SaveManager
         {
             var unitEntity = CreateUnitEntityByModel(unitModel.UnitCode, unitModel.Level);
 
+            unitEntity.Id = unitModel.Id;
             unitEntity.Stats.CurrentExperience = unitModel.CurrentExperience;
 
             unitsList.Add(unitEntity);
@@ -142,6 +144,78 @@ public static class SaveManager
     }
 
     #endregion
+
+    #endregion
+
+    #region Save Update
+
+    public static async Task UpdateGameSaveAsync(GameSessionSave gameSave)
+    {
+        await UpdateSaveAsync(gameSave);
+        await UpdateStagesAsync(gameSave);
+        await UpdateUnitsAsync(gameSave);
+    }
+
+    private static async Task UpdateSaveAsync(GameSessionSave gameSave)
+    {
+        var save = await _saveService.GetAsync(gameSave.SaveId);
+
+        save.LastPlayDate = DateTime.Now;
+        save.Progress = GetSaveProgress(gameSave);
+
+        await _saveService.UpdateAsync(save);
+    }
+
+    private static List<StageMapNode> GetStagesMapNodesByMap(MapData map)
+    {
+        return map.Nodes
+            .Where(x => x is StageMapNode)
+            .Select(x => x as StageMapNode)
+            .ToList();
+    }
+
+    private static int GetSaveProgress(GameSessionSave gameSave)
+    {
+        var totalStages = GetStagesMapNodesByMap(gameSave.Map);
+
+        var totalStagesCount = (double)totalStages.Count;
+        var completedStagesCount = (double)totalStages.Where(x => x.Cleared).Count();
+
+        return (int)((completedStagesCount / totalStagesCount) * 100);
+    }
+
+    private static async Task UpdateStagesAsync(GameSessionSave gameSave)
+    {
+        var stages = GetStagesMapNodesByMap(gameSave.Map);
+
+        foreach (var stage in stages)
+        {
+            var stageModel = await _stageService.GetAsync(stage.Id);
+
+            if (stageModel is null || stageModel.IsCompleted == stage.Cleared)
+                continue;
+
+            stageModel.IsCompleted = stage.Cleared;
+
+            await _stageService.UpdateAsync(stageModel);
+        }
+    }
+
+    private static async Task UpdateUnitsAsync(GameSessionSave gameSave)
+    {
+        foreach (var ally in gameSave.Allies)
+        {
+            var unitModel = await _unitService.GetAsync(ally.Id);
+
+            if (unitModel is null)
+                continue;
+
+            unitModel.Level = ally.Stats.Level;
+            unitModel.CurrentExperience = ally.Stats.CurrentExperience;
+
+            await _unitService.UpdateAsync(unitModel);
+        }
+    }
 
     #endregion
 }

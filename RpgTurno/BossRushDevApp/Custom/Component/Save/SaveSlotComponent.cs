@@ -17,7 +17,9 @@ public class SaveSlotComponent : FrameComponent
     private readonly SavePositionType _position;
 
     private readonly ButtonSlotComponent _button;
-    private readonly TextComponent _title = new();
+    private readonly TextComponent _titleText = new();
+    private readonly TextComponent _progressText = new();
+    private readonly TextComponent _emptySlotText = new(positionXByCenter: true, positionYByCenter: true);
 
     public SaveSlotComponent(Action<SaveModel, SavePositionType> onSaveSelect, SaveModel save, SavePositionType position)
     {
@@ -27,13 +29,22 @@ public class SaveSlotComponent : FrameComponent
 
         Bounds = new(0, 0, 900, 256);
 
-        _title.SetText(GetTitleByPosition());
+        _titleText.SetText(GetTitleByPosition());
+        _progressText.SetText(GetProgressText(save));
+        _emptySlotText.SetText("Empty Slot");
 
         _button = new(GetSpriteBySaveStatus());
         _button.SetBounds(Bounds.Width, Bounds.Height);
         _button.Click += OnButtonClick;
 
-        AddChild(_title);
+        bool isEmptySlot = _save is null;
+
+        _progressText.IsVisible = !isEmptySlot;
+        _emptySlotText.IsVisible = isEmptySlot;
+
+        AddChild(_titleText);
+        AddChild(_progressText);
+        AddChild(_emptySlotText);
         AddChild(_button);
     }
 
@@ -47,21 +58,31 @@ public class SaveSlotComponent : FrameComponent
         };
     }
 
+    private string GetProgressText(SaveModel save)
+    {
+        if (save is null)
+            return string.Empty;
+
+        return $"{save.Progress}%";
+    }
+
     private SpriteData GetSpriteBySaveStatus()
     {
-        return _save switch
-        {
-            _ when _save is null => new PaperBannerSprite(),
-            _ when _save.Progress < 100 => new WoodBannerSprite(),
-            _ when _save.Progress >= 100 => new SpecialPaperBannerSprite(),
-        };
+        if (_save is null)
+            return new PaperBannerSprite();
+        else
+            return new SpecialPaperBannerSprite();
     }
 
     public override void SetPosition(int positionX, int positionY)
     {
         base.SetPosition(positionX, positionY);
 
-        _title.SetPosition(positionX + Margin, positionY + Margin);
+        var textHeight = 32;
+
+        _titleText.SetPosition(positionX + Margin, positionY + Margin);
+        _progressText.SetPosition(Bounds.Right - Margin * 2, Bounds.Bottom - Margin - textHeight);
+        _emptySlotText.SetPosition(Bounds.Center.X, Bounds.Center.Y);
         _button.SetPosition(positionX, positionY);
     }
 

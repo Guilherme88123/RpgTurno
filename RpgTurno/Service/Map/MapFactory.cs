@@ -52,6 +52,7 @@ public static class MapFactory
             if (stage is null)
                 continue;
 
+            mapStage.Id = stage.Id;
             mapStage.Cleared = stage.IsCompleted;
         }
     }

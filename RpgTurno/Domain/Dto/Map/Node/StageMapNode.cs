@@ -5,6 +5,8 @@ namespace Domain.Dto.Map.Node;
 
 public class StageMapNode : MapNodeData
 {
+    public Guid Id { get; set; }
+
     public StageCode StageCode { get; set; }
     public bool Cleared { get; set; }
 

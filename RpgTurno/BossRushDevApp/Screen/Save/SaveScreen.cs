@@ -84,8 +84,13 @@ public class SaveScreen : BaseScreen
 
     private void InitGameWithSelectedSave(SaveModel selectedSave, SavePositionType position)
     {
-        SaveManager.HandleSaveSelectionAsync(selectedSave, position).Wait();
-
+        HandleGameSave(selectedSave, position).Wait();
         GlobalVariablesDto.ChangeScreen?.Invoke(ScreenConst.MapScreen);
+    }
+
+    private async Task HandleGameSave(SaveModel selectedSave, SavePositionType position)
+    {
+        var gameSave = await SaveManager.HandleSaveSelectionAsync(selectedSave, position);
+        GameSession.InitialzeSave(gameSave);
     }
 }

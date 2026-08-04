@@ -20,6 +20,8 @@ namespace Domain.Application.Entity.Units.Base;
 
 public class BaseUnitEntity : BaseEntity
 {
+    public Guid Id { get; set; }
+
     public string Name { get; set; }
 
     public BaseUnitStats Stats { get; }
