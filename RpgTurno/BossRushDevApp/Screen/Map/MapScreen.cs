@@ -45,14 +45,14 @@ public class MapScreen : BaseScreen
     {
         _worldManager = new();
         _worldManager.OnPlayScreenEntry += OnPlayScreenEntry;
-        _worldManager.Initialize(GameSession.Map);
+        _worldManager.Initialize(GameSession.Save.Map);
         GameSession.OnStageCleared += _worldManager.OnStageCleared;
 
         _nodeBannerComponent = new();
         _nodeBannerComponent.IsVisible = false;
 
         _alliesPartyComponent = new();
-        _alliesPartyComponent.SetAlliesParty(GameSession.Allies);
+        _alliesPartyComponent.SetAlliesParty(GameSession.Save.Allies);
 
         _backgroundImageComponent = new();
 

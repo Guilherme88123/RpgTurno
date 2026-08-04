@@ -2,13 +2,16 @@
 using Domain.Dto.Map;
 using Domain.Dto.Map.Node;
 using Domain.Enum.Stage;
+using Domain.Model.Stage;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RpgTurno.Screen.Map.World.Stage;
 
 public static class MapFactory
 {
-    public static MapData Create()
+    public static MapData Create(List<StageModel> stages)
     {
         var map = new MapData();
 
@@ -29,8 +32,27 @@ public static class MapFactory
         map.Nodes.Add(stage2);
         map.Nodes.Add(stage3);
 
+        LoadStages(map, stages);
+
         map.StartStage = start;
 
         return map;
+    }
+
+    private static void LoadStages(MapData map, List<StageModel> stages)
+    {
+        var mapStages = map.Nodes
+            .Where(x => x is StageMapNode)
+            .Select(x => x as StageMapNode);
+
+        foreach (var mapStage in mapStages)
+        {
+            var stage = stages.FirstOrDefault(x => x.StageCode == mapStage.StageCode);
+
+            if (stage is null)
+                continue;
+
+            mapStage.Cleared = stage.IsCompleted;
+        }
     }
 }

@@ -167,7 +167,7 @@ public class PlayScreen : BaseScreen
 
     private List<BaseUnitEntity> GetAllies()
     {
-        return GameSession.Allies;
+        return GameSession.Save.Allies;
     }
 
     #endregion
@@ -688,7 +688,7 @@ public class PlayScreen : BaseScreen
 
     private void ResetUnitsStatus()
     {
-        GameSession.Allies.ForEach(x => x.ResetStatus());
+        GameSession.Save.Allies.ForEach(x => x.ResetStatus());
     }
 
     private void HandleFinishBattleComponentsVisibility()

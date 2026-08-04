@@ -12,14 +12,14 @@ public class SaveSlotComponent : FrameComponent
 {
     private const int Margin = 64;
 
-    private readonly Action<SaveModel> _onSaveSelect;
+    private readonly Action<SaveModel, SavePositionType> _onSaveSelect;
     private readonly SaveModel _save;
     private readonly SavePositionType _position;
 
     private readonly ButtonSlotComponent _button;
     private readonly TextComponent _title = new();
 
-    public SaveSlotComponent(Action<SaveModel> onSaveSelect, SaveModel save, SavePositionType position)
+    public SaveSlotComponent(Action<SaveModel, SavePositionType> onSaveSelect, SaveModel save, SavePositionType position)
     {
         _onSaveSelect = onSaveSelect;
         _save = save;
@@ -67,6 +67,6 @@ public class SaveSlotComponent : FrameComponent
 
     private void OnButtonClick()
     {
-        _onSaveSelect?.Invoke(_save);
+        _onSaveSelect?.Invoke(_save, _position);
     }
 }

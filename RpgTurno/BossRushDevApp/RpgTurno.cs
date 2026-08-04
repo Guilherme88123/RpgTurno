@@ -101,14 +101,7 @@ public class RpgTurno : Game
         MediaPlayer.Volume = GlobalOptionsDto.MusicVolumeFloat;
         MediaPlayer.IsRepeating = true;
 
-        InitializeGameSession();
         RunInitialScreen();
-    }
-
-    private void InitializeGameSession()
-    {
-        var gameSession = GlobalVariablesDto.GetService<GameSession>();
-        gameSession.Initialze(MapFactory.Create());
     }
 
     private void RunInitialScreen()

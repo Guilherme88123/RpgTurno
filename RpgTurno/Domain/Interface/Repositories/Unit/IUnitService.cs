@@ -5,4 +5,5 @@ namespace Domain.Interface.Repositories.Unit;
 
 public interface IUnitService : IRepository<UnitModel>
 {
+    Task<List<UnitModel>> GetBySaveAsync(Guid saveId);
 }
