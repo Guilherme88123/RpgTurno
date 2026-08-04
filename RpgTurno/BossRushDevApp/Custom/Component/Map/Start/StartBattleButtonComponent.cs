@@ -1,14 +1,10 @@
-﻿using Application.Model.MenuElements.Button;
-using Domain.Dto.Global;
-using Domain.Enum.Component.Button;
-using Domain.Application.Components.Button;
-using Domain.Application.Components.Image;
+﻿using Domain.Application.Components.Button;
 using Domain.Application.Texture.Sprite.Custom.Ui.Buttons;
 using Domain.Application.Texture.Sprite.Custom.Ui.Icons;
+using Domain.Dto.Global;
+using Domain.Enum.Component.Button;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Data;
 
 namespace RpgTurno.Custom.Component.Map.Start;
 
