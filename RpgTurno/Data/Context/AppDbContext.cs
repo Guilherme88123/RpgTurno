@@ -3,12 +3,13 @@ using Data.Mappings.Settings;
 using Data.Mappings.Stage;
 using Data.Mappings.Unit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 
 namespace Data.Context;
 
 public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions options) : base(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
 

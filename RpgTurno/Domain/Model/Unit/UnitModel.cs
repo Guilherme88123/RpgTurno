@@ -6,7 +6,7 @@ namespace Domain.Model.Unit;
 
 public class UnitModel : BaseModel
 {
-    public int SaveId { get; set; }
+    public Guid SaveId { get; set; }
     public SaveModel Save { get; set; }
 
     public UnitCode UnitCode { get; set; }

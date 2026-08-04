@@ -13,5 +13,10 @@ public class StageMap : BaseMap<StageModel>
         base.Configure(builder);
 
         builder.ToTable(DatabaseTables.Stage);
+
+        builder.HasOne(x => x.Save)
+            .WithMany()
+            .HasForeignKey(x => x.SaveId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

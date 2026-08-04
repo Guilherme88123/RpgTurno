@@ -1,4 +1,5 @@
 ﻿using Data.Context;
+using Domain.Const.Database;
 using Domain.Dto.Global;
 using Domain.Dto.Session;
 using Domain.Interface.Cursor;
@@ -37,15 +38,18 @@ public static class Program
     {
         var services = new ServiceCollection();
 
-
         #region Dependency Injection
 
         #region Entity Framework Core Configuration
 
         #region Database Context
 
-        services.AddDbContext<AppDbContext>();
-        services.AddTransient<DbContext, AppDbContext>();
+        services.AddDbContext<AppDbContext>(options =>
+        {
+            options.UseSqlite($"Data Source={DatabaseConst.Filename}");
+        });
+
+        #endregion
 
         #region Repositories
 
@@ -53,8 +57,6 @@ public static class Program
         services.AddTransient<ISettingsService, SettingsService>();
         services.AddTransient<IStageService, StageService>();
         services.AddTransient<IUnitService, UnitService>();
-
-        #endregion
 
         #endregion
 
@@ -83,7 +85,15 @@ public static class Program
         #endregion
 
         var provider = services.BuildServiceProvider();
+
         GlobalVariablesDto.ServiceProvider = provider;
+
+        using (var scope = provider.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            db.Database.Migrate();
+        }
 
         using var game = new RpgTurno();
         game.Run();

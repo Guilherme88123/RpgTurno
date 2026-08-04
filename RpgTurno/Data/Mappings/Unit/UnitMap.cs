@@ -13,5 +13,10 @@ public class UnitMap : BaseMap<UnitModel>
         base.Configure(builder);
 
         builder.ToTable(DatabaseTables.Unit);
+
+        builder.HasOne(x => x.Save)
+            .WithMany()
+            .HasForeignKey(x => x.SaveId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
