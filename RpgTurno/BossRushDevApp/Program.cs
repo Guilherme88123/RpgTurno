@@ -1,10 +1,16 @@
-﻿using Domain.Dto.Global;
+﻿using Data.Context;
+using Domain.Dto.Global;
 using Domain.Dto.Session;
 using Domain.Interface.Cursor;
 using Domain.Interface.Language;
+using Domain.Interface.Repositories.Save;
+using Domain.Interface.Repositories.Settings;
+using Domain.Interface.Repositories.Stage;
+using Domain.Interface.Repositories.Unit;
 using Domain.Interface.Screen;
 using Domain.Interface.Transition;
 using Domain.Interface.UiManager;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RpgTurno.Language;
 using RpgTurno.Screen.Map;
@@ -13,6 +19,10 @@ using RpgTurno.Screen.Menu;
 using RpgTurno.Screen.Option;
 using RpgTurno.Screen.Play;
 using Service.Cursor;
+using Service.Repositories.Save;
+using Service.Repositories.Settings;
+using Service.Repositories.Stage;
+using Service.Repositories.Unit;
 using Service.Screen;
 using Service.Transition;
 using Service.UiManager;
@@ -27,7 +37,28 @@ public static class Program
     {
         var services = new ServiceCollection();
 
+
         #region Dependency Injection
+
+        #region Entity Framework Core Configuration
+
+        #region Database Context
+
+        services.AddDbContext<AppDbContext>();
+        services.AddTransient<DbContext, AppDbContext>();
+
+        #region Repositories
+
+        services.AddTransient<ISaveService, SaveService>();
+        services.AddTransient<ISettingsService, SettingsService>();
+        services.AddTransient<IStageService, StageService>();
+        services.AddTransient<IUnitService, UnitService>();
+
+        #endregion
+
+        #endregion
+
+        #endregion
 
         var gameSession = new GameSession();
 

@@ -6,7 +6,7 @@ namespace Data.Mappings.Base;
 
 public abstract class BaseMap<TModel> : IEntityTypeConfiguration<TModel> where TModel : BaseModel
 {
-    public void Configure(EntityTypeBuilder<TModel> builder)
+    public virtual void Configure(EntityTypeBuilder<TModel> builder)
     {
         builder.HasKey(x => x.Id);
     }
