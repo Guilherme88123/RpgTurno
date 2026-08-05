@@ -11,5 +11,9 @@ public class ButtonSlotComponent : ButtonComponent
     {
         AnimationManager.Add(ButtonInteractionState.Regular, sprite);
         AnimationManager.Add(ButtonInteractionState.Pressed, sprite);
+
+        HoverAnimation.HoverScaleX = 1.1f;
+        HoverAnimation.HoverScaleY = 1.1f;
+        HoverAnimation.HoverOffsetY = -15;
     }
 }
