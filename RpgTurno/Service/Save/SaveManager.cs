@@ -223,7 +223,7 @@ public static class SaveManager
 
     public static async Task DeleteSaveAsync(SaveModel save)
     {
-
+        await _saveService.DeleteAsync(save.Id);
     }
 
     #endregion
