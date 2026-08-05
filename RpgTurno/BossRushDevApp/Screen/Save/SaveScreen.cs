@@ -17,6 +17,7 @@ using Domain.Model.Save;
 using Domain.Model.Stage;
 using Domain.Model.Unit;
 using RpgTurno.Custom.Component.Save;
+using RpgTurno.Custom.Component.Save.Menu;
 using RpgTurno.Screen.Map.World.Stage;
 using RpgTurnoApp.Screen.Base;
 using Service.Save;
@@ -74,11 +75,17 @@ public class SaveScreen : BaseScreen
         saveSlot2Component.SetPosition(x, y + height + spacing);
         saveSlot3Component.SetPosition(x, y + (height + spacing) * 2);
 
+        var menuButton = new MainMenuSaveButtonComponent();
+        menuButton.SetPosition(
+            GlobalOptionsDto.WidthSize / 2 - menuButton.Bounds.Width / 2, 
+            GlobalOptionsDto.HeightSize - menuButton.Bounds.Height - spacing);
+
         return
         [
             saveSlot1Component,
             saveSlot2Component,
-            saveSlot3Component
+            saveSlot3Component,
+            menuButton,
         ];
     }
 

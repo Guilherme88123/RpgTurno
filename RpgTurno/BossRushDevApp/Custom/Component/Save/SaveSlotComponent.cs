@@ -35,7 +35,7 @@ public class SaveSlotComponent : FrameComponent
         _titleText.SetText(GetTitleByPosition());
         _progressText.SetText(GetProgressText(save));
 
-        bool hasGameFinished = save is not null && save.Progress >= 100;
+        bool hasGameFinished = save is not null && save.Progress >= 10;
 
         _gameFinishIcon.IsVisible = hasGameFinished;
 
