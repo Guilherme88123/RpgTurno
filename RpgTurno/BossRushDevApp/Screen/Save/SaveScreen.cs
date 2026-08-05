@@ -60,9 +60,9 @@ public class SaveScreen : BaseScreen
 
     protected override List<BaseComponent> InitializeComponents()
     {
-        var saveSlot1Component = new SaveSlotComponent(InitGameWithSelectedSave, SaveSlot1, SavePositionType.Top);
-        var saveSlot2Component = new SaveSlotComponent(InitGameWithSelectedSave, SaveSlot2, SavePositionType.Middle);
-        var saveSlot3Component = new SaveSlotComponent(InitGameWithSelectedSave, SaveSlot3, SavePositionType.Bottom);
+        var saveSlot1Component = new SaveSlotComponent(InitGameWithSelectedSave, OnDeleteSave, SaveSlot1, SavePositionType.Top);
+        var saveSlot2Component = new SaveSlotComponent(InitGameWithSelectedSave, OnDeleteSave, SaveSlot2, SavePositionType.Middle);
+        var saveSlot3Component = new SaveSlotComponent(InitGameWithSelectedSave, OnDeleteSave, SaveSlot3, SavePositionType.Bottom);
 
         var height = saveSlot1Component.Bounds.Height;
         var spacing = 16;
@@ -91,13 +91,25 @@ public class SaveScreen : BaseScreen
 
     private void InitGameWithSelectedSave(SaveModel selectedSave, SavePositionType position)
     {
-        HandleGameSave(selectedSave, position).Wait();
+        HandleGameSaveSelection(selectedSave, position).Wait();
         GlobalVariablesDto.ChangeScreen?.Invoke(ScreenConst.MapScreen);
     }
 
-    private async Task HandleGameSave(SaveModel selectedSave, SavePositionType position)
+    private async Task HandleGameSaveSelection(SaveModel selectedSave, SavePositionType position)
     {
         var gameSave = await SaveManager.HandleSaveSelectionAsync(selectedSave, position);
         GameSession.InitialzeSave(gameSave);
+    }
+
+    private void OnDeleteSave(SaveModel save)
+    {
+        HandleGameSaveDelete(save).Wait();
+        LoadSaves().Wait();
+        Initialize();
+    }
+
+    private async Task HandleGameSaveDelete(SaveModel save)
+    {
+        await SaveManager.DeleteSaveAsync(save);
     }
 }

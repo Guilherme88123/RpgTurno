@@ -1,4 +1,5 @@
-﻿using Domain.Application.Components.Image;
+﻿using Domain.Application.Components.Button;
+using Domain.Application.Components.Image;
 using Domain.Application.Components.Text;
 using Domain.Application.MenuComponents.Frame;
 using Domain.Application.Texture.Sprite;
@@ -16,17 +17,20 @@ public class SaveSlotComponent : FrameComponent
     private const int Margin = 48;
 
     private readonly Action<SaveModel, SavePositionType> _onSaveSelect;
+    private readonly Action<SaveModel> _onSaveDelete;
     private readonly SaveModel _save;
     private readonly SavePositionType _position;
 
-    private readonly ButtonSlotComponent _button;
+    private readonly ButtonSlotComponent _backgroundButton;
     private readonly TextComponent _titleText = new();
     private readonly TextComponent _progressText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly ImageComponent _gameFinishIcon = new(new YellowStarIconSprite(), 24, 24);
+    private readonly DeleteButtonSlotComponent _deleteSaveButton;
 
-    public SaveSlotComponent(Action<SaveModel, SavePositionType> onSaveSelect, SaveModel save, SavePositionType position)
+    public SaveSlotComponent(Action<SaveModel, SavePositionType> onSaveSelect, Action<SaveModel> onSaveDelete, SaveModel save, SavePositionType position)
     {
         _onSaveSelect = onSaveSelect;
+        _onSaveDelete = onSaveDelete;
         _save = save;
         _position = position;
 
@@ -42,14 +46,18 @@ public class SaveSlotComponent : FrameComponent
         if (hasGameFinished)
             _progressText.Color = _titleText.Color = Color.Gold;
 
-        _button = new(GetSpriteBySaveStatus());
-        _button.SetBounds(Bounds.Width, Bounds.Height);
-        _button.Click += OnButtonClick;
+        _backgroundButton = new(GetSpriteBySaveStatus());
+        _backgroundButton.SetBounds(Bounds.Width, Bounds.Height);
+        _backgroundButton.Click += OnBackgroundButtonClick;
 
-        AddChild(_button);
+        _deleteSaveButton = new(OnDeleteButtonClick);
+        _deleteSaveButton.IsVisible = save is not null;
+
+        AddChild(_backgroundButton);
         AddChild(_titleText);
         AddChild(_progressText);
         AddChild(_gameFinishIcon);
+        AddChild(_deleteSaveButton);
     }
 
     private string GetTitleByPosition()
@@ -82,22 +90,29 @@ public class SaveSlotComponent : FrameComponent
     {
         base.SetPosition(positionX, positionY);
 
-        _button.SetPosition(positionX, positionY);
+        _backgroundButton.SetPosition(positionX, positionY);
         _titleText.SetPosition(positionX + Margin, positionY + Margin);
 
         _progressText.SetPosition(Bounds.Center.X, Bounds.Center.Y);
         _gameFinishIcon.SetPosition(_progressText.Bounds.Right + 8, Bounds.Center.Y - _gameFinishIcon.Bounds.Height / 3 * 2);
+
+        _deleteSaveButton.SetPosition(Bounds.Right, Bounds.Center.Y - _deleteSaveButton.Bounds.Height / 2);
     }
 
-    private void OnButtonClick()
+    private void OnBackgroundButtonClick()
     {
         _onSaveSelect?.Invoke(_save, _position);
+    }
+
+    private void OnDeleteButtonClick()
+    {
+        _onSaveDelete?.Invoke(_save);
     }
 
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
 
-        _titleText.OffsetY = _progressText.OffsetY = _gameFinishIcon.OffsetY = _button.OffsetY;
+        _titleText.OffsetY = _progressText.OffsetY = _gameFinishIcon.OffsetY = _deleteSaveButton.OffsetY = _backgroundButton.OffsetY;
     }
 }

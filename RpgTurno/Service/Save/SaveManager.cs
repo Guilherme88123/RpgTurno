@@ -218,4 +218,13 @@ public static class SaveManager
     }
 
     #endregion
+
+    #region Save Delete
+
+    public static async Task DeleteSaveAsync(SaveModel save)
+    {
+
+    }
+
+    #endregion
 }
