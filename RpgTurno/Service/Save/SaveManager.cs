@@ -3,13 +3,16 @@ using Domain.Dto.Global;
 using Domain.Dto.Map;
 using Domain.Dto.Map.Node;
 using Domain.Dto.Session;
+using Domain.Enum.Language;
 using Domain.Enum.Save;
 using Domain.Enum.Stage;
 using Domain.Enum.Unit;
 using Domain.Interface.Repositories.Save;
+using Domain.Interface.Repositories.Settings;
 using Domain.Interface.Repositories.Stage;
 using Domain.Interface.Repositories.Unit;
 using Domain.Model.Save;
+using Domain.Model.Settings;
 using Domain.Model.Stage;
 using Domain.Model.Unit;
 using RpgTurno.Screen.Map.World.Stage;
@@ -22,6 +25,7 @@ public static class SaveManager
     private static readonly IUnitService _unitService = GlobalVariablesDto.GetService<IUnitService>();
     private static readonly IStageService _stageService = GlobalVariablesDto.GetService<IStageService>();
     private static readonly ISaveService _saveService = GlobalVariablesDto.GetService<ISaveService>();
+    private static readonly ISettingsService _settingsService = GlobalVariablesDto.GetService<ISettingsService>();
 
     #region Save Selection
 
@@ -225,6 +229,62 @@ public static class SaveManager
     {
         await _saveService.DeleteAsync(save.Id);
     }
+
+    #endregion
+
+    #region Settings
+
+    #region Default Create
+
+    public static async Task<bool> HasSettingsSaveAsync()
+    {
+        return await _settingsService.AnyAsync();
+    }
+
+    public static async Task CreateDefaultSettingsAsync()
+    {
+        var settings = GetDefaultSettings();
+
+        await _settingsService.CreateAsync(settings);
+    }
+
+    private static SettingsModel GetDefaultSettings()
+    {
+        return new SettingsModel()
+        {
+            EffectsVolume = 80,
+            MusicVolume = 60,
+            Fullscreen = false,
+            Language = LanguageType.English,
+            ResolutionHeight = 720,
+            ResolutionWidth = 1280,
+            ShowFps = false,
+        };
+    }
+
+    #endregion
+
+    #region Load Settings
+
+    public static async Task<SettingsModel> GetSettingsSaveAsync()
+    {
+        return await _settingsService.GetAsync();
+    }
+
+    #endregion
+
+    #region Settings Update
+
+    public static async Task UpdateSettingsSaveAsync(SettingsModel settings)
+    {
+        var oldSettings = await GetSettingsSaveAsync();
+
+        settings.Id = oldSettings.Id;
+
+        await _settingsService.UpdateAsync(settings);
+    }
+
+    #endregion
 
     #endregion
 }

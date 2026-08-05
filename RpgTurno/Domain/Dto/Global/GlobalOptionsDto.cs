@@ -5,7 +5,7 @@ namespace Domain.Dto.Global;
 public static class GlobalOptionsDto
 {
     public static int MusicVolume { get; set; } = 60;
-    public static int SfxVolume { get; set; } = 80;
+    public static int EffectsVolume { get; set; } = 80;
 
     public static bool Fullscreen { get; set; } = false;
     public static bool ShowFps { get; set; } = false;
@@ -19,7 +19,7 @@ public static class GlobalOptionsDto
     public static LanguageType Language { get; set; } = LanguageType.Portuguese;
 
     public static float MusicVolumeFloat => VolumeToFloat(MusicVolume);
-    public static float SfxVolumeFloat => VolumeToFloat(SfxVolume);
+    public static float SfxVolumeFloat => VolumeToFloat(EffectsVolume);
 
     private static float VolumeToFloat(int slider)
     {

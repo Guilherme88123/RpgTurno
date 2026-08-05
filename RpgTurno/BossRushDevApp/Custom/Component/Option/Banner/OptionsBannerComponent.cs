@@ -14,6 +14,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Domain.Model.Settings;
+using Service.Save;
 
 namespace RpgTurno.Custom.Component.Option.Banner;
 
@@ -64,7 +67,7 @@ public class OptionsBannerComponent : FrameComponent
     private void InitializeValues()
     {
         _musicRadio.Value = GlobalOptionsDto.MusicVolume;
-        _sfxRadio.Value = GlobalOptionsDto.SfxVolume;
+        _sfxRadio.Value = GlobalOptionsDto.EffectsVolume;
         _fullscreenSwitch.Value = GlobalOptionsDto.Fullscreen;
         _fpsSwitch.Value = GlobalOptionsDto.ShowFps;
         _screenSizeDropdown.SelectedItemIndex = _screenSizeDropdown.ListItensDto.First(x =>
@@ -126,16 +129,22 @@ public class OptionsBannerComponent : FrameComponent
     {
         GlobalOptionsDto.MusicVolume = volume;
         MediaPlayer.Volume = GlobalOptionsDto.MusicVolumeFloat;
+
+        SaveSettings();
     }
 
     public static void UpdateSfxVolume(int volume)
     {
-        GlobalOptionsDto.SfxVolume = volume;
+        GlobalOptionsDto.EffectsVolume = volume;
+
+        SaveSettings();
     }
 
     public static void ToggleShowFps(bool showFps)
     {
         GlobalOptionsDto.ShowFps = showFps;
+
+        SaveSettings();
     }
 
     public static void ToggleFullscreen(bool isFullscreen)
@@ -143,6 +152,8 @@ public class OptionsBannerComponent : FrameComponent
         GlobalVariablesDto.Graphics.IsFullScreen = isFullscreen;
         GlobalVariablesDto.Graphics.ApplyChanges();
         GlobalOptionsDto.Fullscreen = isFullscreen;
+
+        SaveSettings();
     }
 
     public static void ToggleScreenSize(DropdownItemDto dto)
@@ -160,6 +171,8 @@ public class OptionsBannerComponent : FrameComponent
         GlobalVariablesDto.Graphics.PreferredBackBufferWidth = width;
         GlobalVariablesDto.Graphics.PreferredBackBufferHeight = height;
         GlobalVariablesDto.Graphics.ApplyChanges();
+
+        SaveSettings();
     }
 
     public static List<DropdownItemDto> GetScreenSizeDropdownItens()
@@ -183,6 +196,8 @@ public class OptionsBannerComponent : FrameComponent
         GlobalOptionsDto.Language = language.Value;
         var languageService = GlobalVariablesDto.GetService<ILanguageService>();
         languageService.SetLanguage(GlobalOptionsDto.Language);
+
+        SaveSettings();
     }
 
     public static List<DropdownItemDto> GetLanguageDropdownItens()
@@ -193,6 +208,35 @@ public class OptionsBannerComponent : FrameComponent
                 new() { Id = 1, Text = LanguageManager.Get(TextConst.Portuguese), Value = LanguageType.Portuguese },
                 new() { Id = 2, Text = LanguageManager.Get(TextConst.Spanish), Value = LanguageType.Spanish },
             };
+    }
+
+    #endregion
+
+    #region Settings Save Update
+
+    private static void SaveSettings()
+    {
+        _ = SaveSettingsAsync();
+    }
+
+    private static async Task SaveSettingsAsync()
+    {
+        var settings = GetSettingsModel();
+        await SaveManager.UpdateSettingsSaveAsync(settings);
+    }
+
+    private static SettingsModel GetSettingsModel()
+    {
+        return new SettingsModel()
+        {
+            MusicVolume = GlobalOptionsDto.MusicVolume,
+            EffectsVolume = GlobalOptionsDto.EffectsVolume,
+            Fullscreen = GlobalOptionsDto.Fullscreen,
+            ShowFps = GlobalOptionsDto.ShowFps,
+            ResolutionWidth = GlobalOptionsDto.RealWidthSize,
+            ResolutionHeight = GlobalOptionsDto.RealHeightSize,
+            Language = GlobalOptionsDto.Language,
+        };
     }
 
     #endregion

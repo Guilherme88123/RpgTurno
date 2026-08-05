@@ -7,11 +7,14 @@ using Domain.Interface.Cursor;
 using Domain.Interface.Language;
 using Domain.Interface.Screen;
 using Domain.Interface.Transition;
+using Domain.Model.Settings;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using RpgTurno.Screen.Map.World.Stage;
+using Service.Save;
 using System;
+using System.Threading.Tasks;
 
 namespace RpgTurnoApp;
 
@@ -29,6 +32,8 @@ public class RpgTurno : Game
 
     public RpgTurno()
     {
+        LoadSettings();
+
         Window.Title = VersionConst.GameName;
         GraphicsDeviceManager graphics = new GraphicsDeviceManager(this);
         graphics.PreferredBackBufferWidth = GlobalOptionsDto.RealWidthSize;
@@ -44,6 +49,40 @@ public class RpgTurno : Game
 
         GlobalVariablesDto.Graphics = graphics;
     }
+
+    #region Settings
+
+    private void LoadSettings()
+    {
+        LoadSettingsAsync().Wait();
+    }
+
+    private async Task LoadSettingsAsync()
+    {
+        var settings = await GetSettingsAsync();
+        ApplySettings(settings);
+    }
+
+    private async Task<SettingsModel> GetSettingsAsync()
+    {
+        if (!await SaveManager.HasSettingsSaveAsync())
+            await SaveManager.CreateDefaultSettingsAsync();
+
+        return await SaveManager.GetSettingsSaveAsync();
+    }
+
+    private void ApplySettings(SettingsModel settings)
+    {
+        GlobalOptionsDto.RealWidthSize = settings.ResolutionWidth;
+        GlobalOptionsDto.RealHeightSize = settings.ResolutionHeight;
+        GlobalOptionsDto.Fullscreen = settings.Fullscreen;
+        GlobalOptionsDto.MusicVolume = settings.MusicVolume;
+        GlobalOptionsDto.EffectsVolume = settings.EffectsVolume;
+        GlobalOptionsDto.Language = settings.Language;
+        GlobalOptionsDto.ShowFps = settings.ShowFps;
+    }
+
+    #endregion
 
     protected override void Initialize()
     {
