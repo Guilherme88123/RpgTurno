@@ -99,7 +99,7 @@ public class TextComponent : BaseComponent
 
         text = text.Replace(" ", "  ");
 
-        GlobalVariablesDto.SpriteBatchText.DrawString(Font, text, position, Color, Rotation, origin, Scale, SpriteEffects, 1f);    
+        spriteBatch.DrawString(Font, text, position, Color, Rotation, origin, Scale, SpriteEffects, 1f);    
     }
 
     private bool CanDraw(string text)

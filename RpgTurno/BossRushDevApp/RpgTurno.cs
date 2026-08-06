@@ -133,7 +133,6 @@ public class RpgTurno : Game
         GlobalVariablesDto.SpriteBatchBackground = spriteBatchBackground;
         GlobalVariablesDto.SpriteBatchEntities = spriteBatchEntities;
         GlobalVariablesDto.SpriteBatchInterface = spriteBatchInterface;
-        GlobalVariablesDto.SpriteBatchText = spriteBatchText;
         GlobalVariablesDto.SpriteBatchTransition = spriteBatchTransition;
         GlobalVariablesDto.Pixel = pixel;
 
@@ -194,7 +193,6 @@ public class RpgTurno : Game
         GlobalVariablesDto.SpriteBatchBackground.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, transformMatrix: screenScaleMatrix);
         GlobalVariablesDto.SpriteBatchEntities.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, transformMatrix: screenScaleMatrix);
         GlobalVariablesDto.SpriteBatchInterface.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, transformMatrix: screenScaleMatrix);
-        GlobalVariablesDto.SpriteBatchText.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, transformMatrix: screenScaleMatrix);
         GlobalVariablesDto.SpriteBatchTransition.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, transformMatrix: screenScaleMatrix);
 
         ScreenManager.ActualScreen.Draw();
@@ -207,7 +205,6 @@ public class RpgTurno : Game
         GlobalVariablesDto.SpriteBatchBackground.End();
         GlobalVariablesDto.SpriteBatchEntities.End();
         GlobalVariablesDto.SpriteBatchInterface.End();
-        GlobalVariablesDto.SpriteBatchText.End();
         GlobalVariablesDto.SpriteBatchTransition.End();
 
         base.Draw(gameTime);
@@ -224,6 +221,6 @@ public class RpgTurno : Game
     private void DrawFps()
     {
         string fpsText = $"FPS: {_fps:F0}";
-        GlobalVariablesDto.SpriteBatchText.DrawString(GlobalVariablesDto.GlobalFont, fpsText, new Vector2(30, 30), Color.Black);
+        GlobalVariablesDto.SpriteBatchInterface.DrawString(GlobalVariablesDto.GlobalFont, fpsText, new Vector2(30, 30), Color.Black);
     }
 }

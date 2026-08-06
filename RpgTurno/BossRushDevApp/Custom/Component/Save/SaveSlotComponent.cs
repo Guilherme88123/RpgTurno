@@ -8,6 +8,8 @@ using Domain.Application.Texture.Sprite.Custom.Ui.Icons;
 using Domain.Enum.Save;
 using Domain.Model.Save;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using RpgTurno.Custom.Component.Save.Delete;
 using System;
 
 namespace RpgTurno.Custom.Component.Save;
@@ -21,15 +23,15 @@ public class SaveSlotComponent : FrameComponent
     private readonly SaveModel _save;
     private readonly SavePositionType _position;
 
+    private readonly TextComponent _progressText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly ButtonSlotComponent _backgroundButton;
     private readonly TextComponent _titleText = new();
-    private readonly TextComponent _progressText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly TextComponent _lastPlayText = new();
     private readonly TextComponent _createDayText = new();
     private readonly ImageComponent _gameFinishIcon = new(new YellowStarIconSprite(), 24, 24);
     private readonly DeleteButtonSlotComponent _deleteSaveButton;
 
-    public SaveSlotComponent(Action<SaveModel, SavePositionType> onSaveSelect, Action<SaveModel> onSaveDelete, SaveModel save, SavePositionType position)
+    public SaveSlotComponent(Action<SaveModel, SavePositionType> onSaveSelect, Action<SaveModel> onSaveDelete, Action onDeletionDialogOpen, Action onDeletionDialogClose, SaveModel save, SavePositionType position)
     {
         _onSaveSelect = onSaveSelect;
         _onSaveDelete = onSaveDelete;
@@ -39,9 +41,11 @@ public class SaveSlotComponent : FrameComponent
         Bounds = new(0, 0, 900, 256);
 
         bool hasSave = save is not null;
-        bool hasGameFinished = hasSave && save.Progress >= 10;
+        bool hasGameFinished = hasSave && save.HasGameFinish;
 
-        _titleText.SetText(GetTitleByPosition());
+        var slotName = GetTitleByPosition();
+
+        _titleText.SetText(slotName);
         _progressText.SetText(GetProgressText(save));
         if (hasSave)
         {
@@ -61,14 +65,13 @@ public class SaveSlotComponent : FrameComponent
         _backgroundButton.SetBounds(Bounds.Width, Bounds.Height);
         _backgroundButton.Click += OnBackgroundButtonClick;
 
-        _deleteSaveButton = new(OnDeleteButtonClick);
+        _deleteSaveButton = new(slotName, OnDeleteButtonClick, onDeletionDialogOpen, onDeletionDialogClose);
         _deleteSaveButton.IsVisible = hasSave;
 
         AddChild(_backgroundButton);
         AddChild(_titleText);
         AddChild(_progressText);
         AddChild(_gameFinishIcon);
-        AddChild(_deleteSaveButton);
         AddChild(_lastPlayText);
         AddChild(_createDayText);
     }
@@ -93,10 +96,11 @@ public class SaveSlotComponent : FrameComponent
 
     private SpriteData GetSpriteBySaveStatus()
     {
-        if (_save is null)
-            return new PaperBannerSprite();
-        else
-            return new SpecialPaperBannerSprite();
+        return _save switch
+        {
+            null => new PaperBannerSprite(),
+            _ => new SpecialPaperBannerSprite(),
+        };
     }
 
     public override void SetPosition(int positionX, int positionY)
@@ -131,13 +135,37 @@ public class SaveSlotComponent : FrameComponent
     {
         base.Update(gameTime);
 
-        _titleText.OffsetY = 
-            _progressText.OffsetY = 
-            _gameFinishIcon.OffsetY = 
-            _deleteSaveButton.OffsetY = 
-            _lastPlayText.OffsetY = 
-            _createDayText.OffsetY = 
+        _titleText.OffsetY =
+            _progressText.OffsetY =
+            _gameFinishIcon.OffsetY =
+            _deleteSaveButton.OffsetY =
+            _lastPlayText.OffsetY =
+            _createDayText.OffsetY =
             _backgroundButton.OffsetY;
+    }
+
+    public void UpdateDeleteButton(GameTime gameTime)
+    {
+        if (_deleteSaveButton.IsEnable)
+            _deleteSaveButton.Update(gameTime);
+    }
+
+    public void UpdateDeleteDialog(GameTime gameTime)
+    {
+        if (_deleteSaveButton.IsEnable)
+            _deleteSaveButton.UpdateDialog(gameTime);
+    }
+
+    public void DrawDeleteButton(SpriteBatch spriteBatch)
+    {
+        if (_deleteSaveButton.IsVisible)
+            _deleteSaveButton.Draw(spriteBatch);
+    }
+
+    public void DrawDeleteDialog(SpriteBatch spriteBatch)
+    {
+        if (_deleteSaveButton.IsVisible)
+            _deleteSaveButton.DrawDialog(spriteBatch);
     }
 
     private string GetDateTimeFriendly(DateTime dateTime)
