@@ -43,7 +43,11 @@ public class BaseEntity
     public virtual void Update()
     {
         UpdateDirectionDraw();
+        UpdateAnimation();
+    }
 
+    protected virtual void UpdateAnimation()
+    {
         Animation.Update(CreatureState);
     }
 

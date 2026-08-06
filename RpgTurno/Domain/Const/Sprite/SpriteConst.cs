@@ -10,7 +10,7 @@ public static class SpriteConst
 
     public const string WarriorIdle = "Warrior_Idle";
     public const string WarriorRun = "Warrior_Run";
-    public const string WarriorDefence = "Warrior_Guard";
+    public const string WarriorGuard = "Warrior_Guard";
     public const string WarriorAttack = "Warrior_Attack1";
     public const string WarriorAttack2 = "Warrior_Attack2";
 
@@ -34,7 +34,7 @@ public static class SpriteConst
 
     public const string EnemyWarriorIdle = "Enemy_Warrior_Idle";
     public const string EnemyWarriorRun = "Enemy_Warrior_Run";
-    public const string EnemyWarriorDefence = "Enemy_Warrior_Guard";
+    public const string EnemyWarriorGuard = "Enemy_Warrior_Guard";
     public const string EnemyWarriorAttack = "Enemy_Warrior_Attack1";
     public const string EnemyWarriorAttack2 = "Enemy_Warrior_Attack2";
 
@@ -53,7 +53,7 @@ public static class SpriteConst
 
     public const string EnemySuperWarriorIdle = "Enemy_SuperWarrior_Idle";
     public const string EnemySuperWarriorRun = "Enemy_SuperWarrior_Run";
-    public const string EnemySuperWarriorDefence = "Enemy_SuperWarrior_Guard";
+    public const string EnemySuperWarriorGuard = "Enemy_SuperWarrior_Guard";
     public const string EnemySuperWarriorAttack = "Enemy_SuperWarrior_Attack1";
     public const string EnemySuperWarriorAttack2 = "Enemy_SuperWarrior_Attack2";
 

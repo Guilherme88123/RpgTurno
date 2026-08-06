@@ -1,10 +1,11 @@
-﻿using Domain.Const.Sprite;
-using Domain.Const.Text;
-using Domain.Dto.Global;
-using Domain.Enum;
+﻿using Domain.Application.Effect;
 using Domain.Application.Entity.Units.Base;
 using Domain.Application.Sprite.Border;
 using Domain.Application.Texture.Sprite;
+using Domain.Const.Sprite;
+using Domain.Const.Text;
+using Domain.Dto.Global;
+using Domain.Enum;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Domain.Application.Entity.Units.Enemy.Warrior;
@@ -15,7 +16,7 @@ public class EnemyWarriorEntity : BaseUnitEntity
     {
         var idle = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorIdle);
         var running = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorRun);
-        var defending = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorDefence);
+        var defending = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorGuard);
         var attack = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorAttack);
 
         var spriteBorder = new BorderDefinition(0, 0, 0, 0);
@@ -34,5 +35,21 @@ public class EnemyWarriorEntity : BaseUnitEntity
 
         var iconTexture = GlobalVariablesDto.Content.Load<Texture2D>(SpriteConst.EnemyWarriorAvatar);
         Icon = new SpriteData(iconTexture, new BorderDefinition(16, 16, 16, 16));
+    }
+
+    protected override void UpdateAnimation()
+    {
+        if (HasGuardStanceEffect() && CreatureState == CreatureStateType.Idle)
+        {
+            Animation.Update(CreatureStateType.Defending);
+            return;
+        }
+
+        base.UpdateAnimation();
+    }
+
+    private bool HasGuardStanceEffect()
+    {
+        return Effects.Any(x => x.Effect is GuardStanceEffect);
     }
 }

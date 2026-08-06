@@ -3,7 +3,7 @@ using Domain.Dto.Global;
 using Domain.Application.Sprite.Border;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Domain.Application.Texture.Sprite.Custom.Enemy.SuperWarrior;
+namespace Domain.Application.Texture.Sprite.Custom.Units.Enemy.SuperWarrior;
 
 public class EnemySuperWarriorAvatarSprite : SpriteData
 {

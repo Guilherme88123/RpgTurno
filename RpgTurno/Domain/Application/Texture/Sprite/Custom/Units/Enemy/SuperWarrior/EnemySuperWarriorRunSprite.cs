@@ -2,7 +2,7 @@
 using Domain.Dto.Global;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Domain.Application.Texture.Sprite.Custom.ParticleFx;
+namespace Domain.Application.Texture.Sprite.Custom.Units.Enemy.SuperWarrior;
 
 public class EnemySuperWarriorRunSprite : AnimationClip
 {
