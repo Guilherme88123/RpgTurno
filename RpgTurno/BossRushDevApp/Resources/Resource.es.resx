@@ -259,7 +259,7 @@
     <value>El punto decisivo \nentre la muerte \ny la gloria</value>
   </data>
   <data name="MainMenu" xml:space="preserve">
-    <value>Menú principal</value>
+    <value>Menú Principal</value>
   </data>
   <data name="ManaCost" xml:space="preserve">
     <value>Coste de maná</value>
@@ -289,7 +289,7 @@
     <value>Un ataque de \npunta de lanza</value>
   </data>
   <data name="PoisonShoot" xml:space="preserve">
-    <value>Disparo envenenado</value>
+    <value>Disparo Envenenado</value>
   </data>
   <data name="PoisonShootDescription" xml:space="preserve">
     <value>Un ataque venenoso \nque infecta a su \nobjetivo</value>
@@ -298,19 +298,19 @@
     <value>Portugués</value>
   </data>
   <data name="PowerShoot" xml:space="preserve">
-    <value>Disparo potente</value>
+    <value>Disparo Potente</value>
   </data>
   <data name="PowerShootDescription" xml:space="preserve">
     <value>Un ataque de \nlargo alcance \nmás potente</value>
   </data>
   <data name="Restart" xml:space="preserve">
-    <value>Empezar de nuevo</value>
+    <value>Empezar de Nuevo</value>
   </data>
   <data name="Resume" xml:space="preserve">
     <value>Reanudar</value>
   </data>
   <data name="ReturnToMap" xml:space="preserve">
-    <value>Volver al mapa</value>
+    <value>Volver al Mapa</value>
   </data>
   <data name="Self" xml:space="preserve">
     <value>Ser</value>
@@ -401,5 +401,38 @@
   </data>
   <data name="DontForgetToLeaveSuggestions" xml:space="preserve">
     <value>No olvides dejar sugerencias</value>
+  </data>
+  <data name="LastPlay" xml:space="preserve">
+    <value>Último movimiento</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Creado</value>
+  </data>
+  <data name="Slot" xml:space="preserve">
+    <value>Espacio</value>
+  </data>
+  <data name="EmptySlot" xml:space="preserve">
+    <value>Espacio Vacío</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progreso</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hoy</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Ayer</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>Hace {day} días</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ConfirmSaveDeletion" xml:space="preserve">
+    <value>Confirmar Eliminación del Progreso del {slot}</value>
   </data>
 </root>

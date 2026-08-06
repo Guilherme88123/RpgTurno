@@ -402,4 +402,37 @@
   <data name="DontForgetToLeaveSuggestions" xml:space="preserve">
     <value>Don't forget to leave suggestions</value>
   </data>
+  <data name="LastPlay" xml:space="preserve">
+    <value>Last Play</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Slot" xml:space="preserve">
+    <value>Slot</value>
+  </data>
+  <data name="EmptySlot" xml:space="preserve">
+    <value>Empty Slot</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{day} Days Ago</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConfirmSaveDeletion" xml:space="preserve">
+    <value>Confirm {slot} Save Deletion</value>
+  </data>
 </root>

@@ -41,6 +41,18 @@ public static class TextConst
     public const string MoreContentComingSoon = "MoreContentComingSoon";
     public const string DontForgetToLeaveSuggestions = "DontForgetToLeaveSuggestions";
 
+    public const string LastPlay = "LastPlay";
+    public const string Created = "Created";
+    public const string Slot = "Slot";
+    public const string EmptySlot = "EmptySlot";
+    public const string Progress = "Progress";
+    public const string Today = "Today";
+    public const string Yesterday = "Yesterday";
+    public const string DaysAgo = "DaysAgo";
+    public const string Confirm = "Confirm";
+    public const string Cancel = "Cancel";
+    public const string ConfirmSaveDeletion = "ConfirmSaveDeletion";
+
     #region Units
 
     public const string ArcherUnit = "ArcherUnit";

@@ -1,10 +1,11 @@
-﻿using Domain.Application.Components.Button;
-using Domain.Application.Components.Image;
+﻿using Domain.Application.Components.Image;
 using Domain.Application.Components.Text;
 using Domain.Application.MenuComponents.Frame;
 using Domain.Application.Texture.Sprite;
 using Domain.Application.Texture.Sprite.Custom.Ui.Banners;
 using Domain.Application.Texture.Sprite.Custom.Ui.Icons;
+using Domain.Const.Text;
+using Domain.Dto.Language;
 using Domain.Enum.Save;
 using Domain.Model.Save;
 using Microsoft.Xna.Framework;
@@ -49,8 +50,8 @@ public class SaveSlotComponent : FrameComponent
         _progressText.SetText(GetProgressText(save));
         if (hasSave)
         {
-            _lastPlayText.SetText($"Last Play: {GetDateTimeFriendly(save.LastPlayDate)}");
-            _createDayText.SetText($"Created: {GetDateTimeFriendly(save.CreationDate)}");
+            _lastPlayText.SetText($"{LanguageManager.Get(TextConst.LastPlay)}: {GetDateTimeFriendly(save.LastPlayDate)}");
+            _createDayText.SetText($"{LanguageManager.Get(TextConst.Created)}: {GetDateTimeFriendly(save.CreationDate)}");
         }
 
         _lastPlayText.IsVisible = hasSave;
@@ -78,20 +79,22 @@ public class SaveSlotComponent : FrameComponent
 
     private string GetTitleByPosition()
     {
+        var slotName = LanguageManager.Get(TextConst.Slot);
+
         return _position switch
         {
-            SavePositionType.Top => "Slot 1",
-            SavePositionType.Middle => "Slot 2",
-            SavePositionType.Bottom => "Slot 3",
+            SavePositionType.Top => $"{slotName} 1",
+            SavePositionType.Middle => $"{slotName} 2",
+            SavePositionType.Bottom => $"{slotName} 3",
         };
     }
 
     private string GetProgressText(SaveModel save)
     {
         if (save is null)
-            return "Empty Slot";
+            return LanguageManager.Get(TextConst.EmptySlot);
 
-        return $"Progress: {save.Progress}%";
+        return $"{LanguageManager.Get(TextConst.Progress)}: {save.Progress}%";
     }
 
     private SpriteData GetSpriteBySaveStatus()
@@ -174,15 +177,15 @@ public class SaveSlotComponent : FrameComponent
         var date = dateTime.Date;
 
         if (date == today)
-            return $"Today • {dateTime:HH:mm}";
+            return $"{LanguageManager.Get(TextConst.Today)} • {dateTime:HH:mm}";
 
         if (date == today.AddDays(-1))
-            return $"Yesterday • {dateTime:HH:mm}";
+            return $"{LanguageManager.Get(TextConst.Yesterday)} • {dateTime:HH:mm}";
 
         var days = (today - date).Days;
 
         if (days <= 7)
-            return $"{days} days ago";
+            return LanguageManager.Get(TextConst.DaysAgo).Replace("{day}", days.ToString());
 
         return dateTime.ToString("MMM dd, yyyy");
     }

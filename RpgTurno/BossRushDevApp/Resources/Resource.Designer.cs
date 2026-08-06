@@ -151,6 +151,15 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Cleared.
         /// </summary>
         internal static string Cleared {
@@ -187,6 +196,24 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Confirm.
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a ConfirmSaveDeletion.
+        /// </summary>
+        internal static string ConfirmSaveDeletion {
+            get {
+                return ResourceManager.GetString("ConfirmSaveDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Congratulations.
         /// </summary>
         internal static string Congratulations {
@@ -201,6 +228,15 @@ namespace RpgTurno.Resources {
         internal static string Cooldown {
             get {
                 return ResourceManager.GetString("Cooldown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Created.
+        /// </summary>
+        internal static string Created {
+            get {
+                return ResourceManager.GetString("Created", resourceCulture);
             }
         }
         
@@ -237,6 +273,15 @@ namespace RpgTurno.Resources {
         internal static string CurseDescription {
             get {
                 return ResourceManager.GetString("CurseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a DaysAgo.
+        /// </summary>
+        internal static string DaysAgo {
+            get {
+                return ResourceManager.GetString("DaysAgo", resourceCulture);
             }
         }
         
@@ -300,6 +345,15 @@ namespace RpgTurno.Resources {
         internal static string EffectsVolume {
             get {
                 return ResourceManager.GetString("EffectsVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a EmptySlot.
+        /// </summary>
+        internal static string EmptySlot {
+            get {
+                return ResourceManager.GetString("EmptySlot", resourceCulture);
             }
         }
         
@@ -520,6 +574,15 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a LastPlay.
+        /// </summary>
+        internal static string LastPlay {
+            get {
+                return ResourceManager.GetString("LastPlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a MainMenu.
         /// </summary>
         internal static string MainMenu {
@@ -664,6 +727,15 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Progress.
+        /// </summary>
+        internal static string Progress {
+            get {
+                return ResourceManager.GetString("Progress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Restart.
         /// </summary>
         internal static string Restart {
@@ -750,6 +822,15 @@ namespace RpgTurno.Resources {
         internal static string SlashDescription {
             get {
                 return ResourceManager.GetString("SlashDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Slot.
+        /// </summary>
+        internal static string Slot {
+            get {
+                return ResourceManager.GetString("Slot", resourceCulture);
             }
         }
         
@@ -871,6 +952,15 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Today.
+        /// </summary>
+        internal static string Today {
+            get {
+                return ResourceManager.GetString("Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Version.
         /// </summary>
         internal static string Version {
@@ -912,6 +1002,15 @@ namespace RpgTurno.Resources {
         internal static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Yesterday.
+        /// </summary>
+        internal static string Yesterday {
+            get {
+                return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
     }
