@@ -24,6 +24,8 @@ public class SaveSlotComponent : FrameComponent
     private readonly ButtonSlotComponent _backgroundButton;
     private readonly TextComponent _titleText = new();
     private readonly TextComponent _progressText = new(positionXByCenter: true, positionYByCenter: true);
+    private readonly TextComponent _lastPlayText = new();
+    private readonly TextComponent _createDayText = new();
     private readonly ImageComponent _gameFinishIcon = new(new YellowStarIconSprite(), 24, 24);
     private readonly DeleteButtonSlotComponent _deleteSaveButton;
 
@@ -36,28 +38,39 @@ public class SaveSlotComponent : FrameComponent
 
         Bounds = new(0, 0, 900, 256);
 
+        bool hasSave = save is not null;
+        bool hasGameFinished = hasSave && save.Progress >= 10;
+
         _titleText.SetText(GetTitleByPosition());
         _progressText.SetText(GetProgressText(save));
+        if (hasSave)
+        {
+            _lastPlayText.SetText($"Last Play: {GetDateTimeFriendly(save.LastPlayDate)}");
+            _createDayText.SetText($"Created: {GetDateTimeFriendly(save.CreationDate)}");
+        }
 
-        bool hasGameFinished = save is not null && save.Progress >= 10;
+        _lastPlayText.IsVisible = hasSave;
+        _createDayText.IsVisible = hasSave;
 
         _gameFinishIcon.IsVisible = hasGameFinished;
 
         if (hasGameFinished)
-            _progressText.Color = _titleText.Color = Color.Gold;
+            _progressText.Color = _titleText.Color = _lastPlayText.Color = _createDayText.Color = Color.Gold;
 
         _backgroundButton = new(GetSpriteBySaveStatus());
         _backgroundButton.SetBounds(Bounds.Width, Bounds.Height);
         _backgroundButton.Click += OnBackgroundButtonClick;
 
         _deleteSaveButton = new(OnDeleteButtonClick);
-        _deleteSaveButton.IsVisible = save is not null;
+        _deleteSaveButton.IsVisible = hasSave;
 
         AddChild(_backgroundButton);
         AddChild(_titleText);
         AddChild(_progressText);
         AddChild(_gameFinishIcon);
         AddChild(_deleteSaveButton);
+        AddChild(_lastPlayText);
+        AddChild(_createDayText);
     }
 
     private string GetTitleByPosition()
@@ -92,6 +105,11 @@ public class SaveSlotComponent : FrameComponent
 
         _backgroundButton.SetPosition(positionX, positionY);
         _titleText.SetPosition(positionX + Margin, positionY + Margin);
+        if (_save is not null)
+        {
+            _lastPlayText.SetPosition(positionX + Margin, Bounds.Bottom - Margin - _lastPlayText.Bounds.Height);
+            _createDayText.SetPosition(Bounds.Right - Margin - _createDayText.Bounds.Width, Bounds.Bottom - Margin - _lastPlayText.Bounds.Height);
+        }
 
         _progressText.SetPosition(Bounds.Center.X, Bounds.Center.Y);
         _gameFinishIcon.SetPosition(_progressText.Bounds.Right + 8, Bounds.Center.Y - _gameFinishIcon.Bounds.Height / 3 * 2);
@@ -113,6 +131,31 @@ public class SaveSlotComponent : FrameComponent
     {
         base.Update(gameTime);
 
-        _titleText.OffsetY = _progressText.OffsetY = _gameFinishIcon.OffsetY = _deleteSaveButton.OffsetY = _backgroundButton.OffsetY;
+        _titleText.OffsetY = 
+            _progressText.OffsetY = 
+            _gameFinishIcon.OffsetY = 
+            _deleteSaveButton.OffsetY = 
+            _lastPlayText.OffsetY = 
+            _createDayText.OffsetY = 
+            _backgroundButton.OffsetY;
+    }
+
+    private string GetDateTimeFriendly(DateTime dateTime)
+    {
+        var today = DateTime.Today;
+        var date = dateTime.Date;
+
+        if (date == today)
+            return $"Today • {dateTime:HH:mm}";
+
+        if (date == today.AddDays(-1))
+            return $"Yesterday • {dateTime:HH:mm}";
+
+        var days = (today - date).Days;
+
+        if (days <= 7)
+            return $"{days} days ago";
+
+        return dateTime.ToString("MMM dd, yyyy");
     }
 }

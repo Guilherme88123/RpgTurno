@@ -33,11 +33,19 @@ public static class SaveManager
     {
         if (selectedSave is null)
             selectedSave = await CreateDefaultSaveSlotAsync(position);
+        else
+            await UpdateLastPlayDateAsync(selectedSave);
 
         var units = await GetUnitsBySave(selectedSave.Id);
         var stages = await GetStagesBySave(selectedSave.Id);
 
         return InitializeGameSessionSave(selectedSave, stages, units);
+    }
+
+    private static async Task UpdateLastPlayDateAsync(SaveModel save)
+    {
+        save.LastPlayDate = DateTime.Now;
+        await _saveService.UpdateAsync(save);
     }
 
     private static GameSessionSave InitializeGameSessionSave(SaveModel save, List<StageModel> stages, List<BaseUnitEntity> units)
