@@ -59,11 +59,13 @@ public static class TextConst
     public const string ClericUnit = "ClericUnit";
     public const string LancerUnit = "LancerUnit";
     public const string WarriorUnit = "WarriorUnit";
+    public const string PawnUnit = "PawnUnit";
 
     public const string EvilArcherUnit = "EvilArcherUnit";
     public const string EvilClericUnit = "EvilClericUnit";
     public const string EvilLancerUnit = "EvilLancerUnit";
     public const string EvilWarriorUnit = "EvilWarriorUnit";
+    public const string EvilPawnUnit = "EvilPawnUnit";
 
     public const string SupremeWarriorUnit = "SupremeWarriorUnit";
 

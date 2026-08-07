@@ -200,7 +200,6 @@ public static class SpriteConst
     public const string EnemyClericAvatar = "EnemyClericAvatar";
     public const string EvilPawnAvatar = "EvilPawnAvatar";
     public const string EnemySuperWarriorAvatar = "EnemySuperWarriorAvatar";
-    public const string SheepAvatar = "EnemySuperWarriorAvatar";
 
     #endregion
 
