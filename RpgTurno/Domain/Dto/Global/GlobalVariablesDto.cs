@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Diagnostics;
 
 namespace Domain.Dto.Global;
 
@@ -12,6 +11,7 @@ public static class GlobalVariablesDto
     public static Action<string>? ChangeScreen;
     public static Action<string>? PushScreen;
     public static Action? PopScreen;
+    public static Action? ReloadScreens;
     public static Action? Exit;
 
     public static GraphicsDeviceManager Graphics;

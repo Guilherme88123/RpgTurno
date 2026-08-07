@@ -14,11 +14,11 @@ namespace RpgTurno.Custom.CustomComponents.Map.Stage;
 
 public class MapNodeBannerComponent : FrameComponent
 {
-    private const int _sizeX = 256;
+    private const int _sizeX = 320;
     private const int _sizeY = 256;
     private const int _marginY = 200;
 
-    private const int _iconSize = 32;
+    private const int _iconSize = 48;
     private const int _difficultyIconSize = 32;
 
     private readonly TextComponent _nameText = new(positionXByCenter: true, positionYByCenter: true);

@@ -7,4 +7,5 @@ public interface IScreenManager
     void ChangeScreen(string screenCode);
     void PushScreen(string screenCode);
     void PopScreen();
+    void ReloadScreens();
 }

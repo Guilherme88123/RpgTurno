@@ -17,6 +17,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.Model.Settings;
 using Service.Save;
+using System.Runtime.CompilerServices;
+using System;
 
 namespace RpgTurno.Custom.Component.Option.Banner;
 
@@ -35,17 +37,26 @@ public class OptionsBannerComponent : FrameComponent
     private readonly TextComponent _titleText = new(positionXByCenter: true, positionYByCenter: true);
     private ImageComponent _titleBackground = new(new BlueSmallRibbonSprite(), TitleBackgroundWidth, Margin);
 
-    private readonly ExitOptionsBannerComponent _exitButton = new();
-    private readonly RadioOptionsBannerComponent _musicRadio = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.MusicVolume), UpdateMusicVolume);
-    private readonly RadioOptionsBannerComponent _sfxRadio = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.EffectsVolume), UpdateSfxVolume);
-    private readonly SwitchOptionsBannerComponent _fullscreenSwitch = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.Fullscreen), ToggleFullscreen);
-    private readonly SwitchOptionsBannerComponent _fpsSwitch = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.ShowFps), ToggleShowFps);
-    private readonly DropdownOptionsBannerComponent _screenSizeDropdown = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.WindowSize), ToggleScreenSize, GetScreenSizeDropdownItens());
-    private readonly DropdownOptionsBannerComponent _languageDropdown = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.Language), ToggleLanguage, GetLanguageDropdownItens());
+    private readonly ExitOptionsBannerComponent _exitButton;
+    private readonly RadioOptionsBannerComponent _musicRadio;
+    private readonly RadioOptionsBannerComponent _sfxRadio;
+    private readonly SwitchOptionsBannerComponent _fullscreenSwitch;
+    private readonly SwitchOptionsBannerComponent _fpsSwitch;
+    private readonly DropdownOptionsBannerComponent _screenSizeDropdown;
+    private readonly DropdownOptionsBannerComponent _languageDropdown;
 
     public OptionsBannerComponent()
     {
         AnimationManager.Add(true, new WoodBannerSprite());
+
+        _exitButton = new();
+        _musicRadio = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.MusicVolume), UpdateMusicVolume);
+        _sfxRadio = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.EffectsVolume), UpdateSfxVolume);
+        _fullscreenSwitch = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.Fullscreen), ToggleFullscreen);
+        _fpsSwitch = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.ShowFps), ToggleShowFps);
+        _screenSizeDropdown = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.WindowSize), ToggleScreenSize, GetScreenSizeDropdownItens());
+        _languageDropdown = new(ButtonWidth, ButtonHeight, LanguageManager.Get(TextConst.Language), ToggleLanguage, GetLanguageDropdownItens());
+
 
         _titleText.SetText(LanguageManager.Get(TextConst.Options));
 
@@ -186,7 +197,7 @@ public class OptionsBannerComponent : FrameComponent
             };
     }
 
-    public static void ToggleLanguage(DropdownItemDto dto)
+    public void ToggleLanguage(DropdownItemDto dto)
     {
         var language = dto.Value as LanguageType?;
 
@@ -196,6 +207,8 @@ public class OptionsBannerComponent : FrameComponent
         GlobalOptionsDto.Language = language.Value;
         var languageService = GlobalVariablesDto.GetService<ILanguageService>();
         languageService.SetLanguage(GlobalOptionsDto.Language);
+
+        GlobalVariablesDto.ReloadScreens?.Invoke();
 
         SaveSettings();
     }
@@ -222,7 +235,7 @@ public class OptionsBannerComponent : FrameComponent
     private static async Task SaveSettingsAsync()
     {
         var settings = GetSettingsModel();
-        await SaveManager.UpdateSettingsSaveAsync(settings);
+        _ = SaveManager.UpdateSettingsSaveAsync(settings);
     }
 
     private static SettingsModel GetSettingsModel()

@@ -36,10 +36,18 @@ public class MapScreen : BaseScreen
     private MapPauseBannerComponent _pauseBannerComponent;
     private StartBattleButtonComponent _startButtonComponent;
 
-    private bool _isFinished = false;
+    private bool _isFinished;
     private GameFinishBannerComponent _finishBannerComponent;
 
     #region Initialize
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        _isFinished = false;
+        _isPaused = false;
+    }
 
     protected override List<BaseComponent> InitializeComponents()
     {

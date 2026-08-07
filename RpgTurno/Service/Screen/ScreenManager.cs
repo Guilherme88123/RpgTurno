@@ -48,4 +48,9 @@ public class ScreenManager : IScreenManager
             throw new Exception($"Screen with code '{screenCode}' not found.");
         }
     }
+
+    public void ReloadScreens()
+    {
+        _screenStack.ToList().ForEach(x => x.Initialize());
+    }
 }

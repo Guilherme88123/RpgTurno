@@ -93,6 +93,7 @@ public class RpgTurno : Game
         GlobalVariablesDto.ChangeScreen = screenCode => TransitionManager.StartTransition(TransitionType.Fade, () => ScreenManager.ChangeScreen(screenCode));
         GlobalVariablesDto.PushScreen = screenCode => TransitionManager.StartTransition(TransitionType.Fade, () => ScreenManager.PushScreen(screenCode));
         GlobalVariablesDto.PopScreen = () => TransitionManager.StartTransition(TransitionType.Fade, ScreenManager.PopScreen);
+        GlobalVariablesDto.ReloadScreens = ScreenManager.ReloadScreens;
         GlobalVariablesDto.Exit = Exit;
 
         CursorManager = GlobalVariablesDto.GetService<ICursorManager>();

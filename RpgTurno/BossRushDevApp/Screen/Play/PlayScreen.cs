@@ -77,12 +77,21 @@ public class PlayScreen : BaseScreen
         base.Initialize();
 
         GameSession.Statistics = new();
+
+        _isFinished = false;
+        _isPaused = false;
+
+        if (_battleManager.IsBossWave())
+            MediaPlayer.Play(GlobalVariablesDto.Content.Load<Song>(MusicConst.BattleMusic));
+
+        ResetUnitsStatus();
+        GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
+
+        SaveGameSession();
     }
 
     protected override List<BaseComponent> InitializeComponents()
     {
-        _isFinished = false;
-
         InitializeBattleManager();
 
         _selectionAreaComponent = new();
@@ -648,14 +657,7 @@ public class PlayScreen : BaseScreen
 
     private void OnRetryAction()
     {
-        if (_battleManager.IsBossWave())
-            MediaPlayer.Play(GlobalVariablesDto.Content.Load<Song>(MusicConst.BattleMusic));
-
-        ResetUnitsStatus();
         Initialize();
-        GlobalVariablesDto.ResetFollow(GlobalVariablesDto.SpriteBatchBackground);
-
-        SaveGameSession();
     }
 
     #endregion
