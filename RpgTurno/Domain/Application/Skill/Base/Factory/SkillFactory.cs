@@ -3,6 +3,7 @@ using Domain.Application.Skill.Archer;
 using Domain.Application.Skill.Cleric;
 using Domain.Application.Skill.Lancer;
 using Domain.Application.Skill.Warrior;
+using Domain.Application.Skill.Sheep;
 
 namespace Domain.Application.Skill.Base.Factory;
 
@@ -32,6 +33,8 @@ public static class SkillFactory
             SkillCode.PoisonShoot => new PoisonShootSkill(),
             SkillCode.ArrowRain => new ArrowRainSkill(),
             SkillCode.Snipe  => new SnipeSkill(),
+            SkillCode.Bite  => new BiteSkill(),
+            SkillCode.Pasture  => new PastureSkill(),
 
             _ => throw new ArgumentOutOfRangeException(nameof(skillCode), skillCode, null)
         };

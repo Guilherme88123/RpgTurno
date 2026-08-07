@@ -22,4 +22,6 @@ public enum SkillCode
     PoisonShoot,
     ArrowRain,
     Snipe,
+    Bite,
+    Pasture,
 }

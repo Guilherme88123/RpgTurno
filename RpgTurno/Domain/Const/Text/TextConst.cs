@@ -67,6 +67,8 @@ public static class TextConst
 
     public const string SupremeWarriorUnit = "SupremeWarriorUnit";
 
+    public const string SheepUnit = "SheepUnit";
+
     #endregion
 
     #region Skills
@@ -146,6 +148,16 @@ public static class TextConst
     public const string GuardStanceDescription = "GuardStanceDescription";
     public const string CleaveDescription = "CleaveDescription";
     public const string ExecutionDescription = "ExecutionDescription";
+
+    #endregion
+
+    #region Sheep
+
+    public const string Bite = "Bite";
+    public const string Pasture = "Pasture";
+
+    public const string BiteDescription = "BiteDescription";
+    public const string PastureDescription = "PastureDescription";
 
     #endregion
 

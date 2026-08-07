@@ -28,6 +28,27 @@ public static class SpriteConst
     public const string ClericRun = "Cleric_Run";
     public const string ClericAttack = "Cleric_Heal";
 
+    public const string PawnIdle = "Pawn_Idle";
+    public const string PawnIdleAxe = "Pawn_Idle Axe";
+    public const string PawnIdleGold = "Pawn_Idle Gold";
+    public const string PawnIdleHammer = "Pawn_Idle Hammer";
+    public const string PawnIdleKnife = "Pawn_Idle Knife";
+    public const string PawnIdleMeat = "Pawn_Idle Meat";
+    public const string PawnIdlePickaxe = "Pawn_Idle Pickaxe";
+    public const string PawnIdleWood = "Pawn_Idle Wood";
+    public const string PawnRun = "Pawn_Run";
+    public const string PawnRunAxe = "Pawn_Run Axe";
+    public const string PawnRunGold = "Pawn_Run Gold";
+    public const string PawnRunHammer = "Pawn_Run Hammer";
+    public const string PawnRunKnife = "Pawn_Run Knife";
+    public const string PawnRunMeat = "Pawn_Run Meat";
+    public const string PawnRunPickaxe = "Pawn_Run Pickaxe";
+    public const string PawnRunWood = "Pawn_Run Wood";
+    public const string PawnAttackAxe = "Pawn_Run Axe";
+    public const string PawnAttackHammer = "Pawn_Run Hammer";
+    public const string PawnAttackKnife = "Pawn_Run Knife";
+    public const string PawnAttackPickaxe = "Pawn_Run Pickaxe";
+
     #endregion
 
     #region Enemy
@@ -56,6 +77,35 @@ public static class SpriteConst
     public const string EnemySuperWarriorGuard = "Enemy_SuperWarrior_Guard";
     public const string EnemySuperWarriorAttack = "Enemy_SuperWarrior_Attack1";
     public const string EnemySuperWarriorAttack2 = "Enemy_SuperWarrior_Attack2";
+
+    public const string EvilPawnIdle = "Evil_Pawn_Idle";
+    public const string EvilPawnIdleAxe = "Evil_Pawn_Idle Axe";
+    public const string EvilPawnIdleGold = "Evil_Pawn_Idle Gold";
+    public const string EvilPawnIdleHammer = "Evil_Pawn_Idle Hammer";
+    public const string EvilPawnIdleKnife = "Evil_Pawn_Idle Knife";
+    public const string EvilPawnIdleMeat = "Evil_Pawn_Idle Meat";
+    public const string EvilPawnIdlePickaxe = "Evil_Pawn_Idle Pickaxe";
+    public const string EvilPawnIdleWood = "Evil_Pawn_Idle Wood";
+    public const string EvilPawnRun = "Evil_Pawn_Run";
+    public const string EvilPawnRunAxe = "Evil_Pawn_Run Axe";
+    public const string EvilPawnRunGold = "Evil_Pawn_Run Gold";
+    public const string EvilPawnRunHammer = "Evil_Pawn_Run Hammer";
+    public const string EvilPawnRunKnife = "Evil_Pawn_Run Knife";
+    public const string EvilPawnRunMeat = "Evil_Pawn_Run Meat";
+    public const string EvilPawnRunPickaxe = "Evil_Pawn_Run Pickaxe";
+    public const string EvilPawnRunWood = "Evil_Pawn_Run Wood";
+    public const string EvilPawnAttackAxe = "Evil_Pawn_Run Axe";
+    public const string EvilPawnAttackHammer = "Evil_Pawn_Run Hammer";
+    public const string EvilPawnAttackKnife = "Evil_Pawn_Run Knife";
+    public const string EvilPawnAttackPickaxe = "Evil_Pawn_Run Pickaxe";
+
+    #endregion
+
+    #region Sheep
+
+    public const string SheepIdle = "Sheep_Idle";
+    public const string SheepRun = "Sheep_Move";
+    public const string SheepAttack = "Sheep_Grass";
 
     #endregion
 
@@ -143,11 +193,14 @@ public static class SpriteConst
     public const string ArcherAvatar = "ArcherAvatar";
     public const string LancerAvatar = "LancerAvatar";
     public const string ClericAvatar = "ClericAvatar";
+    public const string PawnAvatar = "PawnAvatar";
     public const string EnemyWarriorAvatar = "EnemyWarriorAvatar";
     public const string EnemyArcherAvatar = "EnemyArcherAvatar";
     public const string EnemyLancerAvatar = "EnemyLancerAvatar";
     public const string EnemyClericAvatar = "EnemyClericAvatar";
+    public const string EvilPawnAvatar = "EvilPawnAvatar";
     public const string EnemySuperWarriorAvatar = "EnemySuperWarriorAvatar";
+    public const string SheepAvatar = "EnemySuperWarriorAvatar";
 
     #endregion
 
