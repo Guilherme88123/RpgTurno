@@ -40,6 +40,7 @@ public class PlayScreen : BaseScreen
 
     private ICursorManager _cursorManager => GlobalVariablesDto.GetService<ICursorManager>();
 
+    private bool _hasInitialized;
     private bool _isFinished;
 
     private KeyboardState _previousKeyboardState;
@@ -94,12 +95,17 @@ public class PlayScreen : BaseScreen
     {
         InitializeBattleManager();
 
+        if (!_hasInitialized)
+        {
+            _backgroundImageComponent = new(GameSession.CurrentStageCode);
+
+            _hasInitialized = true;
+        }
+
         _selectionAreaComponent = new();
 
         _focusedUnitBannerComponent = new();
         _focusedUnitBannerComponent.SetPosition(70, 48);
-
-        _backgroundImageComponent = new(GameSession.CurrentStageCode);
 
         _turnQueueComponent = new();
         _currentTurnUnitComponent = new();

@@ -14,5 +14,5 @@ public class SaveModel : BaseModel
     public DateTime LastPlayDate { get; set; }
 
     [NotMapped]
-    public bool HasGameFinish => Progress >= 10;
+    public bool HasGameFinish => Progress >= 100;
 }
