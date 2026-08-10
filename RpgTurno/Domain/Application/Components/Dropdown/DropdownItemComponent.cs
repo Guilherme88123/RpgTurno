@@ -1,5 +1,6 @@
 ﻿using Application.Model.MenuElements.Button;
 using Domain.Dto.Components.Dropdown;
+using Domain.Enum.Component.Button;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -39,10 +40,11 @@ public class DropdownItemComponent : ButtonComponent
 
     private void DrawIcon(SpriteBatch spriteBatch)
     {
-        var iconSize = 32;
+        var iconWidth = 32;
+        var iconHeight = 24;
         var margin = 8;
 
-        var iconRectangle = new Rectangle(Text.Bounds.Right + margin, Bounds.Center.Y - iconSize / 2, iconSize, iconSize);
+        var iconRectangle = new Rectangle(Text.Bounds.Right + margin, Bounds.Center.Y - iconHeight / 2, iconWidth, iconHeight);
         _itemDto.Icon.Draw(iconRectangle, Color, Rotation, SpriteEffects, spriteBatch, Scale, Offset);
     }
 }

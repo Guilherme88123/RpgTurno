@@ -20,6 +20,7 @@ using Service.Save;
 using System.Runtime.CompilerServices;
 using System;
 using Domain.Application.Texture.Sprite.Custom.Ui.Icons;
+using Domain.Application.Texture.Sprite.Custom.Ui.Flags;
 
 namespace RpgTurno.Custom.Component.Option.Banner;
 
@@ -218,9 +219,9 @@ public class OptionsBannerComponent : FrameComponent
     {
         return new List<DropdownItemDto>()
             {
-                new() { Id = 0, Text = LanguageManager.Get(TextConst.English), Value = LanguageType.English, Icon = new HammerIconSprite() },
-                new() { Id = 1, Text = LanguageManager.Get(TextConst.Portuguese), Value = LanguageType.Portuguese, Icon = new HeartIconSprite() },
-                new() { Id = 2, Text = LanguageManager.Get(TextConst.Spanish), Value = LanguageType.Spanish, Icon = new YellowStarIconSprite() },
+                new() { Id = 0, Text = LanguageManager.Get(TextConst.English), Value = LanguageType.English, Icon = new EnglishFlagSprite() },
+                new() { Id = 1, Text = LanguageManager.Get(TextConst.Portuguese), Value = LanguageType.Portuguese, Icon = new PortugueseFlagSprite() },
+                new() { Id = 2, Text = LanguageManager.Get(TextConst.Spanish), Value = LanguageType.Spanish, Icon = new SpanishFlagSprite() },
             };
     }
 
