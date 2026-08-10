@@ -139,6 +139,8 @@ public class AttackManager
 
             CurrentPhase = AttackPhase.Attacking;
             _sender.CreatureState = CreatureStateType.Attacking;
+            _skill.BeforeExcute(_executeData);
+
             ResetDelayAttack(_skill.Definition.Animation.ExecutionTime);
             return;
         }

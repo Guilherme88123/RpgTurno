@@ -435,4 +435,19 @@
   <data name="ConfirmSaveDeletion" xml:space="preserve">
     <value>ConfirmSaveDeletion</value>
   </data>
+  <data name="EvilPawnUnit" xml:space="preserve">
+    <value>EvilPawnUnit</value>
+  </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Repair</value>
+  </data>
+  <data name="ImprovisedStrike" xml:space="preserve">
+    <value>ImprovisedStrike</value>
+  </data>
+  <data name="RepairDescription" xml:space="preserve">
+    <value>RepairDescription</value>
+  </data>
+  <data name="ImprovisedStrikeDescription" xml:space="preserve">
+    <value>ImprovisedStrikeDescription</value>
+  </data>
 </root>

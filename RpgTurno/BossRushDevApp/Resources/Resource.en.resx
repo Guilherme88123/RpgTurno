@@ -435,4 +435,19 @@
   <data name="ConfirmSaveDeletion" xml:space="preserve">
     <value>Confirm {slot} Save Deletion</value>
   </data>
+  <data name="EvilPawnUnit" xml:space="preserve">
+    <value>Evil Pawn</value>
+  </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Repair</value>
+  </data>
+  <data name="ImprovisedStrike" xml:space="preserve">
+    <value>Improvised Strike</value>
+  </data>
+  <data name="RepairDescription" xml:space="preserve">
+    <value>Repair an ally, \nrestoring them to \ntheir best form.</value>
+  </data>
+  <data name="ImprovisedStrikeDescription" xml:space="preserve">
+    <value>An improvised attack \nusing construction tools</value>
+  </data>
 </root>

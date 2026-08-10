@@ -435,4 +435,19 @@
   <data name="ConfirmSaveDeletion" xml:space="preserve">
     <value>Confirmar Eliminación del Progreso del {slot}</value>
   </data>
+  <data name="EvilPawnUnit" xml:space="preserve">
+    <value>Peón \nMalvado</value>
+  </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Reparar</value>
+  </data>
+  <data name="ImprovisedStrike" xml:space="preserve">
+    <value>Ataque Improvisado</value>
+  </data>
+  <data name="RepairDescription" xml:space="preserve">
+    <value>Reparar a un aliado, \ndejándolo en las \nmejores condiciones</value>
+  </data>
+  <data name="ImprovisedStrikeDescription" xml:space="preserve">
+    <value>Un ataque improvisado \nutilizando herramientas de \nconstrucción</value>
+  </data>
 </root>

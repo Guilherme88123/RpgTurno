@@ -25,7 +25,7 @@ public class ArcherEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 96;
-        Name = TextConst.SheepUnit;
+        Name = TextConst.ArcherUnit;
 
         AnimationSizeX = 192;
         AnimationSizeY = 192;

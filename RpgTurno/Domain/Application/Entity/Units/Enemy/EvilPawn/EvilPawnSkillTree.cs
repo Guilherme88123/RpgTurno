@@ -8,6 +8,7 @@ public class EvilPawnSkillTree : BaseSkillTree
 {
     protected override IReadOnlyList<UnitSkillDefinition> Definitions =>
     [
-        new UnitSkillDefinition(SkillCode.Slash, 1),
+        new UnitSkillDefinition(SkillCode.ImprovisedStrike, 1),
+        new UnitSkillDefinition(SkillCode.Repair, 1),
     ];
 }

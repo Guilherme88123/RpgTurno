@@ -43,6 +43,11 @@ public abstract class BaseSkill
         context.Value = (int)MathF.Max(1, context.Value * reduction);
     }
 
+    private bool HasSuccessByChance(int chance)
+    {
+        return Random.Shared.Next(100) < chance;
+    }
+
     #region Miss
 
     protected bool HasHitAttack(BaseUnitEntity sender, BaseUnitEntity target)
@@ -84,11 +89,6 @@ public abstract class BaseSkill
     }
 
     #endregion
-
-    private bool HasSuccessByChance(int chance)
-    {
-        return Random.Shared.Next(100) < chance;
-    }
 
     #region Apply Attack
 
@@ -164,6 +164,15 @@ public abstract class BaseSkill
         }
 
         return new SkillResult(contextList);
+    }
+
+    #endregion
+
+    #region Before Execute
+
+    public virtual void BeforeExecute(SkillExecuteData skillData)
+    {
+
     }
 
     #endregion

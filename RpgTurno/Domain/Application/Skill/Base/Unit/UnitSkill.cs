@@ -42,6 +42,11 @@ public class UnitSkill
         return Definition.ExecuteSkill(skillData);
     }
 
+    public void BeforeExcute(SkillExecuteData skillData)
+    {
+        Definition.BeforeExecute(skillData);
+    }
+
     public void TickCooldown()
     {
         if (CurrentCooldown > 0)

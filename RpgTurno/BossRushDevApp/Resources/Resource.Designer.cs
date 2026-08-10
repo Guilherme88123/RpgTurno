@@ -403,6 +403,15 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a EvilPawnUnit.
+        /// </summary>
+        internal static string EvilPawnUnit {
+            get {
+                return ResourceManager.GetString("EvilPawnUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a EvilTowerStage.
         /// </summary>
         internal static string EvilTowerStage {
@@ -534,6 +543,24 @@ namespace RpgTurno.Resources {
         internal static string HeavySlashDescription {
             get {
                 return ResourceManager.GetString("HeavySlashDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a ImprovisedStrike.
+        /// </summary>
+        internal static string ImprovisedStrike {
+            get {
+                return ResourceManager.GetString("ImprovisedStrike", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a ImprovisedStrikeDescription.
+        /// </summary>
+        internal static string ImprovisedStrikeDescription {
+            get {
+                return ResourceManager.GetString("ImprovisedStrikeDescription", resourceCulture);
             }
         }
         
@@ -732,6 +759,24 @@ namespace RpgTurno.Resources {
         internal static string Progress {
             get {
                 return ResourceManager.GetString("Progress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Repair.
+        /// </summary>
+        internal static string Repair {
+            get {
+                return ResourceManager.GetString("Repair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a RepairDescription.
+        /// </summary>
+        internal static string RepairDescription {
+            get {
+                return ResourceManager.GetString("RepairDescription", resourceCulture);
             }
         }
         

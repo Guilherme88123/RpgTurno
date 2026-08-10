@@ -24,4 +24,6 @@ public enum SkillCode
     Snipe,
     Bite,
     Pasture,
+    ImprovisedStrike,
+    Repair,
 }

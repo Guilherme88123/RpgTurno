@@ -163,6 +163,16 @@ public static class TextConst
 
     #endregion
 
+    #region Pawn
+
+    public const string Repair = "Repair";
+    public const string ImprovisedStrike = "ImprovisedStrike";
+
+    public const string RepairDescription = "RepairDescription";
+    public const string ImprovisedStrikeDescription = "ImprovisedStrikeDescription";
+
+    #endregion
+
     #endregion
 
     #endregion
