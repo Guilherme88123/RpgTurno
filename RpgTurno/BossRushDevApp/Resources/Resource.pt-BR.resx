@@ -450,4 +450,55 @@
   <data name="ImprovisedStrikeDescription" xml:space="preserve">
     <value>Um ataque improvisado \ncom ferramentas de \nconstrução</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duração</value>
+  </data>
+  <data name="BraveryBlessEffect" xml:space="preserve">
+    <value>Bênção da Bravura</value>
+  </data>
+  <data name="CurseEffect" xml:space="preserve">
+    <value>Maldição</value>
+  </data>
+  <data name="FortressEffect" xml:space="preserve">
+    <value>Fortaleza</value>
+  </data>
+  <data name="GuardStanceEffect" xml:space="preserve">
+    <value>Postura de Guarda</value>
+  </data>
+  <data name="LastBastionEffect" xml:space="preserve">
+    <value>Último Bastião</value>
+  </data>
+  <data name="PoisonEffect" xml:space="preserve">
+    <value>Veneno</value>
+  </data>
+  <data name="RegenerationEffect" xml:space="preserve">
+    <value>Regeneração</value>
+  </data>
+  <data name="RepairedEffect" xml:space="preserve">
+    <value>Reparado</value>
+  </data>
+  <data name="BraveryBlessEffectDescription" xml:space="preserve">
+    <value>Esta unidade está \nimbuída da \nbênção da bravura, \nadicionando 40% ao seu \ndano de ataque.</value>
+  </data>
+  <data name="CurseEffectDescription" xml:space="preserve">
+    <value>Esta unidade está amaldiçoada</value>
+  </data>
+  <data name="FortressEffectDescription" xml:space="preserve">
+    <value>Esta unidade parece uma \nfortaleza, reduzindo o dano \nrecebido em 30%.</value>
+  </data>
+  <data name="GuardStanceEffectDescription" xml:space="preserve">
+    <value>Esta unidade está em \npostura de defesa, \nreduzindo o dano \nrecebido em 45%</value>
+  </data>
+  <data name="LastBastionEffectDescription" xml:space="preserve">
+    <value>Esta unidade tem \n60% mais defesa \ne 30% mais dano</value>
+  </data>
+  <data name="PoisonEffectDescription" xml:space="preserve">
+    <value>Esta unidade está envenenada</value>
+  </data>
+  <data name="RegenerationEffectDescription" xml:space="preserve">
+    <value>Esta unidade está se \nrecuperando lentamente de \nseus ferimentos</value>
+  </data>
+  <data name="RepairedEffectDescription" xml:space="preserve">
+    <value>Esta unidade foi \nreparada; seu \nataque é 15% mais forte, \ne ela sofre \n10% menos dano</value>
+  </data>
 </root>

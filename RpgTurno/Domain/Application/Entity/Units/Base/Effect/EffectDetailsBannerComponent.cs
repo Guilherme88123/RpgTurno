@@ -6,13 +6,15 @@ using Domain.Application.MenuComponents.Frame;
 using Domain.Application.Texture.Sprite.Custom.Ui.Banners;
 using Domain.Application.Texture.Sprite.Custom.Ui.Icons;
 using Microsoft.Xna.Framework;
+using Domain.Dto.Language;
+using Domain.Const.Text;
 
 namespace RpgTurno.Custom.Component.Play.Banners;
 
 public class EffectDetailsBannerComponent : FrameComponent
 {
-    private const int _sizeX = 256;
-    private const int _sizeY = 320;
+    private const int _sizeX = 288;
+    private const int _sizeY = 384;
 
     private const int _iconSize = 64;
 
@@ -45,9 +47,9 @@ public class EffectDetailsBannerComponent : FrameComponent
 
     private void SetSkill(BaseEffect effect)
     {
-        _nameText.SetText(effect.Name);
-        _descriptionText.SetText(effect.Description);
-        _durationText.SetText($"Duration: {effect.Duration}");
+        _nameText.SetText(LanguageManager.Get(effect.Name));
+        _descriptionText.SetText(LanguageManager.Get(effect.Description));
+        _durationText.SetText($"{LanguageManager.Get(TextConst.Duration)}: {effect.Duration}");
         _effectIcon.SetImage(effect.Icon);
     }
 

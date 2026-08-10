@@ -142,6 +142,24 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a BraveryBlessEffect.
+        /// </summary>
+        internal static string BraveryBlessEffect {
+            get {
+                return ResourceManager.GetString("BraveryBlessEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a BraveryBlessEffectDescription.
+        /// </summary>
+        internal static string BraveryBlessEffectDescription {
+            get {
+                return ResourceManager.GetString("BraveryBlessEffectDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a By.
         /// </summary>
         internal static string By {
@@ -277,6 +295,24 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a CurseEffect.
+        /// </summary>
+        internal static string CurseEffect {
+            get {
+                return ResourceManager.GetString("CurseEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a CurseEffectDescription.
+        /// </summary>
+        internal static string CurseEffectDescription {
+            get {
+                return ResourceManager.GetString("CurseEffectDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a DaysAgo.
         /// </summary>
         internal static string DaysAgo {
@@ -336,6 +372,15 @@ namespace RpgTurno.Resources {
         internal static string DontForgetToLeaveSuggestions {
             get {
                 return ResourceManager.GetString("DontForgetToLeaveSuggestions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Duration.
+        /// </summary>
+        internal static string Duration {
+            get {
+                return ResourceManager.GetString("Duration", resourceCulture);
             }
         }
         
@@ -475,6 +520,24 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a FortressEffect.
+        /// </summary>
+        internal static string FortressEffect {
+            get {
+                return ResourceManager.GetString("FortressEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a FortressEffectDescription.
+        /// </summary>
+        internal static string FortressEffectDescription {
+            get {
+                return ResourceManager.GetString("FortressEffectDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Fullscreen.
         /// </summary>
         internal static string Fullscreen {
@@ -507,6 +570,24 @@ namespace RpgTurno.Resources {
         internal static string GuardStanceDescription {
             get {
                 return ResourceManager.GetString("GuardStanceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a GuardStanceEffect.
+        /// </summary>
+        internal static string GuardStanceEffect {
+            get {
+                return ResourceManager.GetString("GuardStanceEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a GuardStanceEffectDescription.
+        /// </summary>
+        internal static string GuardStanceEffectDescription {
+            get {
+                return ResourceManager.GetString("GuardStanceEffectDescription", resourceCulture);
             }
         }
         
@@ -597,6 +678,24 @@ namespace RpgTurno.Resources {
         internal static string LastBastionDescription {
             get {
                 return ResourceManager.GetString("LastBastionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a LastBastionEffect.
+        /// </summary>
+        internal static string LastBastionEffect {
+            get {
+                return ResourceManager.GetString("LastBastionEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a LastBastionEffectDescription.
+        /// </summary>
+        internal static string LastBastionEffectDescription {
+            get {
+                return ResourceManager.GetString("LastBastionEffectDescription", resourceCulture);
             }
         }
         
@@ -709,6 +808,24 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a PoisonEffect.
+        /// </summary>
+        internal static string PoisonEffect {
+            get {
+                return ResourceManager.GetString("PoisonEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a PoisonEffectDescription.
+        /// </summary>
+        internal static string PoisonEffectDescription {
+            get {
+                return ResourceManager.GetString("PoisonEffectDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a PoisonShoot.
         /// </summary>
         internal static string PoisonShoot {
@@ -763,6 +880,24 @@ namespace RpgTurno.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a RegenerationEffect.
+        /// </summary>
+        internal static string RegenerationEffect {
+            get {
+                return ResourceManager.GetString("RegenerationEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a RegenerationEffectDescription.
+        /// </summary>
+        internal static string RegenerationEffectDescription {
+            get {
+                return ResourceManager.GetString("RegenerationEffectDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Repair.
         /// </summary>
         internal static string Repair {
@@ -777,6 +912,24 @@ namespace RpgTurno.Resources {
         internal static string RepairDescription {
             get {
                 return ResourceManager.GetString("RepairDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a RepairedEffect.
+        /// </summary>
+        internal static string RepairedEffect {
+            get {
+                return ResourceManager.GetString("RepairedEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a RepairedEffectDescription.
+        /// </summary>
+        internal static string RepairedEffectDescription {
+            get {
+                return ResourceManager.GetString("RepairedEffectDescription", resourceCulture);
             }
         }
         

@@ -34,6 +34,7 @@ public static class TextConst
     public const string Wave = "Wave";
     public const string ReturnToMap = "ReturnToMap";
     public const string Restart = "Restart";
+    public const string Duration = "Duration";
 
     public const string Congratulations = "Congratulations";
     public const string DefeatedSupremeWarrior = "DefeatedSupremeWarrior";
@@ -182,6 +183,28 @@ public static class TextConst
     public const string EvilTowerStage = "EvilTowerStage";
     public const string BarracksOfValorStage = "BarracksOfValorStage";
     public const string TheCastleStage = "TheCastleStage";
+
+    #endregion
+
+    #region Effects
+
+    public const string BraveryBlessEffect = "BraveryBlessEffect";
+    public const string CurseEffect = "CurseEffect";
+    public const string FortressEffect = "FortressEffect";
+    public const string GuardStanceEffect = "GuardStanceEffect";
+    public const string LastBastionEffect = "LastBastionEffect";
+    public const string PoisonEffect = "PoisonEffect";
+    public const string RegenerationEffect = "RegenerationEffect";
+    public const string RepairedEffect = "RepairedEffect";
+
+    public const string BraveryBlessEffectDescription = "BraveryBlessEffectDescription";
+    public const string CurseEffectDescription = "CurseEffectDescription";
+    public const string FortressEffectDescription = "FortressEffectDescription";
+    public const string GuardStanceEffectDescription = "GuardStanceEffectDescription";
+    public const string LastBastionEffectDescription = "LastBastionEffectDescription";
+    public const string PoisonEffectDescription = "PoisonEffectDescription";
+    public const string RegenerationEffectDescription = "RegenerationEffectDescription";
+    public const string RepairedEffectDescription = "RepairedEffectDescription";
 
     #endregion
 }

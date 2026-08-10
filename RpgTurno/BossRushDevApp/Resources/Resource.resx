@@ -450,4 +450,55 @@
   <data name="ImprovisedStrikeDescription" xml:space="preserve">
     <value>ImprovisedStrikeDescription</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="BraveryBlessEffect" xml:space="preserve">
+    <value>BraveryBlessEffect</value>
+  </data>
+  <data name="CurseEffect" xml:space="preserve">
+    <value>CurseEffect</value>
+  </data>
+  <data name="FortressEffect" xml:space="preserve">
+    <value>FortressEffect</value>
+  </data>
+  <data name="GuardStanceEffect" xml:space="preserve">
+    <value>GuardStanceEffect</value>
+  </data>
+  <data name="LastBastionEffect" xml:space="preserve">
+    <value>LastBastionEffect</value>
+  </data>
+  <data name="PoisonEffect" xml:space="preserve">
+    <value>PoisonEffect</value>
+  </data>
+  <data name="RegenerationEffect" xml:space="preserve">
+    <value>RegenerationEffect</value>
+  </data>
+  <data name="RepairedEffect" xml:space="preserve">
+    <value>RepairedEffect</value>
+  </data>
+  <data name="BraveryBlessEffectDescription" xml:space="preserve">
+    <value>BraveryBlessEffectDescription</value>
+  </data>
+  <data name="CurseEffectDescription" xml:space="preserve">
+    <value>CurseEffectDescription</value>
+  </data>
+  <data name="FortressEffectDescription" xml:space="preserve">
+    <value>FortressEffectDescription</value>
+  </data>
+  <data name="GuardStanceEffectDescription" xml:space="preserve">
+    <value>GuardStanceEffectDescription</value>
+  </data>
+  <data name="LastBastionEffectDescription" xml:space="preserve">
+    <value>LastBastionEffectDescription</value>
+  </data>
+  <data name="PoisonEffectDescription" xml:space="preserve">
+    <value>PoisonEffectDescription</value>
+  </data>
+  <data name="RegenerationEffectDescription" xml:space="preserve">
+    <value>RegenerationEffectDescription</value>
+  </data>
+  <data name="RepairedEffectDescription" xml:space="preserve">
+    <value>RepairedEffectDescription</value>
+  </data>
 </root>

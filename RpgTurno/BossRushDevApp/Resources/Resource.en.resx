@@ -450,4 +450,55 @@
   <data name="ImprovisedStrikeDescription" xml:space="preserve">
     <value>An improvised attack \nusing construction tools</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="BraveryBlessEffect" xml:space="preserve">
+    <value>Bravery Bless</value>
+  </data>
+  <data name="CurseEffect" xml:space="preserve">
+    <value>Curse</value>
+  </data>
+  <data name="FortressEffect" xml:space="preserve">
+    <value>Fortress</value>
+  </data>
+  <data name="GuardStanceEffect" xml:space="preserve">
+    <value>Guard Stance</value>
+  </data>
+  <data name="LastBastionEffect" xml:space="preserve">
+    <value>Last Bastion</value>
+  </data>
+  <data name="PoisonEffect" xml:space="preserve">
+    <value>Poison</value>
+  </data>
+  <data name="RegenerationEffect" xml:space="preserve">
+    <value>Regeneration</value>
+  </data>
+  <data name="RepairedEffect" xml:space="preserve">
+    <value>Repaired</value>
+  </data>
+  <data name="BraveryBlessEffectDescription" xml:space="preserve">
+    <value>This unit is \nimbued with the \nblessing of bravery, \nadding 40% to his \nattack damage</value>
+  </data>
+  <data name="CurseEffectDescription" xml:space="preserve">
+    <value>This unit is cursed</value>
+  </data>
+  <data name="FortressEffectDescription" xml:space="preserve">
+    <value>This unit looks \nlike a fortress, \nreducing damage \ntaken by 30%</value>
+  </data>
+  <data name="GuardStanceEffectDescription" xml:space="preserve">
+    <value>This unit is in \na guard stance, \nreducing damage \ntaken by 45%</value>
+  </data>
+  <data name="LastBastionEffectDescription" xml:space="preserve">
+    <value>This unit has \n60% more defense \nand 30% more damage</value>
+  </data>
+  <data name="PoisonEffectDescription" xml:space="preserve">
+    <value>This unit is poisoned</value>
+  </data>
+  <data name="RegenerationEffectDescription" xml:space="preserve">
+    <value>This unit is \nslowly recovering \nfrom its wounds</value>
+  </data>
+  <data name="RepairedEffectDescription" xml:space="preserve">
+    <value>This unit has \nbeen repaired; its \nattack is 15% stronger, \nand it is taking \n10% less damage</value>
+  </data>
 </root>
