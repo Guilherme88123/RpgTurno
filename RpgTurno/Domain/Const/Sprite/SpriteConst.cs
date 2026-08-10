@@ -44,10 +44,10 @@ public static class SpriteConst
     public const string PawnRunMeat = "Pawn_Run Meat";
     public const string PawnRunPickaxe = "Pawn_Run Pickaxe";
     public const string PawnRunWood = "Pawn_Run Wood";
-    public const string PawnAttackAxe = "Pawn_Run Axe";
-    public const string PawnAttackHammer = "Pawn_Run Hammer";
-    public const string PawnAttackKnife = "Pawn_Run Knife";
-    public const string PawnAttackPickaxe = "Pawn_Run Pickaxe";
+    public const string PawnAttackAxe = "Pawn_Interact Axe";
+    public const string PawnAttackHammer = "Pawn_Interact Hammer";
+    public const string PawnAttackKnife = "Pawn_Interact Knife";
+    public const string PawnAttackPickaxe = "Pawn_Interact Pickaxe";
 
     #endregion
 
@@ -94,10 +94,10 @@ public static class SpriteConst
     public const string EvilPawnRunMeat = "Evil_Pawn_Run Meat";
     public const string EvilPawnRunPickaxe = "Evil_Pawn_Run Pickaxe";
     public const string EvilPawnRunWood = "Evil_Pawn_Run Wood";
-    public const string EvilPawnAttackAxe = "Evil_Pawn_Run Axe";
-    public const string EvilPawnAttackHammer = "Evil_Pawn_Run Hammer";
-    public const string EvilPawnAttackKnife = "Evil_Pawn_Run Knife";
-    public const string EvilPawnAttackPickaxe = "Evil_Pawn_Run Pickaxe";
+    public const string EvilPawnAttackAxe = "Evil_Pawn_Interact Axe";
+    public const string EvilPawnAttackHammer = "Evil_Pawn_Interact Hammer";
+    public const string EvilPawnAttackKnife = "Evil_Pawn_Interact Knife";
+    public const string EvilPawnAttackPickaxe = "Evil_Pawn_Interact Pickaxe";
 
     #endregion
 

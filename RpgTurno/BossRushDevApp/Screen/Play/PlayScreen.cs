@@ -266,9 +266,9 @@ public class PlayScreen : BaseScreen
         _previousKeyboardState = GlobalVariablesDto.KeyboardState;
     }
 
-    private void TogglePauseFlag()
+    private void TogglePauseFlag(bool? pauseValue = null)
     {
-        _isPaused = !_isPaused;
+        _isPaused = pauseValue is null ? !_isPaused : pauseValue.Value;
         UpdatePauseFlag();
     }
 
@@ -647,7 +647,7 @@ public class PlayScreen : BaseScreen
 
     private void OnResumeAction()
     {
-        TogglePauseFlag();
+        TogglePauseFlag(pauseValue: false);
     }
 
     private void OnOptionsAction()

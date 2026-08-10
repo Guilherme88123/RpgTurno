@@ -1,5 +1,6 @@
 ﻿using Domain.Application.Entity.Units.Enemy.Archer;
 using Domain.Application.Entity.Units.Enemy.Cleric;
+using Domain.Application.Entity.Units.Enemy.EvilPawn;
 using Domain.Application.Entity.Units.Enemy.Lancer;
 using Domain.Application.Entity.Units.Enemy.Warrior;
 using System.Collections.Generic;
@@ -34,10 +35,16 @@ public static class EnemyPool
         new EnemyDefinition()
         {
             Create = () => new EnemyClericEntity(),
-            WaveCost = 5,
-            SpawnWeight = 10,
+            WaveCost = 4,
+            SpawnWeight = 20,
             MaxCopies = 1,
-            CanSpawn = ctx => ctx.WaveIndex >= 2,
+        },
+        new EnemyDefinition()
+        {
+            Create = () => new EvilPawnEntity(),
+            WaveCost = 4,
+            SpawnWeight = 200, //18,
+            MaxCopies = 2,
         },
     ];
 }
