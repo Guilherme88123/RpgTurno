@@ -1,4 +1,5 @@
-﻿using Domain.Application.Entity.Units.Enemy.SuperWarrior;
+﻿using Domain.Application.Entity.Units.Enemy.EvilPawn;
+using Domain.Application.Entity.Units.Enemy.SuperWarrior;
 using Domain.Application.Entity.Units.Enemy.Warrior;
 using RpgTurno.Screen.Play.Battle.Wave;
 
@@ -16,7 +17,7 @@ public static class CastleStageFactory
         [
             waveGenerator.Generate(1, 5),
             waveGenerator.Generate(2, 8),
-            new WaveData([new EnemyWarriorEntity(), boss, new EnemyWarriorEntity()], boss),
+            new WaveData([new EnemyWarriorEntity(), boss, new EvilPawnEntity()], boss),
         ]);
     }
 }

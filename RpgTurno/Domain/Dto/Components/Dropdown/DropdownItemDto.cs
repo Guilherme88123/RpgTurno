@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Domain.Application.Texture.Sprite;
+using Microsoft.Xna.Framework;
 
 namespace Domain.Dto.Components.Dropdown;
 
@@ -11,4 +12,6 @@ public class DropdownItemDto
 
     public Rectangle Rectangle { get; set; }
     public bool IsHover { get; set; }
+
+    public SpriteData Icon { get; set; }
 }

@@ -217,6 +217,14 @@ public static class SpriteConst
 
     #endregion
 
+    #region Flags
+
+    public const string PortugueseFlag = "Portuguese";
+    public const string EnglishFlag = "English";
+    public const string SpanishFlag = "Spanish";
+
+    #endregion
+
     #endregion
 
     #region Maps

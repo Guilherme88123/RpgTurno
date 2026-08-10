@@ -1,8 +1,7 @@
 ﻿using Application.Model.MenuElements.Button;
 using Domain.Dto.Components.Dropdown;
-using Domain.Enum.Component.Button;
-using Domain.Application.Texture.Sprite.Custom.Ui.Buttons;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Domain.Application.Components.Dropdown;
 
@@ -28,5 +27,22 @@ public class DropdownItemComponent : ButtonComponent
     private void OnSelectOption()
     {
         _parentDropdown.SelectItem(_itemDto.Id);
+    }
+
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        base.Draw(spriteBatch);
+
+        if (_itemDto.Icon is not null)
+            DrawIcon(spriteBatch);
+    }
+
+    private void DrawIcon(SpriteBatch spriteBatch)
+    {
+        var iconSize = 32;
+        var margin = 8;
+
+        var iconRectangle = new Rectangle(Text.Bounds.Right + margin, Bounds.Center.Y - iconSize / 2, iconSize, iconSize);
+        _itemDto.Icon.Draw(iconRectangle, Color, Rotation, SpriteEffects, spriteBatch, Scale, Offset);
     }
 }
