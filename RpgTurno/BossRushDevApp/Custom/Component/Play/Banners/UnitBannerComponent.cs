@@ -1,17 +1,20 @@
-﻿using Domain.Dto.Language;
-using Domain.Application.Components.Image;
+﻿using Domain.Application.Components.Image;
 using Domain.Application.Components.Text;
 using Domain.Application.Entity.Units.Base;
 using Domain.Application.MenuComponents.Frame;
 using Domain.Application.Texture.Sprite.Custom.Ui.Banners;
 using Domain.Application.Texture.Sprite.Custom.Ui.Icons;
+using Domain.Dto.Language;
 using Microsoft.Xna.Framework;
 
 namespace RpgTurno.Custom.CustomComponents.Play.Banners;
 
 public class UnitBannerComponent : FrameComponent
 {
-    private const int _iconSize = 128;
+    private const int Width = 320;
+    private const int Height = 512;
+    private const int IconSize = 128;
+    private const int Margin = 64;
 
     private readonly TextComponent _nameText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly TextComponent _healtText = new();
@@ -28,7 +31,7 @@ public class UnitBannerComponent : FrameComponent
     private readonly ImageComponent _experienceIcon = new(new PurpleStarIconSprite(), 32, 32);
     private readonly ImageComponent _speedIcon = new(new BootIconSprite(), 32, 32);
 
-    private readonly ImageComponent _unitIcon = new(new SwordIconSprite(), _iconSize, _iconSize);
+    private readonly ImageComponent _unitIcon = new(new SwordIconSprite(), IconSize, IconSize);
 
     public UnitBannerComponent()
     {
@@ -49,12 +52,12 @@ public class UnitBannerComponent : FrameComponent
         AddChild(_speedIcon);
         AddChild(_unitIcon);
 
-        Bounds = new Rectangle(0, 0, 320, 512);
+        Bounds = new Rectangle(0, 0, Width, Height);
     }
 
     public void SetFocusedUnit(BaseUnitEntity focusedEntity, bool isEnemy)
     {
-        _nameText.SetText($"{LanguageManager.Get(focusedEntity.Name)} Lvl {focusedEntity.Stats.Level}");
+        _nameText.SetWrapedText($"{LanguageManager.Get(focusedEntity.Name)} Lvl {focusedEntity.Stats.Level}", Width - Margin * 2);
         _healtText.SetText($"{focusedEntity.Stats.CurrentHealth}/{focusedEntity.Stats.MaxHealth}");
         _manaText.SetText($"{focusedEntity.Stats.CurrentMana}/{focusedEntity.Stats.MaxMana}");
         _defenseText.SetText(focusedEntity.Stats.Defense.ToString());
@@ -73,7 +76,7 @@ public class UnitBannerComponent : FrameComponent
     {
         base.SetPosition(positionX, positionY);
 
-        _unitIcon.SetPosition(Bounds.Center.X - _iconSize / 2, Bounds.Y + _iconSize / 2);
+        _unitIcon.SetPosition(Bounds.Center.X - IconSize / 2, Bounds.Y + IconSize / 2);
 
         SetFieldPositionByIndex(_nameText, null, 0);
         SetFieldPositionByIndex(_healtText, _healthIcon, 1);

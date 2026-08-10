@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Globalization;
 using System.Text;
+using Infrastructure.Text;
 
 namespace Domain.Application.Components.Text;
 
@@ -29,6 +30,11 @@ public class TextComponent : BaseComponent
     public void SetText(string text)
     {
         Text = text;
+    }
+
+    public void SetWrapedText(string rawText, float maxWidth)
+    {
+        Text = rawText.WrapText(maxWidth, Font);
     }
 
     public override void SetPosition(int positionX, int positionY)

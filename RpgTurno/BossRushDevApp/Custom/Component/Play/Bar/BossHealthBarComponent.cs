@@ -22,7 +22,7 @@ public class BossHealthBarComponent : ProgressBarComponent
     public void SetBossUnit(BaseUnitEntity boss)
     {
         SetValues(boss.Stats.MaxHealth, boss.Stats.CurrentHealth);
-        _title.SetText(LanguageManager.Get(boss.Name));
+        _title.SetText(LanguageManager.Get(boss.Name).Replace("\n", string.Empty));
 
         SetPosition(Bounds.X, Bounds.Y);
     }

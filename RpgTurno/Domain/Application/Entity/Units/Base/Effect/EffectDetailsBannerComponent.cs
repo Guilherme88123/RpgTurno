@@ -13,16 +13,18 @@ namespace RpgTurno.Custom.Component.Play.Banners;
 
 public class EffectDetailsBannerComponent : FrameComponent
 {
-    private const int _sizeX = 288;
-    private const int _sizeY = 384;
+    private const int Width = 384;
+    private const int Height = 384;
+    private const int Margin = 32;
+    private const int TextHeight = 32;
 
-    private const int _iconSize = 64;
+    private const int IconSize = 64;
 
     private readonly TextComponent _nameText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly TextComponent _descriptionText = new(positionXByCenter: true);
     private readonly TextComponent _durationText = new(positionXByCenter: true, positionYByCenter: true);
 
-    private readonly ImageComponent _effectIcon = new(new SwordIconSprite(), _iconSize, _iconSize);
+    private readonly ImageComponent _effectIcon = new(new SwordIconSprite(), IconSize, IconSize);
 
     public EffectDetailsBannerComponent()
     {
@@ -33,13 +35,13 @@ public class EffectDetailsBannerComponent : FrameComponent
         AddChild(_durationText);
         AddChild(_effectIcon);
 
-        Bounds = new(0, 0, _sizeX, _sizeY);
+        Bounds = new(0, 0, Width, Height);
     }
 
     public void SetHoverSkillButton(BaseEffect effect, Rectangle rectangle)
     {
-        var x = rectangle.X + rectangle.Width / 2 - _sizeX / 2;
-        var y = rectangle.Y - _sizeY;
+        var x = rectangle.X + rectangle.Width / 2 - Width / 2;
+        var y = rectangle.Y - Height;
 
         SetSkill(effect);
         SetPosition(x, y);
@@ -48,7 +50,7 @@ public class EffectDetailsBannerComponent : FrameComponent
     private void SetSkill(BaseEffect effect)
     {
         _nameText.SetText(LanguageManager.Get(effect.Name));
-        _descriptionText.SetText(LanguageManager.Get(effect.Description));
+        _descriptionText.SetWrapedText(LanguageManager.Get(effect.Description), Width - Margin * 2);
         _durationText.SetText($"{LanguageManager.Get(TextConst.Duration)}: {effect.Duration}");
         _effectIcon.SetImage(effect.Icon);
     }
@@ -58,11 +60,12 @@ public class EffectDetailsBannerComponent : FrameComponent
         var bouncedPositionY = ApplyBounce(positionY);
         base.SetPosition(positionX, bouncedPositionY);
 
-        _effectIcon.SetPosition(Bounds.X + Bounds.Width / 2 - _iconSize / 2, Bounds.Y + _iconSize / 2);
+        _effectIcon.SetPosition(Bounds.X + Bounds.Width / 2 - IconSize / 2, Bounds.Y + IconSize / 2);
 
         SetFieldPositionByIndex(_nameText, 3);
         SetFieldPositionByIndex(_descriptionText, 4);
-        SetFieldPositionByIndex(_durationText, 8);
+
+        _durationText.SetPosition(Bounds.Center.X, Bounds.Bottom - Margin - TextHeight);
     }
 
     private int ApplyBounce(int baseValue)
@@ -73,12 +76,8 @@ public class EffectDetailsBannerComponent : FrameComponent
 
     private void SetFieldPositionByIndex(TextComponent textComponent, int index)
     {
-        var marginY = 32;
-        var marginX = 32;
-        var textHeight = 32;
-
-        var positionY = Bounds.Y + marginY + textHeight * index;
-        var positionX = textComponent.IsPositionXByCenter ? Bounds.X + Bounds.Width / 2 : Bounds.X + marginX;
+        var positionY = Bounds.Y + Margin + TextHeight * index;
+        var positionX = textComponent.IsPositionXByCenter ? Bounds.X + Bounds.Width / 2 : Bounds.X + Margin;
 
         textComponent.SetPosition(positionX, positionY);
     }

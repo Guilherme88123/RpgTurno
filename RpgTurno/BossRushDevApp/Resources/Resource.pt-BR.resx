@@ -133,7 +133,7 @@
     <value>Chuva de Flechas</value>
   </data>
   <data name="ArrowRainDescription" xml:space="preserve">
-    <value>Ataca todos \nos alvos com \nataques poderosos</value>
+    <value>Ataca todos os alvos com ataques poderosos</value>
   </data>
   <data name="BarracksOfValorStage" xml:space="preserve">
     <value>Quartel de Valor</value>
@@ -142,7 +142,7 @@
     <value>Benção</value>
   </data>
   <data name="BlessDescription" xml:space="preserve">
-    <value>Aplica a \nbenção da bravura \nem um aliado</value>
+    <value>Aplica a benção da bravura em um aliado</value>
   </data>
   <data name="By" xml:space="preserve">
     <value>Por</value>
@@ -151,7 +151,7 @@
     <value>Partir</value>
   </data>
   <data name="CleaveDescription" xml:space="preserve">
-    <value>Ataca todos os \ninimigos com um \ngolpe horizontal</value>
+    <value>Ataca todos os inimigos com um golpe horizontal</value>
   </data>
   <data name="ClericUnit" xml:space="preserve">
     <value>Clérigo</value>
@@ -169,7 +169,7 @@
     <value>Maldição</value>
   </data>
   <data name="CurseDescription" xml:space="preserve">
-    <value>Um ataque colossal \nque faz os inimigos \nse arrependerem</value>
+    <value>Um ataque colossal que faz os inimigos se arrependerem</value>
   </data>
   <data name="Defeated" xml:space="preserve">
     <value>Derrotado</value>
@@ -181,7 +181,7 @@
     <value>Luz Divina</value>
   </data>
   <data name="DivineLightDescription" xml:space="preserve">
-    <value>Aplica a luz divina \nnos aliados</value>
+    <value>Aplica a luz divina nos aliados</value>
   </data>
   <data name="EffectsVolume" xml:space="preserve">
     <value>Volume Efeitos</value>
@@ -193,25 +193,25 @@
     <value>Inglês</value>
   </data>
   <data name="EvilArcherUnit" xml:space="preserve">
-    <value>Arqueiro \nMaligno</value>
+    <value>Arqueiro Maligno</value>
   </data>
   <data name="EvilClericUnit" xml:space="preserve">
-    <value>Clérigo \nMaligno</value>
+    <value>Clérigo Maligno</value>
   </data>
   <data name="EvilLancerUnit" xml:space="preserve">
-    <value>Lanceiro \nMaligno</value>
+    <value>Lanceiro Maligno</value>
   </data>
   <data name="EvilTowerStage" xml:space="preserve">
     <value>Torre Maligna</value>
   </data>
   <data name="EvilWarriorUnit" xml:space="preserve">
-    <value>Guerreiro \nMaligno</value>
+    <value>Guerreiro Maligno</value>
   </data>
   <data name="Execution" xml:space="preserve">
     <value>Execução</value>
   </data>
   <data name="ExecutionDescription" xml:space="preserve">
-    <value>Executa um inimigo \ncom um dano \ncatastrófico</value>
+    <value>Executa um inimigo com um dano catastrófico</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Sair</value>
@@ -220,7 +220,7 @@
     <value>Fortaleza</value>
   </data>
   <data name="FortressDescription" xml:space="preserve">
-    <value>Transforma os aliados \nem verdadeiras fortalezas</value>
+    <value>Transforma os aliados em verdadeiras fortalezas</value>
   </data>
   <data name="Fullscreen" xml:space="preserve">
     <value>Tela Cheia</value>
@@ -232,19 +232,19 @@
     <value>Postura de Guarda</value>
   </data>
   <data name="GuardStanceDescription" xml:space="preserve">
-    <value>Coloca essa unidade \nem postura de guarda</value>
+    <value>Coloca essa unidade em postura de guarda</value>
   </data>
   <data name="Heal" xml:space="preserve">
     <value>Curar</value>
   </data>
   <data name="HealDescription" xml:space="preserve">
-    <value>Uma cura que \nsalva seus aliados</value>
+    <value>Uma cura que salva seus aliados</value>
   </data>
   <data name="HeavySlash" xml:space="preserve">
     <value>Golpe Pesado</value>
   </data>
   <data name="HeavySlashDescription" xml:space="preserve">
-    <value>Um pesado e mais \npoderoso ataque</value>
+    <value>Um pesado e mais poderoso ataque</value>
   </data>
   <data name="LancerUnit" xml:space="preserve">
     <value>Lanceiro</value>
@@ -256,7 +256,7 @@
     <value>Último Bastião</value>
   </data>
   <data name="LastBastionDescription" xml:space="preserve">
-    <value>O último ponto \nentre a morte e \na glória</value>
+    <value>O último ponto entre a morte e a glória</value>
   </data>
   <data name="MainMenu" xml:space="preserve">
     <value>Menu Principal</value>
@@ -280,19 +280,19 @@
     <value>Golpe Perfurante</value>
   </data>
   <data name="PiercingStrikeDescription" xml:space="preserve">
-    <value>Um ataque perfurante \nque ignora a \narmadura do alvo</value>
+    <value>Um ataque perfurante que ignora a armadura do alvo</value>
   </data>
   <data name="Pike" xml:space="preserve">
     <value>Pique</value>
   </data>
   <data name="PikeDescription" xml:space="preserve">
-    <value>Um ataque com \na ponta da lança</value>
+    <value>Um ataque com a ponta da lança</value>
   </data>
   <data name="PoisonShoot" xml:space="preserve">
     <value>Tiro Envenenado</value>
   </data>
   <data name="PoisonShootDescription" xml:space="preserve">
-    <value>Um ataque venenoso \nque infecta seu alvo</value>
+    <value>Um ataque venenoso que infecta seu alvo</value>
   </data>
   <data name="Portuguese" xml:space="preserve">
     <value>Português</value>
@@ -301,7 +301,7 @@
     <value>Tiro Potente</value>
   </data>
   <data name="PowerShootDescription" xml:space="preserve">
-    <value>Um ataque de \nlonga distância \nmais poderoso </value>
+    <value>Um ataque de longa distância mais poderoso </value>
   </data>
   <data name="Restart" xml:space="preserve">
     <value>Recomeçar</value>
@@ -319,7 +319,7 @@
     <value>Tiro</value>
   </data>
   <data name="ShootDescription" xml:space="preserve">
-    <value>Um ataque de \narco em longa \ndistância</value>
+    <value>Um ataque de arco em longa distância</value>
   </data>
   <data name="ShowFps" xml:space="preserve">
     <value>Mostrar FPS</value>
@@ -331,19 +331,19 @@
     <value>Golpear</value>
   </data>
   <data name="SlashDescription" xml:space="preserve">
-    <value>Um poderoso \ngolpe cortante</value>
+    <value>Um poderoso golpe cortante</value>
   </data>
   <data name="Smite" xml:space="preserve">
     <value>Castigar</value>
   </data>
   <data name="SmiteDescription" xml:space="preserve">
-    <value>Um raio de fé \nque desce sobre \nos impuros</value>
+    <value>Um raio de fé que desce sobre os impuros</value>
   </data>
   <data name="Snipe" xml:space="preserve">
     <value>Sniper</value>
   </data>
   <data name="SnipeDescription" xml:space="preserve">
-    <value>Um tiro devastador, com \numa chance elevada \nde ataque crítico</value>
+    <value>Um tiro devastador, com uma chance elevada de ataque crítico</value>
   </data>
   <data name="Spanish" xml:space="preserve">
     <value>Espanhol</value>
@@ -352,13 +352,13 @@
     <value>Iniciar</value>
   </data>
   <data name="SupremeWarriorUnit" xml:space="preserve">
-    <value>Guerreiro \nSupremo</value>
+    <value>Guerreiro Supremo</value>
   </data>
   <data name="SpearSweep" xml:space="preserve">
     <value>Varredura</value>
   </data>
   <data name="SpearSweepDescription" xml:space="preserve">
-    <value>Executa um golpe de \nvarredura com a \nlança</value>
+    <value>Executa um golpe de varredura com a lança</value>
   </data>
   <data name="TargetAmount" xml:space="preserve">
     <value>Quantidade Alvos</value>
@@ -436,7 +436,7 @@
     <value>Confirmar Deleção de Progresso do {slot}</value>
   </data>
   <data name="EvilPawnUnit" xml:space="preserve">
-    <value>Peão \nMaligno</value>
+    <value>Peão Maligno</value>
   </data>
   <data name="Repair" xml:space="preserve">
     <value>Reparar</value>
@@ -445,10 +445,10 @@
     <value>Ataque Improvisado</value>
   </data>
   <data name="RepairDescription" xml:space="preserve">
-    <value>Repara um aliado, \ndeixando-o em sua \nmelhor forma</value>
+    <value>Repara um aliado, deixando-o em sua melhor forma</value>
   </data>
   <data name="ImprovisedStrikeDescription" xml:space="preserve">
-    <value>Um ataque improvisado \ncom ferramentas de \nconstrução</value>
+    <value>Um ataque improvisado com ferramentas de construção</value>
   </data>
   <data name="Duration" xml:space="preserve">
     <value>Duração</value>
@@ -478,27 +478,27 @@
     <value>Reparado</value>
   </data>
   <data name="BraveryBlessEffectDescription" xml:space="preserve">
-    <value>Esta unidade está \nimbuída da \nbênção da bravura, \nadicionando 40% ao seu \ndano de ataque.</value>
+    <value>Esta unidade está imbuída da bênção da bravura, adicionando 40% ao seu dano de ataque</value>
   </data>
   <data name="CurseEffectDescription" xml:space="preserve">
     <value>Esta unidade está amaldiçoada</value>
   </data>
   <data name="FortressEffectDescription" xml:space="preserve">
-    <value>Esta unidade parece uma \nfortaleza, reduzindo o dano \nrecebido em 30%.</value>
+    <value>Esta unidade parece uma fortaleza, reduzindo o dano recebido em 30%.</value>
   </data>
   <data name="GuardStanceEffectDescription" xml:space="preserve">
-    <value>Esta unidade está em \npostura de defesa, \nreduzindo o dano \nrecebido em 45%</value>
+    <value>Esta unidade está em postura de defesa, reduzindo o dano recebido em 45%</value>
   </data>
   <data name="LastBastionEffectDescription" xml:space="preserve">
-    <value>Esta unidade tem \n60% mais defesa \ne 30% mais dano</value>
+    <value>Esta unidade tem 60% mais defesa e 30% mais dano</value>
   </data>
   <data name="PoisonEffectDescription" xml:space="preserve">
     <value>Esta unidade está envenenada</value>
   </data>
   <data name="RegenerationEffectDescription" xml:space="preserve">
-    <value>Esta unidade está se \nrecuperando lentamente de \nseus ferimentos</value>
+    <value>Esta unidade está se recuperando lentamente de seus ferimentos</value>
   </data>
   <data name="RepairedEffectDescription" xml:space="preserve">
-    <value>Esta unidade foi \nreparada; seu \nataque é 15% mais forte, \ne ela sofre \n10% menos dano</value>
+    <value>Esta unidade foi reparada; seu ataque é 15% mais forte, e ela sofre 10% menos dano</value>
   </data>
 </root>

@@ -10,8 +10,9 @@ namespace RpgTurno.Custom.Component.Play.Banners;
 
 public class SkillDetailsBannerComponent : FrameComponent
 {
-    private const int _sizeX = 400;
-    private const int _sizeY = 384;
+    private const int Width = 400;
+    private const int Height = 384;
+    private const int Margin = 32;
 
     private readonly TextComponent _nameText = new(positionXByCenter: true, positionYByCenter: true);
     private readonly TextComponent _descriptionText = new(positionXByCenter: true);
@@ -33,13 +34,13 @@ public class SkillDetailsBannerComponent : FrameComponent
         AddChild(_currentCooldownText);
         AddChild(_manaCostText);
 
-        Bounds = new(0, 0, _sizeX, _sizeY);
+        Bounds = new(0, 0, Width, Height);
     }
 
     public void SetHoverSkillButton(SkillSelectButtonComponent button)
     {
-        var x = button.Bounds.X + button.Bounds.Width / 2 - _sizeX / 2;
-        var y = button.Bounds.Y - _sizeY;
+        var x = button.Bounds.X + button.Bounds.Width / 2 - Width / 2;
+        var y = button.Bounds.Y - Height;
 
         SetSkill(button.GetSkill());
         SetPosition(x, y);
@@ -48,7 +49,7 @@ public class SkillDetailsBannerComponent : FrameComponent
     private void SetSkill(UnitSkill skill)
     {
         _nameText.SetText(LanguageManager.Get(skill.Definition.Name));
-        _descriptionText.SetText(LanguageManager.Get(skill.Definition.Description));
+        _descriptionText.SetWrapedText(LanguageManager.Get(skill.Definition.Description), Width - Margin * 2);
         _targetTypeText.SetText($"{LanguageManager.Get(TextConst.TargetType)}: {LanguageManager.Get(skill.Definition.TargetType.ToString())}");
         _targetAmountText.SetText($"{LanguageManager.Get(TextConst.TargetAmount)}: {LanguageManager.Get(skill.Definition.TargetAmount.ToString())}");
         _cooldownText.SetText($"{LanguageManager.Get(TextConst.Cooldown)}: {skill.Definition.Cooldown.ToString()}");

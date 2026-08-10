@@ -133,7 +133,7 @@
     <value>Arrow Rain</value>
   </data>
   <data name="ArrowRainDescription" xml:space="preserve">
-    <value>Attack all \ntargets with \nporwerfull arrows</value>
+    <value>Attack all targets with porwerfull arrows</value>
   </data>
   <data name="BarracksOfValorStage" xml:space="preserve">
     <value>Barracks Of Valor</value>
@@ -142,7 +142,7 @@
     <value>Bless</value>
   </data>
   <data name="BlessDescription" xml:space="preserve">
-    <value>Applies the \nblessing of bravery \nto an ally</value>
+    <value>Applies the blessing of bravery to an ally</value>
   </data>
   <data name="By" xml:space="preserve">
     <value>By</value>
@@ -151,7 +151,7 @@
     <value>Cleave</value>
   </data>
   <data name="CleaveDescription" xml:space="preserve">
-    <value>Attacks all enemies \nwith a horizontal \nslash</value>
+    <value>Attacks all enemies with a horizontal slash</value>
   </data>
   <data name="ClericUnit" xml:space="preserve">
     <value>Cleric</value>
@@ -169,7 +169,7 @@
     <value>Curse</value>
   </data>
   <data name="CurseDescription" xml:space="preserve">
-    <value>A colossal attack \nthat makes enemies \nregret it</value>
+    <value>A colossal attack that makes enemies regret it</value>
   </data>
   <data name="Defeated" xml:space="preserve">
     <value>Defeated</value>
@@ -181,7 +181,7 @@
     <value>Divine Light</value>
   </data>
   <data name="DivineLightDescription" xml:space="preserve">
-    <value>Applies divine light \nto allies</value>
+    <value>Applies divine light to allies</value>
   </data>
   <data name="EffectsVolume" xml:space="preserve">
     <value>Effects Volume</value>
@@ -211,7 +211,7 @@
     <value>Execution</value>
   </data>
   <data name="ExecutionDescription" xml:space="preserve">
-    <value>Executes an enemy \nwith catastrophic \ndamage</value>
+    <value>Executes an enemy with catastrophic damage</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>
@@ -220,7 +220,7 @@
     <value>Fortress</value>
   </data>
   <data name="FortressDescription" xml:space="preserve">
-    <value>Transforms allies \ninto veritable \nfortresses</value>
+    <value>Transforms allies into veritable fortresses</value>
   </data>
   <data name="Fullscreen" xml:space="preserve">
     <value>Fullscreen</value>
@@ -232,19 +232,19 @@
     <value>Guard Stance</value>
   </data>
   <data name="GuardStanceDescription" xml:space="preserve">
-    <value>Place this unit \nin a guard stance</value>
+    <value>Place this unit in a guard stance</value>
   </data>
   <data name="Heal" xml:space="preserve">
     <value>Heal</value>
   </data>
   <data name="HealDescription" xml:space="preserve">
-    <value>A heal that \nsave your allies</value>
+    <value>A heal that save your allies</value>
   </data>
   <data name="HeavySlash" xml:space="preserve">
     <value>Heavy Slash</value>
   </data>
   <data name="HeavySlashDescription" xml:space="preserve">
-    <value>A heavy \nand more \npowerful attack</value>
+    <value>A heavy and more powerful attack</value>
   </data>
   <data name="LancerUnit" xml:space="preserve">
     <value>Lancer</value>
@@ -256,7 +256,7 @@
     <value>Last Bastion</value>
   </data>
   <data name="LastBastionDescription" xml:space="preserve">
-    <value>The final point \nbetween death \nand glory</value>
+    <value>The final point between death and glory</value>
   </data>
   <data name="MainMenu" xml:space="preserve">
     <value>Main Menu</value>
@@ -280,7 +280,7 @@
     <value>Piercing Strike</value>
   </data>
   <data name="PiercingStrikeDescription" xml:space="preserve">
-    <value>A piercing attack \nthat ignores the \ntarget's armor</value>
+    <value>A piercing attack that ignores the target's armor</value>
   </data>
   <data name="Pike" xml:space="preserve">
     <value>Pike</value>
@@ -292,7 +292,7 @@
     <value>Poison Shoot</value>
   </data>
   <data name="PoisonShootDescription" xml:space="preserve">
-    <value>A poisonous attack \nthat infects its \ntarget</value>
+    <value>A poisonous attack that infects its target</value>
   </data>
   <data name="Portuguese" xml:space="preserve">
     <value>Portuguese</value>
@@ -301,7 +301,7 @@
     <value>Power Shoot</value>
   </data>
   <data name="PowerShootDescription" xml:space="preserve">
-    <value>A more powerful \nrange attack</value>
+    <value>A more powerful range attack</value>
   </data>
   <data name="Restart" xml:space="preserve">
     <value>Restart</value>
@@ -331,19 +331,19 @@
     <value>Slash</value>
   </data>
   <data name="SlashDescription" xml:space="preserve">
-    <value>A powerful \nslashing blow</value>
+    <value>A powerful slashing blow</value>
   </data>
   <data name="Smite" xml:space="preserve">
     <value>Smite</value>
   </data>
   <data name="SmiteDescription" xml:space="preserve">
-    <value>A ray of \nfaith descending \nupon the impure</value>
+    <value>A ray of faith descending upon the impure</value>
   </data>
   <data name="Snipe" xml:space="preserve">
     <value>Snipe</value>
   </data>
   <data name="SnipeDescription" xml:space="preserve">
-    <value>A devastating shot \nwith a higher chance \nof being a critical \nhit</value>
+    <value>A devastating shot with a higher chance of being a critical hit</value>
   </data>
   <data name="Spanish" xml:space="preserve">
     <value>Spanish</value>
@@ -352,13 +352,13 @@
     <value>Start</value>
   </data>
   <data name="SupremeWarriorUnit" xml:space="preserve">
-    <value>Supreme \nWarrior</value>
+    <value>Supreme Warrior</value>
   </data>
   <data name="SpearSweep" xml:space="preserve">
     <value>Swear Sweep</value>
   </data>
   <data name="SpearSweepDescription" xml:space="preserve">
-    <value>Performs a sweep \nwith their spear</value>
+    <value>Performs a sweep with their spear</value>
   </data>
   <data name="TargetAmount" xml:space="preserve">
     <value>Target Amout</value>
@@ -445,10 +445,10 @@
     <value>Improvised Strike</value>
   </data>
   <data name="RepairDescription" xml:space="preserve">
-    <value>Repair an ally, \nrestoring them to \ntheir best form.</value>
+    <value>Repair an ally, restoring them to their best form</value>
   </data>
   <data name="ImprovisedStrikeDescription" xml:space="preserve">
-    <value>An improvised attack \nusing construction tools</value>
+    <value>An improvised attack using construction tools</value>
   </data>
   <data name="Duration" xml:space="preserve">
     <value>Duration</value>
@@ -478,27 +478,27 @@
     <value>Repaired</value>
   </data>
   <data name="BraveryBlessEffectDescription" xml:space="preserve">
-    <value>This unit is \nimbued with the \nblessing of bravery, \nadding 40% to his \nattack damage</value>
+    <value>This unit is imbued with the blessing of bravery, adding 40% to his attack damage</value>
   </data>
   <data name="CurseEffectDescription" xml:space="preserve">
     <value>This unit is cursed</value>
   </data>
   <data name="FortressEffectDescription" xml:space="preserve">
-    <value>This unit looks \nlike a fortress, \nreducing damage \ntaken by 30%</value>
+    <value>This unit looks like a fortress, reducing damage taken by 30%</value>
   </data>
   <data name="GuardStanceEffectDescription" xml:space="preserve">
-    <value>This unit is in \na guard stance, \nreducing damage \ntaken by 45%</value>
+    <value>This unit is in a guard stance, reducing damage taken by 45%</value>
   </data>
   <data name="LastBastionEffectDescription" xml:space="preserve">
-    <value>This unit has \n60% more defense \nand 30% more damage</value>
+    <value>This unit has 60% more defense and 30% more damage</value>
   </data>
   <data name="PoisonEffectDescription" xml:space="preserve">
     <value>This unit is poisoned</value>
   </data>
   <data name="RegenerationEffectDescription" xml:space="preserve">
-    <value>This unit is \nslowly recovering \nfrom its wounds</value>
+    <value>This unit is slowly recovering from its wounds</value>
   </data>
   <data name="RepairedEffectDescription" xml:space="preserve">
-    <value>This unit has \nbeen repaired; its \nattack is 15% stronger, \nand it is taking \n10% less damage</value>
+    <value>This unit has been repaired; its attack is 15% stronger, and it is taking 10% less damage</value>
   </data>
 </root>
