@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using RpgTurno.Custom.Component.Map.Banner.Finish;
 using RpgTurno.Custom.Component.Map.Banner.Pause;
-using RpgTurno.Custom.Component.Map.Start;
 using RpgTurno.Custom.CustomComponents.Map.AlliesParty;
 using RpgTurno.Custom.CustomComponents.Map.Background;
 using RpgTurno.Custom.CustomComponents.Map.Stage;
@@ -17,6 +16,7 @@ using RpgTurno.Screen.Map.World;
 using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using RpgTurno.Custom.Component.Map.Button;
 
 namespace RpgTurno.Screen.Map;
 
@@ -34,10 +34,13 @@ public class MapScreen : BaseScreen
     private AlliesPartyComponent _alliesPartyComponent;
     private MapNodeBannerComponent _nodeBannerComponent;
     private MapPauseBannerComponent _pauseBannerComponent;
-    private StartBattleButtonComponent _startButtonComponent;
 
     private bool _isFinished;
     private GameFinishBannerComponent _finishBannerComponent;
+
+    private NextBattleButtonComponent _nextButtonComponent;
+    private PreviousBattleButtonComponent _previousButtonComponent;
+    private StartBattleButtonComponent _startButtonComponent;
 
     #region Initialize
 
@@ -80,6 +83,16 @@ public class MapScreen : BaseScreen
             GlobalOptionsDto.WidthSize / 2 - _startButtonComponent.Bounds.Width / 2,
             GlobalOptionsDto.HeightSize - _startButtonComponent.Bounds.Height - 48);
 
+        _nextButtonComponent = new(_worldManager.TryWalkToNextNode);
+        _nextButtonComponent.SetPosition(
+            GlobalOptionsDto.WidthSize / 2 - _nextButtonComponent.Bounds.Width / 2 + _startButtonComponent.Bounds.Width,
+            GlobalOptionsDto.HeightSize - _nextButtonComponent.Bounds.Height - 48);
+
+        _previousButtonComponent = new(_worldManager.TryWalkToPreviousNode);
+        _previousButtonComponent.SetPosition(
+            GlobalOptionsDto.WidthSize / 2 - _previousButtonComponent.Bounds.Width / 2 - _startButtonComponent.Bounds.Width,
+            GlobalOptionsDto.HeightSize - _previousButtonComponent.Bounds.Height - 48);
+
         _finishBannerComponent = new(onMenuAction: OnMenuAction);
         _finishBannerComponent.IsVisible = false;
         _finishBannerComponent.IsEnable = false;
@@ -92,6 +105,8 @@ public class MapScreen : BaseScreen
             _nodeBannerComponent,
             _alliesPartyComponent,
             _startButtonComponent,
+            _previousButtonComponent,
+            _nextButtonComponent,
             _finishBannerComponent,
             _pauseBannerComponent,
         };
@@ -146,7 +161,7 @@ public class MapScreen : BaseScreen
 
         UpdateNodeBanner();
         UpdateAlliesParty();
-        UpdateStartButton();
+        UpdateButtons();
         UpdateBackground();
     }
 
@@ -168,12 +183,20 @@ public class MapScreen : BaseScreen
         _alliesPartyComponent.SetPositionByPlayer(_worldManager.Player, GameSession.IsInBattle);
     }
 
-    private void UpdateStartButton()
+    private void UpdateButtons()
     {
         bool canEnterStage = _worldManager.CanPlayerEnterAtStage();
+        bool canGoToNext = _worldManager.IsAbleToWalkToNext();
+        bool canGoToPrevious = _worldManager.IsAbleToWalkToPrevious();
 
         _startButtonComponent.IsVisible = canEnterStage;
         _startButtonComponent.IsEnable = canEnterStage;
+
+        _nextButtonComponent.IsVisible = canGoToNext;
+        _nextButtonComponent.IsEnable = canGoToNext;
+
+        _previousButtonComponent.IsVisible = canGoToPrevious;
+        _previousButtonComponent.IsEnable = canGoToPrevious;
     }
 
     private void UpdateBackground()
@@ -196,6 +219,12 @@ public class MapScreen : BaseScreen
 
         _startButtonComponent.IsVisible = !_isPaused && !_isFinished;
         _startButtonComponent.IsEnable = !_isPaused && !_isFinished;
+
+        _nextButtonComponent.IsVisible = !_isPaused && !_isFinished;
+        _nextButtonComponent.IsEnable = !_isPaused && !_isFinished;
+
+        _previousButtonComponent.IsVisible = !_isPaused && !_isFinished;
+        _previousButtonComponent.IsEnable = !_isPaused && !_isFinished;
     }
 
     private void VerifyPause()

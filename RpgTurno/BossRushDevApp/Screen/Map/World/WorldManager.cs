@@ -102,16 +102,36 @@ public class WorldManager
     private void VerifyWalkingBetweenStages()
     {
         if (IsNextPressed())
-            TryWalkTo(Player.CurrentNode.GetNextNode());
+            TryWalkToNextNode();
 
         if (IsPreviousPressed())
-            TryWalkTo(Player.CurrentNode.PreviousNode);
+            TryWalkToPreviousNode();
+    }
+
+    public void TryWalkToNextNode()
+    {
+        TryWalkTo(Player.CurrentNode.GetNextNode());
+    }
+
+    public void TryWalkToPreviousNode()
+    {
+        TryWalkTo(Player.CurrentNode.PreviousNode);
     }
 
     private void TryWalkTo(MapNodeData targetStage)
     {
         if (IsAbleToWalkTo(targetStage))
             StartWalking(targetStage);
+    }
+
+    public bool IsAbleToWalkToNext()
+    {
+        return IsAbleToWalkTo(Player.CurrentNode.GetNextNode()) && !Player.IsMoving;
+    }
+
+    public bool IsAbleToWalkToPrevious()
+    {
+        return IsAbleToWalkTo(Player.CurrentNode.PreviousNode) && !Player.IsMoving;
     }
 
     private bool IsAbleToWalkTo(MapNodeData targetNode)

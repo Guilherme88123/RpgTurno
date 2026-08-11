@@ -6,18 +6,20 @@ using Domain.Enum.Component.Button;
 using Microsoft.Xna.Framework;
 using System;
 
-namespace RpgTurno.Custom.Component.Map.Start;
+namespace RpgTurno.Custom.Component.Map.Button;
 
-public class StartBattleButtonComponent : ButtonIconComponent
+public class NextBattleButtonComponent : ButtonIconComponent
 {
     private const int Size = 160;
 
-    public StartBattleButtonComponent(Action onClick) : base(new PlayIconSprite())
+    public NextBattleButtonComponent(Action onClick) : base(new ReturnIconSprite())
     {
         AnimationManager.Add(ButtonInteractionState.Regular, new SmallBlueRoundButtonRegularSprite());
         AnimationManager.Add(ButtonInteractionState.Pressed, new SmallBlueRoundButtonPressedSprite());
 
         Click += onClick;
+
+        SpriteEffects = Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally;
 
         Bounds = new(0, 0, Size, Size);
     }
@@ -31,10 +33,9 @@ public class StartBattleButtonComponent : ButtonIconComponent
 
     private void UpdateBounceEffect()
     {
-        var bounce = GlobalVariablesDto.GetBounceValue(bounceAmplitude: 0.07f);
+        var bounce = GlobalVariablesDto.GetBounceValue(bounceAmplitude: 0.05f);
 
         ScaleX += bounce;
         ScaleY -= bounce;
-        OffsetY += bounce * 100;
     }
 }
