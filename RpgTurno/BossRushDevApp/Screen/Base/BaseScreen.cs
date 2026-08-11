@@ -50,16 +50,6 @@ public abstract class BaseScreen : IScreen
     public virtual void Update(GameTime gameTime)
     {
         _componentsService.UpdateComponents(gameTime);
-
-        GlobalVariablesDto.PreviousMouseDown = GlobalVariablesDto.MouseState.LeftButton == ButtonState.Pressed;
-
-        UpdateInputsState();
-    }
-
-    private void UpdateInputsState()
-    {
-        GlobalVariablesDto.KeyboardState = Keyboard.GetState();
-        GlobalVariablesDto.MouseState = Mouse.GetState();
     }
 
     #endregion

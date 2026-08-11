@@ -10,6 +10,7 @@ using Domain.Interface.Transition;
 using Domain.Model.Settings;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using RpgTurno.Screen.Map.World.Stage;
 using Service.Save;
@@ -162,13 +163,24 @@ public class RpgTurno : Game
         CursorManager.Update(gameTime);
 
         if (TransitionManager.IsTransitionRunning)
+        {
+            UpdateInputsState();
             return;
+        }
 
         CursorManager.BeginFrame();
 
         ScreenManager.ActualScreen.Update(gameTime);
+        UpdateInputsState();
 
         CursorManager.EndFrame();
+    }
+
+    private void UpdateInputsState()
+    {
+        GlobalVariablesDto.PreviousMouseDown = GlobalVariablesDto.MouseState.LeftButton == ButtonState.Pressed;
+        GlobalVariablesDto.KeyboardState = Keyboard.GetState();
+        GlobalVariablesDto.MouseState = Mouse.GetState();
     }
 
     private void UpdateFpsCounter()

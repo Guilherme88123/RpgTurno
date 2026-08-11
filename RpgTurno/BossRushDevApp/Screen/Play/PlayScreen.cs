@@ -114,6 +114,7 @@ public class PlayScreen : BaseScreen
         _skillSelectComponent.SetPosition(24, GlobalOptionsDto.HeightSize - _skillSelectComponent.Bounds.Height - 30);
         _skillSelectComponent.OnSkillSelect = SetSelectedSkill;
         _skillSelectComponent.IsVisible = false;
+        _skillSelectComponent.IsEnable = false;
 
         _usedSkillIndicator = new();
         _usedSkillIndicator.SetPosition(
@@ -363,6 +364,7 @@ public class PlayScreen : BaseScreen
     private void UpdateSelectSkillComponent()
     {
         _skillSelectComponent.IsVisible = _battleManager.CanSelectSkill;
+        _skillSelectComponent.IsEnable = _battleManager.CanSelectSkill;
     }
 
     private void SetSelectedSkill(UnitSkill skill)

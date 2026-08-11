@@ -92,6 +92,8 @@ public class SkillSelectBannerComponent : FrameComponent
 
     public void SetUnit(BaseUnitEntity unit)
     {
+        _selectedButton = null;
+
         _buttons.Clear();
         ClearChildren();
 
