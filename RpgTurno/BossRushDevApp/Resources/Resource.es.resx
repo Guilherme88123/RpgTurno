@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -60,45 +60,45 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="All" xml:space="preserve">
-    <value>Todo</value>
+    <value>Todos</value>
   </data>
   <data name="Ally" xml:space="preserve">
     <value>Aliado</value>
   </data>
   <data name="Any" xml:space="preserve">
-    <value>Cualquier</value>
+    <value>Cualquiera</value>
   </data>
   <data name="ArcherUnit" xml:space="preserve">
     <value>Arquero</value>
@@ -133,7 +133,7 @@
     <value>Lluvia de flechas</value>
   </data>
   <data name="ArrowRainDescription" xml:space="preserve">
-    <value>Ataca a todos los objetivos con ataques poderosos</value>
+    <value>Ataca a todos los objetivos con poderosas flechas</value>
   </data>
   <data name="BarracksOfValorStage" xml:space="preserve">
     <value>Cuartel del Valor</value>
@@ -148,7 +148,7 @@
     <value>Por</value>
   </data>
   <data name="Cleave" xml:space="preserve">
-    <value>Dividido</value>
+    <value>Cortar</value>
   </data>
   <data name="CleaveDescription" xml:space="preserve">
     <value>Ataca a todos los enemigos con un golpe horizontal</value>
@@ -157,13 +157,13 @@
     <value>Clérigo</value>
   </data>
   <data name="Cooldown" xml:space="preserve">
-    <value>Recarga</value>
+    <value>Tiempo de recarga</value>
   </data>
   <data name="Credits" xml:space="preserve">
     <value>Créditos</value>
   </data>
   <data name="CurrentCooldown" xml:space="preserve">
-    <value>Recarga actual</value>
+    <value>Tiempo de rsecarga actual</value>
   </data>
   <data name="Curse" xml:space="preserve">
     <value>Maldición</value>
@@ -184,7 +184,7 @@
     <value>Aplica luz divina a los aliados</value>
   </data>
   <data name="EffectsVolume" xml:space="preserve">
-    <value>Volumen Efectos</value>
+    <value>Volumen de Efectos</value>
   </data>
   <data name="Enemy" xml:space="preserve">
     <value>Enemigo</value>
@@ -226,10 +226,10 @@
     <value>Pantalla completa</value>
   </data>
   <data name="GoingToWave" xml:space="preserve">
-    <value>Rumbo a Onda</value>
+    <value>Hacia la oleada</value>
   </data>
   <data name="GuardStance" xml:space="preserve">
-    <value>Postura de guardia</value>
+    <value>Posición defensiva</value>
   </data>
   <data name="GuardStanceDescription" xml:space="preserve">
     <value>Coloca esta unidad en posición defensiva</value>
@@ -241,7 +241,7 @@
     <value>Una curación que salva a tus aliados</value>
   </data>
   <data name="HeavySlash" xml:space="preserve">
-    <value>Golpe fuerte</value>
+    <value>Corte pesado</value>
   </data>
   <data name="HeavySlashDescription" xml:space="preserve">
     <value>Un ataque pesado y más potente</value>
@@ -265,7 +265,7 @@
     <value>Coste de maná</value>
   </data>
   <data name="MusicVolume" xml:space="preserve">
-    <value>Volume Música</value>
+    <value>Volume de la Música</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
@@ -274,7 +274,7 @@
     <value>Opciones</value>
   </data>
   <data name="Paused" xml:space="preserve">
-    <value>Pausado</value>
+    <value>Pausa</value>
   </data>
   <data name="PiercingStrike" xml:space="preserve">
     <value>Golpe perforante</value>
@@ -283,13 +283,13 @@
     <value>Un ataque perforante que ignora la armadura del objetivo</value>
   </data>
   <data name="Pike" xml:space="preserve">
-    <value>Punta</value>
+    <value>Pica</value>
   </data>
   <data name="PikeDescription" xml:space="preserve">
     <value>Un ataque de punta de lanza</value>
   </data>
   <data name="PoisonShoot" xml:space="preserve">
-    <value>Disparo Envenenado</value>
+    <value>Disparo Venenoso</value>
   </data>
   <data name="PoisonShootDescription" xml:space="preserve">
     <value>Un ataque venenoso que infecta a su objetivo</value>
@@ -304,7 +304,7 @@
     <value>Un ataque de largo alcance más potente</value>
   </data>
   <data name="Restart" xml:space="preserve">
-    <value>Empezar de Nuevo</value>
+    <value>Reiniciar</value>
   </data>
   <data name="Resume" xml:space="preserve">
     <value>Reanudar</value>
@@ -313,10 +313,10 @@
     <value>Volver al Mapa</value>
   </data>
   <data name="Self" xml:space="preserve">
-    <value>Ser</value>
+    <value>Sí mismo</value>
   </data>
   <data name="Shoot" xml:space="preserve">
-    <value>Disparo</value>
+    <value>Disparar</value>
   </data>
   <data name="ShootDescription" xml:space="preserve">
     <value>Un ataque con arco a larga distancia</value>
@@ -328,7 +328,7 @@
     <value>Único</value>
   </data>
   <data name="Slash" xml:space="preserve">
-    <value>Golpear</value>
+    <value>Tajo</value>
   </data>
   <data name="SlashDescription" xml:space="preserve">
     <value>Un poderoso tajo</value>
@@ -343,25 +343,25 @@
     <value>Francotirador</value>
   </data>
   <data name="SnipeDescription" xml:space="preserve">
-    <value>Un disparo devastador con una alta probabilidad de golpe crítico</value>
+    <value>Un disparo devastador con alta probabilidad de golpe crítico</value>
   </data>
   <data name="Spanish" xml:space="preserve">
     <value>Español</value>
   </data>
   <data name="Start" xml:space="preserve">
-    <value>Empezar</value>
+    <value>Iniciar</value>
   </data>
   <data name="SupremeWarriorUnit" xml:space="preserve">
     <value>Guerrero Supremo</value>
   </data>
   <data name="SpearSweep" xml:space="preserve">
-    <value>Barrido de palabrotas</value>
+    <value>Barrido de lanza</value>
   </data>
   <data name="SpearSweepDescription" xml:space="preserve">
     <value>Ejecuta un golpe de barrido con la lanza</value>
   </data>
   <data name="TargetAmount" xml:space="preserve">
-    <value>Número de objetivos</value>
+    <value>Cantidad de objetivos</value>
   </data>
   <data name="TargetType" xml:space="preserve">
     <value>Tipo de objetivo</value>
@@ -376,19 +376,19 @@
     <value>Guerrero</value>
   </data>
   <data name="Wave" xml:space="preserve">
-    <value>Onda</value>
+    <value>Oleada</value>
   </data>
   <data name="WindowSize" xml:space="preserve">
-    <value>Tamaño ventana</value>
+    <value>Tamaño de ventana</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Sí</value>
   </data>
   <data name="Cleared" xml:space="preserve">
-    <value>Limpia</value>
+    <value>Completado</value>
   </data>
   <data name="Congratulations" xml:space="preserve">
-    <value>Felicidades</value>
+    <value>Felicitaciones</value>
   </data>
   <data name="DefeatedSupremeWarrior" xml:space="preserve">
     <value>Derrotaste al guerrero supremo</value>
@@ -403,16 +403,16 @@
     <value>No olvides dejar sugerencias</value>
   </data>
   <data name="LastPlay" xml:space="preserve">
-    <value>Último movimiento</value>
+    <value>Última partida</value>
   </data>
   <data name="Created" xml:space="preserve">
     <value>Creado</value>
   </data>
   <data name="Slot" xml:space="preserve">
-    <value>Espacio</value>
+    <value>Ranura</value>
   </data>
   <data name="EmptySlot" xml:space="preserve">
-    <value>Espacio Vacío</value>
+    <value>Ranura Vacía</value>
   </data>
   <data name="Progress" xml:space="preserve">
     <value>Progreso</value>
@@ -433,7 +433,7 @@
     <value>Cancelar</value>
   </data>
   <data name="ConfirmSaveDeletion" xml:space="preserve">
-    <value>Confirmar Eliminación del Progreso del {slot}</value>
+    <value>Confirmar eliminación de la partida guardada en {slot}</value>
   </data>
   <data name="EvilPawnUnit" xml:space="preserve">
     <value>Peón Malvado</value>
@@ -442,10 +442,10 @@
     <value>Reparar</value>
   </data>
   <data name="ImprovisedStrike" xml:space="preserve">
-    <value>Ataque Improvisado</value>
+    <value>Golpe Improvisado</value>
   </data>
   <data name="RepairDescription" xml:space="preserve">
-    <value>Reparar a un aliado, dejándolo en las mejores condiciones</value>
+    <value>Repara a un aliado, dejándolo en las mejores condiciones</value>
   </data>
   <data name="ImprovisedStrikeDescription" xml:space="preserve">
     <value>Un ataque improvisado utilizando herramientas de construcción</value>
@@ -463,7 +463,7 @@
     <value>Fortaleza</value>
   </data>
   <data name="GuardStanceEffect" xml:space="preserve">
-    <value>Postura de Guardia</value>
+    <value>Posición defensiva</value>
   </data>
   <data name="LastBastionEffect" xml:space="preserve">
     <value>Último Bastión</value>
@@ -478,16 +478,16 @@
     <value>Reparado</value>
   </data>
   <data name="BraveryBlessEffectDescription" xml:space="preserve">
-    <value>Esta unidad está imbuida de la bendición de la valentía, lo que aumenta su daño de ataque en un 40%</value>
+    <value>Esta unidad está imbuida de la bendición de la valentía, lo que aumenta su ataque en 40%</value>
   </data>
   <data name="CurseEffectDescription" xml:space="preserve">
     <value>Esta unidad está maldita</value>
   </data>
   <data name="FortressEffectDescription" xml:space="preserve">
-    <value>Esta unidad parece una fortaleza y reduce el daño recibido en un 30%</value>
+    <value>Esta unidad parece una fortaleza y reduce el daño recibido en 30%</value>
   </data>
   <data name="GuardStanceEffectDescription" xml:space="preserve">
-    <value>Esta unidad está en posición de guardia, reduciendo el daño recibido en un 45%</value>
+    <value>Esta unidad está en posición defensiva, reduciendo el daño recibido en 45%</value>
   </data>
   <data name="LastBastionEffectDescription" xml:space="preserve">
     <value>Esta unidad tiene un 60% más de defensa y un 30% más de daño</value>
@@ -499,6 +499,6 @@
     <value>Esta unidad se está recuperando lentamente de sus heridas</value>
   </data>
   <data name="RepairedEffectDescription" xml:space="preserve">
-    <value>Esta unidad ha sido reparada; su ataque es un 15% más fuerte y recibe un 10% menos de daño.</value>
+    <value>Esta unidad ha sido reparada; su ataque es 15% más fuerte y recibe 10% menos de daño</value>
   </data>
 </root>
