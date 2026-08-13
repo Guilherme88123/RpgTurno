@@ -460,7 +460,7 @@ public class BattleManager
     private void StartWaveTransition()
     {
         BattleState = BattleState.WaveTransition;
-        AliveAllies.ForEach(x => x.CreatureState = CreatureStateType.Running);
+        AliveAllies.ForEach(x => x.CreatureState = CreatureStateType.Run);
         AliveAllies.ForEach(x => x.Direction = DirectionType.Right);
     }
 

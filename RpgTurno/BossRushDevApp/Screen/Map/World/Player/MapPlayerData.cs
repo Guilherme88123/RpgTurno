@@ -46,7 +46,7 @@ public class MapPlayerData
 
     public void StartWalking(MapNodeData targetStage)
     {
-        State = CreatureStateType.Running;
+        State = CreatureStateType.Run;
         TargetStage = targetStage;
     }
 

@@ -5,7 +5,8 @@ namespace Domain.Application.Texture.Sprite.Custom.Units.Enemy.EvilPawn;
 
 public class EvilPawnAvatarSprite : SpriteData
 {
-    public EvilPawnAvatarSprite() : base(SpriteConst.EvilPawnAvatar, border: new BorderDefinition(16, 16, 16, 16))
+    public EvilPawnAvatarSprite() 
+        : base(SpriteConst.EvilPawnAvatar, border: new BorderDefinition(16, 16, 16, 16))
     {
     }
 }

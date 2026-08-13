@@ -22,9 +22,9 @@ public class EnemyWarriorEntity : BaseUnitEntity
         var spriteBorder = new BorderDefinition(0, 0, 0, 0);
 
         Animation.Add(CreatureStateType.Idle, new AnimationClip(idle, 8, 1, 0.1f, border: spriteBorder));
-        Animation.Add(CreatureStateType.Running, new AnimationClip(running, 6, 1, 0.1f, border: spriteBorder));
-        Animation.Add(CreatureStateType.Defending, new AnimationClip(defending, 6, 1, 0.1f, border: spriteBorder));
-        Animation.Add(CreatureStateType.Attacking, new AnimationClip(attack, 4, 1, 0.1f, border: spriteBorder));
+        Animation.Add(CreatureStateType.Run, new AnimationClip(running, 6, 1, 0.1f, border: spriteBorder));
+        Animation.Add(CreatureStateType.Guard, new AnimationClip(defending, 6, 1, 0.1f, border: spriteBorder));
+        Animation.Add(CreatureStateType.Attack, new AnimationClip(attack, 4, 1, 0.1f, border: spriteBorder));
 
         SizeX = 96;
         SizeY = 96;
@@ -41,7 +41,7 @@ public class EnemyWarriorEntity : BaseUnitEntity
     {
         if (HasGuardStanceEffect() && CreatureState == CreatureStateType.Idle)
         {
-            Animation.Update(CreatureStateType.Defending);
+            Animation.Update(CreatureStateType.Guard);
             return;
         }
 

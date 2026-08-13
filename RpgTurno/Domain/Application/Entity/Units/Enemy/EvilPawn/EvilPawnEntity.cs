@@ -18,16 +18,16 @@ public class EvilPawnEntity : BaseUnitEntity
         Animation.Add((CreatureStateType.Idle, PawnToolType.Pickaxe), new EvilPawnIdlePickaxeSprite());
         Animation.Add((CreatureStateType.Idle, PawnToolType.Hammer), new EvilPawnIdleHammerSprite());
 
-        Animation.Add((CreatureStateType.Running, PawnToolType.None), new EvilPawnRunSprite());
-        Animation.Add((CreatureStateType.Running, PawnToolType.Axe), new EvilPawnRunAxeSprite());
-        Animation.Add((CreatureStateType.Running, PawnToolType.Knife), new EvilPawnRunKnifeSprite());
-        Animation.Add((CreatureStateType.Running, PawnToolType.Pickaxe), new EvilPawnRunPickaxeSprite());
-        Animation.Add((CreatureStateType.Running, PawnToolType.Hammer), new EvilPawnRunHammerSprite());
+        Animation.Add((CreatureStateType.Run, PawnToolType.None), new EvilPawnRunSprite());
+        Animation.Add((CreatureStateType.Run, PawnToolType.Axe), new EvilPawnRunAxeSprite());
+        Animation.Add((CreatureStateType.Run, PawnToolType.Knife), new EvilPawnRunKnifeSprite());
+        Animation.Add((CreatureStateType.Run, PawnToolType.Pickaxe), new EvilPawnRunPickaxeSprite());
+        Animation.Add((CreatureStateType.Run, PawnToolType.Hammer), new EvilPawnRunHammerSprite());
 
-        Animation.Add((CreatureStateType.Attacking, PawnToolType.Axe), new EvilPawnAttackAxeSprite());
-        Animation.Add((CreatureStateType.Attacking, PawnToolType.Knife), new EvilPawnAttackKnifeSprite());
-        Animation.Add((CreatureStateType.Attacking, PawnToolType.Pickaxe), new EvilPawnAttackPickaxeSprite());
-        Animation.Add((CreatureStateType.Attacking, PawnToolType.Hammer), new EvilPawnAttackHammerSprite());
+        Animation.Add((CreatureStateType.Attack, PawnToolType.Axe), new EvilPawnAttackAxeSprite());
+        Animation.Add((CreatureStateType.Attack, PawnToolType.Knife), new EvilPawnAttackKnifeSprite());
+        Animation.Add((CreatureStateType.Attack, PawnToolType.Pickaxe), new EvilPawnAttackPickaxeSprite());
+        Animation.Add((CreatureStateType.Attack, PawnToolType.Hammer), new EvilPawnAttackHammerSprite());
 
         Icon = new EvilPawnAvatarSprite();
 

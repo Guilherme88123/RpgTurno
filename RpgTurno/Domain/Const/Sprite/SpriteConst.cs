@@ -17,7 +17,7 @@ public static class SpriteConst
     public const string LancerIdle = "Lancer_Idle";
     public const string LancerRun = "Lancer_Run";
     public const string LancerAttack = "Lancer_Attack";
-    public const string LancerDefence = "Lancer_Defence";
+    public const string LancerGuard = "Lancer_Defence";
 
     public const string ArcherIdle = "Archer_Idle";
     public const string ArcherRun = "Archer_Run";

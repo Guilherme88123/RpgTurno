@@ -3,7 +3,7 @@
 public enum CreatureStateType
 {
     Idle,
-    Running,
-    Attacking,
-    Defending,
+    Run,
+    Attack,
+    Guard,
 }

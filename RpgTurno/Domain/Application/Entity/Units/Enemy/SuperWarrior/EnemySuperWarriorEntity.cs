@@ -11,9 +11,9 @@ public class EnemySuperWarriorEntity : BaseUnitEntity
     public EnemySuperWarriorEntity(int level = 20) : base(stats: new EnemySuperWarriorStats(level), skillTree: new EnemySuperWarriorSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new EnemySuperWarriorIdleSprite());
-        Animation.Add(CreatureStateType.Running, new EnemySuperWarriorRunSprite());
-        Animation.Add(CreatureStateType.Defending, new EnemySuperWarriorGuardSprite());
-        Animation.Add(CreatureStateType.Attacking, new EnemySuperWarriorAttackingSprite());
+        Animation.Add(CreatureStateType.Run, new EnemySuperWarriorRunSprite());
+        Animation.Add(CreatureStateType.Guard, new EnemySuperWarriorGuardSprite());
+        Animation.Add(CreatureStateType.Attack, new EnemySuperWarriorAttackingSprite());
 
         SizeX = 144;
         SizeY = 144;
@@ -29,7 +29,7 @@ public class EnemySuperWarriorEntity : BaseUnitEntity
     {
         if (HasGuardStanceEffect() && CreatureState == CreatureStateType.Idle)
         {
-            Animation.Update(CreatureStateType.Defending);
+            Animation.Update(CreatureStateType.Guard);
             return;
         }
 

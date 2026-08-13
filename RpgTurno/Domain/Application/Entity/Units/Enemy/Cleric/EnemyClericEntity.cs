@@ -20,8 +20,8 @@ public class EnemyClericEntity : BaseUnitEntity
         var spriteBorder = new BorderDefinition(0, 0, 0, 0);
 
         Animation.Add(CreatureStateType.Idle, new AnimationClip(idle, 6, 1, 0.1f, border: spriteBorder));
-        Animation.Add(CreatureStateType.Running, new AnimationClip(running, 4, 1, 0.1f, border: spriteBorder));
-        Animation.Add(CreatureStateType.Attacking, new AnimationClip(attack, 11, 1, 0.1f, border: spriteBorder));
+        Animation.Add(CreatureStateType.Run, new AnimationClip(running, 4, 1, 0.1f, border: spriteBorder));
+        Animation.Add(CreatureStateType.Attack, new AnimationClip(attack, 11, 1, 0.1f, border: spriteBorder));
 
         SizeX = 96;
         SizeY = 96;

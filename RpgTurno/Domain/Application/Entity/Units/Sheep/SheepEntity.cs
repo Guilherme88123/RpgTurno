@@ -10,8 +10,8 @@ public class SheepEntity : BaseUnitEntity
     public SheepEntity(int level = 1) : base(stats: new SheepStats(level), skillTree: new SheepSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new SheepIdleSprite());
-        Animation.Add(CreatureStateType.Running, new SheepRunSprite());
-        Animation.Add(CreatureStateType.Attacking, new SheepAttackSprite());
+        Animation.Add(CreatureStateType.Run, new SheepRunSprite());
+        Animation.Add(CreatureStateType.Attack, new SheepAttackSprite());
 
         Icon = new SheepAvatarSprite();
 

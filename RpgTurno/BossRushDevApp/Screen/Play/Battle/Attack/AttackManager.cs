@@ -57,7 +57,7 @@ public class AttackManager
             : new Vector2(_principalTarget.Center.X + (isEnemy ? _targetDistance : -_targetDistance), _principalTarget.Center.Y);
 
         CurrentPhase = AttackPhase.MovingToTarget;
-        _sender.CreatureState = CreatureStateType.Running;
+        _sender.CreatureState = CreatureStateType.Run;
     }
 
     public void ExecuteAttack()
@@ -69,7 +69,7 @@ public class AttackManager
         VerifyDeadUnits();
 
         CurrentPhase = AttackPhase.MovingBack;
-        _sender.CreatureState = CreatureStateType.Running;
+        _sender.CreatureState = CreatureStateType.Run;
 
         OnExecuteSkill?.Invoke(_skill, result);
     }
@@ -138,7 +138,7 @@ public class AttackManager
             _dirtRunSoundMix.Reset();
 
             CurrentPhase = AttackPhase.Attacking;
-            _sender.CreatureState = CreatureStateType.Attacking;
+            _sender.CreatureState = CreatureStateType.Attack;
             _skill.BeforeExcute(_executeData);
 
             ResetDelayAttack(_skill.Definition.Animation.ExecutionTime);
