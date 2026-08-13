@@ -255,24 +255,35 @@ public class ResizableSpriteData : SpriteData
                 fh,
                 fv);
 
-        DrawBySource(sourceTopLeft, destTopLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySourceFullTiled(sourceTopCenter, destTopCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySource(sourceTopRight, destTopRight, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySourceFullTiled(sourceMidLeft, destMidLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySourceFullTiled(sourceMidCenter, destMidCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySourceFullTiled(sourceMidRight, destMidRight, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySource(sourceDownLeft, destDownLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySourceFullTiled(sourceDownCenter, destDownCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
-        DrawBySource(sourceDownRight, destDownRight, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFull(destinationRectangle, sourceTopLeft, destTopLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFullTiled(destinationRectangle, sourceTopCenter, destTopCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFull(destinationRectangle, sourceTopRight, destTopRight, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFullTiled(destinationRectangle, sourceMidLeft, destMidLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFullTiled(destinationRectangle, sourceMidCenter, destMidCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFullTiled(destinationRectangle, sourceMidRight, destMidRight, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFull(destinationRectangle, sourceDownLeft, destDownLeft, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFullTiled(destinationRectangle, sourceDownCenter, destDownCenter, color, rotation, drawEffect, spriteBatch, scale, offset);
+        DrawBySourceFull(destinationRectangle, sourceDownRight, destDownRight, color, rotation, drawEffect, spriteBatch, scale, offset);
     }
 
-    private void DrawBySourceFullTiled(Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
+    private void DrawBySourceFull(Rectangle fullDestinationRectangle, Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
     {
-        if (this is BlueBigRibbonSprite)
-        {
-            var a = 0;
-        }
+        var pieceCenter = new Vector2(destinationRectangle.X, destinationRectangle.Y);
+        var fullCenter = new Vector2(fullDestinationRectangle.Center.X, fullDestinationRectangle.Center.Y);
 
+        var relativePosition = pieceCenter - fullCenter;
+
+        var finalPosition = fullCenter + Vector2.Transform(
+            relativePosition,
+            Matrix.CreateRotationZ(rotation));
+
+        var destinationPart = new Rectangle((int)finalPosition.X, (int)finalPosition.Y, destinationRectangle.Width, destinationRectangle.Height);
+
+        DrawBySource(sourceRectangle, destinationPart, color, rotation, drawEffect, spriteBatch, scale, offset);
+    }
+
+    private void DrawBySourceFullTiled(Rectangle fullDestinationRectangle, Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, SpriteEffects drawEffect, SpriteBatch spriteBatch, Vector2 scale, Vector2 offset)
+    {
         var sourceWidth = sourceRectangle.Width;
         var sourceHeight = sourceRectangle.Height;
 
@@ -284,7 +295,17 @@ public class ResizableSpriteData : SpriteData
                 int drawHeight = Math.Min(sourceHeight, destinationRectangle.Bottom - y);
 
                 var sourcePart = new Rectangle(sourceRectangle.X, sourceRectangle.Y, drawWidth, drawHeight);
-                var destinationPart = new Rectangle(x, y, drawWidth, drawHeight);
+
+                var pieceCenter = new Vector2(x, y);
+                var fullCenter = new Vector2(fullDestinationRectangle.Center.X, fullDestinationRectangle.Center.Y);
+
+                var relativePosition = pieceCenter - fullCenter;
+
+                var finalPosition = fullCenter + Vector2.Transform(
+                    relativePosition,
+                    Matrix.CreateRotationZ(rotation));
+
+                var destinationPart = new Rectangle((int)finalPosition.X, (int)finalPosition.Y, drawWidth, drawHeight);
 
                 DrawBySource(sourcePart, destinationPart, color, rotation, drawEffect, spriteBatch, scale, offset);
             }

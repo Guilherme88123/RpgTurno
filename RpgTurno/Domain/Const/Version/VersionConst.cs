@@ -4,5 +4,5 @@ public static class VersionConst
 {
     public const string GameOwner = "Fantoche Studios";
     public const string GameName = "Tiny RPG";
-    public const string Version = "0.1.1 Alpha";
+    public const string Version = "0.1.2 Alpha";
 }
