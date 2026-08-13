@@ -11,7 +11,7 @@ namespace RpgTurno.Custom.Component.Save.Delete;
 
 public class ConfirmSaveDeletionComponent : FrameComponent
 {
-    private const int Width = 900;
+    private const int Width = 1028;
     private const int Height = 300;
     private const int Margin = 64;
     private const int Spacing = 16;

@@ -10,7 +10,7 @@ namespace RpgTurno.Custom.Component.Play.Banners;
 
 public class SkillDetailsBannerComponent : FrameComponent
 {
-    private const int Width = 400;
+    private const int Width = 432;
     private const int Height = 384;
     private const int Margin = 32;
 

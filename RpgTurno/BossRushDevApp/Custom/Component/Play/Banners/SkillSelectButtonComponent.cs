@@ -10,6 +10,10 @@ namespace RpgTurno.Custom.Component.Play.Banners;
 
 public class SkillSelectButtonComponent : ButtonComponent
 {
+    private const int Width = 224;
+    private const int Height = 96;
+    private const int Margin = 16;
+
     private readonly SkillSelectBannerComponent _banner;
     private readonly UnitSkill _skill;
 
@@ -17,7 +21,7 @@ public class SkillSelectButtonComponent : ButtonComponent
     {
         _banner = parentBanner;
         _skill = skill;
-        Text.SetText(LanguageManager.Get(skill.Definition.Name).Replace(" ", " \n"));
+        Text.SetWrapedText(LanguageManager.Get(skill.Definition.Name), Width - Margin * 2);
 
         var canUse = skill.CanUse();
 
@@ -27,7 +31,7 @@ public class SkillSelectButtonComponent : ButtonComponent
         AnimationManager.Add(ButtonInteractionState.Regular, new BlueButtonRegularSprite());
         AnimationManager.Add(ButtonInteractionState.Pressed, new BlueButtonPressedSprite());
 
-        Bounds = new Rectangle(0, 0, 192, 96);
+        Bounds = new Rectangle(0, 0, Width, Height);
 
         Click = OnSkillButtonSelect;
     }

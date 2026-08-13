@@ -124,12 +124,12 @@ public class RpgTurno : Game
         //GlobalVariablesDto.FontManaTrunk = Content.Load<SpriteFont>("ManaTrunk");
         GlobalVariablesDto.FontBadge = Content.Load<SpriteFont>("Badge");
 
-        //GlobalVariablesDto.FontArial.Spacing = 2;
-        //GlobalVariablesDto.FontThickPixels.Spacing = 2;
-        //GlobalVariablesDto.FontLazyFox.Spacing = 2;
-        //GlobalVariablesDto.FontStacked.Spacing = 2;
-        //GlobalVariablesDto.FontManaRoot.Spacing = 2;
-        //GlobalVariablesDto.FontManaTrunk.Spacing = 2;
+        //GlobalVariablesDto.FontArial.SpacingX = 2;
+        //GlobalVariablesDto.FontThickPixels.SpacingX = 2;
+        //GlobalVariablesDto.FontLazyFox.SpacingX = 2;
+        //GlobalVariablesDto.FontStacked.SpacingX = 2;
+        //GlobalVariablesDto.FontManaRoot.SpacingX = 2;
+        //GlobalVariablesDto.FontManaTrunk.SpacingX = 2;
         GlobalVariablesDto.FontBadge.Spacing = 2;
 
         GlobalVariablesDto.SpriteBatchBackground = spriteBatchBackground;

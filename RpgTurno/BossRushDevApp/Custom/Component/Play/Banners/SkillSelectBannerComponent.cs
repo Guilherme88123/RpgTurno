@@ -11,6 +11,7 @@ using RpgTurno.Custom.Component.Play.Banners;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace RpgTurno.Custom.CustomComponents.Play.Banners;
 
@@ -25,16 +26,15 @@ public class SkillSelectBannerComponent : FrameComponent
 
     private ImageComponent _selectedSkillMark = new(new ConfirmIconSprite(), 48, 48);
 
-    private const int MarginX = 64;
-    private const int MarginY = 64;
-    private const int Spacing = 32;
+    private const int SpacingX = 16;
+    private const int SpacingY = 32;
     private const int Columns = 2;
 
     public SkillSelectBannerComponent()
     {
         AnimationManager.Add(true, new WoodBannerSprite());
 
-        Bounds = new Rectangle(0, 0, 576, 512);
+        Bounds = new Rectangle(0, 0, 600, 512);
     }
 
     public bool HasCursorHoveringButton()
@@ -117,10 +117,29 @@ public class SkillSelectBannerComponent : FrameComponent
         int column = index % Columns;
         int row = index / Columns;
 
-        var positionX = Bounds.X + MarginX + column * (button.Bounds.Width + Spacing) + Spacing / 2;
-        var positionY = Bounds.Y + MarginY + row * (button.Bounds.Height + Spacing) + Spacing / 2;
+        var positionX = GetPositionXByColumn(column, button);
+        var positionY = GetPositionYByRow(row, button);
 
         return (positionX, positionY);
+    }
+
+    private int GetPositionXByColumn(int column, SkillSelectButtonComponent button)
+    {
+        int columnGap = column == 0 ? - (button.Bounds.Width + SpacingX / 2) : SpacingX / 2;
+
+        return Bounds.Center.X + columnGap;
+    }
+
+    private int GetPositionYByRow(int row, SkillSelectButtonComponent button)
+    {
+        int rowGap = row switch
+        {
+            0 => - (button.Bounds.Height + SpacingY / 2),
+            1 => 0,
+            2 => button.Bounds.Height + SpacingY / 2
+        };
+
+        return Bounds.Center.Y + rowGap - button.Bounds.Height / 2;
     }
 
     public void SelectSkill(UnitSkill skill, SkillSelectButtonComponent button)
@@ -129,7 +148,7 @@ public class SkillSelectBannerComponent : FrameComponent
             return;
 
         _selectedButton = button;
-        _selectedSkillMark.SetPosition(button.Bounds.X - Spacing / 2, button.Bounds.Y - Spacing / 2);
+        _selectedSkillMark.SetPosition(button.Bounds.X - 16, button.Bounds.Y - 16);
 
         OnSkillSelect?.Invoke(skill);
     }
