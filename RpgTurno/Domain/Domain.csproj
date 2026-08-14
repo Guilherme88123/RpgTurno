@@ -22,8 +22,4 @@
 	  <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Application\Entity\Units\Ally\Pawn\" />
-	</ItemGroup>
-
 </Project>

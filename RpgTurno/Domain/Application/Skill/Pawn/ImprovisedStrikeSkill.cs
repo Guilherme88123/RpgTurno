@@ -1,4 +1,5 @@
-﻿using Domain.Application.Entity.Units.Enemy.EvilPawn;
+﻿using Domain.Application.Entity.Units.Ally.Pawn;
+using Domain.Application.Entity.Units.Enemy.EvilPawn;
 using Domain.Application.Skill.Base;
 using Domain.Application.Skill.Base.Animation;
 using Domain.Application.Skill.Base.Data;
@@ -35,13 +36,11 @@ public class ImprovisedStrikeSkill : BaseSkill
 
     public override void BeforeExecute(SkillExecuteData skillData)
     {
-        if (skillData.Sender is EvilPawnEntity pawn)
-            ApplyPawnAnimation(pawn);
-    }
+        if (skillData.Sender is PawnEntity pawn)
+            pawn.SetUsedTool(GetRngTool());
 
-    private void ApplyPawnAnimation(EvilPawnEntity pawn)
-    {
-        pawn.SetUsedTool(GetRngTool());
+        if (skillData.Sender is EvilPawnEntity evilPawn)
+            evilPawn.SetUsedTool(GetRngTool());
     }
 
     private static PawnToolType GetRngTool()
