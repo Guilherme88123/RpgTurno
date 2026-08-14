@@ -1,4 +1,6 @@
 ﻿using Domain.Application.Entity.Units.Base;
+using Domain.Application.Skill.Base;
+using Domain.Application.Skill.Pawn;
 using Domain.Application.Texture.Sprite.Custom.Units.Ally.Pawn;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -45,6 +47,24 @@ public class PawnEntity : BaseUnitEntity
     protected override void UpdateAnimation()
     {
         Animation.Update((CreatureState, LastUsedTool));
+    }
+
+    public override void BeforeSkillExecute(BaseSkill skill)
+    {
+        var tool = PawnToolType.None;
+
+        if (skill is ImprovisedStrikeSkill)
+            tool = GetRandomAttackSkillTool();
+
+        if (skill is RepairSkill)
+            tool = PawnToolType.Hammer;
+
+        SetUsedTool(tool);
+    }
+
+    private PawnToolType GetRandomAttackSkillTool()
+    {
+        return (PawnToolType)Random.Shared.Next(1, 4);
     }
 
     public void SetUsedTool(PawnToolType pawnTool)

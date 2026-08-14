@@ -1,8 +1,4 @@
-﻿using Domain.Application.Entity.Units.Enemy.Archer;
-using Domain.Application.Entity.Units.Enemy.Cleric;
-using Domain.Application.Entity.Units.Enemy.EvilPawn;
-using Domain.Application.Entity.Units.Enemy.Lancer;
-using Domain.Application.Entity.Units.Enemy.Warrior;
+﻿using Domain.Enum.Unit;
 using System.Collections.Generic;
 
 namespace RpgTurno.Screen.Play.Battle.Stage.Factory;
@@ -13,37 +9,37 @@ public static class EnemyPool
     [
         new EnemyDefinition()
         {
-            Create = () => new EnemyWarriorEntity(),
+            UnitCode = UnitCode.EvilWarrior,
             WaveCost = 3,
             SpawnWeight = 40,
             MaxCopies = 2,
         },
         new EnemyDefinition()
         {
-            Create = () => new EnemyArcherEntity(),
+            UnitCode = UnitCode.EvilArcher,
             WaveCost = 2,
             SpawnWeight = 60,
             MaxCopies = 2,
         },
         new EnemyDefinition()
         {
-            Create = () => new EnemyLancerEntity(),
+            UnitCode = UnitCode.EvilLancer,
             WaveCost = 4,
             SpawnWeight = 25,
             MaxCopies = 2,
         },
         new EnemyDefinition()
         {
-            Create = () => new EnemyClericEntity(),
+            UnitCode = UnitCode.EvilCleric,
             WaveCost = 4,
             SpawnWeight = 20,
             MaxCopies = 1,
         },
         new EnemyDefinition()
         {
-            Create = () => new EvilPawnEntity(),
+            UnitCode = UnitCode.EvilPawn,
             WaveCost = 4,
-            SpawnWeight = 200, //18,
+            SpawnWeight = 22,
             MaxCopies = 2,
         },
     ];

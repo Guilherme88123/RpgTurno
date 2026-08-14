@@ -53,29 +53,29 @@ public static class SpriteConst
 
     #region Enemy
 
-    public const string EnemyWarriorIdle = "Enemy_Warrior_Idle";
-    public const string EnemyWarriorRun = "Enemy_Warrior_Run";
-    public const string EnemyWarriorGuard = "Enemy_Warrior_Guard";
-    public const string EnemyWarriorAttack = "Enemy_Warrior_Attack1";
-    public const string EnemyWarriorAttack2 = "Enemy_Warrior_Attack2";
+    public const string EvilWarriorIdle = "Enemy_Warrior_Idle";
+    public const string EvilWarriorRun = "Enemy_Warrior_Run";
+    public const string EvilWarriorGuard = "Enemy_Warrior_Guard";
+    public const string EvilWarriorAttack = "Enemy_Warrior_Attack1";
+    public const string EvilWarriorAttack2 = "Enemy_Warrior_Attack2";
 
-    public const string EnemyLancerIdle = "Enemy_Lancer_Idle";
-    public const string EnemyLancerRun = "Enemy_Lancer_Run";
-    public const string EnemyLancerAttack = "Enemy_Lancer_Attack";
-    public const string EnemyLancerDefence = "Enemy_Lancer_Defence";
+    public const string EvilLancerIdle = "Enemy_Lancer_Idle";
+    public const string EvilLancerRun = "Enemy_Lancer_Run";
+    public const string EvilLancerAttack = "Enemy_Lancer_Attack";
+    public const string EvilLancerGuard = "Enemy_Lancer_Defence";
 
-    public const string EnemyArcherIdle = "Enemy_Archer_Idle";
-    public const string EnemyArcherRun = "Enemy_Archer_Run";
-    public const string EnemyArcherAttack = "Enemy_Archer_Shoot";
+    public const string EvilArcherIdle = "Enemy_Archer_Idle";
+    public const string EvilArcherRun = "Enemy_Archer_Run";
+    public const string EvilArcherAttack = "Enemy_Archer_Shoot";
 
-    public const string EnemyClericIdle = "Enemy_Cleric_Idle";
-    public const string EnemyClericRun = "Enemy_Cleric_Run";
-    public const string EnemyClericAttack = "Enemy_Cleric_Heal";
+    public const string EvilClericIdle = "Enemy_Cleric_Idle";
+    public const string EvilClericRun = "Enemy_Cleric_Run";
+    public const string EvilClericAttack = "Enemy_Cleric_Heal";
 
-    public const string EnemySuperWarriorIdle = "Enemy_SuperWarrior_Idle";
-    public const string EnemySuperWarriorRun = "Enemy_SuperWarrior_Run";
-    public const string EnemySuperWarriorGuard = "Enemy_SuperWarrior_Guard";
-    public const string EnemySuperWarriorAttack = "Enemy_SuperWarrior_Attack1";
+    public const string SupremeWarriorIdle = "Enemy_SuperWarrior_Idle";
+    public const string SupremeWarriorRun = "Enemy_SuperWarrior_Run";
+    public const string SupremeWarriorGuard = "Enemy_SuperWarrior_Guard";
+    public const string SupremeWarriorAttack = "Enemy_SuperWarrior_Attack1";
     public const string EnemySuperWarriorAttack2 = "Enemy_SuperWarrior_Attack2";
 
     public const string EvilPawnIdle = "Evil_Pawn_Idle";
@@ -194,12 +194,12 @@ public static class SpriteConst
     public const string LancerAvatar = "LancerAvatar";
     public const string ClericAvatar = "ClericAvatar";
     public const string PawnAvatar = "PawnAvatar";
-    public const string EnemyWarriorAvatar = "EnemyWarriorAvatar";
-    public const string EnemyArcherAvatar = "EnemyArcherAvatar";
-    public const string EnemyLancerAvatar = "EnemyLancerAvatar";
-    public const string EnemyClericAvatar = "EnemyClericAvatar";
+    public const string EvilWarriorAvatar = "EnemyWarriorAvatar";
+    public const string EvilArcherAvatar = "EnemyArcherAvatar";
+    public const string EvilLancerAvatar = "EnemyLancerAvatar";
+    public const string EvilClericAvatar = "EnemyClericAvatar";
     public const string EvilPawnAvatar = "EvilPawnAvatar";
-    public const string EnemySuperWarriorAvatar = "EnemySuperWarriorAvatar";
+    public const string SupremeWarriorAvatar = "EnemySuperWarriorAvatar";
 
     #endregion
 

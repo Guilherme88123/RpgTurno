@@ -5,7 +5,7 @@ namespace Domain.Application.Texture.Sprite.Custom.Units.Sheep;
 
 public class SheepAvatarSprite : SpriteData
 {
-    public SheepAvatarSprite() : base(SpriteConst.EnemySuperWarriorAvatar, border: new BorderDefinition(16, 16, 16, 16))
+    public SheepAvatarSprite() : base(SpriteConst.SupremeWarriorAvatar, border: new BorderDefinition(16, 16, 16, 16))
     {
     }
 }

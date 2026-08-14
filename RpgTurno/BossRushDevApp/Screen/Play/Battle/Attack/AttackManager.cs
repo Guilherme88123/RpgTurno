@@ -135,19 +135,28 @@ public class AttackManager
 
         if (direction.Length() < 10f)
         {
-            _dirtRunSoundMix.Reset();
-
-            CurrentPhase = AttackPhase.Attacking;
-            _sender.CreatureState = CreatureStateType.Attack;
-            _skill.BeforeExcute(_executeData);
-
-            ResetDelayAttack(_skill.Definition.Animation.ExecutionTime);
+            OnChanceToAttacking();
             return;
         }
 
         direction.Normalize();
         _sender.PositionX += direction.X * _moveSpeed * GlobalVariablesDto.DeltaTime;
         _sender.PositionY += direction.Y * _moveSpeed * GlobalVariablesDto.DeltaTime;
+    }
+
+    private void OnChanceToAttacking()
+    {
+        _dirtRunSoundMix.Reset();
+
+        CurrentPhase = AttackPhase.Attacking;
+
+        _sender.CreatureState = CreatureStateType.Attack;
+        _sender.BeforeSkillExecute(_skill.Definition);
+
+        _skill.BeforeExcute(_executeData);
+
+
+        ResetDelayAttack(_skill.Definition.Animation.ExecutionTime);
     }
 
     private void UpdateAttacking()

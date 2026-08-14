@@ -1,7 +1,6 @@
-﻿using Domain.Application.Entity.Units.Enemy.EvilPawn;
-using Domain.Application.Entity.Units.Enemy.SuperWarrior;
-using Domain.Application.Entity.Units.Enemy.Warrior;
+﻿using Domain.Enum.Unit;
 using RpgTurno.Screen.Play.Battle.Wave;
+using Service.Unit;
 
 namespace RpgTurno.Screen.Play.Battle.Stage.Factory.Stages;
 
@@ -11,13 +10,15 @@ public static class CastleStageFactory
     {
         var waveGenerator = new WaveGenerator();
 
-        var boss = new EnemySuperWarriorEntity();
+        var boss = UnitFactory.Create(UnitCode.SupremeWarrior, level: 20);
+        var evilPawn = UnitFactory.Create(UnitCode.EvilPawn);
+        var evilWarrior = UnitFactory.Create(UnitCode.EvilWarrior);
 
         return new StageData(
         [
             waveGenerator.Generate(1, 5),
             waveGenerator.Generate(2, 8),
-            new WaveData([new EnemyWarriorEntity(), boss, new EvilPawnEntity()], boss),
+            new WaveData([evilWarrior, boss, evilPawn], boss),
         ]);
     }
 }

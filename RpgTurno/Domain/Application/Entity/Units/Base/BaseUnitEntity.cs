@@ -15,6 +15,7 @@ using Domain.Application.Texture.Sprite.Custom.Ui.Banners;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.Custom.Component.Play.Banners;
+using Domain.Application.Skill.Base;
 
 namespace Domain.Application.Entity.Units.Base;
 
@@ -537,6 +538,15 @@ public class BaseUnitEntity : BaseEntity
 
         _deadAnimation = new();
         _deadAnimation.IsLoop = false;
+    }
+
+    #endregion
+
+    #region Skill Execute
+
+    public virtual void BeforeSkillExecute(BaseSkill skill)
+    {
+
     }
 
     #endregion

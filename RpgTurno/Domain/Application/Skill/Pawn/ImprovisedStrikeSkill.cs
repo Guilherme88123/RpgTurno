@@ -1,6 +1,4 @@
-﻿using Domain.Application.Entity.Units.Ally.Pawn;
-using Domain.Application.Entity.Units.Enemy.EvilPawn;
-using Domain.Application.Skill.Base;
+﻿using Domain.Application.Skill.Base;
 using Domain.Application.Skill.Base.Animation;
 using Domain.Application.Skill.Base.Data;
 using Domain.Application.Skill.Base.Result;
@@ -8,7 +6,6 @@ using Domain.Application.Sound.Attack.Warrior;
 using Domain.Const.Text;
 using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
-using Domain.Enum.Unit.Pawn;
 
 namespace Domain.Application.Skill.Pawn;
 
@@ -32,19 +29,5 @@ public class ImprovisedStrikeSkill : BaseSkill
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
         return ExecuteDefaultSingleTargetAttack(skillData);
-    }
-
-    public override void BeforeExecute(SkillExecuteData skillData)
-    {
-        if (skillData.Sender is PawnEntity pawn)
-            pawn.SetUsedTool(GetRngTool());
-
-        if (skillData.Sender is EvilPawnEntity evilPawn)
-            evilPawn.SetUsedTool(GetRngTool());
-    }
-
-    private static PawnToolType GetRngTool()
-    {
-        return (PawnToolType)Random.Shared.Next(1, 4);
     }
 }

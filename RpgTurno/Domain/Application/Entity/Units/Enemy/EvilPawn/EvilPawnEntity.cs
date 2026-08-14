@@ -1,4 +1,6 @@
 ﻿using Domain.Application.Entity.Units.Base;
+using Domain.Application.Skill.Base;
+using Domain.Application.Skill.Pawn;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.EvilPawn;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -10,7 +12,9 @@ public class EvilPawnEntity : BaseUnitEntity
 {
     public PawnToolType LastUsedTool { get; private set; } = PawnToolType.None;
 
-    public EvilPawnEntity(int level = 1) : base(stats: new EvilPawnStats(level), skillTree: new EvilPawnSkillTree())
+    public EvilPawnEntity(int level = 1) : base(
+        stats: new EvilPawnStats(level), 
+        skillTree: new EvilPawnSkillTree())
     {
         Animation.Add((CreatureStateType.Idle, PawnToolType.None), new EvilPawnIdleSprite());
         Animation.Add((CreatureStateType.Idle, PawnToolType.Axe), new EvilPawnIdleAxeSprite());
@@ -33,17 +37,36 @@ public class EvilPawnEntity : BaseUnitEntity
 
         SizeX = 96;
         SizeY = 96;
-        Name = TextConst.EvilPawnUnit;
 
         AnimationSizeX = 192;
         AnimationSizeY = 192;
+
+        Name = TextConst.EvilPawnUnit;
     }
 
     protected override void UpdateAnimation()
     {
         Animation.Update((CreatureState, LastUsedTool));
     }
-    
+
+    public override void BeforeSkillExecute(BaseSkill skill)
+    {
+        var tool = PawnToolType.None;
+
+        if (skill is ImprovisedStrikeSkill)
+            tool = GetRandomAttackSkillTool();
+
+        if (skill is RepairSkill)
+            tool = PawnToolType.Hammer;
+
+        SetUsedTool(tool);
+    }
+
+    private PawnToolType GetRandomAttackSkillTool()
+    {
+        return (PawnToolType)Random.Shared.Next(1, 4);
+    }
+
     public void SetUsedTool(PawnToolType pawnTool)
     {
         LastUsedTool = pawnTool;

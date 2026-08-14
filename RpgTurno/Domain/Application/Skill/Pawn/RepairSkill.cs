@@ -1,6 +1,4 @@
 ﻿using Domain.Application.Effect;
-using Domain.Application.Entity.Units.Enemy.EvilPawn;
-using Domain.Application.Entity.Units.Ally.Pawn;
 using Domain.Application.Skill.Base;
 using Domain.Application.Skill.Base.Animation;
 using Domain.Application.Skill.Base.Data;
@@ -9,7 +7,6 @@ using Domain.Application.Sound.Attack.Cleric;
 using Domain.Const.Text;
 using Domain.Enum.Skill.Target;
 using Domain.Enum.Skill.Type;
-using Domain.Enum.Unit.Pawn;
 
 namespace Domain.Application.Skill.Pawn;
 
@@ -46,14 +43,5 @@ public class RepairSkill : BaseSkill
         skillData.Target.RecieveHeal(healAmount, context.HasCritical);
 
         return new SkillResult(context);
-    }
-
-    public override void BeforeExecute(SkillExecuteData skillData)
-    {
-        if (skillData.Sender is PawnEntity pawn)
-            pawn.SetUsedTool(PawnToolType.Hammer);
-
-        if (skillData.Sender is EvilPawnEntity evilPawn)
-            evilPawn.SetUsedTool(PawnToolType.Hammer);
     }
 }

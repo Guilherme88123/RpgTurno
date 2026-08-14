@@ -11,4 +11,6 @@ public enum UnitCode
     EvilLancer = 6,
     EvilWarrior = 7,
     SupremeWarrior = 9,
+    Pawn = 10,
+    EvilPawn = 11,
 }

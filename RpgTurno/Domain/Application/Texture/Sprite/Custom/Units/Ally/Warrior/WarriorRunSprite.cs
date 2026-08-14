@@ -1,6 +1,6 @@
 ﻿using Domain.Const.Sprite;
 
-namespace Domain.Application.Texture.Sprite.Custom.Units.Ally.Lancer;
+namespace Domain.Application.Texture.Sprite.Custom.Units.Ally.Warrior;
 
 public class WarriorRunSprite : AnimationClip
 {

@@ -1,7 +1,7 @@
 ﻿using Domain.Application.Sprite.Border;
 using Domain.Const.Sprite;
 
-namespace Domain.Application.Texture.Sprite.Custom.Units.Enemy.EvilPawn;
+namespace Domain.Application.Texture.Sprite.Custom.Units.Ally.Cleric;
 
 public class ClericAvatarSprite : SpriteData
 {

@@ -1,6 +1,6 @@
 ﻿using Domain.Application.Effect;
 using Domain.Application.Entity.Units.Base;
-using Domain.Application.Texture.Sprite.Custom.Units.Ally.Lancer;
+using Domain.Application.Skill.Base;
 using Domain.Application.Texture.Sprite.Custom.Units.Ally.Warrior;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -9,6 +9,8 @@ namespace Domain.Application.Entity.Units.Ally.Warrior;
 
 public class WarriorEntity : BaseUnitEntity
 {
+    private int _attackVariation = 1;
+
     public WarriorEntity(int level = 1) : base(
         stats: new WarriorStats(level), 
         skillTree: new WarriorSkillTree())
@@ -16,7 +18,8 @@ public class WarriorEntity : BaseUnitEntity
         Animation.Add(CreatureStateType.Idle, new WarriorIdleSprite());
         Animation.Add(CreatureStateType.Run, new WarriorRunSprite());
         Animation.Add(CreatureStateType.Guard, new WarriorGuardSprite());
-        Animation.Add(CreatureStateType.Attack, new WarriorAvatarSprite());
+        Animation.Add((CreatureStateType.Attack, 1), new WarriorAttackSprite());
+        Animation.Add((CreatureStateType.Attack, 2), new WarriorAttack2Sprite());
 
         Icon = new WarriorAvatarSprite();
 
@@ -37,11 +40,27 @@ public class WarriorEntity : BaseUnitEntity
             return;
         }
 
+        if (CreatureState == CreatureStateType.Attack)
+        {
+            Animation.Update((CreatureState, _attackVariation));
+            return;
+        }
+
         base.UpdateAnimation();
     }
 
     private bool HasGuardStanceEffect()
     {
         return Effects.Any(x => x.Effect is GuardStanceEffect);
+    }
+
+    public override void BeforeSkillExecute(BaseSkill skill)
+    {
+        _attackVariation = GetRandomAttackVariation();
+    }
+
+    private int GetRandomAttackVariation()
+    {
+        return Random.Shared.Next(1, 3);
     }
 }
