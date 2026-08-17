@@ -1,5 +1,5 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Texture.Sprite.Custom.Units.Sheep;
+using Domain.Application.Texture.Sprite.Custom.Units.Enemy.Sheep;
 using Domain.Const.Text;
 using Domain.Enum;
 

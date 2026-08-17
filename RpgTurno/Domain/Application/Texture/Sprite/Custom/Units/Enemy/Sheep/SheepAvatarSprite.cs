@@ -1,7 +1,7 @@
 ﻿using Domain.Application.Sprite.Border;
 using Domain.Const.Sprite;
 
-namespace Domain.Application.Texture.Sprite.Custom.Units.Sheep;
+namespace Domain.Application.Texture.Sprite.Custom.Units.Enemy.Sheep;
 
 public class SheepAvatarSprite : SpriteData
 {
