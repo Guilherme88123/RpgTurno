@@ -56,21 +56,46 @@ public static class TextConst
 
     #region Units
 
+    #region Ally
+
     public const string ArcherUnit = "ArcherUnit";
     public const string ClericUnit = "ClericUnit";
     public const string LancerUnit = "LancerUnit";
     public const string WarriorUnit = "WarriorUnit";
     public const string PawnUnit = "PawnUnit";
 
+    #endregion
+
+    #region Enemy
+
     public const string EvilArcherUnit = "EvilArcherUnit";
     public const string EvilClericUnit = "EvilClericUnit";
     public const string EvilLancerUnit = "EvilLancerUnit";
     public const string EvilWarriorUnit = "EvilWarriorUnit";
     public const string EvilPawnUnit = "EvilPawnUnit";
-
     public const string SupremeWarriorUnit = "SupremeWarriorUnit";
-
     public const string SheepUnit = "SheepUnit";
+    public const string BearUnit = "BearUnit";
+    public const string BombFishUnit = "BombFishUnit";
+    public const string GnomeUnit = "GnomeUnit";
+    public const string HarpoonSharkUnit = "HarpoonSharkUnit";
+    public const string HexShamanUnit = "HexShamanUnit";
+    public const string LizardUnit = "LizardUnit";
+    public const string MinotaurUnit = "MinotaurUnit";
+    public const string PaddleSharkUnit = "PaddleSharkUnit";
+    public const string PandaUnit = "PandaUnit";
+    public const string PigUnit = "PigUnit";
+    public const string PigRiderUnit = "PigRiderUnit";
+    public const string SkullUnit = "SkullUnit";
+    public const string SnakeUnit = "SnakeUnit";
+    public const string SpearGoblinUnit = "SpearGoblinUnit";
+    public const string SpiderUnit = "SpiderUnit";
+    public const string ThiefUnit = "ThiefUnit";
+    public const string TorchGoblinUnit = "TorchGoblinUnit";
+    public const string TrollUnit = "TrollUnit";
+    public const string TurtleUnit = "TurtleUnit";
+
+    #endregion
 
     #endregion
 
