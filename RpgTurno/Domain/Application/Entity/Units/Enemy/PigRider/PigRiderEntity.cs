@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilLancer;
 using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.PigRider;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.SpearGoblin;
@@ -11,7 +10,7 @@ namespace Domain.Application.Entity.Units.Enemy.PigRider;
 public class PigRiderEntity : BaseUnitEntity
 {
     public PigRiderEntity(int level = 1) : base(
-        stats: new EvilLancerStats(level),
+        stats: new PigRiderStats(level),
         skillTree: new EvilWarriorSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new PigRiderIdleSprite());

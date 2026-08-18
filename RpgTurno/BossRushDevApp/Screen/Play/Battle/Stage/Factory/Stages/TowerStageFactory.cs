@@ -1,4 +1,7 @@
-﻿namespace RpgTurno.Screen.Play.Battle.Stage.Factory.Stages;
+﻿using Domain.Enum.Unit;
+using Service.Unit;
+
+namespace RpgTurno.Screen.Play.Battle.Stage.Factory.Stages;
 
 public static class TowerStageFactory
 {
@@ -6,9 +9,12 @@ public static class TowerStageFactory
     {
         var waveGenerator = new WaveGenerator();
 
+        var unitCode = UnitCode.Bear;
+        var unit = UnitFactory.Create(unitCode, level: 1);
+
         return new StageData(
         [
-            waveGenerator.Generate(1, 2),
+            new Wave.WaveData([unit]), //waveGenerator.Generate(1, 2),
             waveGenerator.Generate(2, 6),
         ]);
     }

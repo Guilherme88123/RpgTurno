@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilLancer;
 using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.Skull;
 using Domain.Const.Text;
@@ -10,7 +9,7 @@ namespace Domain.Application.Entity.Units.Enemy.Skull;
 public class SkullEntity : BaseUnitEntity
 {
     public SkullEntity(int level = 1) : base(
-        stats: new EvilLancerStats(level),
+        stats: new SkullStats(level),
         skillTree: new EvilWarriorSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new SkullIdleSprite());

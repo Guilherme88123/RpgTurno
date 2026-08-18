@@ -7,7 +7,9 @@ namespace Domain.Application.Entity.Units.Enemy.Sheep;
 
 public class SheepEntity : BaseUnitEntity
 {
-    public SheepEntity(int level = 1) : base(stats: new SheepStats(level), skillTree: new SheepSkillTree())
+    public SheepEntity(int level = 1) : base(
+        stats: new SheepStats(level), 
+        skillTree: new SheepSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new SheepIdleSprite());
         Animation.Add(CreatureStateType.Run, new SheepRunSprite());
@@ -17,9 +19,10 @@ public class SheepEntity : BaseUnitEntity
 
         SizeX = 80;
         SizeY = 80;
-        Name = TextConst.SheepUnit;
 
         AnimationSizeX = 160;
         AnimationSizeY = 160;
+
+        Name = TextConst.SheepUnit;
     }
 }

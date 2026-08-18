@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilLancer;
 using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.Lizard;
 using Domain.Const.Text;
@@ -10,7 +9,7 @@ namespace Domain.Application.Entity.Units.Enemy.Lizard;
 public class LizardEntity : BaseUnitEntity
 {
     public LizardEntity(int level = 1) : base(
-        stats: new EvilLancerStats(level),
+        stats: new LizardStats(level),
         skillTree: new EvilWarriorSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new LizardIdleSprite());
