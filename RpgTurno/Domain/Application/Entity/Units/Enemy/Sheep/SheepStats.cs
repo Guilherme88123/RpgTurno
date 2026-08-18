@@ -1,6 +1,6 @@
 ﻿using Domain.Application.Entity.Units.Base.Stats;
 
-namespace Domain.Application.Entity.Units.Sheep;
+namespace Domain.Application.Entity.Units.Enemy.Sheep;
 
 public class SheepStats : BaseUnitStats
 {

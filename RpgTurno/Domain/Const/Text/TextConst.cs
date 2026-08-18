@@ -77,6 +77,7 @@ public static class TextConst
     public const string SheepUnit = "SheepUnit";
     public const string BearUnit = "BearUnit";
     public const string BombFishUnit = "BombFishUnit";
+    public const string GnollUnit = "GnollUnit";
     public const string GnomeUnit = "GnomeUnit";
     public const string HarpoonSharkUnit = "HarpoonSharkUnit";
     public const string HexShamanUnit = "HexShamanUnit";

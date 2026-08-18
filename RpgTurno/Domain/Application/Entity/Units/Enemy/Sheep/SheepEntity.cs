@@ -3,7 +3,7 @@ using Domain.Application.Texture.Sprite.Custom.Units.Enemy.Sheep;
 using Domain.Const.Text;
 using Domain.Enum;
 
-namespace Domain.Application.Entity.Units.Sheep;
+namespace Domain.Application.Entity.Units.Enemy.Sheep;
 
 public class SheepEntity : BaseUnitEntity
 {

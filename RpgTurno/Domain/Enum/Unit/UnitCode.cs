@@ -23,7 +23,7 @@ public enum UnitCode
     Minotaur = 19,
     PaddleShark = 20,
     Panda = 21,
-    Pig = 22,
+    Turtle = 22,
     Sheep = 23,
     PigRider = 24,
     Skull = 25,
@@ -33,5 +33,4 @@ public enum UnitCode
     Thief = 29,
     TorchGoblin = 30,
     Troll = 31,
-    Turtle = 32,
 }
