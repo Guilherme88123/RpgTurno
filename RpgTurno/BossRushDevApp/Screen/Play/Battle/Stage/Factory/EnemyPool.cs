@@ -42,5 +42,138 @@ public static class EnemyPool
             SpawnWeight = 22,
             MaxCopies = 2,
         },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.Bear,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.BombFish,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.Gnoll,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.Gnome,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.HarpoonShark,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.HexShaman,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.Lizard,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.Minotaur,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.PaddleShark,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.PigRider,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.Panda,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.Turtle,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.Skull,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.Snake,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.SpearGoblin,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.Spider,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.Thief,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.TorchGoblin,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
+        new EnemyDefinition()
+        {
+            UnitCode = UnitCode.Troll,
+            WaveCost = 4,
+            SpawnWeight = 22,
+            MaxCopies = 2,
+        },
     ];
 }
