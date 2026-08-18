@@ -1,10 +1,11 @@
-﻿using Domain.Enum.Skill;
-using Domain.Application.Skill.Archer;
+﻿using Domain.Application.Skill.Archer;
+using Domain.Application.Skill.Bear;
 using Domain.Application.Skill.Cleric;
 using Domain.Application.Skill.Lancer;
-using Domain.Application.Skill.Warrior;
-using Domain.Application.Skill.Sheep;
 using Domain.Application.Skill.Pawn;
+using Domain.Application.Skill.Sheep;
+using Domain.Application.Skill.Warrior;
+using Domain.Enum.Skill;
 
 namespace Domain.Application.Skill.Base.Factory;
 
@@ -33,11 +34,13 @@ public static class SkillFactory
             SkillCode.PowerShoot => new PowerShootSkill(),
             SkillCode.PoisonShoot => new PoisonShootSkill(),
             SkillCode.ArrowRain => new ArrowRainSkill(),
-            SkillCode.Snipe  => new SnipeSkill(),
-            SkillCode.Bite  => new BiteSkill(),
-            SkillCode.Pasture  => new PastureSkill(),
-            SkillCode.ImprovisedStrike  => new ImprovisedStrikeSkill(),
-            SkillCode.Repair  => new RepairSkill(),
+            SkillCode.Snipe => new SnipeSkill(),
+            SkillCode.Bite => new BiteSkill(),
+            SkillCode.Pasture => new PastureSkill(),
+            SkillCode.ImprovisedStrike => new ImprovisedStrikeSkill(),
+            SkillCode.Repair => new RepairSkill(),
+            SkillCode.ClawSwipe => new ClawSwipeSkill(),
+            SkillCode.SavageMaul => new SavageMaulSkill(),
 
             _ => throw new ArgumentOutOfRangeException(nameof(skillCode), skillCode, null)
         };

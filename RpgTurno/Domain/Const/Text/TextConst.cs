@@ -200,6 +200,16 @@ public static class TextConst
 
     #endregion
 
+    #region Bear
+
+    public const string ClawSwipe = "ClawSwipe";
+    public const string SavageMaul = "SavageMaul";
+
+    public const string ClawSwipeDescription = "ClawSwipeDescription";
+    public const string SavageMaulDescription = "SavageMaulDescription";
+
+    #endregion
+
     #endregion
 
     #endregion

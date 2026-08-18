@@ -26,4 +26,6 @@ public enum SkillCode
     Pasture,
     ImprovisedStrike,
     Repair,
+    ClawSwipe,
+    SavageMaul,
 }

@@ -8,7 +8,7 @@ public class BearSkillTree : BaseSkillTree
 {
     protected override IReadOnlyList<UnitSkillDefinition> Definitions =>
     [
-        new UnitSkillDefinition(SkillCode.Slash, 1),
-        new UnitSkillDefinition(SkillCode.HeavySlash, 1),
+        new UnitSkillDefinition(SkillCode.ClawSwipe, 1),
+        new UnitSkillDefinition(SkillCode.SavageMaul, 1),
     ];
 }
