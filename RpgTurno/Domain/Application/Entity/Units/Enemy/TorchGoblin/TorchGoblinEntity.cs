@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.TorchGoblin;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -10,7 +9,7 @@ public class TorchGoblinEntity : BaseUnitEntity
 {
     public TorchGoblinEntity(int level = 1) : base(
         stats: new TorchGoblinStats(level),
-        skillTree: new EvilWarriorSkillTree())
+        skillTree: new TorchGoblinSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new TorchGoblinIdleSprite());
         Animation.Add(CreatureStateType.Run, new TorchGoblinRunSprite());

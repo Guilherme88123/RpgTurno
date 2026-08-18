@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.Spider;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -10,7 +9,7 @@ public class SpiderEntity : BaseUnitEntity
 {
     public SpiderEntity(int level = 1) : base(
         stats: new SpiderStats(level),
-        skillTree: new EvilWarriorSkillTree())
+        skillTree: new SpiderSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new SpiderIdleSprite());
         Animation.Add(CreatureStateType.Run, new SpiderRunSprite());

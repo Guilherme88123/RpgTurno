@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.Turtle;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -10,7 +9,7 @@ public class TurtleEntity : BaseUnitEntity
 {
     public TurtleEntity(int level = 1) : base(
         stats: new TurtleStats(level),
-        skillTree: new EvilWarriorSkillTree())
+        skillTree: new TurtleSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new TurtleIdleSprite());
         Animation.Add(CreatureStateType.Run, new TurtleRunSprite());

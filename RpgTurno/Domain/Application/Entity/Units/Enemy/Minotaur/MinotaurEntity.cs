@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.Minotaur;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -10,7 +9,7 @@ public class MinotaurEntity : BaseUnitEntity
 {
     public MinotaurEntity(int level = 1) : base(
         stats: new MinotaurStats(level),
-        skillTree: new EvilWarriorSkillTree())
+        skillTree: new MinotaurSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new MinotaurIdleSprite());
         Animation.Add(CreatureStateType.Run, new MinotaurRunSprite());

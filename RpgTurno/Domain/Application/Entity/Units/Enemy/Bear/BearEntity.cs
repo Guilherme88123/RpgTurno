@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.Bear;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -10,7 +9,7 @@ public class BearEntity : BaseUnitEntity
 {
     public BearEntity(int level = 1) : base(
         stats: new BearStats(level),
-        skillTree: new EvilWarriorSkillTree())
+        skillTree: new BearSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new BearIdleSprite());
         Animation.Add(CreatureStateType.Run, new BearRunSprite());

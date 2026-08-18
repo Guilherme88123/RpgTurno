@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.HexShaman;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -10,7 +9,7 @@ public class HexShamanEntity : BaseUnitEntity
 {
     public HexShamanEntity(int level = 1) : base(
         stats: new HexShamanStats(level),
-        skillTree: new EvilWarriorSkillTree())
+        skillTree: new HexShamanSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new HexShamanIdleSprite());
         Animation.Add(CreatureStateType.Run, new HexShamanRunSprite());

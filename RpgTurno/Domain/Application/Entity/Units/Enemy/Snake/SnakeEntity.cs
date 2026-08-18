@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.Snake;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -10,7 +9,7 @@ public class SnakeEntity : BaseUnitEntity
 {
     public SnakeEntity(int level = 1) : base(
         stats: new SnakeStats(level),
-        skillTree: new EvilWarriorSkillTree())
+        skillTree: new SnakeSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new SnakeIdleSprite());
         Animation.Add(CreatureStateType.Run, new SnakeRunSprite());

@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.Gnoll;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -10,7 +9,7 @@ public class GnollEntity : BaseUnitEntity
 {
     public GnollEntity(int level = 1) : base(
         stats: new GnollStats(level),
-        skillTree: new EvilWarriorSkillTree())
+        skillTree: new GnollSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new GnollIdleSprite());
         Animation.Add(CreatureStateType.Run, new GnollRunSprite());

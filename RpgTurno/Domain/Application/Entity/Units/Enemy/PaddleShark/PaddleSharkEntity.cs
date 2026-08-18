@@ -1,6 +1,5 @@
 ﻿using Domain.Application.Entity.Units.Base;
 using Domain.Application.Entity.Units.Enemy.EvilLancer;
-using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.PaddleShark;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -11,7 +10,7 @@ public class PaddleSharkEntity : BaseUnitEntity
 {
     public PaddleSharkEntity(int level = 1) : base(
         stats: new EvilLancerStats(level),
-        skillTree: new EvilWarriorSkillTree())
+        skillTree: new PaddleSharkSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new PaddleSharkIdleSprite());
         Animation.Add(CreatureStateType.Run, new PaddleSharkRunSprite());

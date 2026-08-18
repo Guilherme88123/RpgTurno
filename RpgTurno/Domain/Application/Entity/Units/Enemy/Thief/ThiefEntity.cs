@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.Thief;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -10,7 +9,7 @@ public class ThiefEntity : BaseUnitEntity
 {
     public ThiefEntity(int level = 1) : base(
         stats: new ThiefStats(level),
-        skillTree: new EvilWarriorSkillTree())
+        skillTree: new ThiefSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new ThiefIdleSprite());
         Animation.Add(CreatureStateType.Run, new ThiefRunSprite());

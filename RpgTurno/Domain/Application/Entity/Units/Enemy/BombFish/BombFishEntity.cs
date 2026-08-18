@@ -1,5 +1,4 @@
 ﻿using Domain.Application.Entity.Units.Base;
-using Domain.Application.Entity.Units.Enemy.EvilWarrior;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.BombFish;
 using Domain.Const.Text;
 using Domain.Enum;
@@ -10,7 +9,7 @@ public class BombFishEntity : BaseUnitEntity
 {
     public BombFishEntity(int level = 1) : base(
         stats: new BombFishStats(level),
-        skillTree: new EvilWarriorSkillTree())
+        skillTree: new BombFishSkillTree())
     {
         Animation.Add(CreatureStateType.Idle, new BombFishIdleSprite());
         Animation.Add(CreatureStateType.Run, new BombFishRunSprite());
