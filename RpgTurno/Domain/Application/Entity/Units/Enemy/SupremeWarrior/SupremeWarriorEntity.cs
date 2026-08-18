@@ -1,9 +1,9 @@
 ﻿using Domain.Application.Effect;
 using Domain.Application.Entity.Units.Base;
-using Domain.Application.Skill.Base;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.SupremeWarrior;
 using Domain.Const.Text;
 using Domain.Enum;
+using Domain.Enum.Skill;
 
 namespace Domain.Application.Entity.Units.Enemy.SupremeWarrior;
 
@@ -18,8 +18,11 @@ public class SupremeWarriorEntity : BaseUnitEntity
         Animation.Add(CreatureStateType.Idle, new SupremeWarriorIdleSprite());
         Animation.Add(CreatureStateType.Run, new SupremeWarriorRunSprite());
         Animation.Add(CreatureStateType.Guard, new SupremeWarriorGuardSprite());
-        Animation.Add((CreatureStateType.Attack, 1), new SupremeWarriorAttackSprite());
-        Animation.Add((CreatureStateType.Attack, 2), new SupremeWarriorAttack2Sprite());
+        Animation.Add((CreatureStateType.Attack, SkillCode.Slash), new SupremeWarriorAttackSprite());
+        Animation.Add((CreatureStateType.Attack, SkillCode.HeavySlash), new SupremeWarriorAttackSprite());
+        Animation.Add((CreatureStateType.Attack, SkillCode.GuardStance), new SupremeWarriorAttack2Sprite());
+        Animation.Add((CreatureStateType.Attack, SkillCode.Cleave), new SupremeWarriorAttackSprite());
+        Animation.Add((CreatureStateType.Attack, SkillCode.Execution), new SupremeWarriorAttack2Sprite());
 
         Icon = new SupremeWarriorAvatarSprite();
 
@@ -40,27 +43,11 @@ public class SupremeWarriorEntity : BaseUnitEntity
             return;
         }
 
-        if (CreatureState == CreatureStateType.Attack)
-        {
-            Animation.Update((CreatureState, _attackVariation));
-            return;
-        }
-
         base.UpdateAnimation();
     }
 
     private bool HasGuardStanceEffect()
     {
         return Effects.Any(x => x.Effect is GuardStanceEffect);
-    }
-
-    public override void BeforeSkillExecute(BaseSkill skill)
-    {
-        _attackVariation = GetRandomAttackVariation();
-    }
-
-    private int GetRandomAttackVariation()
-    {
-        return Random.Shared.Next(1, 3);
     }
 }

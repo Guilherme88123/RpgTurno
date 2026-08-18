@@ -24,7 +24,7 @@ public class HeavySlashSkill : BaseSkill
     public override int Cooldown => 2;
     public override int ManaCost => 8;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, new HeavySwordAttackSoundEffect(), false, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new HeavySwordAttackSoundEffect(), false);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

@@ -24,7 +24,7 @@ public class PowerShootSkill : BaseSkill
     public override int Cooldown => 2;
     public override int ManaCost => 8;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, new PowerShootSoundEffect(), true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new PowerShootSoundEffect(), true);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

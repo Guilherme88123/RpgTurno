@@ -1,5 +1,6 @@
 ﻿using Domain.Application.Entity.Units.Base;
 using Domain.Application.Skill.Base;
+using Domain.Application.Skill.Base.Unit;
 using Domain.Application.Skill.Pawn;
 using Domain.Application.Texture.Sprite.Custom.Units.Ally.Pawn;
 using Domain.Const.Text;
@@ -49,14 +50,21 @@ public class PawnEntity : BaseUnitEntity
         Animation.Update((CreatureState, LastUsedTool));
     }
 
-    public override void BeforeSkillExecute(BaseSkill skill)
+    public override float GetSkillExecutionDelay(UnitSkill skill)
     {
+        return Animation.GetAnimationTime((CreatureState, LastUsedTool));
+    }
+
+    public override void BeforeSkillExecute(UnitSkill skill)
+    {
+        base.BeforeSkillExecute(skill);
+
         var tool = PawnToolType.None;
 
-        if (skill is ImprovisedStrikeSkill)
+        if (skill.Definition is ImprovisedStrikeSkill)
             tool = GetRandomAttackSkillTool();
 
-        if (skill is RepairSkill)
+        if (skill.Definition is RepairSkill)
             tool = PawnToolType.Hammer;
 
         SetUsedTool(tool);

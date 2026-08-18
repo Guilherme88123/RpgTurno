@@ -24,7 +24,7 @@ public class CleaveSkill : BaseSkill
     public override int Cooldown => 3;
     public override int ManaCost => 14;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, new CleaveSwordAttackSoundEffect(), true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new CleaveSwordAttackSoundEffect(), true);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

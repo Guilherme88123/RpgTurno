@@ -23,6 +23,21 @@ public class AnimationManager
         _currentKey ??= key;
     }
 
+    public float GetAnimationTime(object key)
+    {
+        if (_animations.TryGetValue(key, out AnimationClip value))
+        {
+            return value.AnimationTime;
+        }
+
+        return 0f;
+    }
+
+    public bool HasKey(object key)
+    {
+        return _animations.TryGetValue(key, out AnimationClip value);
+    }
+
     public void Update(object key)
     {
         if (_animations.TryGetValue(key, out AnimationClip value)) 

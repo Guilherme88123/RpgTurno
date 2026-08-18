@@ -24,7 +24,7 @@ public class BiteSkill : BaseSkill
     public override int Cooldown => 0;
     public override int ManaCost => 0;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, new SwordAttackSoundEffect(), false, 1.2f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new SwordAttackSoundEffect(), false);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

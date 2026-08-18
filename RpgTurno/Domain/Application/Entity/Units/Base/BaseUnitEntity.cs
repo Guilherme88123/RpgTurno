@@ -1,5 +1,4 @@
-﻿using Domain.Dto.Global;
-using Domain.Application.Effect.Base;
+﻿using Domain.Application.Effect.Base;
 using Domain.Application.Entity.Base;
 using Domain.Application.Entity.Units.Base.Bar;
 using Domain.Application.Entity.Units.Base.Skill.SkillTree;
@@ -12,10 +11,12 @@ using Domain.Application.Sound.Unit.LevelUp;
 using Domain.Application.Texture.Sprite;
 using Domain.Application.Texture.Sprite.Custom.ParticleFx;
 using Domain.Application.Texture.Sprite.Custom.Ui.Banners;
+using Domain.Dto.Global;
+using Domain.Enum;
+using Domain.Enum.Skill;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RpgTurno.Custom.Component.Play.Banners;
-using Domain.Application.Skill.Base;
 
 namespace Domain.Application.Entity.Units.Base;
 
@@ -58,6 +59,8 @@ public class BaseUnitEntity : BaseEntity
     private UnitLevelUpSoundEffect _levelUpSound;
 
     private List<SkillResultTextComponent> _skillResultTexts = new();
+
+    private SkillCode _executingSkill;
 
     public BaseUnitEntity(BaseUnitStats stats, BaseSkillTree skillTree)
     {
@@ -544,9 +547,39 @@ public class BaseUnitEntity : BaseEntity
 
     #region Skill Execute
 
-    public virtual void BeforeSkillExecute(BaseSkill skill)
+    public virtual void BeforeSkillExecute(UnitSkill skill)
     {
+        _executingSkill = skill.SkillCode;
+    }
 
+    #endregion
+
+    #region Skill Execution Animation
+
+    public virtual float GetSkillExecutionDelay(UnitSkill skill)
+    {
+        object skillKey = (CreatureState, skill.SkillCode);
+
+        if (Animation.HasKey(skillKey))
+            return Animation.GetAnimationTime(skillKey);
+
+        if (!Animation.HasKey(CreatureState))
+            throw new Exception($"Animation not configured for '{CreatureState}' state!");
+
+        return Animation.GetAnimationTime(CreatureState);
+    }
+
+    protected override void UpdateAnimation()
+    {
+        object skillKey = (CreatureState, _executingSkill);
+
+        if (CreatureState == CreatureStateType.Attack && Animation.HasKey(skillKey))
+        {
+            Animation.Update(skillKey);
+            return;
+        }
+
+        base.UpdateAnimation();
     }
 
     #endregion

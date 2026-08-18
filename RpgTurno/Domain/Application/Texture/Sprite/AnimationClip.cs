@@ -1,14 +1,14 @@
-﻿using Domain.Dto.Global;
-using Domain.Application.Sprite.Border;
+﻿using Domain.Application.Sprite.Border;
+using Domain.Dto.Global;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Reflection;
-using System.Runtime.InteropServices;
 
 namespace Domain.Application.Texture.Sprite;
 
 public class AnimationClip
 {
+    public float AnimationTime => _frames.Count * _frameTime;
+
     private readonly List<SpriteData> _frames = new();
     private readonly float _frameTime;
 

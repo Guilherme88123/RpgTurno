@@ -22,7 +22,7 @@ public class FortressSkill : BaseSkill
     public override int Cooldown => 4;
     public override int ManaCost => 12;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, new FortressAttackSoundEffect(), true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new FortressAttackSoundEffect(), true);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

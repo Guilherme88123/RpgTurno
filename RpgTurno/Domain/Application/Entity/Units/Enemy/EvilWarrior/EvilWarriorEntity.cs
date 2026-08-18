@@ -1,9 +1,9 @@
 ﻿using Domain.Application.Effect;
 using Domain.Application.Entity.Units.Base;
-using Domain.Application.Skill.Base;
 using Domain.Application.Texture.Sprite.Custom.Units.Enemy.EvilWarrior;
 using Domain.Const.Text;
 using Domain.Enum;
+using Domain.Enum.Skill;
 
 namespace Domain.Application.Entity.Units.Enemy.EvilWarrior;
 
@@ -18,8 +18,11 @@ public class EvilWarriorEntity : BaseUnitEntity
         Animation.Add(CreatureStateType.Idle, new EvilWarriorIdleSprite());
         Animation.Add(CreatureStateType.Run, new EvilWarriorRunSprite());
         Animation.Add(CreatureStateType.Guard, new EvilWarriorGuardSprite());
-        Animation.Add((CreatureStateType.Attack, 1), new EvilWarriorAttackSprite());
-        Animation.Add((CreatureStateType.Attack, 2), new EvilWarriorAttack2Sprite());
+        Animation.Add((CreatureStateType.Attack, SkillCode.Slash), new EvilWarriorAttackSprite());
+        Animation.Add((CreatureStateType.Attack, SkillCode.HeavySlash), new EvilWarriorAttackSprite());
+        Animation.Add((CreatureStateType.Attack, SkillCode.GuardStance), new EvilWarriorAttack2Sprite());
+        Animation.Add((CreatureStateType.Attack, SkillCode.Cleave), new EvilWarriorAttackSprite());
+        Animation.Add((CreatureStateType.Attack, SkillCode.Execution), new EvilWarriorAttack2Sprite());
 
         Icon = new EvilWarriorAvatarSprite();
 
@@ -40,27 +43,11 @@ public class EvilWarriorEntity : BaseUnitEntity
             return;
         }
 
-        if (CreatureState == CreatureStateType.Attack)
-        {
-            Animation.Update((CreatureState, _attackVariation));
-            return;
-        }
-
         base.UpdateAnimation();
     }
 
     private bool HasGuardStanceEffect()
     {
         return Effects.Any(x => x.Effect is GuardStanceEffect);
-    }
-
-    public override void BeforeSkillExecute(BaseSkill skill)
-    {
-        _attackVariation = GetRandomAttackVariation();
-    }
-
-    private int GetRandomAttackVariation()
-    {
-        return Random.Shared.Next(1, 3);
     }
 }

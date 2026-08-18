@@ -1,15 +1,13 @@
-﻿using Domain.Const.Sound.Effect;
-using Domain.Dto.Global;
-using Domain.Enum;
-using Domain.Enum.Attack;
-using Domain.Application.Entity.Units.Base;
+﻿using Domain.Application.Entity.Units.Base;
 using Domain.Application.Skill.Base.Data;
 using Domain.Application.Skill.Base.Result;
 using Domain.Application.Skill.Base.Unit;
 using Domain.Application.Sound.Unit.Footsteps.Run;
 using Domain.Application.Texture.Sprite;
+using Domain.Dto.Global;
+using Domain.Enum;
+using Domain.Enum.Attack;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using RpgTurno.Screen.Play.Battle.Delay;
 using System;
 using System.Collections.Generic;
@@ -151,12 +149,13 @@ public class AttackManager
         CurrentPhase = AttackPhase.Attacking;
 
         _sender.CreatureState = CreatureStateType.Attack;
-        _sender.BeforeSkillExecute(_skill.Definition);
+        _sender.BeforeSkillExecute(_skill);
 
         _skill.BeforeExcute(_executeData);
 
+        var skillExecutionTime = _sender.GetSkillExecutionDelay(_skill);
 
-        ResetDelayAttack(_skill.Definition.Animation.ExecutionTime);
+        ResetDelayAttack(skillExecutionTime);
     }
 
     private void UpdateAttacking()

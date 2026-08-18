@@ -24,7 +24,7 @@ public class PiercingStrikeSkill : BaseSkill
     public override int Cooldown => 2;
     public override int ManaCost => 6;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, new PiercingStrikeAttackSoundEffect(), false, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new PiercingStrikeAttackSoundEffect(), false);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

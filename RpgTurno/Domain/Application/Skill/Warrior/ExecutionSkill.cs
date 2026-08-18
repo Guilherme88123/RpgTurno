@@ -24,7 +24,7 @@ public class ExecutionSkill : BaseSkill
     public override int Cooldown => 5;
     public override int ManaCost => 20;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, new ExecutionSwordAttackSoundEffect(), false, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new ExecutionSwordAttackSoundEffect(), false);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

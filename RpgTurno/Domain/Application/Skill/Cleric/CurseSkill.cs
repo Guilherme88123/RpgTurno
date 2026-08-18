@@ -26,7 +26,7 @@ public class CurseSkill : BaseSkill
     public override int Cooldown => 4;
     public override int ManaCost => 20;
 
-    public override SkillAnimation Animation => new SkillAnimation(new CurseSprite(), null, new CurseAttackSoundEffect(), true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(new CurseSprite(), null, new CurseAttackSoundEffect(), true);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

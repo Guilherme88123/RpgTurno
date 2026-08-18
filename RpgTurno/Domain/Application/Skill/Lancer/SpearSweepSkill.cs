@@ -24,7 +24,7 @@ public class SpearSweepSkill : BaseSkill
     public override int Cooldown => 3;
     public override int ManaCost => 14;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, new SwearSweepAttackSoundEffect(), true, 0.5f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new SwearSweepAttackSoundEffect(), true);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

@@ -45,7 +45,7 @@ public abstract class BaseSkill
 
     private bool HasSuccessByChance(int chance)
     {
-        return Random.Shared.Next(100) < chance;
+        return Random.Shared.Next(101) < chance;
     }
 
     #region Miss

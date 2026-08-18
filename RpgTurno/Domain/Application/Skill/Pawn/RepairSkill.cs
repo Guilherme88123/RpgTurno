@@ -25,7 +25,7 @@ public class RepairSkill : BaseSkill
     public override int Cooldown => 4;
     public override int ManaCost => 14;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, new HealAttackSoundEffect(), true, 0.9f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new HealAttackSoundEffect(), true);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

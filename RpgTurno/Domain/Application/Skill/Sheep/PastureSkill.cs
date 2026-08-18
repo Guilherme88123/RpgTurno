@@ -25,7 +25,7 @@ public class PastureSkill : BaseSkill
     public override int Cooldown => 2;
     public override int ManaCost => 12;
 
-    public override SkillAnimation Animation => new SkillAnimation(new HealSprite(), null, new HealAttackSoundEffect(), true, 1.2f);
+    public override SkillAnimation Animation => new SkillAnimation(new HealSprite(), null, new HealAttackSoundEffect(), true);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {

@@ -24,7 +24,7 @@ public class ImprovisedStrikeSkill : BaseSkill
     public override int Cooldown => 0;
     public override int ManaCost => 0;
 
-    public override SkillAnimation Animation => new SkillAnimation(null, null, new ExecutionSwordAttackSoundEffect(), false, 0.6f);
+    public override SkillAnimation Animation => new SkillAnimation(null, null, new ExecutionSwordAttackSoundEffect(), false);
 
     public override SkillResult ExecuteSkill(SkillExecuteData skillData)
     {
