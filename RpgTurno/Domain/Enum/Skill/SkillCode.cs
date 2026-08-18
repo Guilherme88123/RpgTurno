@@ -28,4 +28,6 @@ public enum SkillCode
     Repair,
     ClawSwipe,
     SavageMaul,
+    BombSpit,
+    DestructiveBomb,
 }

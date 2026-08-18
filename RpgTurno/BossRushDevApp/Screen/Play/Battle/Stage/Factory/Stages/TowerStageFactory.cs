@@ -9,7 +9,7 @@ public static class TowerStageFactory
     {
         var waveGenerator = new WaveGenerator();
 
-        var unitCode = UnitCode.Bear;
+        var unitCode = UnitCode.BombFish;
         var unit = UnitFactory.Create(unitCode, level: 1);
 
         return new StageData(

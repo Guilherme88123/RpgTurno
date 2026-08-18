@@ -210,6 +210,16 @@ public static class TextConst
 
     #endregion
 
+    #region BombFish
+
+    public const string BombSpit = "BombSpit";
+    public const string DestructiveBomb = "DestructiveBomb";
+
+    public const string BombSpitDescription = "BombSpitDescription";
+    public const string DestructiveBombDescription = "DestructiveBombDescription";
+
+    #endregion
+
     #endregion
 
     #endregion
