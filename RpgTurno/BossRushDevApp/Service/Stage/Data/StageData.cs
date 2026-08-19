@@ -1,8 +1,6 @@
-﻿using RpgTurno.Screen.Play.Battle.Wave;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
-namespace RpgTurno.Screen.Play.Battle.Stage;
+namespace RpgTurno.Service.Map.Stage.Data;
 
 public class StageData
 {

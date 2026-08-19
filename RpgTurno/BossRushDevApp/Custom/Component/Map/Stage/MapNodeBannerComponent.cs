@@ -1,7 +1,6 @@
 ﻿using Domain.Const.Text;
 using Domain.Dto.Global;
 using Domain.Dto.Language;
-using Domain.Dto.Map.Node;
 using Domain.Application.Components.Image;
 using Domain.Application.Components.Text;
 using Domain.Application.MenuComponents.Frame;
@@ -9,6 +8,7 @@ using Domain.Application.Texture.Sprite.Custom.Ui.Banners;
 using Domain.Application.Texture.Sprite.Custom.Ui.Icons;
 using Microsoft.Xna.Framework;
 using System;
+using Domain.Dto.Map;
 
 namespace RpgTurno.Custom.CustomComponents.Map.Stage;
 

@@ -1,7 +1,7 @@
 ﻿using Domain.Enum.Stage;
 using Microsoft.Xna.Framework;
 
-namespace Domain.Dto.Map.Node;
+namespace Domain.Dto.Map;
 
 public class StageMapNode : MapNodeData
 {

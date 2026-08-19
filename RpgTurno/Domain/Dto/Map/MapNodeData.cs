@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 
-namespace Domain.Dto.Map.Node;
+namespace Domain.Dto.Map;
 
 public class MapNodeData
 {

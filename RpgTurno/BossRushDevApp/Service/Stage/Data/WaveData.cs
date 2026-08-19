@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RpgTurno.Screen.Play.Battle.Wave;
+namespace RpgTurno.Service.Map.Stage.Data;
 
 public class WaveData
 {

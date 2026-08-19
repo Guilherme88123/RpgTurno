@@ -1,9 +1,4 @@
-﻿using Domain.Dto.Map.Node;
-using System.Collections.Generic;
-using System.Drawing.Text;
-using System.Linq;
-
-namespace Domain.Dto.Map;
+﻿namespace Domain.Dto.Map;
 
 public class MapData
 {

@@ -1,6 +1,6 @@
-﻿using Domain.Dto.Map.Building;
+﻿using Domain.Application.Components.Image;
+using Domain.Dto.Map.Building;
 using Domain.Enum.Stage;
-using Domain.Application.Components.Image;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Service.Stage;

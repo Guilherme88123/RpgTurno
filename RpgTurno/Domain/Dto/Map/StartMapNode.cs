@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Domain.Dto.Map.Node;
+namespace Domain.Dto.Map;
 
 public class StartMapNode : MapNodeData
 {

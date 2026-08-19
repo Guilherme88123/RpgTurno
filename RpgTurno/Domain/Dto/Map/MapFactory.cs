@@ -1,13 +1,9 @@
 ﻿using Domain.Const.Text;
-using Domain.Dto.Map;
-using Domain.Dto.Map.Node;
 using Domain.Enum.Stage;
 using Domain.Model.Stage;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace RpgTurno.Screen.Map.World.Stage;
+namespace Domain.Dto.Map;
 
 public static class MapFactory
 {
@@ -16,9 +12,9 @@ public static class MapFactory
         var map = new MapData();
 
         var start = new StartMapNode(new Vector2(130, 750));
-        var stage1 = new StageMapNode(new Vector2(640, 620), StageCode.Tower, TextConst.EvilTowerStage, 1);
-        var stage2 = new StageMapNode(new Vector2(1100, 950), StageCode.Barrack, TextConst.BarracksOfValorStage, 2);
-        var stage3 = new StageMapNode(new Vector2(1450, 450), StageCode.Castle, TextConst.TheCastleStage, 3);
+        var stage1 = new StageMapNode(new Vector2(640, 620), StageCode.EvilTower, TextConst.EvilTowerStage, 1);
+        var stage2 = new StageMapNode(new Vector2(1100, 950), StageCode.BarracksOfValor, TextConst.BarracksOfValorStage, 2);
+        var stage3 = new StageMapNode(new Vector2(1450, 450), StageCode.TheCastle, TextConst.TheCastleStage, 3);
 
         start.NextNodes.Add(stage1);
         stage1.NextNodes.Add(stage2);

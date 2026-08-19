@@ -1,4 +1,4 @@
-﻿namespace RpgTurno.Screen.Play.Battle.Stage.Factory;
+﻿namespace RpgTurno.Service.Map.Stage.Factory;
 
 public class GenerateWaveContext
 {

@@ -2,7 +2,7 @@
 
 public enum StageCode
 {
-    Tower,
-    Barrack,
-    Castle,
+    EvilTower,
+    BarracksOfValor,
+    TheCastle,
 }

@@ -1,7 +1,5 @@
 ﻿using Domain.Const.Screen;
 using Domain.Dto.Global;
-using Domain.Dto.Map;
-using Domain.Dto.Map.Node;
 using Domain.Dto.Session;
 using Domain.Enum;
 using Domain.Enum.Stage;
@@ -9,6 +7,7 @@ using Domain.Application.Sound.Unit.Footsteps.Walk;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.Screen.Map.World.Player;
 using System;
+using Domain.Dto.Map;
 
 namespace RpgTurno.Screen.Map.World;
 

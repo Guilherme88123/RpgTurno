@@ -1,9 +1,8 @@
-﻿using Domain.Application.Entity.Units.Base;
-using Domain.Enum.Unit;
-using Service.Unit;
+﻿using Domain.Enum.Unit;
+using RpgTurno.Service.Map.Stage.Factory;
 using System;
 
-namespace RpgTurno.Screen.Play.Battle.Stage.Factory;
+namespace RpgTurno.Service.Map.EnemyPool.Definition;
 
 public class EnemyDefinition
 {
@@ -12,6 +11,4 @@ public class EnemyDefinition
     public required int SpawnWeight { get; init; }
     public required int MaxCopies { get; init; }
     public Func<GenerateWaveContext, bool> CanSpawn { get; init; } = _ => true;
-
-    public Func<BaseUnitEntity> Create => () => UnitFactory.Create(UnitCode);
 }

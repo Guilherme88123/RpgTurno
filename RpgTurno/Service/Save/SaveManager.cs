@@ -1,7 +1,6 @@
 ﻿using Domain.Application.Entity.Units.Base;
 using Domain.Dto.Global;
 using Domain.Dto.Map;
-using Domain.Dto.Map.Node;
 using Domain.Dto.Session;
 using Domain.Enum.Language;
 using Domain.Enum.Save;
@@ -15,7 +14,6 @@ using Domain.Model.Save;
 using Domain.Model.Settings;
 using Domain.Model.Stage;
 using Domain.Model.Unit;
-using RpgTurno.Screen.Map.World.Stage;
 using Service.Unit;
 
 namespace Service.Save;
@@ -141,9 +139,9 @@ public static class SaveManager
     {
         var defaultStages = new List<StageModel>()
         {
-            new StageModel() { StageCode = StageCode.Tower },
-            new StageModel() { StageCode = StageCode.Barrack },
-            new StageModel() { StageCode = StageCode.Castle },
+            new StageModel() { StageCode = StageCode.EvilTower },
+            new StageModel() { StageCode = StageCode.BarracksOfValor },
+            new StageModel() { StageCode = StageCode.TheCastle },
         };
 
         foreach (var stage in defaultStages)

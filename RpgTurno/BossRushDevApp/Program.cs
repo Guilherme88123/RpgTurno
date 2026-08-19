@@ -15,7 +15,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RpgTurno.Language;
 using RpgTurno.Screen.Map;
-using RpgTurno.Screen.Map.World.Stage;
 using RpgTurno.Screen.Menu;
 using RpgTurno.Screen.Option;
 using RpgTurno.Screen.Play;

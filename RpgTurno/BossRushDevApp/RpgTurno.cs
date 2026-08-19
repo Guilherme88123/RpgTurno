@@ -1,7 +1,6 @@
 ﻿using Domain.Const.Screen;
 using Domain.Const.Version;
 using Domain.Dto.Global;
-using Domain.Dto.Session;
 using Domain.Enum.Transition;
 using Domain.Interface.Cursor;
 using Domain.Interface.Language;
@@ -12,7 +11,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using RpgTurno.Screen.Map.World.Stage;
 using Service.Save;
 using System;
 using System.Threading.Tasks;

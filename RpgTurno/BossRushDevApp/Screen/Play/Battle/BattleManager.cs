@@ -12,12 +12,12 @@ using Domain.Application.Texture.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using RpgTurno.Screen.Play.Battle.Attack;
-using RpgTurno.Screen.Play.Battle.Stage;
-using RpgTurno.Screen.Play.Battle.Stage.Factory;
 using RpgTurno.Screen.Play.Battle.Turn;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RpgTurno.Service.Map.Stage.Factory;
+using RpgTurno.Service.Map.Stage.Data;
 
 namespace RpgTurno.Screen.Play.Battle;
 

@@ -10,9 +10,9 @@ public static class StageMapBackgroundFactory
     {
         return stageCode switch
         {
-            StageCode.Tower => new TowerMapBackgroundSprite(),
-            StageCode.Barrack => new BarrackMapBackgroundSprite(),
-            StageCode.Castle => new CastleMapBackgroundSprite(),
+            StageCode.EvilTower => new TowerMapBackgroundSprite(),
+            StageCode.BarracksOfValor => new BarrackMapBackgroundSprite(),
+            StageCode.TheCastle => new CastleMapBackgroundSprite(),
 
             _ => throw new ArgumentException("Invalid stage code for background sprite!")
         };

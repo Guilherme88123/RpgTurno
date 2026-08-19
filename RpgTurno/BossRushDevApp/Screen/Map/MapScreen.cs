@@ -1,7 +1,6 @@
 ﻿using Domain.Const.Screen;
 using Domain.Const.Sound.Music;
 using Domain.Dto.Global;
-using Domain.Dto.Map.Node;
 using Domain.Enum.Stage;
 using Domain.Application.Components.Base;
 using Microsoft.Xna.Framework;
@@ -17,6 +16,7 @@ using RpgTurnoApp.Screen.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using RpgTurno.Custom.Component.Map.Button;
+using Domain.Dto.Map;
 
 namespace RpgTurno.Screen.Map;
 

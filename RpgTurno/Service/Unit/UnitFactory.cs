@@ -1,6 +1,7 @@
 ﻿using Domain.Application.Entity.Units.Ally.Archer;
 using Domain.Application.Entity.Units.Ally.Cleric;
 using Domain.Application.Entity.Units.Ally.Lancer;
+using Domain.Application.Entity.Units.Ally.Panda;
 using Domain.Application.Entity.Units.Ally.Pawn;
 using Domain.Application.Entity.Units.Ally.Warrior;
 using Domain.Application.Entity.Units.Base;
@@ -18,7 +19,6 @@ using Domain.Application.Entity.Units.Enemy.HexShaman;
 using Domain.Application.Entity.Units.Enemy.Lizard;
 using Domain.Application.Entity.Units.Enemy.Minotaur;
 using Domain.Application.Entity.Units.Enemy.PaddleShark;
-using Domain.Application.Entity.Units.Enemy.Panda;
 using Domain.Application.Entity.Units.Enemy.PigRider;
 using Domain.Application.Entity.Units.Enemy.Sheep;
 using Domain.Application.Entity.Units.Enemy.Skull;
@@ -62,7 +62,6 @@ public static class UnitFactory
             UnitCode.PaddleShark => new PaddleSharkEntity(level),
             UnitCode.Panda => new PandaEntity(level),
             UnitCode.Turtle => new TurtleEntity(level),
-            UnitCode.Sheep => new SheepEntity(level),
             UnitCode.PigRider => new PigRiderEntity(level),
             UnitCode.Skull => new SkullEntity(level),
             UnitCode.Snake => new SnakeEntity(level),
