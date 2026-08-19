@@ -9,7 +9,7 @@ public static class StageDefinitions
     public static StageDefinition EvilTower = new()
     {
         StageCode = StageCode.EvilTower,
-        RegionCode = RegionCode.TheKingdom,
+        RegionCode = RegionCode.ForgottenFields,
         WaveCount = 2,
         BaseWaveBudget = 2,
         WaveBudgetIncrease = 4,
@@ -18,7 +18,7 @@ public static class StageDefinitions
     public static StageDefinition BarracksOfValor = new()
     {
         StageCode = StageCode.BarracksOfValor,
-        RegionCode = RegionCode.TheKingdom,
+        RegionCode = RegionCode.ForgottenFields,
         WaveCount = 2,
         BaseWaveBudget = 4,
         WaveBudgetIncrease = 3,
@@ -27,7 +27,7 @@ public static class StageDefinitions
     public static StageDefinition TheCastle = new()
     {
         StageCode = StageCode.TheCastle,
-        RegionCode = RegionCode.TheKingdom,
+        RegionCode = RegionCode.ForgottenFields,
         WaveCount = 3,
         BaseWaveBudget = 5,
         WaveBudgetIncrease = 3,
