@@ -8,7 +8,7 @@ public class GnollSkillTree : BaseSkillTree
 {
     protected override IReadOnlyList<UnitSkillDefinition> Definitions =>
     [
-        new UnitSkillDefinition(SkillCode.Slash, 1),
-        new UnitSkillDefinition(SkillCode.HeavySlash, 1),
+        new UnitSkillDefinition(SkillCode.BoneThrow, 1),
+        new UnitSkillDefinition(SkillCode.BleedingBone, 1),
     ];
 }

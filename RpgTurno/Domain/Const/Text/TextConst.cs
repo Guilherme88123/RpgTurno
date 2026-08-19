@@ -220,6 +220,16 @@ public static class TextConst
 
     #endregion
 
+    #region Gnoll
+
+    public const string BoneThrow = "BoneThrow";
+    public const string BleedingBone = "BleedingBone";
+
+    public const string BoneThrowDescription = "BoneThrowDescription";
+    public const string BleedingBoneDescription = "BleedingBoneDescription";
+
+    #endregion
+
     #endregion
 
     #endregion

@@ -30,4 +30,6 @@ public enum SkillCode
     SavageMaul,
     BombSpit,
     DestructiveBomb,
+    BoneThrow,
+    BleedingBone,
 }

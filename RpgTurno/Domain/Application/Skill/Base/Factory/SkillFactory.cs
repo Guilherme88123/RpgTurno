@@ -2,6 +2,7 @@
 using Domain.Application.Skill.Bear;
 using Domain.Application.Skill.BombFish;
 using Domain.Application.Skill.Cleric;
+using Domain.Application.Skill.Gnoll;
 using Domain.Application.Skill.Lancer;
 using Domain.Application.Skill.Pawn;
 using Domain.Application.Skill.Sheep;
@@ -44,6 +45,8 @@ public static class SkillFactory
             SkillCode.SavageMaul => new SavageMaulSkill(),
             SkillCode.BombSpit => new BombSpitSkill(),
             SkillCode.DestructiveBomb => new DestructiveBombSkill(),
+            SkillCode.BoneThrow => new BoneThrowSkill(),
+            SkillCode.BleedingBone => new BleedingBoneSkill(),
 
             _ => throw new ArgumentOutOfRangeException(nameof(skillCode), skillCode, null)
         };
