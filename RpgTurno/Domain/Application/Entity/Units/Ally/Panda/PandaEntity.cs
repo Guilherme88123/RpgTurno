@@ -3,7 +3,7 @@ using Domain.Application.Texture.Sprite.Custom.Units.Enemy.Panda;
 using Domain.Const.Text;
 using Domain.Enum;
 
-namespace Domain.Application.Entity.Units.Enemy.Panda;
+namespace Domain.Application.Entity.Units.Ally.Panda;
 
 public class PandaEntity : BaseUnitEntity
 {

@@ -1,6 +1,6 @@
 ﻿using Domain.Application.Entity.Units.Base.Stats;
 
-namespace Domain.Application.Entity.Units.Enemy.Panda;
+namespace Domain.Application.Entity.Units.Ally.Panda;
 
 public class PandaStats : BaseUnitStats
 {

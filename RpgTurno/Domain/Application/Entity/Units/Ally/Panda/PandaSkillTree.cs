@@ -2,7 +2,7 @@
 using Domain.Application.Entity.Units.Base.Skill.SkillTree;
 using Domain.Enum.Skill;
 
-namespace Domain.Application.Entity.Units.Enemy.Panda;
+namespace Domain.Application.Entity.Units.Ally.Panda;
 
 public class PandaSkillTree : BaseSkillTree
 {
