@@ -242,6 +242,8 @@ public static class TextConst
     public const string PoisonEffect = "PoisonEffect";
     public const string RegenerationEffect = "RegenerationEffect";
     public const string RepairedEffect = "RepairedEffect";
+    public const string BleedEffect = "BleedEffect";
+    public const string BurnEffect = "BurnEffect";
 
     public const string BraveryBlessEffectDescription = "BraveryBlessEffectDescription";
     public const string CurseEffectDescription = "CurseEffectDescription";
@@ -251,6 +253,8 @@ public static class TextConst
     public const string PoisonEffectDescription = "PoisonEffectDescription";
     public const string RegenerationEffectDescription = "RegenerationEffectDescription";
     public const string RepairedEffectDescription = "RepairedEffectDescription";
+    public const string BleedEffectDescription = "BleedEffectDescription";
+    public const string BurnEffectDescription = "BurnEffectDescription";
 
     #endregion
 }
