@@ -64,15 +64,14 @@ public static class MapDecorationsFactory
     {
         var decorations = new List<PositionSpriteRecord>();
 
-        for (var y = 0; y < layerDto.Height; y++)
-            for (var x = 0; x < layerDto.Width; x++)
-            {
-                if (layerDto.Matrix[y, x] == 0)
-                    continue;
+        foreach (var position in layerDto.DataWithPosition)
+        {
+            var point = new Point(position.X * tiledDto.TileWidth, position.Y * tiledDto.TileHeight + tiledDto.TileHeight);
 
-                var positionSprite = new PositionSpriteRecord(sprite, new Point(x * tiledDto.TileWidth, y * tiledDto.TileHeight + tiledDto.TileHeight));
-                decorations.Add(positionSprite);
-            }
+            var positionSprite = new PositionSpriteRecord(sprite, point);
+
+            decorations.Add(positionSprite);
+        }
 
         return decorations;
     }

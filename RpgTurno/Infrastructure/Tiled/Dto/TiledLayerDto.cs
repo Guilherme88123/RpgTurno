@@ -6,7 +6,11 @@ public class TiledLayerDto
     public string Name { get; set; }
 
     public List<int> Data { get; set; }
+
     public int[,] Matrix => GetMatrixData();
+
+    private List<TiledPositionDataDto> _dataWithPosition;
+    public List<TiledPositionDataDto> DataWithPosition => _dataWithPosition ?? GetDataWithPosition();
 
     public int X { get; set; }
     public int Y { get; set; }
@@ -32,5 +36,28 @@ public class TiledLayerDto
             matrix[y, x] = Data[y * Width + x];
 
         return matrix;
+    }
+
+    private List<TiledPositionDataDto> GetDataWithPosition()
+    {
+        if (Data is null || Data.Count == 0 || Width <= 0 || Height <= 0)
+            return [];
+
+        var positions = new List<TiledPositionDataDto>();
+
+        for (int index = 0; index < Data.Count; index++)
+        {
+            if (Data[index] == 0)
+                continue;
+
+            var x = index % Width;
+            var y = index / Width;
+
+            positions.Add(new TiledPositionDataDto(x, y));
+        }
+
+        _dataWithPosition = positions;
+
+        return positions;
     }
 }
