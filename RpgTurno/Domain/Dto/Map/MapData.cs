@@ -3,7 +3,7 @@
 public class MapData
 {
     public List<MapNodeData> Nodes { get; set; } = new();
-    public MapNodeData StartStage { get; set; }
+    public MapNodeData StartNode { get; set; }
 
     public bool Cleared => GetClearedStatus();
 

@@ -18,9 +18,9 @@ public static class StageMapDtoFactory
     {
         return stageCode switch
         {
-            StageCode.EvilTower => "TowerMap",
-            StageCode.BarracksOfValor => "BarrackMap",
-            StageCode.TheCastle => "CastleMap",
+            StageCode.Kingdom01 => "TowerMap",
+            StageCode.Kingdom02 => "BarrackMap",
+            StageCode.KingdomBoss => "CastleMap",
         };
     }
 

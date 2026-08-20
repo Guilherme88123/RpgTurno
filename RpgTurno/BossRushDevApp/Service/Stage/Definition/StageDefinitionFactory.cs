@@ -9,9 +9,9 @@ public class StageDefinitionFactory
     {
         return stageCode switch
         {
-            StageCode.EvilTower => StageDefinitions.EvilTower,
-            StageCode.BarracksOfValor => StageDefinitions.BarracksOfValor,
-            StageCode.TheCastle => StageDefinitions.TheCastle,
+            StageCode.Kingdom01 => StageDefinitions.Kingdom01,
+            StageCode.Kingdom02 => StageDefinitions.Kingdom02,
+            StageCode.KingdomBoss => StageDefinitions.KingdomBoss,
 
             _ => throw new ArgumentOutOfRangeException($"Stage '{stageCode}' not has a definition configured yet!")
         };

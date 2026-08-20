@@ -139,9 +139,9 @@ public static class SaveManager
     {
         var defaultStages = new List<StageModel>()
         {
-            new StageModel() { StageCode = StageCode.EvilTower },
-            new StageModel() { StageCode = StageCode.BarracksOfValor },
-            new StageModel() { StageCode = StageCode.TheCastle },
+            new StageModel() { StageCode = StageCode.Kingdom01 },
+            new StageModel() { StageCode = StageCode.Kingdom01 },
+            new StageModel() { StageCode = StageCode.KingdomBoss },
         };
 
         foreach (var stage in defaultStages)

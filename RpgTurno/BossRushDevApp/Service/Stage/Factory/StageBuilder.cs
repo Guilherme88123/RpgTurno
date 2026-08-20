@@ -7,8 +7,6 @@ using RpgTurno.Service.Region.Level;
 using Service.Unit;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
 
 namespace RpgTurno.Service.Map.Stage.Factory;
 

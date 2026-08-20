@@ -36,7 +36,7 @@ public class WorldManager
         Map = map;
 
         Player = new();
-        Player.SetCurrentStage(Map.StartStage);
+        Player.SetCurrentStage(Map.StartNode);
     }
 
     #endregion

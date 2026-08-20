@@ -7,14 +7,14 @@ namespace Domain.Dto.Map;
 
 public static class MapFactory
 {
-    public static MapData Create(List<StageModel> stages)
+    public static MapData Create(List<StageModel> stagesModel)
     {
         var map = new MapData();
 
         var start = new StartMapNode(new Vector2(130, 750));
-        var stage1 = new StageMapNode(new Vector2(640, 620), StageCode.EvilTower, TextConst.EvilTowerStage, 1);
-        var stage2 = new StageMapNode(new Vector2(1100, 950), StageCode.BarracksOfValor, TextConst.BarracksOfValorStage, 2);
-        var stage3 = new StageMapNode(new Vector2(1450, 450), StageCode.TheCastle, TextConst.TheCastleStage, 3);
+        var stage1 = new StageMapNode(new Vector2(640, 620), StageCode.Kingdom01, TextConst.EvilTowerStage, 1);
+        var stage2 = new StageMapNode(new Vector2(1100, 950), StageCode.Kingdom02, TextConst.BarracksOfValorStage, 2);
+        var stage3 = new StageMapNode(new Vector2(1450, 450), StageCode.KingdomBoss, TextConst.TheCastleStage, 3);
 
         start.NextNodes.Add(stage1);
         stage1.NextNodes.Add(stage2);
@@ -28,9 +28,9 @@ public static class MapFactory
         map.Nodes.Add(stage2);
         map.Nodes.Add(stage3);
 
-        LoadStages(map, stages);
+        LoadStages(map, stagesModel);
 
-        map.StartStage = start;
+        map.StartNode = start;
 
         return map;
     }
